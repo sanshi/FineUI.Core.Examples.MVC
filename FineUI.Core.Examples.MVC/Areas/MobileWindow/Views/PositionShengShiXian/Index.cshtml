@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "MobileWindow/PositionShengShiXian";
+    ViewBag.BodyBGColor = false;
+    var F = Html.F();
+}
+
+@section head {
+
+    <style>
+        .mybgpanel > .f-panel-bodyct > .f-panel-body {
+            background-color: #FEF3D5;
+            background-image: url(@Url.Content("~/res/images/bg/small/3.jpg"));
+            background-position: right bottom;
+            background-repeat: no-repeat;
+        }
+
+        .mywindow,
+        .mywindow > .f-panel-bodyct > .f-panel-body {
+            background-image: none;
+            background-color: transparent;
+            -moz-box-shadow: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+    </style>
+
+}
+
+
+@section body {
+
+    @(F.Panel().ID("Panel1").CssClass("mybgpanel").ShowBorder(false).ShowHeader(false).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 5 0").BodyPadding(10).IsViewPort(true)
+        .Items(
+            F.Button().ID("btnOpenWindow").Text("选择省市县").ClickHandler("onOpenWindow1Click")
+        )
+    )
+
+    @(F.Window().ID("Window1").CssClass("mywindow").ShowHeader(false).ShowBorder(false).HideOnMaskClick(true).IsModal(true).BodyPadding(10).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 5 0").PercentWidth("100%").EnableDefaultCorner(false).PositionY(Position.Bottom).Hidden(true)
+        .Items(
+            F.SimpleForm().ID("SimpleForm1").ShowBorder(true).ShowHeader(false).BodyPadding(10).CssClass("f-corner-all").Layout(LayoutType.VBox).MessageTarget(MessageTarget.None).LabelAlign(LabelAlign.Right)
+                .Items(
+                    F.DropDownList().ID("ddlSheng").Label("省份").ShowRedStar(true).CompareType(CompareType.String).CompareValue("-1").CompareOperator(Operator.NotEqual).CompareMessage("请选择省份！").OnSelectedIndexChanged(Url.Action("ddlSheng_SelectedIndexChanged"), "SimpleForm1").Items(ViewBag.ShengItems),
+                    F.DropDownList().ID("ddlShi").Label("地区市").ShowRedStar(true).CompareType(CompareType.String).CompareValue("-1").CompareOperator(Operator.NotEqual).CompareMessage("请选择地区市！").OnSelectedIndexChanged(Url.Action("ddlShi_SelectedIndexChanged"), "SimpleForm1").Enabled(false)
+                        .Items(
+                            F.ListItem().Text("选择地区市").Value("-1")
+                        ),
+                    F.DropDownList().ID("ddlXian").ShowRedStar(true).CompareType(CompareType.String).CompareValue("-1").CompareOperator(Operator.NotEqual).CompareMessage("请选择县区市！").Label("县区市").Enabled(false)
+                        .Items(
+                            F.ListItem().Text("选择县区市").Value("-1")
+                        ),
+                    F.Panel().ShowBorder(false).ShowHeader(false).Layout(LayoutType.HBox)
+                        .Items(
+                            F.Button().ID("Button3").Width(100).Text("取消").MarginRight(10).ClickHandler("onCloseWindow1Click"),
+                            F.Button().ID("Button1").BoxFlex(1).Text("选择").ValidateForms("SimpleForm1").ValidateMessageBoxPlain(true).OnClick(Url.Action("Button1_Click"), "SimpleForm1")
+                        )
+                )
+        )
+    )
+
+
+}
+
+
+@section script {
+
+    <script>
+
+        function onOpenWindow1Click(event) {
+            F.ui.Window1.show();
+        }
+
+        function onCloseWindow1Click(event) {
+            F.ui.Window1.hide();
+        }
+
+    </script>
+
+}

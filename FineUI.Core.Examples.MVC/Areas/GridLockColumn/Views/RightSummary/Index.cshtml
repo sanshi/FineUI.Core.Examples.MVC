@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "GridLockColumn/RightSummary";
+    var F = Html.F();
+}
+
+
+@section head {
+
+    <style>
+        .f-grid-row-summary .f-grid-cell-text {
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+
+}
+
+@section body {
+
+    @(F.Grid().IsFluid(true).EnableCheckBoxSelect(true).Height(500).ShowHeader(true).ShowBorder(true).Title("表格").ID("Grid1").DataIDField("Id").DataTextField("Name")
+		.AllowPaging(true).PageSize(15).IsDatabasePaging(true).OnPageIndexChanged(Url.Action("Grid1_PageIndexChanged"), "Grid1").EnableSummary(true).SummaryPosition(SummaryPosition.Bottom)
+		.AllowColumnLocking(true).ColumnLockingRight(true).Width(1000)
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().HeaderText("姓名").DataField("Name").EnableLock(true).Locked(true),
+            F.RenderField().HeaderText("性别").DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender").EnableLock(true),
+            F.RenderField().HeaderText("入学年份").DataField("EntranceYear").FieldType(FieldType.Int).EnableLock(true),
+            F.RenderCheckField().HeaderText("是否在校").DataField("AtSchool").RenderAsStaticField(true).EnableLock(true),
+            F.RenderField().HeaderText("学费").DataField("Fee").EnableLock(true).Locked(true).LockedPosition(LockedPosition.Right),
+            F.RenderField().HeaderText("学杂费").DataField("ExtraFee").EnableLock(true).Locked(true).LockedPosition(LockedPosition.Right),
+            F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").Width(400).EnableLock(true),
+			F.RenderField().EnableLock(true).DataField("ShenGao").HeaderText("身高"),
+            F.RenderField().EnableLock(true).DataField("TiZhong").HeaderText("体重"),
+            F.RenderField().EnableLock(true).DataField("XueYaDi").HeaderText("血压（低）"),
+            F.RenderField().EnableLock(true).DataField("XueYaGao").HeaderText("血压（高）"),
+            F.RenderField().EnableLock(true).DataField("ShiLiZuo").HeaderText("视力（左）"),
+            F.RenderField().EnableLock(true).DataField("ShiLiYou").HeaderText("视力（右）"),
+			F.RenderField().EnableLock(true).HeaderText("分组").DataField("Group").RendererFunction("renderGroup"),
+			F.RenderField().EnableLock(true).HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+        ).RecordCount(ViewBag.Grid1RecordCount).DataSource(ViewBag.Grid1DataSource).SummaryData(ViewBag.Grid1SummaryData)
+
+    )
+    <br>
+
+    @(F.Button().Text("选中了哪些行").CssClass("marginr").ClickHandler("onNotifySelectedRowsClick"))
+    <br>
+    <br>
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+}

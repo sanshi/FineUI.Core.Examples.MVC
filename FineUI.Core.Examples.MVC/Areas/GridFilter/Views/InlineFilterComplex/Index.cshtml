@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "GridFilter/InlineFilterComplex";
+    var F = Html.F();
+}
+
+@section body {
+
+    @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name").AllowFilters(true).InlineFilters(true).OnFilterChanged(Url.Action("Grid1_FilterChanged"), "Grid1")
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().HeaderText("姓名").DataField("Name").Width(200).EnableFilter(true)
+                .Filter(F.GridFilter().EnableMultiConditions(true).MatcherDefault("any")
+                    .Operator(
+                        F.DropDownList()
+                            .Items(
+                                F.ListItem().Text("等于").Value("equal"),
+                                F.ListItem().Text("包含").Value("contain").Selected(true),
+                                F.ListItem().Text("开始于").Value("start"),
+                                F.ListItem().Text("结束于").Value("end")
+                            )
+                    )
+                ),
+            F.RenderField().HeaderText("性别").DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender").Width(200).EnableFilter(true)
+                .Filter(F.GridFilter()
+                    .Field(
+                        F.DropDownList().AutoSelectFirstItem(false)
+                            .Items(
+                                F.ListItem().Text("男").Value("1"),
+                                F.ListItem().Text("女").Value("0")
+                            )
+                    )
+                ),
+            F.RenderField().HeaderText("入学年份").DataField("EntranceYear").FieldType(FieldType.Int).Width(200).EnableFilter(true)
+                .Filter(F.GridFilter().EnableMultiConditions(true)
+                    .Operator(
+                        F.DropDownList()
+                            .Items(
+                                F.ListItem().Text("大于").Value("greater").Selected(true),
+                                F.ListItem().Text("小于").Value("less"),
+                                F.ListItem().Text("等于").Value("equal")
+                            )
+                    )
+                    .Field(
+                        F.NumberBox().ID("NumberBox1").NoDecimal(true).NoNegative(true)
+                    )
+                ),
+            F.RenderCheckField().HeaderText("是否在校").DataField("AtSchool").RenderAsStaticField(true).Width(200).EnableFilter(true)
+                .Filter(F.GridFilter()
+                    .Field(
+                        F.DropDownList().AutoSelectFirstItem(false)
+                            .Items(
+                                F.ListItem().Text("在校").Value("true"),
+                                F.ListItem().Text("已离校").Value("false")
+                            )
+                    )
+                ),
+            F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(200).EnableFilter(true)
+                .Filter(F.GridFilter()
+                    .Field(
+                        F.DropDownList().EnableMultiSelect(true).AutoSelectFirstItem(false).MultiSelectMode(MultiSelectMode.Tags)
+                            .Items(
+                                F.ListItem().Text("材料科学与工程系").Value("材料科学与工程系"),
+                                F.ListItem().Text("化学系").Value("化学系"),
+                                F.ListItem().Text("物理系").Value("物理系"),
+                                F.ListItem().Text("数学系").Value("数学系"),
+                                F.ListItem().Text("自动化系").Value("自动化系")
+                            )
+                    )
+                ),
+            F.RenderField().HeaderText("分组").DataField("Group").RendererFunction("renderGroup").Width(260).EnableFilter(true)
+                .Filter(F.GridFilter()
+                    .Field(
+                        F.DropDownList().ID("groupList").EnableMultiSelect(true).AutoSelectFirstItem(false).MultiSelectMode(MultiSelectMode.Tags).Items(ViewBag.groupListItems)
+                    )
+                ),
+            F.RenderField().HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd").Width(200).EnableFilter(true)
+                .Filter(F.GridFilter().EnableMultiConditions(true)
+                    .Operator(
+                        F.DropDownList()
+                            .Items(
+                                F.ListItem().Text("大于").Value("greater").Selected(true),
+                                F.ListItem().Text("小于").Value("less"),
+                                F.ListItem().Text("等于").Value("equal")
+                            )
+                    )
+                    .Field(
+                        F.DatePicker().DateFormatString("yyyy/MM/dd")
+                    )
+                )
+        )
+        .DataSource(DataSourceUtil.GetDataTable())
+    )
+    <br>
+    <br>
+
+
+    @(F.Label().ID("labResult").EncodeText(false))
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+}

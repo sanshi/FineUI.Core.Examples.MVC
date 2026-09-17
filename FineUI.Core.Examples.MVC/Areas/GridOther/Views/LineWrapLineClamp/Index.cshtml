@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "GridOther/LineWrapLineClamp";
+    var F = Html.F();
+}
+
+
+@section head {
+
+    <style>
+        .f-grid-row .f-grid-cell-text {
+            white-space: normal;
+            word-break: break-all;
+            overflow: hidden;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            display: -webkit-box;
+        }
+    </style>
+
+}
+
+
+@section body {
+
+    @(F.Grid().IsFluid(true).Height(400).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name").EnableTextSelection(true)
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().HeaderText("姓名").DataField("Name"),
+            F.RenderField().HeaderText("性别").DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender"),
+            F.RenderField().HeaderText("入学年份").DataField("EntranceYear").FieldType(FieldType.Int),
+            F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").Width(150),
+            F.RenderField().HeaderText("个人简介").DataField("Desc").Width(400).MinWidth(150)
+        )
+        .DataSource(DataSourceUtil.GetDataTable())
+    )
+    <br>
+    <br>
+
+    @(F.Button().Text("选中了哪些行").ID("Button1").ClickHandler("onNotifySelectedRowsClick"))
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+}

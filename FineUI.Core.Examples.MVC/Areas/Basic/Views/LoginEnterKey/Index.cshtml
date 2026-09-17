@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Basic/LoginEnterKey";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    <div>
+        用户名：admin
+        <br>
+        密码：admin
+        <br>
+        <br>
+        <br>
+        注意：在表单内按回车键会导航到下一个控件。
+    </div>
+
+    @(F.Window().Width(350).WindowPosition(WindowPosition.GoldenSection).EnableClose(false).IsModal(false).Title("登录表单").ID("Window1")
+        .Items(
+            F.SimpleForm().ShowHeader(false).BodyPadding(10).RemoveLastFieldsMargin(true).ShowBorder(false).ID("SimpleForm1")
+                .Items(
+                    F.TextBox().NextFocusControl("tbxPassword").ShowRedStar(true).Required(true).Label("用户名").ID("tbxUserName"),
+                    F.TextBox().NextFocusControl("btnLogin").ShowRedStar(true).Required(true).TextMode(TextMode.Password).Label("密码").ID("tbxPassword")
+                )
+        )
+        .Toolbars(
+            F.Toolbar().Position(ToolbarPosition.Bottom).ToolbarAlign(ToolbarAlign.Right).ID("Toolbar1")
+                .Items(
+                        F.Button().ButtonColor(ButtonColor.Primary).OnClick(Url.Action("btnLogin_Click"), "SimpleForm1").ValidateTarget(Target.Top).ValidateForms("SimpleForm1").Type(ButtonType.Button).Text("登录").ID("btnLogin"),
+                    F.Button().Type(ButtonType.Reset).Text("重置").ID("btnReset")
+                )
+        )
+    )
+    <br>
+
+
+}
+

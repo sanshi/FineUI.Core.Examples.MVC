@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "GridEditor/GridEditorRadio";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Grid().IsFluid(true).ID("Grid1").ShowBorder(true).ShowHeader(true)
+        .Title("表格（单击编辑）").DataIDField("Id").DataTextField("Name").AllowCellEditing(true).ClicksToEdit(1)
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().ColumnID("Name").DataField("Name").HeaderText("姓名")
+                .Editor(
+                    F.TextBox().ID("tbxName").Required(true)
+                ),
+            F.RenderCheckField().Width(150).ColumnID("AtSchool").DataField("AtSchool").HeaderText("是否在校"),
+            F.RenderCheckField().Width(150).ColumnID("TestColumn1").HeaderText("测试列（单选）"),
+            F.RenderField().ColumnID("Major").DataField("Major").ExpandUnusedSpace(true).MinWidth(150).HeaderText("所学专业")
+                .Editor(
+                    F.TextBox().ID("tbxMajor").Required(true)
+                )
+        ).DataSource(ViewBag.Grid1DataSource).Listener("afteredit", "onGrid1AfterEdit")
+    )
+    <br>
+
+    @(F.Button().ID("btnSubmit").Text("保存数据").OnClick(Url.Action("btnSubmit_Click"), "Grid1"))
+
+    <br>
+    @(F.Label().ID("labResult").EncodeText(false))
+
+    
+}
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+    <script>
+
+        function onGrid1AfterEdit(event, value, params) {
+            var grid1 = F.ui.Grid1;
+
+            // 如果取消复选框选中，则不做处理
+            if (value && params.columnId === 'TestColumn1') {
+                // 遍历所有的行
+                grid1.getRowEls().each(function () {
+                    var row = grid1.getRowData($(this));
+                    if (row.id !== params.rowId) {
+                        // 如果不是当前操作的行，则取消单元格选中
+                        grid1.updateCellValue(row.id, params.columnId, false);
+                    }
+                });
+
+            }
+        }
+
+
+    </script>
+
+}

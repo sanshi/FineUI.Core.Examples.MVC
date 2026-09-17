@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Form/ToolTipPosition";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    <div style="padding: 50px 150px; width: 900px;">
+    <table style="width: 100%; border-spacing: 20px;">
+        <tr>
+            <td></td>
+            <td style="text-align: center;">
+                @(F.Button().Text("TopStart").ToolTip("这是提示信息").ToolTipType(ToolTipType.Qtip).ToolTipPosition(ToolTipPosition.TopStart).Width(100))
+                @(F.Button().Text("Top").ToolTip("这是提示信息").ToolTipType(ToolTipType.Qtip).ToolTipPosition(ToolTipPosition.Top).Width(100))
+                @(F.Button().Text("TopEnd").ToolTip("这是提示信息").ToolTipType(ToolTipType.Qtip).ToolTipPosition(ToolTipPosition.TopEnd).Width(100))
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td style="text-align: right;">
+                @(F.Button().Text("LeftStart").ToolTipRawHtml(new RawHtml("这是提示信息<br>这是第二行提示信息")).ToolTipType(ToolTipType.Qtip).ToolTipPosition(ToolTipPosition.LeftStart).Width(100))
+            </td>
+            <td></td>
+            <td style="text-align: left;">
+                @(F.Button().Text("RightStart").ToolTipRawHtml(new RawHtml("这是提示信息<br>这是第二行提示信息")).ToolTipType(ToolTipType.Qtip).ToolTipPosition(ToolTipPosition.RightStart).Width(100))
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right;">
+                @(F.Button().Text("Left").ToolTipRawHtml(new RawHtml("这是提示信息<br>这是第二行提示信息")).ToolTipType(ToolTipType.Qtip).ToolTipPosition(ToolTipPosition.Left).Width(100))
+            </td>
+            <td></td>
+            <td style="text-align: left;">
+                @(F.Button().Text("Right").ToolTipRawHtml(new RawHtml("这是提示信息<br>这是第二行提示信息")).ToolTipType(ToolTipType.Qtip).ToolTipPosition(ToolTipPosition.Right).Width(100))
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right;">
+                @(F.Button().Text("LeftEnd").ToolTipRawHtml(new RawHtml("这是提示信息<br>这是第二行提示信息")).ToolTipType(ToolTipType.Qtip).ToolTipPosition(ToolTipPosition.LeftEnd).Width(100))
+            </td>
+            <td></td>
+            <td style="text-align: left;">
+                @(F.Button().Text("RightEnd").ToolTipRawHtml(new RawHtml("这是提示信息<br>这是第二行提示信息")).ToolTipType(ToolTipType.Qtip).ToolTipPosition(ToolTipPosition.RightEnd).Width(100))
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="text-align: center;">
+                @(F.Button().Text("BottomStart").ToolTip("这是提示信息").ToolTipType(ToolTipType.Qtip).ToolTipPosition(ToolTipPosition.BottomStart).Width(100))
+                @(F.Button().Text("Bottom").ToolTip("这是提示信息").ToolTipType(ToolTipType.Qtip).ToolTipPosition(ToolTipPosition.Bottom).Width(100))
+                @(F.Button().Text("BottomEnd").ToolTip("这是提示信息").ToolTipType(ToolTipType.Qtip).ToolTipPosition(ToolTipPosition.BottomEnd).Width(100))
+            </td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+
+}
+

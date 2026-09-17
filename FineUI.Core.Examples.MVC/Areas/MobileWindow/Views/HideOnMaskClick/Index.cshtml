@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "MobileWindow/HideOnMaskClick";
+    ViewBag.BodyBGColor = false;
+    var F = Html.F();
+}
+
+
+@section body {
+
+    <div id="container1">
+        <p>
+            <a href="http://baike.baidu.com/view/3645.htm" target="_blank"><b>比尔·盖茨</b></a>
+        </p>
+        <p>
+            比尔·盖茨（Bill Gates），全名威廉·亨利·盖茨三世，简称比尔或盖茨。1955年10月28日出生于美国华盛顿州西雅图，13岁开始计算机编程设计，18岁考入哈佛大学，一年后从哈佛退学，1975年与好友保罗·艾伦一起创办了微软公司，比尔盖茨担任微软公司董事长、CEO和首席软件设计师。
+        </p>
+    </div>
+
+    <div id="container2">
+        <p>
+            <a href="http://tech.163.com/special/jobsdead/" target="_blank"><b>乔布斯</b></a>
+        </p>
+        <p>
+            乔布斯于1955年2月24日出生，苹果创始人之一，近年来多次被评为全美最佳CEO，业界评论“苹果就是乔布斯，乔布斯就是苹果”。
+        </p>
+    </div>
+
+    @(F.Panel().ID("Panel1").ShowBorder(false).ShowHeader(false).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 5 0").BodyPadding(10).IsViewPort(true)
+        .Items(
+            F.Button().ID("btnOpenWindow").Text("打开窗体一").ClickHandler("onOpenWindow1Click")
+        )
+    )
+
+    @(F.Window().ID("Window1").ShowHeader(false).Width(300).IsModal(true).HideOnMaskClick(true).BodyPadding(10).Layout(LayoutType.VBox).Hidden(true)
+        .Items(
+            F.Panel().ShowBorder(false).ShowHeader(false).ContentEl("#container1"),
+            F.Button().ID("Button1").Text("打开窗体二").ClickHandler("onOpenWindow2Click")
+        )
+    )
+
+
+    @(F.Window().ID("Window2").ShowHeader(false).Width(300).IsModal(true).HideOnMaskClick(true).BodyPadding(10).Hidden(true).ContentEl("#container2"))
+
+
+}
+
+
+@section script {
+
+    <script>
+
+        function onOpenWindow1Click(event) {
+            F.ui.Window1.show();
+        }
+
+        function onOpenWindow2Click(event) {
+            F.ui.Window2.show();
+        }
+
+    </script>
+
+}

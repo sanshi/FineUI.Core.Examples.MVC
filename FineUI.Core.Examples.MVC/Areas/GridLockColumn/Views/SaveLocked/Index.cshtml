@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "GridLockColumn/SaveLocked";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name")
+		.AllowColumnLocking(true).Width(1000)
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().HeaderText("姓名").DataField("Name").EnableLock(true).Locked(true),
+            F.RenderField().HeaderText("性别").DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender").EnableLock(true),
+            F.RenderField().HeaderText("入学年份").DataField("EntranceYear").FieldType(FieldType.Int).EnableLock(true),
+            F.RenderCheckField().HeaderText("是否在校").DataField("AtSchool").RenderAsStaticField(true).EnableLock(true),
+            F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").Width(400).EnableLock(true),
+            F.RenderField().EnableLock(true).DataField("ShenGao").HeaderText("身高"),
+            F.RenderField().EnableLock(true).DataField("TiZhong").HeaderText("体重"),
+            F.RenderField().EnableLock(true).DataField("XueYaDi").HeaderText("血压（低）"),
+            F.RenderField().EnableLock(true).DataField("XueYaGao").HeaderText("血压（高）"),
+            F.RenderField().EnableLock(true).DataField("ShiLiZuo").HeaderText("视力（左）"),
+            F.RenderField().EnableLock(true).DataField("ShiLiYou").HeaderText("视力（右）"),
+			F.RenderField().EnableLock(true).HeaderText("分组").DataField("Group").RendererFunction("renderGroup"),
+			F.RenderField().EnableLock(true).HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+        )
+        .Listener("columnlock", "onGridColumnLock")
+        .Listener("columnunlock", "onGridColumnUnlock")
+        .DataSource(DataSourceUtil.GetDataTable())
+    )
+    <br>
+    <br>
+
+    @(F.Button().ID("btnRefresh").Text("刷新本页面（保持列锁定状态）").ClickHandler("onReloadPageClick"))
+
+
+    @{
+        Grid grid1 = F.GetControl<Grid>("Grid1");
+
+        List<string> lockedColumns = ViewBag.LockedColumns as List<string>;
+        if (lockedColumns.Count > 0)
+        {
+            foreach (GridColumn column in grid1.Columns)
+            {
+                RenderBaseField field = column as RenderBaseField;
+                if (field == null)
+                {
+                    continue;
+                }
+
+                if (lockedColumns.Contains(field.ColumnID) || lockedColumns.Contains(field.DataField))
+                {
+                    field.Locked = true;
+                }
+
+            }
+        }
+    }
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+    <script>
+
+        function onGridColumnLock(event, columnId) {
+            // 触发后台事件
+            F.doPostBack({
+                url: '@Url.Action("Grid1_ColumnLockUnlock")',
+                params: {
+                    type: 'lock',
+                    columnId: columnId
+                }
+            });
+        }
+
+        function onGridColumnUnlock(event, columnId) {
+            // 触发后台事件
+            F.doPostBack({
+                url: '@Url.Action("Grid1_ColumnLockUnlock")',
+                params: {
+                    type: 'unlock',
+                    columnId: columnId
+                }
+            });
+        }
+
+        function onReloadPageClick(event) {
+            window.location.reload();
+        }
+
+    </script>
+}

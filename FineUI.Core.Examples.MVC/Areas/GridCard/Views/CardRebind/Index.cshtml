@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.SourceFiles = "~/wwwroot/res/js/gridcard.js";
+    ViewBag.Title = "GridCard/CardRebind";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name")
+        .Height(500).DisplayType(GridDisplayType.Card).CardRendererFunction("renderCard")
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().HeaderText("姓名").DataField("Name"),
+            F.RenderField().HeaderText("性别").DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender"),
+            F.RenderField().HeaderText("入学年份").DataField("EntranceYear").FieldType(FieldType.Int),
+            F.RenderField().HeaderText("入学日期").DataField("EntranceDate")
+                .FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd").Width(150),
+            F.RenderCheckField().HeaderText("是否在校").DataField("AtSchool").RenderAsStaticField(true),
+            F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150),
+            F.RenderField().HeaderText("分组").DataField("Group").RendererFunction("renderGroup"),
+            F.RenderField().HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+        )
+        .DataSource(null)
+        .Attribute("data-source-key", "source1")
+        .EmptyTextRawHtml(new RawHtml("<img src=\"" + Url.Content("~/res/images/no_data_found.png") + "\" alt=\"No Data Found!\"/>"))
+    )
+    <br>
+    <br>
+    @(F.Button().OnClick(Url.Action("Button1_Click"),
+        new Parameter("fields", "F.ui.Grid1.fields"),
+        new Parameter("source", "F.ui.Grid1.getAttr('data-source-key')")).CssClass("marginr").Text("重新绑定表格").ID("Button1")
+    )
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+    <script src="~/res/js/gridcard.js"></script>
+
+}

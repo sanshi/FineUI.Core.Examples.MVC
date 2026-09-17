@@ -1,0 +1,30 @@
+@{
+    ViewBag.Title = "Editor/UEditorTwo";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.SimpleForm().IsFluid(true).ID("Form1").BodyPadding(10).Title("添加文章")
+        .Items(
+            F.TextBox().ID("tbxTitle").Label("文章标题").Required(true),
+            F.HtmlEditor().Label("文章正文").ID("HtmlEditor1").Editor(Editor.UEditor)
+                .BasePath(Url.Content("~/res/third-party/ueditor/")).ToolbarSet(EditorToolbarSet.Full).Height(400).Text("<p>FineUI.Core<br>.NET 企业级全栈 UI 框架<br><br>支持的浏览器<br>Chrome、Firefox、Safari、Edge<br><br>相关链接<br>首页：http://fineui.com/<br>示例：https://fineui.com/core/demo-mvc/</p>"),
+            F.HtmlEditor().Label("文章摘要").ID("HtmlEditor2").Editor(Editor.UEditor)
+                .BasePath(Url.Content("~/res/third-party/ueditor/")).ToolbarSet(EditorToolbarSet.Basic).Height(200)
+        )
+        .Toolbars(
+            F.Toolbar().ToolbarAlign(ToolbarAlign.Right).Position(ToolbarPosition.Bottom)
+                .Items(
+                    F.Button().ID("Button1").ValidateForms("Form1").Text("获取文章内容").OnClick(Url.Action("Button1_Click"),
+                            new Parameter("title", "F.ui.tbxTitle.getValue()"),
+                            new Parameter("text1", "F.ui.HtmlEditor1.getValue()"),
+                            new Parameter("text2", "F.ui.HtmlEditor2.getValue()")),
+                    F.Button().ID("Button2").Text("更新文章摘要").OnClick(Url.Action("Button2_Click"),
+                            new Parameter("text1", "F.ui.HtmlEditor1.getValue()"))
+                )
+        )
+    )
+
+}

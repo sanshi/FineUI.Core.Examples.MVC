@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Grid/HeaderCustomMenu";
+    var F = Html.F();
+}
+
+@section head {
+    <style>
+        .f-grid-allcolumns-hidden-message {
+            display: none !important;
+        }
+    </style>
+}
+
+@section body {
+
+    @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name").EnableHeaderMenu(false)
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().HeaderText("姓名").DataField("Name"),
+            F.RenderField().HeaderText("性别").DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender"),
+            F.RenderField().HeaderText("入学年份").DataField("EntranceYear").FieldType(FieldType.Int),
+            F.RenderCheckField().HeaderText("是否在校").DataField("AtSchool").RenderAsStaticField(true),
+            F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150)
+        )
+        .Tools(
+            F.Tool().IconFont(IconFont._ColumnsAlt).Text("管理列").ToolTip("显示隐藏列").ID("toolColumns").TabIndex(0).ClickHandler("onToolColumnsClick")
+        )
+        .DataSource(DataSourceUtil.GetDataTable())
+    )
+    <br>
+    <br>
+
+    @(F.Button().Text("选中了哪些行").ID("Button1").ClickHandler("onNotifySelectedRowsClick"))
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+    <script>
+
+        function onToolColumnsClick(event) {
+            var toolEl = this.el; // 当前工具图标元素
+
+            F.ui.Grid1.showColumnsMenu(toolEl);
+        }
+
+        // function createMenuItems() {
+        //     var grid1 = F.ui.Grid1;
+
+        //     var columns = grid1.columns;
+        //     var columnsMenuItems = [];
+        //     $.each(columns, function (index, column) {
+        //         if (column.hideable) {
+        //             var menuCheckBox = F.create({
+        //                 type: 'MenuCheckBox',
+        //                 text: column.text,
+        //                 checked: !column.hidden,
+        //                 handler: function (event) {
+        //                     var checked = this.isChecked();
+        //                     grid1.hideColumn(event, column, !checked);
+        //                 }
+        //             });
+        //             columnsMenuItems.push(menuCheckBox);
+        //         }
+        //     });
+
+        //     return F.create({
+        //         type: 'Menu',
+        //         items: columnsMenuItems
+        //     });
+        // }
+
+        // F.ready(function () {
+        //     // 为工具图标设置菜单
+        //     F.ui.toolColumns.setMenu(createMenuItems());
+        // });
+
+    </script>
+}

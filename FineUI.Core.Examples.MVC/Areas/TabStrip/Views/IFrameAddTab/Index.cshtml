@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "TabStrip/IFrameAddTab";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.TabStrip().IsFluid(true).ID("TabStrip1").Height(500).ShowBorder(true).ActiveTabIndex(0)
+        .Tabs(
+            F.Tab().Title("FineUI官网").EnableIFrame(true).IFrameUrl("https://fineui.com/")
+        )
+        .Toolbars(
+            F.Toolbar().ID("Toolbar1")
+                .Items(
+                    F.Button().ID("Button1").Text("打开DeepSeek官网（tab1_iframe）").OnClick(Url.Action("Button1_Click")),
+                    F.Button().ID("Button2").Text("打开ASP.NET官网（tab1_iframe）").OnClick(Url.Action("Button2_Click")),
+                    F.Button().ID("Button3").Text("打开FineUI官网（tab2_iframe）").OnClick(Url.Action("Button3_Click"))
+                )
+        )
+    )
+    <br>
+    <br>
+    注：由于设置了相同的tabID，专业版示例和开源版示例在同一个选项卡中打开。
+    <br>
+
+
+}
+

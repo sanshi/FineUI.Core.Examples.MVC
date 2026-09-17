@@ -1,0 +1,69 @@
+@{
+    ViewBag.SourceFiles = "~/Areas/DataModel/Models/Student.cs;~/Areas/DataModel/Models/Family.cs;~/Areas/DataModel/Models/StudentExtended.cs;~/Areas/DataModel/Models/StudentHelper.cs";
+    ViewBag.Title = "DataModel/ComplexColumnClient";
+    var F = Html.F();
+}
+
+@model IList<FineUI.Core.Examples.MVC.Areas.DataModel.Models.StudentExtended>
+
+@section body {
+
+    @(F.Grid().ID("Grid1").IsFluid(true).ShowBorder(true).ShowHeader(true).Title("表格").DataIDField("Id").DataTextField("Name")
+        .Columns(
+            F.RenderFieldFor(m => m.Name),
+            F.RenderFieldFor(m => m.Gender).RendererFunction("renderGender"),
+            F.RenderFieldFor(m => m.EntranceYear),
+            F.RenderCheckFieldFor(m => m.AtSchool).RenderAsStaticField(true),
+            F.RenderFieldFor(m => m.Major).RendererFunction("renderMajor").Width(150),
+            F.RenderFieldFor(m => m.FamilyObject).RendererFunction("renderFamily").Width(220),
+            F.RenderFieldFor(m => m.HobbyArray).RendererFunction("renderHobby").ExpandUnusedSpace(true).MinWidth(150)
+        ).DataSource(Model)
+
+    )
+
+
+}
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+    <script>
+
+        function renderFamily(value, params) {
+            // {
+            //    "daddy": "张国栋",
+            //    "mommy": "李梅"
+            // }
+            return "父亲: " + value.daddy + ", 母亲: " + value.mommy;
+        }
+
+        function renderHobby(value, params) {
+            // ["reading", "basketball", "travel"]
+            var result = [];
+            $.each(value, function (index, hobby) {
+                var hobbyName = "";
+                switch (hobby) {
+                    case "reading":
+                        hobbyName = "读书";
+                        break;
+                    case "basketball":
+                        hobbyName = "篮球";
+                        break;
+                    case "travel":
+                        hobbyName = "旅游";
+                        break;
+                    case "movie":
+                        hobbyName = "电影";
+                        break;
+                    case "music":
+                        hobbyName = "音乐";
+                        break;
+                }
+                result.push(hobbyName);
+            });
+            return result.join(", ");
+        }
+
+    </script>
+}

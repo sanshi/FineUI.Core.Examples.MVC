@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "MobileMessage/Confirm";
+    ViewBag.BodyBGColor = false;
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Panel().ID("Panel1").ShowBorder(false).ShowHeader(false).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 10 0").BodyPadding(10).IsViewPort(true)
+        .Toolbars(
+            F.Toolbar().ID("Toolbar1").Title("确认对话框").HeaderStyle(true)
+        )
+        .Items(
+            F.Button().Text("确认对话框").ID("Button1").OnClick(Url.Action("Button1_Click")),
+            F.Button().Text("确认对话框（ButtonFill）").ID("Button2").OnClick(Url.Action("Button2_Click")),
+            F.Button().Text("确认对话框（ButtonPlain）").ID("Button6").OnClick(Url.Action("Button6_Click")),
+            F.Button().Text("确认对话框（CancelButtonAhead）").ID("Button3").OnClick(Url.Action("Button3_Click")),
+            F.Button().Text("确认对话框（自定义按钮文本，回发）").ID("Button4").ClickHandler("onButton4Click"),
+            F.Button().Text("确认对话框（自定义按钮宽度，回发）").ID("Button5").ClickHandler("onButton5Click")
+        )
+    )
+
+
+}
+
+
+@section script {
+
+    <script>
+
+        function onButton4Click(event) {
+
+            F.create({
+                type: 'MessageBox',
+                title: '确认退出',
+                message: '您即将直接退出，请先保存已修改数据！',
+                titleAlign: 'center',
+                closable: false,
+                buttonPlain: true,
+                messageIcon: '',
+                buttons: [{
+                    buttonId: 'cancel',
+                    text: '不退出'
+                }, {
+                    buttonId: 'ok',
+                    text: '直接退出'
+                }],
+                handler: function (event, buttonId) {
+                    // 触发后台事件
+                    F.doPostBack({
+                        url: '@Url.Action("Button4_ConfirmResult")',
+                        params: {
+                            button: buttonId
+                        }
+                    });
+                }
+            });
+
+        }
+
+
+        function onButton5Click(event) {
+
+            F.create({
+                type: 'MessageBox',
+                title: '确认退出',
+                message: '您即将直接退出，请先保存已修改数据！',
+                titleAlign: 'center',
+                closable: false,
+                buttonPlain: true,
+                messageIcon: '',
+                buttons: [{
+                    buttonId: 'cancel',
+                    text: '取消',
+                    flex: 1
+                }, {
+                    buttonId: 'ok',
+                    text: '直接退出',
+                    flex: 2
+                }],
+                autoFocusButtonId: 'ok',
+                handler: function (event, buttonId) {
+                    // 触发后台事件
+                    F.doPostBack({
+                        url: '@Url.Action("Button5_ConfirmResult")',
+                        params: {
+                            button: buttonId
+                        }
+                    });
+                }
+            });
+
+        }
+
+    </script>
+
+}

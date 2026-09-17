@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Form/TriggerBoxClearIcon";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).ShowBorder(true).Title("表单").ShowHeader(true)
+        .Items(
+            F.TriggerBox().ID("TriggerBox1").ShowLabel(false).TriggerIcon(TriggerIcon.Clear).Text("默认值").AutoShowClearIcon(true),
+            F.Button().ID("btnSubmit").Text("提交").OnClick(Url.Action("btnSubmit_Click"), new Parameter("box1Value", "F.ui.TriggerBox1.getValue()"))
+        )
+    )
+
+}

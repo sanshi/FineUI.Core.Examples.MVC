@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "DatePicker/DatePickerDisplayTimeConfirmButton";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).Title("简单表单")
+        .Items(
+            F.DatePicker().Required(true).DateFormatString("HH:mm:ss").DisplayType(CalendarDisplayType.Time).ShowTodayButton(false).Label("开始时间").EmptyText("请选择开始时间").ID("DatePicker1").ShowRedStar(true).SelectedDate(DateTime.Now).ShowConfirmButton(true).ConfirmToSelect(true),
+            F.DatePicker().ID("DatePicker2").Required(true).Readonly(false).CompareControl("DatePicker1").DateFormatString("HH:mm:ss").DisplayType(CalendarDisplayType.Time).ShowTodayButton(false).CompareOperator(Operator.GreaterThan).CompareMessage("结束时间应该大于开始时间").Label("结束时间").ShowRedStar(true).ShowConfirmButton(true).ConfirmToSelect(true),
+            F.Button().ID("btnSubmit").ValidateForms("SimpleForm1").Text("提交表单").OnClick(Url.Action("btnSubmit_Click"), "SimpleForm1")
+        )
+    )
+    <br>
+
+    @(F.Label().ID("labResult").EncodeText(false).ShowLabel(false))
+
+
+}

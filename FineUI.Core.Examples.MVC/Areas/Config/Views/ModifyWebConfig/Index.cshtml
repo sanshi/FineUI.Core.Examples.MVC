@@ -1,0 +1,147 @@
+﻿@{
+    ViewBag.Title = "Config/ModifyWebConfig";
+    var F = Html.F();
+}
+
+@section head {
+
+    <style type="text/css">
+        ol li,
+        ul li {
+            margin-bottom: 5px;
+        }
+
+        pre {
+            border: none;
+            margin: 0;
+            padding: 10px 5px;
+            font-family: Consolas, Courier New, monospace;
+        }
+    </style>
+}
+
+@section body {
+
+    <div>
+        在开发项目之前请先做好配置：
+    </div>
+    <ol>
+        <li>
+            <strong>向Startup.cs添加服务：</strong>
+            <br />
+<pre>
+public void ConfigureServices(IServiceCollection services)
+{
+    // 添加 FineUI 服务（自动登记 FineUI 专属模型绑定器）
+    services.AddFineUI(Configuration);
+
+    // ASP.NET Core MVC 支持
+    services.AddControllersWithViews().AddNewtonsoftJson();
+}
+</pre>
+        <li>
+            <strong>向Startup.cs添加请求中间件：</strong>
+            <br />
+<pre>
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    // 省略的代码 ...
+    app.UseStaticFiles();
+    app.UseRouting();
+    app.UseAuthorization();
+
+    // 使用 FineUI 中间件（确保 UseFineUI 位于 UseEndpoints 的前面）
+    app.UseFineUI();
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllerRoute(
+            name: "area",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+        endpoints.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}");
+    });
+}
+</pre>
+        </li>
+        <li>
+            <strong>向appsettings.json添加配置项：</strong>
+            <br />
+<pre>
+{
+  "FineUI": {
+    "DebugMode": true,
+    "CustomTheme": "pure_green",
+    "EnableAnimation": true
+  }
+}
+</pre>
+            FineUI 配置节中的参数：
+            <br />
+
+            <ul>
+                <li>Theme: 样式主题，内置 36 种主题（默认值：Default）
+					<ul style="padding-top: 8px;">
+						<li>
+							Pure 主题：Pure_Black, Pure_Green, Pure_Blue, Pure_Purple, Pure_Orange
+						</li>
+						<li>
+							jQueryUI 主题：Cupertino, Start, Dark_Hive, Flick, South_Street
+						</li>
+					</ul>
+				</li>
+                <li>CustomTheme: 自定义样式主题（custom_default/bootstrap_pure）</li>
+                <li>Language: 控件语言（en/zh_CN/zh_TW，默认值：zh_CN）</li>
+                <li>FormMessageTarget: 表单字段错误提示信息的显示位置（Title/Side/Qtip，默认值：Side）</li>
+                <li>FormLabelWidth: 表单字段标签的宽度（默认值：100px）</li>
+                <li>FormLabelAlign: 表单字段标签的位置（Left/Right/Top，默认值：Left）</li>
+                <li>FormRedStarPosition: 表单字段红色星号的位置（AfterText/BeforeText/AfterSeparator，默认值：AfterText）</li>
+                <li>FormLabelSeparator: 表单字段标签与内容的分隔符（默认值："："）</li>
+                <li>EnableAjax: 是否启用AJAX（默认值：true）</li>
+                <li>AjaxTimeout: Ajax超时时间（单位：秒，默认值：120s）</li>
+                <li>DebugMode: 是否开发模式，启用时格式化页面输出的JavaScript代码，便于调试（默认值：false）</li>
+                <li>EnableAjaxLoading: 是否启用Ajax提示（默认值：true）</li>
+                <li>AjaxLoadingType: Ajax提示类型，默认在页面顶部显示黄色提示框（Default/Mask，默认值：Default）</li>
+                <li>DisplayMode: 显示模式（Normal/Compact/Large/LargeSpace，默认值：Normal）</li>
+                <li>MobileAdaption: 是否启用移动浏览器自适应（默认值：false）</li>
+                <li>EnableAnimation: 是否启用动画（Chrome，Firefox，Edge，Safari浏览器支持动画）（默认值：false）</li>
+            </ul>
+			<br />
+            <br />
+			<div style="margin-bottom: 5px;">
+				注 1：移动端（Android,iOS）网站需要启用DisplayMode和MobileAdaption属性（appsettings.json）：
+				<br/>
+<pre>
+{
+  "FineUI": {
+	"DisplayMode": "Large",
+	"MobileAdaption": true,
+	"EnableAnimation": true
+  }
+}
+</pre>
+			</div>
+			<br />
+			@* <div style="margin-bottom: 5px;">
+				注 2：IE8需要启用JSLibrary属性（appsettings.json）：
+				<br/>
+<pre>
+{
+  "FineUI": {
+	"JSLibrary": "JQv1"
+  }
+}
+</pre>
+			</div>
+			<br />
+			<br /> *@
+
+        </li>
+        <li><strong>完成。</strong></li>
+    </ol>
+    <br />
+
+
+}
+

@@ -1,0 +1,42 @@
+@{
+    ViewBag.Title = "Editor/TinyMCEWindow";
+    var F = Html.F();
+}
+
+
+@section head {
+
+    <style>
+        /* 通过 CSS 设置 */
+        .mce-menu {
+            z-index: 99999 !important;
+        }
+    </style>
+
+}
+
+@section body {
+
+    @(F.Window().ID("Window1").Width(900).Height(500).Layout(LayoutType.Fit).BodyPadding(10).Title("简单表单").IsModal(false).EnableResize(true)
+        .Items(
+            F.SimpleForm().ID("SimpleForm1").Layout(LayoutType.Fit).LabelAlign(LabelAlign.Top).ShowBorder(false).ShowHeader(false)
+                .Items(
+                    F.HtmlEditor().Label("文本编辑器").ID("HtmlEditor1").Editor(Editor.TinyMCE)
+                        .BasePath(Url.Content("~/res/third-party/tinymce/")).ToolbarSet(EditorToolbarSet.Full).Text("<p>FineUI.Core<br>.NET 企业级全栈 UI 框架<br><br>支持的浏览器<br>Chrome、Firefox、Safari、Edge<br><br>相关链接<br>首页：http://fineui.com/<br>示例：https://fineui.com/core/demo-mvc/</p>")
+                )
+        )
+        .Toolbars(
+            F.Toolbar().Position(ToolbarPosition.Bottom).ToolbarAlign(ToolbarAlign.Right)
+                .Items(
+                    F.Button().ID("Button2").CssClass("marginr").Text("设置编辑器的值").OnClick(Url.Action("Button2_Click")),
+                    F.Button().ID("Button1").Text("获取编辑器的值").OnClick(Url.Action("Button1_Click"),
+                            new Parameter("text", "F.ui.HtmlEditor1.getValue()"))
+                )
+        )
+    )
+
+
+
+
+}
+

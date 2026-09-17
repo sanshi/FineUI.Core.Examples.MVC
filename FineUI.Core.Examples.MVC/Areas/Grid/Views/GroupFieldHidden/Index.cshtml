@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Grid/GroupFieldHidden";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Grid().IsFluid(true).ID("Grid1").ShowBorder(true).ShowHeader(true).Title("表格").DataIDField("Id")
+        .Columns(
+            F.RenderField().DataField("Year").HeaderText("统计年份"),
+            F.GroupField().ColumnID("anhui").HeaderText("安徽省").TextAlign(TextAlign.Center)
+                .Columns(
+                    F.GroupField().HeaderText("合肥市").TextAlign(TextAlign.Center)
+                        .Columns(
+                            F.RenderField().DataField("AHData1").HeaderText("数据一"),
+                            F.RenderField().DataField("AHData2").HeaderText("数据二")
+                        )
+                ),
+            F.GroupField().HeaderText("河南省").TextAlign(TextAlign.Center)
+                .Columns(
+                    F.GroupField().ColumnID("zhumadian").HeaderText("驻马店市").TextAlign(TextAlign.Center).Hidden(true)
+                        .Columns(
+                            F.RenderField().DataField("HZData1").HeaderText("数据一"),
+                            F.RenderField().DataField("HZData2").HeaderText("数据二")
+                        ),
+                    F.GroupField().HeaderText("漯河市").TextAlign(TextAlign.Center)
+                        .Columns(
+                            F.RenderField().DataField("HLData1").HeaderText("数据一"),
+                            F.RenderField().DataField("HLData2").HeaderText("数据二")
+                        )
+                ),
+            F.RenderField().BoxFlex(1).TextAlign(TextAlign.Center).DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd").HeaderText("记录时间")
+        ).DataSource(ViewBag.Grid1DataSource)
+
+    )
+    <br>
+    <br>
+    @(F.Button().ID("Button3").Text("显示/隐藏[安徽省]列").CssClass("marginr").OnClick(Url.Action("Button3_Click"),
+            new Parameter("anhuiHidden", "F.ui.Grid1.getColumn('anhui').hidden"))
+    )
+    @(F.Button().ID("Button1").Text("显示/隐藏[河南省/驻马店市]列").CssClass("marginr").OnClick(Url.Action("Button1_Click"),
+            new Parameter("zhumadianHidden", "F.ui.Grid1.getColumn('zhumadian').hidden"))
+    )
+    <br>
+    <br>
+    注：初始隐藏[河南省]下面的[驻马店]。
+
+}

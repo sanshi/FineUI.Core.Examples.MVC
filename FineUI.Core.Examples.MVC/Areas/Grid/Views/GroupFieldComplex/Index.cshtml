@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Grid/GroupFieldComplex";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Grid().IsFluid(true).ID("Grid1").ShowBorder(true).ShowHeader(true).Title("表格").DataIDField("Id")
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().DataField("Year").HeaderText("统计年份"),
+            F.GroupField().HeaderText("安徽省").TextAlign(TextAlign.Center)
+                .Columns(
+                    F.RenderField().DataField("HSData").HeaderText("黄山市"),
+                    F.GroupField().HeaderText("合肥市").TextAlign(TextAlign.Center)
+                        .Columns(
+                            F.RenderField().DataField("HFData").HeaderText("总数据"),
+                            F.GroupField().HeaderText("其中").TextAlign(TextAlign.Center)
+                                .Columns(
+                                    F.RenderField().DataField("HF_SHData").HeaderText("蜀山区"),
+                                    F.RenderField().DataField("HF_BHData").HeaderText("滨湖区")
+                                )
+                        )
+                ),
+            F.GroupField().HeaderText("河南省").TextAlign(TextAlign.Center)
+                .Columns(
+                    F.RenderField().DataField("LHData").HeaderText("漯河市"),
+                    F.GroupField().HeaderText("驻马店市").TextAlign(TextAlign.Center)
+                        .Columns(
+                            F.RenderField().DataField("ZMDData").HeaderText("总数据"),
+                            F.GroupField().HeaderText("其中").TextAlign(TextAlign.Center)
+                                .Columns(
+                                    F.RenderField().DataField("ZMD_SPData").HeaderText("遂平县"),
+                                    F.RenderField().DataField("ZMD_XPData").HeaderText("西平县")
+                                )
+                        )
+                ),
+            F.RenderField().ExpandUnusedSpace(true).MinWidth(150).TextAlign(TextAlign.Center).DataField("LogTime").HeaderText("记录时间")
+        ).DataSource(ViewBag.Grid1DataSource)
+    )
+    <br>
+    <br>
+
+
+}

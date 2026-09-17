@@ -1,0 +1,39 @@
+@{
+    ViewBag.SourceFiles = "~/Areas/DataModel/Models/Student.cs;~/Areas/DataModel/Models/StudentHelper.cs;~/Areas/DataModel/Models/StudentStore.cs";
+    ViewBag.Title = "DataModel/StudentEdit";
+    var F = Html.F();
+}
+
+@model FineUI.Core.Examples.MVC.Areas.DataModel.Models.Student
+
+
+@section body {
+
+    @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).ShowBorder(true).ShowHeader(true).Title("编辑学生")
+        .Items(
+            @* 编辑目标的主键：随回发一起提交，供保存时按主键重新读出实体 *@
+            F.HiddenFieldFor(m => m.Id),
+            @* 只读展示：Label 是展示型控件，不参与回发绑定。首屏由控制器加载的实体填值；
+               保存时事件处理器不覆盖分组，故数据源里的原值保持不变 *@
+            F.LabelFor(m => m.Group),
+            F.TextBoxFor(m => m.Name),
+            F.RadioButtonListFor(m => m.Gender).ColumnNumber(3)
+                .Items(
+                    F.RadioItem().Text("男").Value("1"),
+                    F.RadioItem().Text("女").Value("0")
+                ),
+            F.NumberBoxFor(m => m.EntranceYear),
+            F.CheckBoxFor(m => m.AtSchool),
+            F.TextBoxFor(m => m.Major),
+            F.DatePickerFor(m => m.EntranceDate)
+        )
+        .Toolbars(
+            F.Toolbar().Position(ToolbarPosition.Bottom)
+                .Items(
+                    F.Button().ID("btnSave").Text("保存").ValidateForms("SimpleForm1").OnClick(Url.Action("btnSave_Click"), "SimpleForm1"),
+                    F.Button().ID("btnReset").Type(ButtonType.Reset).Text("重置表单")
+                )
+        )
+    )
+
+}

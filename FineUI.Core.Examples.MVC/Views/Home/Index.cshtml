@@ -1,0 +1,258 @@
+@{
+    ViewBag.Title = "FineUI.Core 在线示例 - .NET 企业级全栈 UI 框架";
+    var F = Html.F();
+
+    // 左侧侧边栏宽度常量
+    var SIDEBAR_WIDTH_CONSTANT = 320;
+
+    // 左侧侧边栏微型模式宽度
+    var SIDEBAR_MINIMODE_WIDTH_CONSTANT = 70;
+}
+
+@section head {
+
+    <style>
+        :root {
+            --sidebar-width: @(SIDEBAR_WIDTH_CONSTANT.ToString() + "px");
+            --sidebar-minimode-width: @(SIDEBAR_MINIMODE_WIDTH_CONSTANT.ToString() + "px");
+        }
+    </style>
+
+
+    <link type="text/css" rel="stylesheet" href="~/res/css/index.css?v@(GlobalConfig.ProductVersion)" />
+    <link type="text/css" rel="stylesheet" href="~/res/css/mobileview.css?v@(GlobalConfig.ProductVersion)" />
+
+}
+
+@functions {
+
+    private void SetCheckedMenuItem(MenuButton menuButton, string checkedValue)
+    {
+        foreach (MenuItem item in menuButton.Menu.Items)
+        {
+            MenuCheckBox checkBox = (item as MenuCheckBox);
+            if (checkBox != null)
+            {
+                checkBox.Checked = checkBox.AttributeDataTag == checkedValue;
+            }
+        }
+    }
+
+}
+
+
+@section body {
+
+    <div id="sideheader" class="f-widget-header f-mainheader">
+        <a class="logo-img f-widget-header" href="./">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+                <path fill="currentColor" opacity="0.9" fill-rule="evenodd" d="M498.526 215.579h-4.58c-22.829-0.196-42.295-14.382-50.262-34.394l-0.13-0.369-1.617-4.042c-2.978-6.535-4.714-14.172-4.714-22.214 0-14.908 5.964-28.424 15.636-38.291l3.225-3.225c2.421-2.436 3.918-5.792 3.918-9.499s-1.497-7.064-3.919-9.5l0 0.001-38.4-38.13c-2.436-2.421-5.792-3.919-9.5-3.919s-7.063 1.497-9.5 3.919l-3.233 3.233c-9.859 9.663-23.373 15.627-38.282 15.627-8.043 0-15.68-1.736-22.558-4.853l0.344 0.14-4.043-1.617c-20.268-8.177-34.341-27.621-34.492-50.373v-4.6c0-7.441-6.032-13.473-13.474-13.473v0h-53.894c-7.441 0-13.474 6.032-13.474 13.473v0 4.58c-0.196 22.828-14.382 42.295-34.394 50.262l-0.369 0.129-4.042 1.617c-6.535 2.978-14.172 4.713-22.214 4.713-14.908 0-28.424-5.964-38.291-15.636l-3.225-3.225c-2.436-2.421-5.792-3.919-9.499-3.919s-7.064 1.497-9.5 3.919l0.001-0.001-38.13 38.4c-2.421 2.436-3.919 5.792-3.919 9.499s1.497 7.064 3.919 9.5l3.233 3.233c9.663 9.859 15.627 23.373 15.627 38.282 0 8.043-1.736 15.68-4.853 22.559l0.14-0.344-1.617 4.042c-8.177 20.268-27.621 34.341-50.373 34.492h-4.6c-7.441 0-13.473 6.032-13.473 13.474v0 53.894c0 7.442 6.032 13.474 13.473 13.474v0h4.58c22.828 0.197 42.295 14.382 50.262 34.394l0.129 0.369 1.617 4.043c2.978 6.534 4.713 14.172 4.713 22.214 0 14.908-5.964 28.425-15.636 38.291l-3.225 3.225c-2.421 2.436-3.919 5.792-3.919 9.5s1.497 7.063 3.919 9.5l-0.001-0 38.4 38.13c2.436 2.421 5.792 3.918 9.499 3.918s7.064-1.497 9.5-3.919l3.233-3.233c9.859-9.663 23.373-15.627 38.282-15.627 8.043 0 15.68 1.736 22.559 4.853l-0.344-0.14 4.042 1.617c20.268 8.177 34.341 27.622 34.492 50.373v4.6c0 7.442 6.032 13.474 13.474 13.474h53.894c7.442 0 13.474-6.032 13.474-13.474v0-4.58c0.197-22.829 14.382-42.295 34.394-50.262l0.369-0.13 4.043-1.617c6.534-2.978 14.172-4.714 22.214-4.714 14.908 0 28.425 5.964 38.291 15.636l3.225 3.225c2.436 2.421 5.792 3.918 9.5 3.918s7.063-1.497 9.5-3.919l-0 0 38.13-38.4c2.421-2.436 3.918-5.792 3.918-9.5s-1.497-7.063-3.919-9.5l-3.233-3.233c-9.663-9.859-15.627-23.373-15.627-38.282 0-8.043 1.736-15.68 4.853-22.558l-0.14 0.344 1.617-4.043c8.177-20.268 27.622-34.341 50.373-34.492h4.6c7.442 0 13.473-6.032 13.473-13.474v0-53.894c0-7.441-6.032-13.474-13.474-13.474v0z M256 107.79c81.854 0 148.21 66.356 148.21 148.21s-66.356 148.21-148.21 148.21S107.79 337.854 107.79 256 174.146 107.79 256 107.79z">
+                </path>
+                <path fill="currentColor" opacity="0.6" fill-rule="evenodd" d="M256.002 107.79c-81.854 0-148.21 66.356-148.21 148.21s66.356 148.21 148.21 148.21c81.854 0 148.21-66.356 148.21-148.21v0c0-81.854-66.356-148.21-148.21-148.21v0z M256.002 323.369c-37.206 0-67.369-30.161-67.369-67.369s30.161-67.369 67.369-67.369c37.206 0 67.369 30.161 67.369 67.369v0c0 37.206-30.161 67.369-67.369 67.369v0z"></path>
+            </svg>
+        </a>
+        <a class="logo f-widget-header" href="@Url.Content("~/")" title="FineUI.Core" id="logoTitle">FineUI.Core</a>
+        <div class="logo-subtitle">MVC</div>
+    </div>
+    <div id="header" class="f-widget-header f-mainheader" style="display:none;">
+        <div class="header-left">
+            @(F.Button().ID("btnCollapseSidebar").CssClass("icononlyaction").ToolTip("折叠/展开侧边栏").IconAlign(IconAlign.Top).IconFont(IconFont._Fold).EnableDefaultState(false).TabIndex(-1).ClickHandler("onFoldClick"))
+            <div id="breadcrumb">
+                <div class="breadcrumb-inner">
+                    <span class="breadcrumb-last">首页</span>
+                </div>
+                <div class="breadcrumb-icons">
+                    <a data-qtip="查看源代码" href="javascript:onToolSourceCodeClick();"><i class="f-icon f-iconfont f-iconfont-code"></i></a>
+                    <a data-qtip="刷新本页" href="javascript:onToolRefreshClick();"><i class="f-icon f-iconfont f-iconfont-refresh"></i></a>
+                    <a data-qtip="在新标签页中打开" href="javascript:onToolNewWindowClick();"><i class="f-icon f-iconfont f-iconfont-new-tab"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="header-right">
+            @(F.TwinTriggerBox().ID("ttbxSearch").CssClass("searchbox collapsed").ShowLabel(false).Trigger1Icon(TriggerIcon.Clear).ShowTrigger1(false).EmptyText("搜索示例").Trigger2Icon(TriggerIcon.Search).Width(24).Listener("trigger1click", "onSearchTrigger1Click").Listener("trigger2click", "onSearchTrigger2Click").Listener("blur", "onSearchBlur"))
+            @(F.Button().CssClass("icononlyaction btn-apply-trial").ToolTip("社区版下载").IconAlign(IconAlign.Top).IconFont(IconFont._Download).EnableDefaultState(false).TabIndex(-1).ClickHandler("onBaseDownloadClick").Badge(true).BadgeType(BadgeType.Warning).BadgeAnimationType(BadgeAnimationType.Processing))
+            @(F.Button().CssClass("icononlyaction").ID("btnThemeSelect").ToolTip("主题仓库").IconAlign(IconAlign.Top).IconFont(IconFont._Skin).EnableDefaultState(false).TabIndex(-1).ClickHandler("onThemeSelectClick"))
+            @(F.Button().EnableDefaultState(false).IconAlign(IconAlign.Left).IconUrl(Url.Content("~/res/images/my_face_80.jpg")).Text("三生石上").CssClass("userpicaction").Badge(ViewBag.CookieShowOnlyCommunity).BadgeType(BadgeType.Warning).BadgeText("仅社区版")
+                .Menu(F.Menu()
+                    .Items(
+                        F.MenuCheckBox().Text("仅显示社区版示例").ID("cbxShowOnlyCommunity").ClickHandler("onShowOnlyCommunityClick").Checked(ViewBag.CookieShowOnlyCommunity),
+                        F.MenuButton().Text("企业版试用").IconFont(IconFont._Enterprise).ClickHandler("onApplyTrialClick"),
+                        F.MenuSeparator(),
+                        F.MenuButton().Text("框架页风格").ID("MenuFramePageStyle")
+                            .Menu(F.Menu()
+                                .Items(
+                                    F.MenuCheckBox().GroupName("MenuFramePageStyle").AttributeDataTag("f-dark-left").ID("MenuFramePageStyleDarkLeft").Text("暗色侧栏"),
+                                    F.MenuCheckBox().GroupName("MenuFramePageStyle").AttributeDataTag("f-dark-top").ID("MenuFramePageStyleDarkTop").Text("暗色顶栏"),
+                                    F.MenuCheckBox().GroupName("MenuFramePageStyle").AttributeDataTag("f-dark-top-left").ID("MenuFramePageStyleDarkTopLeft").Text("暗色顶栏和侧栏")
+                                ).Listener("checkchange", "onMenuFramePageStyleCheckChange")
+                            ),
+                        F.MenuButton().Text("显示模式").ID("MenuDisplayMode")
+                            .Menu(F.Menu()
+                                .Items(
+                                    F.MenuCheckBox().GroupName("DisplayMode").AttributeDataTag("compact").ID("MenuDisplayModeCompact").Text("紧凑模式"),
+                                    F.MenuCheckBox().GroupName("DisplayMode").AttributeDataTag("small").ID("MenuDisplayModeSmall").Text("小字体模式"),
+                                    F.MenuCheckBox().GroupName("DisplayMode").Checked(true).AttributeDataTag("normal").ID("MenuDisplayModeNormal").Text("普通模式"),
+                                    F.MenuCheckBox().GroupName("DisplayMode").AttributeDataTag("largeSpace").ID("MenuDisplayModeLargeSpace").Text("大间距模式"),
+                                    F.MenuCheckBox().GroupName("DisplayMode").AttributeDataTag("large").ID("MenuDisplayModeLarge").Text("大字体模式")
+                                ).Listener("checkchange", "onMenuDisplayModeCheckChange")
+                            ),
+                        F.MenuButton().ID("MenuMainTabs").Text("主选项卡标签")
+                            .Menu(F.Menu()
+                                .Items(
+                                    F.MenuCheckBox().GroupName("MenuMainTabs").Checked(true).AttributeDataTag("multi").ID("MenuMainTabsMulti").Text("多标签页"),
+                                    F.MenuCheckBox().GroupName("MenuMainTabs").AttributeDataTag("single").ID("MenuMainTabsSingle").Text("单标签页")
+                                ).Listener("checkchange", "onMenuMainTabsCheckChange")
+                            ),
+                        F.MenuButton().ID("MenuLang").Text("语言")
+                            .Menu(F.Menu()
+                                .Items(
+                                    F.MenuCheckBox().GroupName("MenuLang").Checked(true).AttributeDataTag("zh_CN").ID("MenuLangZHCN").Text("简体中文"),
+                                    F.MenuCheckBox().GroupName("MenuLang").AttributeDataTag("zh_TW").ID("MenuLangZHTW").Text("繁體中文"),
+                                    F.MenuCheckBox().GroupName("MenuLang").AttributeDataTag("en").ID("MenuLangEN").Text("English"),
+                                    F.MenuCheckBox().GroupName("MenuLang").AttributeDataTag("zh_UEY").ID("MenuLangZHUEY").Text("ئۇيغۇر تىلى")
+                                ).Listener("checkchange", "onMenuLangCheckChange")
+                            ),
+                        F.MenuButton().ID("btnLoadingSelect").Text("页面加载动画（CSS）").ClickHandler("onLoadingSelectClick"),
+                        F.MenuSeparator(),
+                        F.MenuButton().ID("MenuExamples").Text("在线示例")
+                            .Menu(F.Menu()
+                                .Items(
+                                    F.MenuHyperLink().Target("_blank").NavigateUrl("https://fineui.com/pro/demo/").TextRawHtml(new RawHtml("FineUI.Pro <div class='online-examples-subtitle'>ASP.NET WebForms 控件库，经典始于 2008 年</div>")),
+                                    F.MenuHyperLink().Target("_blank").NavigateUrl("https://fineui.com/core/demo/").TextRawHtml(new RawHtml("FineUI.Core <div class='online-examples-subtitle'>ASP.NET Core 控件库，创新 RazorForms 开发模式，信创产品适用</div>")),
+                                    F.MenuHyperLink().Target("_blank").NavigateUrl("https://fineui.com/java/demo/").TextRawHtml(new RawHtml("FineUI.Java <div class='online-examples-subtitle'>Java 生态「AI 友好 · 标签式 · 有状态」企业级全栈 UI 框架</div>"))
+                                )
+                            ),
+                        F.MenuSeparator(),
+                        F.MenuText().HideOnClick(false).CssClass("copyright-menutext")
+                            .TextRawHtml(new RawHtml("<div class=\"copyright\">" +
+                                "<div class=\"version\"><a target=\"_blank\" href=\"http://fineui.com/core/\"><img src=\"" + Url.Content("~/res/images/newlogo/fineui.png") + "\" alt=\"logo\"/></a>" +
+                                "<br/><span>FineUI.Core v" + ViewBag.ProductVersion + "</span></div>" +
+                                "<div class=\"actions\"><a target=\"_blank\" href=\"http://fineui.com/fans/\">免费社区</a>" +
+                                "&nbsp;&nbsp;&nbsp;&nbsp;<a target=\"_blank\" href=\"http://fineui.com/versions/\">更新记录</a></div>" +
+                                "</div>"))
+                    )
+                )
+            )
+        </div>
+    </div>
+
+    <div id="applytrial_container" style="display:none;">
+        <div>
+            请填写如下资料发送到邮箱：2877408506@qq.com
+        </div>
+        <ul class="applytrial">
+            <li>产品名称：FineUI.Core（企业版）</li>
+            <li>单位全称：XXX单位</li>
+            <li>申请人邮箱：XXX</li>
+            <li>申请人QQ：XXX</li>
+            <li>申请人姓名：XXX</li>
+            <li>申请人地址：XX省XX市</li>
+        </ul>
+    </div>
+
+
+    @(F.Panel().ID("mainPanel").ShowHeader(false).ShowBorder(false).Layout(LayoutType.Region).CssClass("mainpanel").IsViewPort(true)
+                .Items(
+                    F.Panel().ID("sidebarRegion").CssClass("sidebarregion").RegionPosition(Position.Left).Width(@SIDEBAR_WIDTH_CONSTANT).Layout(LayoutType.VBox).ShowBorder(false).ShowHeader(false).RegionSplit(true).RegionSplitIcon(false).RegionSplitWidth(3).RegionSplitTransparent(true)
+                        .Items(
+                            F.Panel().ShowHeader(false).ShowBorder(false).CssClass("topregion").ContentEl("#sideheader"),
+                            F.Panel().BoxFlex(1).Layout(LayoutType.Fit).ShowHeader(false).ShowBorder(false).CssClass("leftregion").ID("leftPanel")
+                                .Items(
+                                    F.Tree().ID("treeMenu").ShowBorder(false).ShowHeader(false).EnableSingleClickExpand(true).Nodes((TreeNode[])ViewBag.TreeMenuNodes)
+                                        .HideHScrollbar(true).HideVScrollbar(true).ExpanderToRight(true).HeaderStyle(true).AllHeaderStyle(true)
+                                )
+                        ).Listener("splitdrag", "onSidebarSplitDrag"),
+                    F.Panel().ID("bodyRegion").CssClass("bodyregion").RegionPosition(Position.Center).Layout(LayoutType.VBox).ShowBorder(false).ShowHeader(false)
+                        .Items(
+                            F.Panel().ID("topPanel").ShowHeader(false).ShowBorder(false).CssClass("topregion").ContentEl("#header"),
+                            F.TabStrip().BoxFlex(1).ShowInkBar(true).InkBarPosition(InkBarPosition.Bottom).EnableTabCloseMenu(true).ShowBorder(true).RegionPosition(Position.Center).CssClass("centerregion").ID("mainTabStrip").ShowTabHeader(@ViewBag.CookieMainTabs == "multi")
+                                .Tabs(
+                                    F.Tab().ID("tabHomepage").IFrameUrl(Url.Content("~/Basic/Main")).EnableIFrame(true).IconFont(IconFont._Home).Title("首页")
+                                )
+                                .Tools(
+                                    F.Tool().ID("toolSourceCode").ToolTip("查看源代码").CssClass("tabtool viewcode").IconFont(IconFont._Code).ClickHandler("onToolSourceCodeClick"),
+                                    F.Tool().ID("toolRefresh").ToolTip("刷新本页").CssClass("tabtool").IconFont(IconFont._Refresh).ClickHandler("onToolRefreshClick"),
+                                    F.Tool().ID("toolNewWindow").ToolTip("在新标签页中打开").CssClass("tabtool").IconFont(IconFont._NewTab).ClickHandler("onToolNewWindowClick")
+                                )
+                        )
+                )
+            )
+
+
+    @(F.Window().Hidden(true).EnableResize(true).EnableMaximize(true).EnableClose(true).Height(600).Width(1000).IsModal(true).EnableIFrame(true).Title("源代码").IconFont(IconFont._Code).ID("windowSourceCode"))
+
+    @(F.Window().Hidden(true).EnableResize(true).EnableMaximize(true).EnableClose(true).Height(600).Width(850).IsModal(true).ClearIFrameAfterClose(false).IFrameUrl(Url.Content("~/Home/Themes")).EnableIFrame(true).Title("主题仓库").ID("windowThemeRoller"))
+
+    @(F.Window().Hidden(true).EnableResize(true).EnableMaximize(true).EnableClose(true).Height(400).Width(500).IsModal(true).ClearIFrameAfterClose(false).IFrameUrl(Url.Content("~/Home/LoadingCSS")).EnableIFrame(true).Title("页面加载动画（CSS）").ID("windowLoadingSelector"))
+
+    @(F.Window().ID("windowApplyTrial").Title("企业版试用").IsModal(true).Width(500).EnableClose(true).EnableMaximize(false).BodyPadding(15).IconFont(IconFont._Mail).Hidden(true).ContentEl("#applytrial_container"))
+
+    @(F.HiddenField().ID("hfExamplesCount").Text(ViewBag.ExamplesCount))
+
+
+@{
+        string cookieFramePageStyle = (string)ViewBag.CookieFramePageStyle;
+        string cookieDisplayMode = (string)ViewBag.CookieDisplayMode;
+        string cookieMainTabs = (string)ViewBag.CookieMainTabs;
+        string cookieLang = (string)ViewBag.CookieLang;
+        string cookieSearchText = (string)ViewBag.CookieSearchText;
+
+        // 初始化设置 - 框架页风格
+        SetCheckedMenuItem(F.GetControl<MenuButton>("MenuFramePageStyle"), cookieFramePageStyle);
+
+        // 初始化设置 - 显示模式
+        SetCheckedMenuItem(F.GetControl<MenuButton>("MenuDisplayMode"), cookieDisplayMode);
+
+        // 初始化设置 - 主选项卡标签
+        SetCheckedMenuItem(F.GetControl<MenuButton>("MenuMainTabs"), cookieMainTabs);
+
+        // 初始化设置 - 语言
+        SetCheckedMenuItem(F.GetControl<MenuButton>("MenuLang"), cookieLang);
+
+        // 初始化搜索文本
+        var ttbxSearch = F.GetControl<TwinTriggerBox>("ttbxSearch");
+        if (!String.IsNullOrEmpty(cookieSearchText))
+        {
+            ttbxSearch.Text = cookieSearchText;
+            ttbxSearch.ShowTrigger1 = true;
+            ttbxSearch.Width = 200;
+            ttbxSearch.CssClass = "searchbox expanded";
+        }
+
+    }
+
+}
+
+
+
+
+
+@section script {
+
+    <script>
+        var PARAMS = {
+            mainPanel: 'mainPanel',
+            mainTabStrip: 'mainTabStrip',
+            treeMenu: 'treeMenu',
+            sidebarRegion: 'sidebarRegion',
+            btnCollapseSidebar: 'btnCollapseSidebar',
+            tabHomepage: 'tabHomepage',
+            windowSourceCode: 'windowSourceCode',
+            windowThemeRoller: 'windowThemeRoller',
+            windowLoadingSelector: 'windowLoadingSelector',
+            windowApplyTrial: 'windowApplyTrial',
+            hfExamplesCount: 'hfExamplesCount',
+            sourceUrl: '@Url.Content("~/Home/Source")',
+            dashboardUrl: '@Url.Content("~/Block/Dashboard")',
+            mainUrl: '@Url.Content("~/Basic/Main")',
+            processNewWindowUrl: function (url) {
+                return url.replace(/Mobile\/\?file=/ig, '');
+            }
+        };
+
+    </script>
+
+    <script src="~/res/js/index.js?v@(GlobalConfig.ProductVersion)"></script>
+    <script src="~/res/js/mobileview.js?v@(GlobalConfig.ProductVersion)"></script>
+
+}

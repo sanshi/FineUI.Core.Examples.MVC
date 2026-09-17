@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "MobileForm/LoginValidateMessageBoxPlain";
+    ViewBag.BodyBGColor = false;
+    var F = Html.F();
+}
+
+
+@section head {
+
+    <style>
+        .mypic {
+            text-align: center;
+        }
+
+            .mypic img {
+                border-radius: 50%;
+                width: 100px;
+                height: 100px;
+            }
+
+        .myhyperlinkcontainer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .myhyperlink {
+            display: inline-block !important;
+            margin-right: 5px;
+        }
+
+            .myhyperlink a {
+                font-size: 0.8em;
+            }
+    </style>
+
+}
+
+@section body {
+
+    @(F.Panel().ID("Panel1").ShowBorder(false).ShowHeader(false).Layout(LayoutType.Fit).BodyPadding(20).IsViewPort(true)
+        .Toolbars(
+            F.Toolbar().ID("Toolbar1").Title("系统登录").HeaderStyle(true)
+        )
+        .Items(
+            F.SimpleForm().ID("SimpleForm1").ShowBorder(false).ShowHeader(false).Layout(LayoutType.VBox).MessageTarget(MessageTarget.None)
+                .Items(
+                    F.Image().CssClass("mypic").ImageUrl(Url.Content("~/res/images/my_face_80.jpg")),
+                    F.TextBox().ID("tbxUserName").Label("用户名").ShowLabel(false).EmptyText("请输入用户名").Required(true),
+                    F.TextBox().ID("tbxPassword").Label("密码").ShowLabel(false).TextMode(TextMode.Password).EmptyText("请输入密码").Required(true),
+                    F.Button().ID("btnLogin").Text("登录").Type(ButtonType.Submit).ValidateForms("SimpleForm1").ValidateMessageBoxPlain(true).OnClick(Url.Action("btnLogin_Click"), "SimpleForm1"),
+                    F.Panel().CssClass("myhyperlinkcontainer").ShowBorder(false).ShowHeader(false)
+                        .Items(
+                            F.HyperLink().ID("HyperLink1").CssClass("myhyperlink").NavigateUrl("http://fineui.com/bbs/").Text("新用户注册"),
+                            F.HyperLink().ID("HyperLink2").CssClass("myhyperlink").NavigateUrl("http://fineui.com/bbs/").Text("忘记密码？")
+                        )
+                )
+        )
+    )
+
+
+}
+

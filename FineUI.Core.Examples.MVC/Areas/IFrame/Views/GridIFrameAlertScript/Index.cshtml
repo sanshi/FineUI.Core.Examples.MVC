@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.SourceFiles = "~/Areas/IFrame/Views/GridIFrameAlertScript/IFrameWindow.cshtml";
+    ViewBag.Title = "IFrame/GridIFrameAlertScript";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Grid().IsFluid(true).Height(550)
+        .Title("表格 - 页面加载时间：" + DateTime.Now.ToLongTimeString()).ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name").BoxFlex(1)
+        .Toolbars(
+            F.Toolbar().ID("Toolbar2")
+                .Items(
+                    F.Button().ID("btnPopupWindow").Text("按钮一"),
+                    F.ToolbarSeparator(),
+                    F.Button().ID("btnCheckSelection").Text("按钮二"),
+                    F.ToolbarSeparator(),
+                    F.Button().ID("btnConfirmButton").Text("按钮三")
+                )
+        )
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().HeaderText("姓名").DataField("Name"),
+            F.RenderField().HeaderText("性别").DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender"),
+            F.RenderField().HeaderText("入学年份").DataField("EntranceYear").FieldType(FieldType.Int),
+            F.RenderCheckField().HeaderText("是否在校").DataField("AtSchool").RenderAsStaticField(true),
+            F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150),
+            F.RenderField().HeaderText("分组").DataField("Group").RendererFunction("renderGroup"),
+            F.RenderField().HeaderText("窗口列").RendererFunction("renderWindowField1")
+        )
+        .DataSource(DataSourceUtil.GetDataTable()).Attribute("data-source-key", "table1")
+
+    )
+    @(F.Window().ID("Window1").Title("弹出窗体").EnableIFrame(true).EnableMaximize(true).Target(Target.Top).EnableResize(true).CloseAction(CloseAction.HidePostBack).Listener("close", "onWindow1Close").IsModal(true).Width(800).Height(550).Hidden(true))
+
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+    <script>
+
+        function doCustomPostBack(Window1_closeArgument) {
+            var grid1 = F.ui.Grid1;
+
+            // 触发后台事件
+            F.doPostBack({
+                url: '@Url.Action("MyCustomPostBack")',
+                params: {
+                    Window1_closeArgument: Window1_closeArgument,
+                    Grid1_sourceKey: grid1.getAttr('data-source-key'),
+                    Grid1_fields: grid1.fields
+                }
+            });
+        }
+
+        function onWindow1Close(event) {
+            doCustomPostBack('onWindow1Close');
+        }
+
+
+        function renderWindowField1(value, params) {
+            return '<a href="javascript:;" class="mywindowfield">编辑</a>';
+        }
+
+        // 打开窗体
+        function openWindow(rowData) {
+            // IFrame/GridIFrameAlertScript/IFrameWindow?id=104&name=刘国
+            var iframeWindowUrl = '@Url.Content("~/IFrame/GridIFrameAlertScript/IFrameWindow")';
+            var iframeUrl = iframeWindowUrl + '?id=' + rowData.id + '&name=' + encodeURIComponent(rowData.text);
+
+            // 显示窗体
+            F.ui.Window1.show(iframeUrl, '详细信息 - ' + rowData.text);
+        }
+
+        F.ready(function () {
+
+            var grid = F.ui.Grid1;
+
+            // 点击表格行中的编辑按钮
+            grid.el.on('click', 'a.mywindowfield', function (event) {
+                var rowEl = $(this).closest('.f-grid-row');
+                var rowData = grid.getRowData(rowEl);
+
+                openWindow(rowData);
+            });
+
+        });
+
+    </script>
+}

@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Block/NestingComplex";
+
+    ViewBag.IsDarkerBG = true;
+
+    var F = Html.F();
+}
+
+@section head {
+
+    <style>
+        body.f-body {
+            overflow-x: hidden;
+        }
+    </style>
+
+}
+
+@section body {
+
+    @(F.Panel().IsFluid(true).Layout(LayoutType.Block).BlockConfigSpace(20).ShowBorder(false).ShowHeader(false)
+        .Items(
+            F.Panel().BlockMD(12).BlockLG(4).Layout(LayoutType.Block).BlockConfigSpace(20).ShowBorder(false).ShowHeader(false)
+                .Items(
+                    F.Panel().BlockMD(6).BlockLG(12).Height(200).ShowBorder(true).ShowHeader(true).Title("1"),
+                    F.Panel().BlockMD(6).BlockLG(12).Height(200).ShowBorder(true).ShowHeader(true).Title("2")
+                ),
+            F.Panel().BlockMD(12).BlockLG(8).Layout(LayoutType.Block).BlockConfigSpace(20).ShowBorder(false).ShowHeader(false)
+                .Items(
+                    F.Panel().BlockSM(6).BlockMD(3).Height(150).ShowBorder(true).ShowHeader(true).Title("3"),
+                    F.Panel().BlockSM(6).BlockMD(3).Height(150).ShowBorder(true).ShowHeader(true).Title("4"),
+                    F.Panel().BlockSM(6).BlockMD(3).Height(150).ShowBorder(true).ShowHeader(true).Title("5"),
+                    F.Panel().BlockSM(6).BlockMD(3).Height(150).ShowBorder(true).ShowHeader(true).Title("6"),
+                    F.Panel().Block(12).Height(250).ShowBorder(true).ShowHeader(true).Title("7")
+                ),
+            F.Panel().BlockMD(12).Layout(LayoutType.Block).BlockConfigSpace(20).ShowBorder(false).ShowHeader(false)
+                .Items(
+                    F.Panel().BlockMD(4).Height(200).ShowBorder(true).ShowHeader(true).Title("8"),
+                    F.Panel().BlockMD(4).Height(200).ShowBorder(true).ShowHeader(true).Title("9"),
+                    F.Panel().BlockMD(4).Height(200).ShowBorder(true).ShowHeader(true).Title("10"),
+                    F.Panel().Block(12).Height(300).ShowBorder(true).ShowHeader(true).Title("11")
+                )
+        )
+    )
+
+
+
+}

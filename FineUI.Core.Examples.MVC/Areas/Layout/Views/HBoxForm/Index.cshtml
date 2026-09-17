@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Layout/HBoxForm";
+
+
+    var F = Html.F();
+}
+
+@section head {
+
+    <style>
+        /*.mysimpleform .f-field {
+                    margin-bottom: 0 !important;
+                }*/
+    </style>
+
+}
+
+
+@section body {
+
+    @(F.Panel().IsFluid(true).ID("Panel1").Height(350).ShowBorder(true).Layout(LayoutType.VBox).BodyPadding(10).BoxConfigChildMargin("0 0 5 0").ShowHeader(true).Title("面板（SimpleForm - Layout=HBox）")
+        .Items(
+            F.SimpleForm().ID("SimpleForm1").ShowBorder(false).ShowHeader(false)
+	    	.Layout(LayoutType.HBox).BoxConfigChildMargin("0 5 0 0").BoxConfigLastChildMargin("0").RemoveFieldsMargin(true)
+                .Items(
+                    F.Label().Text("销毁统计时间段："),
+                    F.DatePicker().Width(150).Required(true).DateFormatString("yyyy/MM/dd").EmptyText("请选择开始日期").ShowLabel(false).Label("销毁统计开始时间").ID("dpStartDate").EnableEdit(false),
+                    F.DatePicker().ID("dpEndDate").Width(150).Required(true).Readonly(false).CompareControl("dpStartDate").DateFormatString("yyyy/MM/dd").CompareOperator(Operator.GreaterThan).CompareMessage("结束日期应该大于开始日期").EmptyText("请选择结束日期").ShowLabel(false).Label("销毁统计结束时间").EnableEdit(false),
+                    F.Button().ID("btnClearDate").Text("重置起止时间").ClickHandler("onClearDateClick"),
+                    F.Button().ID("btnSearch").Text("查询").ValidateForms("SimpleForm1")
+                ),
+            F.Panel().ID("Panel3").BoxFlex(1).Margin(0).ShowBorder(true).ShowHeader(false)
+        )
+    )
+
+    <br>
+    <br>
+    <br>
+    下面使用 Column 布局实现相同的效果：
+    <br>
+
+    @(F.Panel().ID("Panel2").IsFluid(true).Height(350).ShowBorder(true).Layout(LayoutType.VBox).BodyPadding(10).BoxConfigChildMargin("0 0 5 0").ShowHeader(true).Title("面板（SimpleForm - Layout=Column）")
+        .Items(
+            F.SimpleForm().ID("SimpleForm2").ShowBorder(false).ShowHeader(false)
+	    	.Layout(LayoutType.Column).RemoveFieldsMargin(true)
+                .Items(
+                    F.Label().ID("Label1").Text("销毁统计时间段："),
+                    F.DatePicker().Width(150).CssClass("marginr").Required(true).DateFormatString("yyyy/MM/dd").EmptyText("请选择开始日期").ShowLabel(false).Label("销毁统计开始时间").ID("DatePicker1").EnableEdit(false),
+                    F.DatePicker().ID("DatePicker2").Width(150).CssClass("marginr").Required(true).Readonly(false).CompareControl("DatePicker1").DateFormatString("yyyy/MM/dd").CompareOperator(Operator.GreaterThan).CompareMessage("结束日期应该大于开始日期").EmptyText("请选择结束日期").ShowLabel(false).Label("销毁统计结束时间").EnableEdit(false),
+                    F.Button().ID("Button1").CssClass("marginr").Text("重置起止时间").ClickHandler("onClearDateClick"),
+                    F.Button().ID("Button2").Text("查询").ValidateForms("SimpleForm2")
+                ),
+            F.Panel().BoxFlex(1).Margin(0).ShowBorder(true).ShowHeader(false)
+        )
+    )
+    <br>
+    <br>
+    注：为表单设置 RemoveFieldsMargin="true" 来移除表单字段的底部外边距。
+
+}
+
+@section script {
+
+    <script>
+
+        function onClearDateClick(event) {
+            // this -> 按钮实例；获取按钮所在的表单ID
+            var formId = this.el.parents('.f-form').attr('id');
+
+            F(formId).reset();
+        }
+
+    </script>
+
+}

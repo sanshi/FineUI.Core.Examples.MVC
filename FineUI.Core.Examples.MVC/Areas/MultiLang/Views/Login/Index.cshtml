@@ -1,0 +1,42 @@
+@{
+    ViewBag.Title = "MultiLang/Login";
+    var F = Html.F();
+}
+
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject IHtmlLocalizer<FineUI.Core.Examples.MVC.Areas.MultiLang.Controllers.LoginController> Localizer
+@functions {
+    ParamsFunc<string, object, LocalizedString> _R => Localizer.GetString;
+}
+
+@section body {
+
+    <div>
+        @Html.Raw(_R("Notice"))
+    </div>
+
+    @(F.Window().Width(350).WindowPosition(WindowPosition.GoldenSection).EnableClose(false).IsModal(false).Title(@_R("登录表单")).ID("Window1")
+        .Items(
+            F.SimpleForm().ShowHeader(false).BodyPadding(10).ShowBorder(false).ID("SimpleForm1")
+                .Items(
+                    F.TextBox().ShowRedStar(true).Required(true).Label(@_R("用户名")).MaxLength(20).ID("UserName"),
+                    F.TextBox().ShowRedStar(true).Required(true).RequiredMessage(@_R("密码不能为空！")).EnableValidateTrim(false).TextMode(TextMode.Password).Label(@_R("密码"))
+                    .MaxLength(9).MaxLengthMessage(@_R("密码最大为 9 个字符！")).MinLength(3).MinLengthMessage(@_R("密码最小为 3 个字符！"))
+                        .Regex("^(?:[0-9]+[a-zA-Z]|[a-zA-Z]+[0-9])[a-zA-Z0-9]*$").RegexMessage(@_R("密码至少包含一个字母和数字！")).ID("Password")
+                )
+        )
+        .Toolbars(
+            F.Toolbar().Position(ToolbarPosition.Bottom).ToolbarAlign(ToolbarAlign.Right)
+                .Items(
+                    F.Button().OnClick(Url.Action("btnLogin_Click"), "SimpleForm1").ValidateTarget(Target.Top).ValidateForms("SimpleForm1").Type(ButtonType.Submit).Text(@_R("登录")).ID("btnLogin"),
+                    F.Button().Type(ButtonType.Reset).Text(@_R("重置")).ID("btnReset")
+                )
+        )
+    )
+    <br>
+
+
+}
+

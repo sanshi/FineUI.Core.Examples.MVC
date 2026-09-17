@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "MobileWindow/PositionPercent";
+    ViewBag.BodyBGColor = false;
+    var F = Html.F();
+}
+
+
+@section body {
+
+    <div id="container1">
+        <p>
+            <a href="http://baike.baidu.com/view/3645.htm" target="_blank"><b>比尔·盖茨</b></a>
+        </p><p>
+            比尔·盖茨（Bill Gates），全名威廉·亨利·盖茨三世，简称比尔或盖茨。1975年与好友保罗·艾伦一起创办了微软公司，比尔盖茨担任微软公司董事长、CEO和首席软件设计师。
+        </p>
+    </div>
+    <div id="container2">
+        <p>
+            <a href="http://baike.baidu.com/view/3645.htm" target="_blank"><b>比尔·盖茨</b></a>
+        </p><p>
+            比尔·盖茨（Bill Gates），全名威廉·亨利·盖茨三世，简称比尔或盖茨。1975年与好友保罗·艾伦一起创办了微软公司，比尔盖茨担任微软公司董事长、CEO和首席软件设计师。
+        </p>
+    </div>
+    <div id="container3">
+        <p>
+            <a href="http://baike.baidu.com/view/3645.htm" target="_blank"><b>比尔·盖茨</b></a>
+        </p><p>
+            比尔·盖茨（Bill Gates），全名威廉·亨利·盖茨三世，简称比尔或盖茨。1975年与好友保罗·艾伦一起创办了微软公司，比尔盖茨担任微软公司董事长、CEO和首席软件设计师。
+        </p>
+    </div>
+    <div id="container4">
+        <p>
+            <a href="http://baike.baidu.com/view/3645.htm" target="_blank"><b>比尔·盖茨</b></a>
+        </p><p>
+            比尔·盖茨（Bill Gates），全名威廉·亨利·盖茨三世，简称比尔或盖茨。1975年与好友保罗·艾伦一起创办了微软公司，比尔盖茨担任微软公司董事长、CEO和首席软件设计师。
+        </p>
+    </div>
+    <div id="container5">
+        <p>
+            <a href="http://baike.baidu.com/view/3645.htm" target="_blank"><b>比尔·盖茨</b></a>
+        </p><p>
+            比尔·盖茨（Bill Gates），全名威廉·亨利·盖茨三世，简称比尔或盖茨。1975年与好友保罗·艾伦一起创办了微软公司，比尔盖茨担任微软公司董事长、CEO和首席软件设计师。
+        </p>
+    </div>
+
+    @(F.Panel().ID("Panel1").ShowBorder(false).ShowHeader(false).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 5 0").BodyPadding(10).IsViewPort(true)
+        .Items(
+            F.Button().ID("Button1").Text("左侧窗体").ClickHandler("onOpenWindow1Click"),
+            F.Button().ID("Button2").Text("右侧窗体").ClickHandler("onOpenWindow2Click"),
+            F.Button().ID("Button3").Text("顶部窗体").ClickHandler("onOpenWindow3Click"),
+            F.Button().ID("Button4").Text("底部窗体").ClickHandler("onOpenWindow4Click"),
+            F.Button().ID("Button5").Text("居中窗体").ClickHandler("onOpenWindow5Click")
+        )
+    )
+
+    @(F.Window().ID("Window1").ShowHeader(false).IsModal(true).HideOnMaskClick(true).BodyPadding(10).Layout(LayoutType.Fit).PercentWidth("50%").PercentHeight("100%").EnableDefaultCorner(false).PositionX(Position.Left).Hidden(true)
+        .Items(
+            F.Panel().ShowBorder(false).ShowHeader(false).AutoScroll(true).ContentEl("#container1")
+        )
+    )
+
+    @(F.Window().ID("Window2").ShowHeader(false).IsModal(true).HideOnMaskClick(true).BodyPadding(10).Layout(LayoutType.Fit).PercentWidth("50%").PercentHeight("100%").EnableDefaultCorner(false).PositionX(Position.Right).Hidden(true)
+        .Items(
+            F.Panel().ID("ContentPanel1").ShowBorder(false).ShowHeader(false).AutoScroll(true).ContentEl("#container2")
+        )
+    )
+
+    @(F.Window().ID("Window3").ShowHeader(false).IsModal(true).HideOnMaskClick(true).BodyPadding(10).Layout(LayoutType.Fit).PercentWidth("100%").PercentHeight("50%").EnableDefaultCorner(false).PositionY(Position.Top).Hidden(true)
+        .Items(
+            F.Panel().ID("ContentPanel2").ShowBorder(false).ShowHeader(false).AutoScroll(true).ContentEl("#container3")
+        )
+    )
+
+    @(F.Window().ID("Window4").ShowHeader(false).IsModal(true).HideOnMaskClick(true).BodyPadding(10).Layout(LayoutType.Fit).PercentWidth("100%").PercentHeight("50%").EnableDefaultCorner(false).PositionY(Position.Bottom).Hidden(true)
+        .Items(
+            F.Panel().ID("ContentPanel4").ShowBorder(false).ShowHeader(false).AutoScroll(true).ContentEl("#container4")
+        )
+    )
+
+    @(F.Window().ID("Window5").ShowHeader(false).IsModal(true).HideOnMaskClick(true).BodyPadding(10).Layout(LayoutType.Fit).PercentWidth("80%").PercentHeight("50%").Hidden(true)
+        .Items(
+            F.Panel().ID("ContentPanel5").ShowBorder(false).ShowHeader(false).AutoScroll(true).ContentEl("#container5")
+        )
+    )
+
+}
+
+
+@section script {
+
+    <script>
+
+        function onOpenWindow1Click(event) {
+            F.ui.Window1.show();
+        }
+
+        function onOpenWindow2Click(event) {
+            F.ui.Window2.show();
+        }
+
+        function onOpenWindow3Click(event) {
+            F.ui.Window3.show();
+        }
+
+        function onOpenWindow4Click(event) {
+            F.ui.Window4.show();
+        }
+
+        function onOpenWindow5Click(event) {
+            F.ui.Window5.show();
+        }
+
+    </script>
+
+}

@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "GridMove/ColumnMove";
+    var F = Html.F();
+}
+
+@using Newtonsoft.Json.Linq;
+
+@section body {
+
+    @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name").EnableColumnMove(true)
+        .Columns(
+            F.RowNumberField().ColumnID("RowNumber"),
+            F.RenderField().HeaderText("姓名").ColumnID("Name").DataField("Name"),
+            F.RenderField().HeaderText("性别").ColumnID("Gender").DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender"),
+            F.RenderField().HeaderText("入学年份").ColumnID("EntranceYear").DataField("EntranceYear").FieldType(FieldType.Int),
+            F.RenderCheckField().HeaderText("是否在校").ColumnID("AtSchool").DataField("AtSchool").RenderAsStaticField(true),
+            F.RenderField().HeaderText("所学专业").ColumnID("Major").DataField("Major").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150),
+            F.RenderField().HeaderText("分组").ColumnID("Group").DataField("Group").RendererFunction("renderGroup"),
+            F.RenderField().HeaderText("注册日期").ColumnID("LogTime").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+        )
+        .DataSource(DataSourceUtil.GetDataTable()).Listener("columnmove", "onGrid1ColumnMove")
+    )
+    <br>
+    <br>
+
+    @(F.Button().ID("btnRefresh").Text("刷新本页面（保持列顺序）").ClickHandler("onRefreshClick"))
+
+    <br />
+    <br />
+    @(F.Button().Text("清空数据").ID("btnClearData").OnClick(Url.Action("btnClearData_Click")))
+    @(F.Button().Text("重新绑定数据").ID("btnRebind").Icon(Icon.Reload).OnClick(Url.Action("btnRebindData_Click"), "Grid1"))
+
+
+    @{
+        JArray savedColumns = ViewBag.Grid1ColumnIDS as JArray;
+        if (savedColumns != null && savedColumns.Count > 0)
+        {
+            var grid1 = F.GetControl<Grid>("Grid1");
+
+            // 将数据库保存的列顺序应用到表格列上
+            int order = 0;
+            foreach (string columnId in savedColumns)
+            {
+                GridColumn foundColumn = grid1.FindColumn(columnId);
+                if (foundColumn != null)
+                {
+                    foundColumn.ColumnOrder = order;
+                }
+                order++;
+            }
+        }
+    }
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+    <script>
+
+        function onRefreshClick(event) {
+            window.location.reload();
+        }
+
+
+        function onGrid1ColumnMove(event, targetColumnId, sourceColumnId, operation) {
+            var grid = this;
+
+            // 列顺序数组
+            var columnIds = $.map(grid.columns, function (item, index) {
+                return item.columnId;
+            });
+
+            // 触发后台事件
+            F.doPostBack({
+                url: '@Url.Action("Grid1_ColumnMove")',
+                params: {
+                    columnIds: F.toJSON(columnIds)
+                }
+            });
+        }
+
+
+    </script>
+}

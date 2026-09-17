@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.SourceFiles = "~/Areas/Basic/Controllers/CaptchaImage.cs";
+    ViewBag.Title = "Basic/LoginCaptcha";
+    var F = Html.F();
+}
+
+
+@section head {
+
+    <style>
+        .imgcaptcha .f-field-label {
+            margin: 0;
+        }
+
+        .login-image {
+            border-width: 0 1px 0 0;
+            border-radius: 0;
+        }
+
+            .login-image .f-panel-body {
+                display: flex;
+                align-items: center;
+            }
+
+            .login-image .f-icon {
+                font-size: 96px;
+                width: 96px;
+                height: 96px;
+                line-height: 96px;
+                vertical-align: top;
+            }
+    </style>
+
+}
+
+
+@section body {
+
+    <div>
+        用户名：admin
+        <br>
+        密码：admin
+        <br>
+        <br>
+    </div>
+
+    @(F.Window().Layout(LayoutType.HBox).Width(400).WindowPosition(WindowPosition.GoldenSection).IconFont(IconFont._SignIn).EnableClose(false).IsModal(false).Title("登录表单").ID("Window1")
+        .Items(
+            F.Panel().ShowHeader(false).ShowBorder(true).BodyPadding(10).CssClass("login-image").Content("<i class=\"f-icon f-icon-key\"></i>"),
+            F.SimpleForm().ShowHeader(false).BodyPadding(10).ShowBorder(false).BoxFlex(1).ID("SimpleForm1")
+                .Items(
+                    F.TextBox().ShowRedStar(true).Required(true).Label("用户名").ID("tbxUserName"),
+                    F.TextBox().ShowRedStar(true).Required(true).TextMode(TextMode.Password).Label("密码").ID("tbxPassword"),
+                    F.Panel().BoxConfigAlign(BoxLayoutAlign.Stretch).Layout(LayoutType.HBox).ShowHeader(false).ShowBorder(false)
+                        .Items(
+                            F.TextBox().Required(true).Label("验证码").Margin("0 5 0 0").BoxFlex(1).ID("tbxCaptcha"),
+                            F.LinkButton().OnClick(Url.Action("imgCaptcha_Click")).EncodeText(false).Width(100).CssClass("imgcaptcha").ID("imgCaptcha").Text(ViewBag.ImgCaptchaText)
+                        )
+                )
+        )
+        .Toolbars(
+            F.Toolbar().Position(ToolbarPosition.Bottom).ToolbarAlign(ToolbarAlign.Right).ID("Toolbar1")
+                .Items(
+                    F.Button().ButtonColor(ButtonColor.Primary).OnClick(Url.Action("btnLogin_Click"), "SimpleForm1").ValidateTarget(Target.Top).ValidateForms("SimpleForm1").Type(ButtonType.Submit).Text("登录").ID("btnLogin"),
+                    F.Button().Type(ButtonType.Reset).Text("重置").ID("btnReset")
+                )
+        )
+    )
+    
+
+}
+

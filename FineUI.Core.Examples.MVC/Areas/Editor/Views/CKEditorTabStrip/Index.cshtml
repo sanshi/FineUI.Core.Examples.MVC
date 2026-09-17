@@ -1,0 +1,33 @@
+@{
+    ViewBag.Title = "Editor/CKEditorTabStrip";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.TabStrip().IsFluid(true).ID("TabStrip1").Height(500).ShowBorder(true).TabPosition(TabPosition.Top).EnableTabCloseMenu(false).ActiveTabIndex(0)
+        .Tabs(
+            F.Tab().ID("Tab1").Title("选项卡一").BodyPadding(10).Layout(LayoutType.Anchor)
+                .Items(
+                    F.HtmlEditor().Label("编辑器一").ID("HtmlEditor1").Editor(Editor.CKEditor)
+                        .BasePath(Url.Content("~/res/third-party/ckeditor/")).ToolbarSet(EditorToolbarSet.Full).Height(300).Text("<p>FineUI.Core<br>.NET 企业级全栈 UI 框架<br><br>支持的浏览器<br>Chrome、Firefox、Safari、Edge<br><br>相关链接<br>首页：http://fineui.com/<br>示例：https://fineui.com/core/demo-mvc/</p>")
+                ),
+            F.Tab().ID("Tab2").Title("选项卡二").BodyPadding(10).Layout(LayoutType.Fit)
+                .Items(
+                    F.HtmlEditor().Label("编辑器二").ID("HtmlEditor2").Editor(Editor.CKEditor)
+                        .BasePath(Url.Content("~/res/third-party/ckeditor/")).ToolbarSet(EditorToolbarSet.Basic).Text("<p>这是编辑器二的值</p>")
+                )
+        )
+        .Toolbars(
+            F.Toolbar().Position(ToolbarPosition.Bottom)
+                .Items(
+                    F.Button().Text("获取编辑器的值").ID("Button1").OnClick(Url.Action("Button1_Click"),
+                            new Parameter("text1", "F.ui.HtmlEditor1.getValue()"),
+                            new Parameter("text2", "F.ui.HtmlEditor2.getValue()"))
+                )
+        )
+    )
+
+
+}

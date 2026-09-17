@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Grid/RowDataBoundCellClass";
+    var F = Html.F();
+}
+
+
+@section head {
+
+    <style>
+        .colorred {
+            font-weight: bold;
+            color: red;
+        }
+
+        .colorgreen {
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+
+}
+
+@section body {
+
+    @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name").EnableCheckBoxSelect(true)
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().HeaderText("姓名").DataField("Name"),
+            F.RenderField().HeaderText("性别").DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender"),
+            F.RenderField().HeaderText("入学年份").DataField("EntranceYear").FieldType(FieldType.Int),
+            F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150),
+            F.RenderField().HeaderText("分组").DataField("Group").RendererFunction("renderGroup"),
+            F.RenderField().HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+        ).RowDataBoundFunction("onGrid1RowDataBound")
+        .DataSource(DataSourceUtil.GetDataTable())
+    )
+    <br>
+    <br>
+
+    @(F.Button().Text("选中了哪些行").ID("Button1").ClickHandler("onNotifySelectedRowsClick"))
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+    <script>
+
+        function onGrid1RowDataBound(rowData) {
+            var rowValues = rowData.values;
+            var entranceYear = rowValues['EntranceYear'];
+            if (entranceYear >= 2004) {
+                rowValues['EntranceYear.cls'] = 'colorgreen';
+            } else {
+                rowValues['EntranceYear.cls'] = 'colorred';
+            }
+        }
+
+    </script>
+}

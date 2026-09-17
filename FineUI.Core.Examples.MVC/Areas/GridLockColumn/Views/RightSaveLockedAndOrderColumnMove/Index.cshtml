@@ -1,0 +1,137 @@
+﻿@{
+    ViewBag.Title = "GridLockColumn/RightSaveLockedAndOrderColumnMove";
+    var F = Html.F();
+}
+@using Newtonsoft.Json.Linq
+
+@section body {
+
+    @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name")
+        .AllowColumnLocking(true).ColumnLockingRight(true).EnableColumnMove(true).Width(1000)
+        .Columns(
+            F.RowNumberField().ColumnID("RowNumber"),
+            F.RenderField().HeaderText("姓名").DataField("Name").EnableLock(true).Locked(true),
+            F.RenderField().HeaderText("性别").DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender").EnableLock(true),
+            F.RenderField().HeaderText("入学年份").DataField("EntranceYear").FieldType(FieldType.Int).EnableLock(true),
+            F.RenderCheckField().HeaderText("是否在校").DataField("AtSchool").RenderAsStaticField(true).EnableLock(true),
+            F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").Width(400).EnableLock(true),
+            F.RenderField().EnableLock(true).DataField("ShenGao").HeaderText("身高"),
+            F.RenderField().EnableLock(true).DataField("TiZhong").HeaderText("体重"),
+            F.RenderField().EnableLock(true).DataField("XueYaDi").HeaderText("血压（低）"),
+            F.RenderField().EnableLock(true).DataField("XueYaGao").HeaderText("血压（高）"),
+            F.RenderField().EnableLock(true).DataField("ShiLiZuo").HeaderText("视力（左）"),
+            F.RenderField().EnableLock(true).DataField("ShiLiYou").HeaderText("视力（右）"),
+            F.RenderField().EnableLock(true).HeaderText("分组").DataField("Group").RendererFunction("renderGroup"),
+            F.RenderField().EnableLock(true).HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+        )
+        .Listener("columnlock", "onGridColumnLock")
+        .Listener("columnunlock", "onGridColumnUnlock")
+        .Listener("columnmove", "onGridColumnMove")
+        .Listener("dataload", "onGridDataLoad")
+        .DataSource(DataSourceUtil.GetDataTable())
+    )
+    <br>
+    <br>
+
+    @(F.Button().ID("btnRefresh").Text("刷新本页面（保持列锁定状态和列顺序）").ClickHandler("onReloadPageClick"))
+
+    <br />
+    <br />
+    @(F.Label().ID("labResult").EncodeText(false))
+    <br />
+    <br />
+        注：列拖拽排序时可能会改变列的锁定状态。
+
+    @{
+        Grid grid1 = F.GetControl<Grid>("Grid1");
+
+        JArray savedColumns = ViewBag.SavedColumns as JArray;
+
+        // 将数据库保存的列顺序应用到表格列上
+        int order = 0;
+        foreach (JObject column in savedColumns)
+        {
+            GridColumn foundColumn = grid1.FindColumn(column.Value<string>("ColumnID"));
+            if (foundColumn != null)
+            {
+                foundColumn.ColumnOrder = order;
+
+                // 约定：Locked 属性一定存在
+                bool locked = column.Value<bool>("Locked");
+                foundColumn.Locked = locked;
+            }
+            order++;
+        }
+    }
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+    <script>
+
+        function showLockedTips(grid) {
+            var lockedLeftColumns = [];
+
+            $.each(grid.columns, function (index, column) {
+                if (column.locked) {
+                    lockedLeftColumns.push(column.text || column.columnId);
+                }
+            });
+
+            // 显示锁定列提示信息
+            F.ui.labResult.setValue('左侧锁定列：' + lockedLeftColumns.join(', '));
+        }
+
+        function saveToDB(grid) {
+
+            // 显示锁定列提示信息
+            showLockedTips(grid);
+
+            // 列锁定和列顺序
+            var configedColumns = $.map(grid.columns, function (column, index) {
+                return {
+                    ColumnID: column.columnId,
+                    Locked: column.locked
+                };
+            });
+
+
+            // 触发后台事件
+            F.doPostBack({
+                url: '@Url.Action("Grid1_ColumnLockUnlock")',
+                params: {
+                    configedColumns: F.toJSON(configedColumns)
+                }
+            });
+        }
+
+
+        function onGridColumnLock(event, columnId) {
+            saveToDB(this);
+        }
+
+        function onGridColumnUnlock(event, columnId) {
+            saveToDB(this);
+        }
+
+        function onGridColumnMove(event, targetColumnId, sourceColumnId, operation) {
+            saveToDB(this);
+        }
+
+
+        function onGridDataLoad(event) {
+            // 显示锁定列提示信息
+            showLockedTips(this);
+        }
+
+
+        function onReloadPageClick(event) {
+            window.location.reload();
+        }
+
+    </script>
+}

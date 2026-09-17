@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "TabStrip/TabWidth";
+    var F = Html.F();
+}
+
+@section head {
+
+    <style>
+        .f-tab-header.tab-maxwidth {
+            max-width: 150px;
+        }
+    </style>
+
+}
+
+@section body {
+
+    @(F.TabStrip().IsFluid(true).ID("TabStrip1").Height(350).ShowBorder(true).TabPosition(TabPosition.Top).EnableTabCloseMenu(false).ActiveTabIndex(1)
+        .Tabs(
+            F.Tab().CssClass("tab-maxwidth").Title("标签一（这个标签的标题文字超长，真的很长很长很长很长很长很长很长，非常非常长，够长了吧）").TitleToolTip("标签一（这个标签的标题文字超长，真的很长很长很长很长很长很长很长，非常非常长，够长了吧）").BodyPadding(10)
+                .Items(
+                    F.Label().ID("Label1").Text("第一个标签的内容")
+                ),
+            F.Tab().Title("标签二，这个标题也很长，但是没有截断").BodyPadding(10)
+                .Items(
+                    F.Label().ID("Label2").Text("第二个标签的内容")
+                ),
+            F.Tab().Title("标签三").BodyPadding(10)
+                .Items(
+                    F.Label().ID("Label3").Text("第三个标签的内容")
+                )
+        )
+    )
+
+
+}
+

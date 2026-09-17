@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.SourceFiles = "~/Areas/Grid/Controllers/RowExpanderGridDataController.cs";
+    ViewBag.Title = "Grid/RowExpanderGrid";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Grid().Width(850).Title("表格（嵌套表格仅用于数据展示，不适合复杂的逻辑处理）").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name").IsViewPort(true)
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().HeaderText("姓名").DataField("Name"),
+            F.RenderField().HeaderText("性别").DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender"),
+            F.RenderField().HeaderText("入学年份").DataField("EntranceYear").FieldType(FieldType.Int),
+            F.RenderCheckField().HeaderText("是否在校").DataField("AtSchool").RenderAsStaticField(true),
+            F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150),
+            F.RenderField().HeaderText("分组").DataField("Group").RendererFunction("renderGroup"),
+            F.RenderField().HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd"),
+            F.RenderField().ColumnID("Desc").RenderAsRowExpander(true)
+        )
+        .DataSource(DataSourceUtil.GetDataTable()).Listener("rowexpanderexpand", "onRowExpanderExpand").Listener("rowexpandercollapse", "onRowExpanderCollapse")
+    )
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+    <script>
+
+        function onRowExpanderExpand(event, rowId) {
+            var grid = this, rowEl = grid.getRowEl(rowId), rowData = grid.getRowData(rowId);
+
+            // v12.0 - 行扩展列重构，.f-grid-rowexpander-details位于.f-grid-row.f-grid-rowexpander节点的下面
+            // var tplEl = rowEl.find('.f-grid-rowexpander-details .f-grid-cell-text');
+            var tplEl = rowEl.next().find('.f-grid-cell-text');
+            if (!tplEl.find('.gridinrowexpander').length) {
+
+                var url = '@Url.Content("~/Grid/RowExpanderGridData")';
+                url += '?rowId=' + rowId + '&name=' + encodeURIComponent(rowData.values['Name']); // 这里可传递行中任意数据（rowData）
+
+                F.create({
+                    type: 'Grid',
+                    renderTo: tplEl,
+                    header: false,
+                    columnMenu: false,
+                    columnResizing: false,
+                    cls: 'gridinrowexpander',
+                    fields: ['type', 'yuwen', 'shuxue', 'yingwen', 'wuli', 'huaxue'],
+                    columns: [{
+                        text: '', field: 'type', width: 80
+                    }, {
+                        text: '语文', field: 'yuwen', width: 80
+                    }, {
+                        text: '数学', field: 'shuxue', width: 80
+                    }, {
+                        text: '英文', field: 'yingwen', width: 80
+                    }, {
+                        text: '物理', field: 'wuli', width: 80
+                    }, {
+                        text: '化学', field: 'huaxue', width: 80
+                    }, {
+                        text: '平均成绩', columnId: 'avg', flex: 1,
+                        renderer: function (value, params) {
+                            var total = 0;
+
+                            var kemuList = ['yuwen', 'shuxue', 'yingwen', 'wuli', 'huaxue'];
+                            $.each(kemuList, function (index, item) {
+                                total += params.rowData.values[item];
+                            });
+
+                            return Math.round(total / kemuList.length);
+                        }
+                    }],
+                    dataUrl: url,
+                    listeners: {
+                        dataload: function () {
+                            rowExpandersDoLayout();
+                        }
+                    }
+                });
+            }
+        }
+
+        function onRowExpanderCollapse(event, rowId) {
+            rowExpandersDoLayout();
+        }
+
+        // 重新布局表格和行扩展列中的表格（解决出现纵向滚动条时的布局问题）
+        function rowExpandersDoLayout() {
+
+            // 先布局外部表格
+            F.ui.Grid1.doLayout();
+
+            // 再布局已展开行扩展列的内部表格
+            $('.f-grid-rowexpander-details:not(.f-hidden) .gridinrowexpander').each(function () {
+                var gridInside = F($(this).attr('id'));
+                gridInside.doLayout();
+            });
+        }
+
+    </script>
+}

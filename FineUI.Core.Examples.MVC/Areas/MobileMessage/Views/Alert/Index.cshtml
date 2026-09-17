@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "MobileMessage/Alert";
+    ViewBag.BodyBGColor = false;
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Panel().ID("Panel1").ShowBorder(false).ShowHeader(false).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 10 0").BodyPadding(10).IsViewPort(true)
+        .Toolbars(
+            F.Toolbar().ID("Toolbar1").Title("提示对话框").HeaderStyle(true)
+        )
+        .Items(
+            F.Button().Text("提示对话框").ID("Button1").OnClick(Url.Action("Button1_Click")),
+            F.Button().Text("提示对话框（ButtonFill）").ID("Button2").OnClick(Url.Action("Button2_Click")),
+            F.Button().Text("提示对话框（ButtonPlain）").ID("Button3").OnClick(Url.Action("Button3_Click"))
+        )
+    )
+
+
+}
+

@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.SourceFiles = "~/res/js/gridcard.js";
+    ViewBag.Title = "GridCard/CardSort";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name")
+        .Height(500).DisplayType(GridDisplayType.Card).CardRendererFunction("renderCard")
+        .AllowSorting(true).SortField(ViewBag.Grid1SortField).SortDirection(ViewBag.Grid1SortDirection).OnSort(Url.Action("Grid1_Sort"), "Grid1")
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().HeaderText("姓名").DataField("Name").SortField("Name"),
+            F.RenderField().HeaderText("性别").DataField("Gender").SortField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender"),
+            F.RenderField().HeaderText("入学年份").DataField("EntranceYear").SortField("EntranceYear").FieldType(FieldType.Int),
+            F.RenderField().HeaderText("入学日期").DataField("EntranceDate")
+                .FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd").Width(150),
+            F.RenderCheckField().HeaderText("是否在校").DataField("AtSchool").SortField("AtSchool").RenderAsStaticField(true),
+            F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150),
+            F.RenderField().HeaderText("分组").DataField("Group").RendererFunction("renderGroup"),
+            F.RenderField().HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+        )
+        .DataSource(DataSourceUtil.GetDataTable())
+        .Toolbars(
+            F.Toolbar().Position(ToolbarPosition.Top)
+                .Items(
+                    F.ToolbarText().ID("btnSortLabel").EncodeText(false),
+                    F.ToolbarFill(),
+                    F.Button().IconFont(IconFont._Sort).ID("btnSort").ShowMenuIcon(false)
+                        .Menu(F.Menu()
+                            .Items(
+                                F.MenuCheckBox().Text("姓名").AttributeDataTag("Name").GroupName("MenuColumnName"),
+                                F.MenuCheckBox().Text("性别").AttributeDataTag("Gender").Checked(true).GroupName("MenuColumnName"),
+                                F.MenuCheckBox().Text("入学年份").AttributeDataTag("EntranceYear").GroupName("MenuColumnName"),
+                                F.MenuCheckBox().Text("入学日期").AttributeDataTag("EntranceDate").GroupName("MenuColumnName"),
+                                F.MenuCheckBox().Text("是否在校").AttributeDataTag("AtSchool").GroupName("MenuColumnName"),
+                                F.MenuCheckBox().Text("所学专业").AttributeDataTag("Major").GroupName("MenuColumnName"),
+                                F.MenuSeparator(),
+                                F.MenuCheckBox().Text("升序").AttributeDataTag("ASC").Checked(true).IconFont(IconFont._Ascend).GroupName("MenuSortDirection"),
+                                F.MenuCheckBox().Text("降序").AttributeDataTag("DESC").IconFont(IconFont._Descend).GroupName("MenuSortDirection")
+                            ).Listener("checkchange", "onSortMenuCheckChange")
+                        )
+                )
+        )
+    )
+    <br>
+    <br>
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+    <script src="~/res/js/gridcard.js"></script>
+
+    <script>
+
+        var Grid1ClientID = 'Grid1';
+        var btnSortClientID = 'btnSort';
+        var btnSortLabelClientID = 'btnSortLabel';
+
+        // https://fineui.com/js/api/F.Menu.html#event:checkchange
+        function onSortMenuCheckChange(event, item, checked) {
+            var menu = F(btnSortClientID).menu;
+            var grid = F(Grid1ClientID);
+
+            var sortFieldMenuItem = menu.getCheckedItem('MenuColumnName');
+            var sortDirectionMenuItem = menu.getCheckedItem('MenuSortDirection');
+
+            var sortField = sortFieldMenuItem.getAttr('data-tag');
+            var sortDirection = sortDirectionMenuItem.getAttr('data-tag');
+
+            // 更新当前排序提示文字
+            updateSortLabel();
+            // 更新表格的排序状态
+            grid.setSortField(sortField, sortDirection);
+            // 触发表格的排序行为（触发表格默认的排序回发事件）
+            grid.trigger('sorting', [event, sortField, sortDirection]);
+        }
+
+
+        // 更新当前排序提示文字
+        function updateSortLabel() {
+            var menu = F(btnSortClientID).menu;
+
+            var sortFieldMenuItem = menu.getCheckedItem('MenuColumnName');
+            var sortDirectionMenuItem = menu.getCheckedItem('MenuSortDirection');
+
+            F(btnSortLabelClientID).setText(F.formatString('排序字段：<strong>{0}</strong>  排序方向：<strong>{1}</strong>', sortFieldMenuItem.getText(), sortDirectionMenuItem.getText()));
+        }
+
+        F.ready(function () {
+            updateSortLabel();
+        });
+
+    </script>
+}

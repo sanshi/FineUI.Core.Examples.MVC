@@ -1,0 +1,28 @@
+@{
+    ViewBag.Title = "GridPaging/PagerAutoSimpleMode";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @{
+        // 在 PageManager 级别全局开启“窄屏自动简洁分页”（也可在 Web.config / appsettings 的 GridPagerAutoSimpleMode 中统一配置）
+        F.PageManager.GridPagerAutoSimpleMode(true);
+    }
+
+    @(F.Grid().IsFluid(true).ShowHeader(true).ShowBorder(true).Title("表格（窄屏自动简洁分页）").ID("Grid1").DataIDField("Id").AllowPaging(true).PageSize(10).IsDatabasePaging(true).OnPageIndexChanged(Url.Action("Grid1_PageIndexChanged"), "Grid1").ShowPageSizeSelector(true)
+        .Columns(
+            F.RowNumberField().Width(60).EnablePagingNumber(true),
+            F.RenderField().HeaderText("ID").DataField("Id").Width(150),
+            F.RenderField().HeaderText("Time").DataField("EntranceTime").ExpandUnusedSpace(true).MinWidth(150).FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd HH:mm:ss")
+        ).RecordCount(ViewBag.Grid1RecordCount).DataSource(ViewBag.Grid1DataSource)
+    )
+
+    <div style="margin-top:10px;line-height:1.8;color:#666;">
+        本页已在 <strong>PageManager 级别</strong>开启 <code>GridPagerAutoSimpleMode</code>。
+        <br>
+        请<strong>缩小浏览器宽度</strong>（或在移动端/窄屏查看）：当分页栏放不下时，完整分页器会自动降级为<strong>简洁形态</strong>（上一页 + “当前/总页” + 下一页）；拉宽后自动还原。
+    </div>
+
+}

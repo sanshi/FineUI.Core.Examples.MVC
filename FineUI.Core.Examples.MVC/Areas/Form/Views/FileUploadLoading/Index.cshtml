@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Form/FileUploadLoading";
+    var F = Html.F();
+}
+
+@section head {
+
+    <style type="text/css">
+        .result img {
+            border: 1px solid #CCCCCC;
+            max-width: 550px;
+            padding: 3px;
+        }
+    </style>
+
+}
+
+
+@section body {
+
+
+    @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).ShowBorder(true).Title("表单").ShowHeader(true)
+        .Items(
+            F.TextBox().Label("用户名").ID("tbxUserName").EmptyText("请输入用户名").Required(true).ShowRedStar(true),
+            F.FileUpload().ID("filePhoto").EmptyText("请选择一张照片").Label("个人头像").Required(true).ShowRedStar(true),
+            F.Button().ID("btnSubmit").ValidateForms("SimpleForm1").Text("提交").OnClick(e =>
+            {
+                e.Action = Url.Action("btnSubmit_Click");
+                e.Fields = "SimpleForm1";
+                e.AjaxLoadingType = AjaxLoadingType.Mask;
+                e.ShowAjaxLoadingMaskText = true;
+                e.AjaxLoadingMaskText = "正在导入数据，请稍后...";
+            })
+        )
+    )
+    @(F.Label().ID("labResult").EncodeText(false).CssClass("result"))
+    <br>
+    <br>
+    <br />
+    注：为了观察Ajax提示信息，提交按钮动作在后台都会睡眠 1 秒钟。
+
+}

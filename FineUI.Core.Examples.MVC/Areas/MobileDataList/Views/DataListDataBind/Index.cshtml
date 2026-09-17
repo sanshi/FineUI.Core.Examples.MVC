@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "MobileDataList/DataListDataBind";
+    ViewBag.BodyBGColor = false;
+    var F = Html.F();
+}
+
+
+@section head {
+
+    <link href="~/res/css/datalist.css" rel="stylesheet" />
+    <style>
+        .item-desc {
+            word-break: break-all;
+            white-space: normal;
+        }
+    </style>
+
+}
+
+
+@section body {
+
+    @(F.Panel().ID("Panel1").ShowBorder(false).ShowHeader(false).AutoScroll(true).IsViewPort(true)
+        .Toolbars(
+            F.Toolbar().ID("Toolbar1").Title("列表").HeaderStyle(true)
+                .Items(
+                    F.Button().Text("重新绑定").ID("btnReDataBind").OnClick(Url.Action("btnReDataBind_Click"),
+                            new Parameter("source", "F.ui.DataList1.getAttr('data-source-key')"))
+                )
+        )
+        .Items(
+            F.DataList().ID("DataList1").Items(ViewBag.DataList1Items).Attribute("data-source-key", "source1")
+        )
+    )
+
+
+
+
+}
+

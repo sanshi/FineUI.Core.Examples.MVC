@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.SourceFiles = "~/Areas/Partial/Views/Partial/PartialView.cshtml";
+    ViewBag.Title = "Partial/Partial";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @{
+        var PartialViewIndex = 0;
+    }
+
+    <div id="container1">
+        @(await Html.PartialAsync("PartialView", new ViewDataDictionary(ViewData) { { "PartialViewIndex", PartialViewIndex++ }, { "UserName", "陈萍萍" }, { "UserAge", 20 }, { "UserCountry", "合肥" } }))
+    </div>
+
+
+
+    @(F.Panel().ID("Panel1").IsFluid(true).EnableCollapse(false).BodyPadding(10).Height(200).Title("面板一（Panel->PartialView）").ContentEl("#container1")
+    )
+
+    <br />
+    @(F.Panel().ID("Panel2").IsFluid(true).Height(200).EnableCollapse(false).BodyPadding(10).Title("面板二（Panel->PartialConnector->PartialView）")
+        .Items(
+            F.PartialConnector().Content(await Html.PartialAsync("PartialView", new ViewDataDictionary(ViewData) { { "PartialViewIndex", PartialViewIndex++ }, { "UserName", "陈萍萍" }, { "UserAge", 20 }, { "UserCountry", "合肥" } }))
+        )
+    )
+
+    <br />
+    @(F.Panel().ID("Panel3").IsFluid(true).Height(200).EnableCollapse(false).BodyPadding(10).Layout(LayoutType.Fit).Title("面板三（Layout=Fit, Panel->PartialConnector->PartialView）")
+        .Items(
+            F.PartialConnector().Content(await Html.PartialAsync("PartialView", new ViewDataDictionary(ViewData) { { "PartialViewIndex", PartialViewIndex++ }, { "UserName", "陈萍萍" }, { "UserAge", 20 }, { "UserCountry", "合肥" } }))
+        )
+    )
+
+}
+

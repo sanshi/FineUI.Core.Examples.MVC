@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "GridRowHeight/GridRowDensityLineWrap";
+    var F = Html.F();
+}
+
+
+@section head {
+
+    <style>
+        .f-grid-row .f-grid-cell-text {
+            white-space: normal;
+            word-break: break-all;
+        }
+    </style>
+
+}
+
+
+
+@section body {
+
+    @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name").EnableCheckBoxSelect(true)
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().HeaderText("姓名").DataField("Name"),
+            F.RenderField().HeaderText("性别").DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender"),
+            F.RenderField().HeaderText("入学年份").DataField("EntranceYear").FieldType(FieldType.Int),
+            F.RenderCheckField().HeaderText("是否在校").DataField("AtSchool").RenderAsStaticField(true),
+            F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150),
+            F.RenderField().HeaderText("个人简介").ColumnID("Desc").DataField("Desc").Width(400),
+            F.RenderField().HeaderText("分组").DataField("Group").RendererFunction("renderGroup"),
+            F.RenderField().HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+        )
+        .Tools(
+            F.Tool().ID("toolRowDensity").IconFont(IconFont._List).Text("行密度")
+                .Menu(F.Menu()
+                    .Items(
+                        F.MenuCheckBox().Text("小间距").AttributeDataTag("small").GroupName("RowDensity").ClickHandler("onRowDensityChange"),
+                        F.MenuCheckBox().Text("标准间距").AttributeDataTag("normal").Checked(true).GroupName("RowDensity").ClickHandler("onRowDensityChange"),
+                        F.MenuCheckBox().Text("大间距").AttributeDataTag("large").GroupName("RowDensity").ClickHandler("onRowDensityChange"),
+                        F.MenuCheckBox().Text("超大间距").AttributeDataTag("xlarge").GroupName("RowDensity").ClickHandler("onRowDensityChange")
+                    )
+                )
+        )
+        .DataSource(DataSourceUtil.GetDataTable())
+    )
+    <br>
+    <br>
+
+
+    @(F.Button().Text("选中了哪些行").ID("Button1").ClickHandler("onNotifySelectedRowsClick"))
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+    <script>
+
+        function onRowDensityChange(event) {
+            var menuCheckBoxCmp = this;
+            var selectedRowDensity = menuCheckBoxCmp.el.attr('data-tag');
+
+            F.ui.Grid1.setRowDensity(selectedRowDensity);
+        }
+
+    </script>
+
+}

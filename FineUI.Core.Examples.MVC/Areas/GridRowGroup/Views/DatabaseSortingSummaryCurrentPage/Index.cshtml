@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "GridRowGroup/DatabaseSortingSummaryCurrentPage";
+    var F = Html.F();
+}
+
+@section head {
+
+    <style>
+        .f-grid-rowgroup-summary .f-grid-cell-Major .f-grid-cell-text {
+            text-align: right;
+        }
+
+        .f-grid-rowgroup-summary .f-grid-cell-text {
+            font-style: italic;
+        }
+
+        .f-grid-row-summary .f-grid-cell-Major .f-grid-cell-text {
+            text-align: right;
+        }
+
+        .f-grid-row-summary .f-grid-cell-text {
+            font-weight: bold;
+        }
+    </style>
+
+}
+
+
+@section body {
+
+    @(F.Grid().IsFluid(true).Height(500).EnableCheckBoxSelect(false).ShowHeader(true).ShowBorder(true).Title("表格").ID("Grid1").DataIDField("Id").DataTextField("Name")
+        .AllowPaging(true).PageSize(10).IsDatabasePaging(true).OnPageIndexChanged(Url.Action("Grid1_PageIndexChangedOrSort"), "Grid1")
+        .AllowSorting(true).SortField(ViewBag.Grid1SortField).SortDirection(ViewBag.Grid1SortDirection).OnSort(Url.Action("Grid1_PageIndexChangedOrSort"), "Grid1")
+        .EnableRowGroup(true).DataRowGroupField("EntranceYear").RowGroupSummary(true)
+        .EnableSummary(true).SummaryPosition(SummaryPosition.Bottom)
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().HeaderText("姓名").DataField("Name").SortField("Name"),
+            F.RenderField().HeaderText("性别").DataField("Gender").SortField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender"),
+            F.RenderField().HeaderText("入学年份").DataField("EntranceYear").SortField("EntranceYear").FieldType(FieldType.Int),
+            F.RenderCheckField().HeaderText("是否在校").DataField("AtSchool").SortField("AtSchool").RenderAsStaticField(true),
+            F.RenderField().HeaderText("所学专业").DataField("Major").ColumnID("Major").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150).RowGroupSummaryText("平均（分组）：").SummaryText("平均（汇总）："),
+            F.RenderField().HeaderText("语文成绩").DataField("ChineseScore").ColumnID("ChineseScore").FieldType(FieldType.Int).RowGroupSummaryType(SummaryType.Avg).SummaryType(SummaryType.Avg),
+            F.RenderField().HeaderText("数学成绩").DataField("MathScore").ColumnID("MathScore").FieldType(FieldType.Int).RowGroupSummaryType(SummaryType.Avg).SummaryType(SummaryType.Avg)
+        ).RecordCount(ViewBag.Grid1RecordCount).DataSource(ViewBag.Grid1DataSource)
+
+    )
+    <br>
+
+    @(F.Button().Text("选中了哪些行").CssClass("marginr").ClickHandler("onNotifySelectedRowsClick"))
+    <br>
+    <br>
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+}

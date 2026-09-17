@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "MobileMessage/Notify";
+    ViewBag.BodyBGColor = false;
+    var F = Html.F();
+}
+
+
+@section head {
+
+    <style>
+        .mynotify .f-messagebox-message {
+            margin: 0;
+        }
+
+        .mynotify .f-loading {
+            position: static;
+            margin: 0;
+            text-align: center;
+        }
+
+            .mynotify .f-loading .f-loading-img {
+                display: inline-block;
+                vertical-align: top;
+            }
+
+        .mynotify .f-loading-message {
+            font-size: 14px;
+            margin: 5px 10px 0;
+        }
+    </style>
+
+}
+
+@section body {
+
+    @(F.Panel().ID("Panel1").ShowBorder(false).ShowHeader(false).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 10 0").BodyPadding(10).IsViewPort(true)
+        .Toolbars(
+            F.Toolbar().ID("Toolbar1").Title("通知对话框").HeaderStyle(true)
+        )
+        .Items(
+            F.Button().Text("通知对话框").ID("Button1").OnClick(Url.Action("Button1_Click")),
+            F.Button().Text("通知对话框（正在加载）").ID("Button2").OnClick(Url.Action("Button2_Click")),
+            F.Button().Text("通知对话框（正在加载，不显示文字）").ID("Button3").OnClick(Url.Action("Button3_Click")),
+            F.Button().Text("通知对话框（正在加载，自定义样式）").ID("Button4").OnClick(Url.Action("Button4_Click")),
+            F.Label(),
+            F.Panel().ShowBorder(false).ShowHeader(false).Layout(LayoutType.HBox).BoxConfigChildMargin("0 10 0 0")
+                .Items(
+                    F.Button().Text("显示通知对话框").ID("Button5").BoxFlex(1).ClickHandler("onShowNotifyWindowClick"),
+                    F.Button().Text("关闭通知对话框").ID("Button6").BoxFlex(1).Margin(0).ClickHandler("onHideNotifyWindowClick")
+                )
+        )
+    )
+
+
+}
+
+
+@section script {
+
+    <script>
+
+        function onShowNotifyWindowClick(event) {
+            // 注意：id属性是通知对话框的标识符
+            var mynotifywindow = F('mynotifywindow');
+            if (!mynotifywindow) {
+                F.notify({
+                    id: 'mynotifywindow',
+                    message: '正在加载...',
+                    messageIcon: '',
+                    header: false,
+                    positionX: 'center',
+                    positionY: 'top',
+                    showLoading: true,
+                    minWidth: 100,
+                    displayMilliseconds: 60000  // 1分钟才关闭
+                });
+            }
+        }
+
+        function onHideNotifyWindowClick(event) {
+            var mynotifywindow = F('mynotifywindow');
+            if (mynotifywindow) {
+                mynotifywindow.hide();
+            }
+        }
+
+    </script>
+
+}

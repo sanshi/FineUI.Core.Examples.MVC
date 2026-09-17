@@ -1,0 +1,31 @@
+@{
+    ViewBag.SourceFiles = "~/Areas/DataModel/Models/Student.cs;~/Areas/DataModel/Models/Family.cs;~/Areas/DataModel/Models/StudentViewModel.cs;~/Areas/DataModel/Models/StudentHelper.cs";
+    ViewBag.Title = "DataModel/ComplexColumn";
+    var F = Html.F();
+}
+
+@model IList<FineUI.Core.Examples.MVC.Areas.DataModel.Models.StudentViewModel>
+
+@section body {
+
+    @(F.Grid().ID("Grid1").IsFluid(true).ShowBorder(true).ShowHeader(true).Title("表格").DataIDField("Id").DataTextField("Name")
+        .Columns(
+            F.RenderFieldFor(m => m.Name),
+            F.RenderFieldFor(m => m.Gender).RendererFunction("renderGender"),
+            F.RenderFieldFor(m => m.EntranceYear),
+            F.RenderCheckFieldFor(m => m.AtSchool).RenderAsStaticField(true),
+            F.RenderFieldFor(m => m.Major).RendererFunction("renderMajor").Width(150),
+            F.RenderFieldFor(m => m.FamilyInfo).Width(220),
+            F.RenderFieldFor(m => m.HobbyInfo).ExpandUnusedSpace(true).MinWidth(150)
+        ).DataSource(Model)
+
+    )
+
+
+}
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+}

@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "GridTree/CheckBoxCascadeInitValue";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Grid().IsFluid(true).ID("Grid1").ShowBorder(true).ShowHeader(true).Title("树表格").DataIDField("Id").DataTextField("Name").EnableTree(true).TreeColumn("Name").DataIDField("Id").DataParentIDField("ParentId").TreeCheckBox(true).TreeCascadeCheck(true)
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().ColumnID("Name").ExpandUnusedSpace(true).MinWidth(150).DataField("Name").HeaderText("名称"),
+            F.RenderField().Width(150).DataField("Type").HeaderText("类型"),
+            F.RenderField().Width(150).DataField("Size").HeaderText("大小"),
+            F.RenderField().Width(150).DataField("ModifyDate").HeaderText("修改日期").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+        )
+        .DataSource(DataSourceUtil.GetTreeDataTable()).RowDataBoundFunction("onGrid1RowDataBound")
+
+    )
+    <br>
+
+    @(F.Button().Text("选中了哪些行").ID("Button1").ClickHandler("onNotifySelectedRowsClick").MarginRight(5))
+    @(F.Button().ID("btnGetCheckedValues").Text("获取选中的复选框").OnClick(Url.Action("btnGetCheckedValues_Click"), new Parameter("checkedRows", "getCheckedRows()")))
+
+    <br />
+    <br />
+    @(F.Label().ID("labResult").EncodeText(false))
+    <br />
+    <br />
+    注：本树表格默认选中 [common / menu.xml] 的复选框。
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+    <script>
+        function getCheckedRows() {
+            var result = [];
+
+            var checkedRows = F.ui.Grid1.getCheckedRows(true);
+            if (checkedRows.length) {
+                $.each(checkedRows, function (index, row) {
+                    result.push({
+                        id: row.id,
+                        text: row.text
+                    });
+                });
+            }
+
+            return F.toJSON(result);
+        }
+
+        function onGrid1RowDataBound(rowData) {
+            var rowId = rowData.id;
+
+            // 展开：common
+            if (rowId == "200") {
+                rowData.expanded = true;
+            }
+
+            // 选中：common / menu.xml
+            if (rowId == "201") {
+                rowData.checked = true;
+            }
+        }
+
+    </script>
+
+}

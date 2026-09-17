@@ -1,0 +1,47 @@
+@{
+    ViewBag.Title = "Calendar/CalendarIndependentRangePanels";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    <b>日期范围</b>
+    <br>
+    @(F.Calendar().ID("Calendar1").DateFormatString("yyyy/MM/dd")
+        .RangeStartDate(ViewBag.Calendar1RangeStartDate).RangeEndDate(ViewBag.Calendar1RangeEndDate)
+        .DisplayType(CalendarDisplayType.DayRange).IndependentRangePanels(true))
+    <br>
+    <br>
+    <br>
+    <b>月份范围</b>
+    <br>
+    @(F.Calendar().ID("Calendar2").DateFormatString("yyyy/MM")
+        .RangeStartDate(ViewBag.Calendar2RangeStartDate).RangeEndDate(ViewBag.Calendar2RangeEndDate)
+        .DisplayType(CalendarDisplayType.MonthRange).IndependentRangePanels(true))
+    <br>
+    <br>
+    <br>
+    <b>年份范围</b>
+    <br>
+    @(F.Calendar().ID("Calendar3").DateFormatString("yyyy")
+        .RangeStartDate(ViewBag.Calendar3RangeStartDate).RangeEndDate(ViewBag.Calendar3RangeEndDate)
+        .DisplayType(CalendarDisplayType.YearRange).IndependentRangePanels(true))
+    <br>
+
+    @(F.Button().ID("Button1").Text("获取选中的值").OnClick(Url.Action("Button1_Click"),
+        new Parameter("text1", "F.ui.Calendar1.getText()"),
+        new Parameter("text2", "F.ui.Calendar2.getText()"),
+        new Parameter("text3", "F.ui.Calendar3.getText()")))
+    <br>
+    <br>
+
+    @(F.Label().ID("labResult").EncodeText(false).ShowLabel(false))
+
+    <br />
+    <div style="margin-top:15px;color:#666;line-height:1.8;">
+        说明：设置 IndependentRangePanels=true 开启“范围面板独立切换”。范围选择时左右两个面板可各自独立切换年份/月份，互不联动，便于快速定位跨度较大的起止日期区间。
+    </div>
+
+}
+

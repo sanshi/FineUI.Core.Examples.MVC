@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Button/ButtonBadge";
+    var F = Html.F();
+}
+
+@section head {
+    
+    <style>
+        .marginr {
+            margin-right: 20px;
+        }
+
+        .custom-badge-color .f-badge {
+            background-color: #2d8cf0;
+        }
+    </style>
+}
+ 
+
+@section body {
+
+    @(F.Button().ID("btnIcon1").Text("图标在左侧").Icon(Icon.Email).CssClass("marginr").Badge(true))
+
+    @(F.Button().ID("btnIcon2").Text("图标在右侧").Icon(Icon.Star).IconAlign(IconAlign.Right).CssClass("marginr").Badge(true).BadgeType(BadgeType.Error).BadgeAnimationType(BadgeAnimationType.Processing))
+
+    <br />
+    <br />
+
+    @(F.Button().ID("btnIcon3").Text("图标在上面").Icon(Icon.Email).IconAlign(IconAlign.Top).CssClass("marginr").Badge(true).BadgeType(BadgeType.Warning))
+
+    @(F.Button().ID("btnIcon4").Text("图标在下面").Icon(Icon.Star).IconAlign(IconAlign.Bottom).CssClass("marginr").Badge(true).BadgeType(BadgeType.Success).BadgeAnimationType(BadgeAnimationType.Fade))
+
+
+    <br />
+    <br />
+
+    @(F.Button().ID("btnCustomIcon").Text("自定义图标（点击修改图标）").IconUrl(Url.Content("~/res/images/16/1.png")).OnClick(Url.Action("btnCustomIcon_Click"), new Parameter("iconUrl", "this.icon")).Badge(true))
+
+    <br />
+    <br />
+    只有图片的按钮：
+    <br />
+    <br />
+    @(F.Button().IconUrl(Url.Content("~/res/images/16/1.png")).CssClass("marginr").Badge(true).BadgeText("3"))
+    @(F.Button().ID("btnBadgeNumber").IconUrl(Url.Content("~/res/images/16/8.png")).CssClass("marginr").Badge(true).BadgeType(BadgeType.Success).BadgeText("10"))
+
+    <br />
+    <br />
+    @(F.Button().ID("btnChangeBadge").Text("徽标数字加一").OnClick(Url.Action("btnChangeBadge_Click"), new Parameter("badgeNumber", "F.ui.btnBadgeNumber.badgeText", ParameterMode.Script)))
+
+
+    <br />
+    <br />
+    大按钮：
+    <br />
+    <br />
+
+    @(F.Button().Icon(Icon.Email).Size(ButtonSize.Large).Text("图标在左侧").CssClass("marginr custom-badge-color").Badge(true).BadgeText("new"))
+    @(F.Button().Icon(Icon.Star).Size(ButtonSize.Large).Text("图标在右侧").IconAlign(IconAlign.Right).CssClass("marginr").Badge(true).BadgeType(BadgeType.Error).BadgeText("hot").BadgeAnimationType(BadgeAnimationType.Move))
+
+    <br />
+    <br />
+
+    @(F.Button().Icon(Icon.Email).Size(ButtonSize.Large).Text("图标在上面").IconAlign(IconAlign.Top).CssClass("marginr").Badge(true).BadgeType(BadgeType.Warning).BadgeText("88+").BadgeAnimationType(BadgeAnimationType.Processing))
+    @(F.Button().Icon(Icon.Email).Size(ButtonSize.Large).Text("图标在下面").IconAlign(IconAlign.Bottom).CssClass("marginr").Badge(true).BadgeType(BadgeType.Success).BadgeText("999+").BadgeAnimationType(BadgeAnimationType.Shake))
+
+
+
+}
+
+
+
+
+

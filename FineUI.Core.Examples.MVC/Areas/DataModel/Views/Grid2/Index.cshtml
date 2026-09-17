@@ -1,0 +1,41 @@
+@using FineUI.Core.Examples.MVC.Areas.DataModel.Models;
+@{
+    ViewBag.SourceFiles = "~/Areas/DataModel/Models/Student.cs;~/Areas/DataModel/Models/StudentHelper.cs";
+    ViewBag.Title = "DataModel/Grid2";
+    var F = Html.F();
+}
+
+@model FineUI.Core.Examples.MVC.Areas.DataModel.Controllers.Grid2Controller
+
+@section body {
+
+    @{
+        var Column = Model.Students.FirstOrDefault();
+    }
+
+    @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name")
+        .Columns(
+            F.RowNumberField(),
+            F.RenderFieldFor(m => @Column.Name),
+            F.RenderFieldFor(m => m.Students.First().Name),
+            F.RenderFieldFor(m => m.Students.First().Gender).RendererFunction("renderGender"),
+            F.RenderFieldFor(m => m.Students.First().EntranceYear),
+            F.RenderCheckFieldFor(m => m.Students.First().AtSchool).RenderAsStaticField(true),
+            F.RenderFieldFor(m => m.Students.First().Major).RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150),
+            F.RenderFieldFor(m => m.Students.First().Group).RendererFunction("renderGroup"),
+            F.RenderFieldFor(m => m.Students.First().EntranceDate)
+        ).DataSource(Model.Students)
+    )
+    <br>
+    <br>
+
+    @(F.Button().Text("选中了哪些行").ID("Button1").ClickHandler("onNotifySelectedRowsClick"))
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+}

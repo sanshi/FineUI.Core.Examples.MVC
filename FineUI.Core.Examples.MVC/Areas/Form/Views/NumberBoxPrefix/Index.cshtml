@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Form/NumberBoxPrefix";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).LabelAlign(LabelAlign.Top).Title("简单表单").LabelWidth(120)
+        .Items(
+            F.NumberBox().Label("人民币").ID("NumberBox1").Text("3000000").EnableCommas(true).Required(true).ShowRedStar(true).NoDecimal(true).NoNegative(true).NumberPrefix("￥"),
+            F.NumberBox().Label("美元").ID("NumberBox2").Text("100000").EnableCommas(true).Required(true).ShowRedStar(true).NoDecimal(true).NoNegative(true).NumberPrefix("$"),
+            F.NumberBox().Label("百分比").ID("NumberBox3").NoDecimal(false).DecimalPrecision(2).NoNegative(true).Text("42.567").NumberSuffix("%"),
+            F.Button().ID("btnSubmit").ValidateForms("SimpleForm1").Text("提交表单").OnClick(Url.Action("btnSubmit_Click"), "SimpleForm1")
+        )
+    )
+    <br>
+
+    @(F.Label().ID("labResult").EncodeText(false))
+
+
+}

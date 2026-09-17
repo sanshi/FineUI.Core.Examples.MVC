@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.SourceFiles = "~/wwwroot/res/js/gridcard.js";
+    ViewBag.Title = "GridCard/CardSwitchAvatar";
+    var F = Html.F();
+}
+
+
+@section head {
+
+    <link type="text/css" rel="stylesheet" href="~/res/css/gridcard.css" />
+}
+
+@section body {
+
+    @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name").EnableCheckBoxSelect(true)
+        .DisplayType(GridDisplayType.Card).CardRendererFunction("renderCardWithAvatar").DataAttributeFields(new string[] { "Name", "Gender", "Avatar", "EntranceYear", "Status" })
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().ColumnID("UserProfile").Width(250).HeaderText("基本信息").RendererFunction("renderUserProfile"),
+            F.RenderCheckField().ColumnID("AtSchool").DataField("AtSchool").HeaderText("是否在校").RenderAsStaticField(true),
+            F.RenderField().ColumnID("Major").DataField("Major").HeaderText("所学专业").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150),
+            F.RenderField().ColumnID("ChineseScore").DataField("ChineseScore").HeaderText("语文成绩"),
+            F.RenderField().ColumnID("MathScore").DataField("MathScore").HeaderText("数学成绩"),
+            F.RenderField().ColumnID("TotalScore").DataField("TotalScore").HeaderText("总成绩"),
+            F.RenderField().ColumnID("Status").DataField("Status").RendererFunction("renderStatus").HeaderText("状态")
+        )
+        .DataSource(DataSourceUtil.GetDataTable())
+        .Toolbars(
+            F.Toolbar().Position(ToolbarPosition.Top)
+            .Items(
+                F.ToolbarFill(),
+                F.Button().IconFont(IconFont._Table).ID("btnDisplayDefault").EnablePress(true).Pressed(false).ClickHandler("onDisplayDefaultClick"),
+                F.Button().IconFont(IconFont._Gallery).ID("btnDisplayCard").EnablePress(true).Pressed(true).ClickHandler("onDisplayCardClick")
+            )
+        )
+        )
+    <br>
+    <br>
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+    <script src="~/res/js/gridcard.js"></script>
+
+    <script>
+
+        function onDisplayDefaultClick(event) {
+            F.ui.btnDisplayDefault.setPressed(true);
+            F.ui.btnDisplayCard.setPressed(false);
+
+            F.ui.Grid1.setDisplayType('default');
+        }
+        function onDisplayCardClick(event) {
+            F.ui.btnDisplayDefault.setPressed(false);
+            F.ui.btnDisplayCard.setPressed(true);
+
+            F.ui.Grid1.setDisplayType('card');
+        }
+
+    </script>
+
+}

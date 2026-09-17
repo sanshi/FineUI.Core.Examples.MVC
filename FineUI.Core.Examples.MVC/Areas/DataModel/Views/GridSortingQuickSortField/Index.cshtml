@@ -1,0 +1,37 @@
+@{
+    ViewBag.SourceFiles = "~/Areas/DataModel/Models/Student.cs;~/Areas/DataModel/Models/StudentHelper.cs";
+    ViewBag.Title = "DataModel/GridSortingQuickSortField";
+    var F = Html.F();
+}
+
+@model IList<FineUI.Core.Examples.MVC.Areas.DataModel.Models.Student>
+
+@section body {
+
+
+    @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name").EnableCheckBoxSelect(true)
+        .AllowSorting(true).SortField(ViewBag.Grid1SortField).SortDirection(ViewBag.Grid1SortDirection).OnSort(Url.Action("Grid1_Sort"), "Grid1")
+        .Columns(
+            F.RowNumberField(),
+            F.RenderFieldFor(m => m.Name).QuickSortField(true),
+            F.RenderFieldFor(m => m.Gender).QuickSortField(true).RendererFunction("renderGender"),
+            F.RenderFieldFor(m => m.EntranceYear).QuickSortField(true),
+            F.RenderCheckFieldFor(m => m.AtSchool).QuickSortField(true).RenderAsStaticField(true),
+            F.RenderFieldFor(m => m.Major).RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150),
+            F.RenderFieldFor(m => m.Group).RendererFunction("renderGroup"),
+            F.RenderFieldFor(m => m.EntranceDate)
+        ).DataSource(Model)
+    )
+    <br>
+    <br>
+
+    @(F.Button().Text("选中了哪些行").ID("Button1").ClickHandler("onNotifySelectedRowsClick"))
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+}

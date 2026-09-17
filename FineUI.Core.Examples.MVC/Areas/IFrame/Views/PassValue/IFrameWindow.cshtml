@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.SourceFiles = "~/Areas/IFrame/Views/PassValue/IFrameWindow.cshtml";
+    ViewBag.Title = "IFrame/PassValue/IFrameWindow";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.SimpleForm().IsViewPort(true).ID("SimpleForm1").LabelAlign(LabelAlign.Top).ShowBorder(false).ShowHeader(false).CssClass("f-widget-content").Title("SimpleForm").BodyPadding(10).AutoScroll(true)
+        .Items(
+            F.RadioButtonList().ID("ddlSheng").Label("请选择省份").ColumnNumber(4).DataSource(DataSourceUtil.SHENG_JSON).SelectedValue(Context.Request.Query["selected"]).OnSelectedIndexChanged(Url.Action("ddlSheng_SelectedIndexChanged"),
+                    new Parameter("province", "this.getValue()"))
+        )
+    )
+
+}

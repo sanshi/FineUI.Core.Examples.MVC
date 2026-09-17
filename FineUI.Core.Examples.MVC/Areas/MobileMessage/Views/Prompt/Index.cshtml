@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "MobileMessage/Prompt";
+    ViewBag.BodyBGColor = false;
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Panel().ID("Panel1").ShowBorder(false).ShowHeader(false).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 10 0").BodyPadding(10).IsViewPort(true)
+        .Toolbars(
+            F.Toolbar().ID("Toolbar1").Title("输入对话框").HeaderStyle(true)
+        )
+        .Items(
+            F.Button().Text("输入对话框").ID("Button1").OnClick(Url.Action("Button1_Click")),
+            F.Button().Text("输入对话框（ButtonFill）").ID("Button2").OnClick(Url.Action("Button2_Click")),
+            F.Button().Text("输入对话框（ButtonPlain）").ID("Button5").OnClick(Url.Action("Button5_Click")),
+            F.Button().Text("输入对话框（ButtonPlain，密码）").ID("Button4").OnClick(Url.Action("Button4_Click")),
+            F.Button().Text("输入对话框（CancelButtonAhead）").ID("Button3").OnClick(Url.Action("Button3_Click"))
+        )
+    )
+
+
+}
+
+
+@section script {
+
+    <script>
+
+        function notifyit(inputValue) {
+            var message = '用户输入：' + inputValue;
+            if (!inputValue) {
+                message = '用户未输入值！';
+            }
+
+            F.notify({
+                message: message,
+                messageIcon: '',
+                modal: true,
+                hideOnMaskClick: true,
+                header: false,
+                displayMilliseconds: 3000,
+                positionX: 'center',
+                positionY: 'center',
+                messageAlign: 'center',
+                minWidth: 200
+            });
+
+        }
+
+    </script>
+
+}

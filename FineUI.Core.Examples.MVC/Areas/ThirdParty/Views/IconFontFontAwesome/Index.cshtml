@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "ThirdParty/IconFontFontAwesome";
+    var F = Html.F();
+}
+
+
+@section head {
+
+
+}
+
+@section body {
+
+    @(F.Button().ID("btnIcon1").Text("图标在左侧").IconFont(IconFont.Tags).CssClass("marginr")
+    )
+
+    @(F.Button().ID("btnIcon2").Text("图标在右侧").IconAlign(IconAlign.Right).IconFont(IconFont.Star)
+    )
+    <br>
+    <br>
+
+    @(F.Button().ID("btnIcon3").Text("图标在上面").IconAlign(IconAlign.Top).IconFont(IconFont.ShoppingCart).CssClass("marginr")
+    )
+
+    @(F.Button().ID("btnIcon4").Text("图标在下面").IconAlign(IconAlign.Bottom).IconFont(IconFont.Cloud)
+    )
+    <br>
+    <br>
+    只有图片的按钮：
+    <br>
+    <br>
+
+    @(F.Button().ID("Button1").IconFont(IconFont.Share).CssClass("marginr")
+    )
+
+    @(F.Button().ID("Button2").IconFont(IconFont.Key).CssClass("marginr")
+    )
+
+    @(F.Button().ID("Button7").IconFont(IconFont.Lock).CssClass("marginr")
+    )
+
+    @(F.Button().ID("Button8").IconFont(IconFont.Trash).CssClass("marginr")
+    )
+    <br>
+    <br>
+
+    @(F.Panel().ID("Panel1").Width(500).Title("面板").Height(250).BodyPadding(10).EnableCollapse(true).IconFont(IconFont.List)
+        .Items(
+            F.Label().Text("面板内容")
+        )
+        .Tools(
+            F.Tool().IconFont(IconFont.Cog).ToolTip("设置").ClickHandler("onToolIconClick"),
+            F.Tool().IconFont(IconFont.CloudDownload).ToolTip("下载").ClickHandler("onToolIconClick")
+        )
+        .Toolbars(
+            F.Toolbar().Position(ToolbarPosition.Bottom).ToolbarAlign(ToolbarAlign.Right)
+                .Items(
+                    F.Button().ID("btnMenu").Text("操作").IconFont(IconFont.Pencil)
+                        .Menu(F.Menu()
+                            .Items(
+                                F.MenuButton().IconFont(IconFont.Trash).Text("删除选中项"),
+                                F.MenuButton().IconFont(IconFont.Ban).Text("禁用选中项")
+                            )
+                        )
+                )
+        )
+    )
+    <br>
+
+    @(F.Tree().ID("Tree1").Width(500).ShowHeader(true).Title("树控件").EnableCollapse(false)
+        .Nodes(
+            F.TreeNode().Text("中国").Expanded(true)
+                .Nodes(
+                    F.TreeNode().Text("河南省").Expanded(true)
+                        .Nodes(
+                            F.TreeNode().Text("驻马店市").Expanded(true).IconFont(IconFont.Flag).NodeID("zhumadian")
+                                .Nodes(
+                                    F.TreeNode().Text("遂平县").IconFont(IconFont.Tag).NodeID("suiping"),
+                                    F.TreeNode().Text("西平县").IconFont(IconFont.Book).NodeID("xiping")
+                                ),
+                            F.TreeNode().Text("漯河市").NodeID("luohe").IconFont(IconFont.Bookmark)
+                        ),
+                    F.TreeNode().Text("安徽省").NodeID("anhui")
+                )
+        )
+    )
+
+    <br />
+    <br />
+    <a href="https://fontawesome.com/" target="_blank">https://fontawesome.com/</a>
+
+}
+
+
+@section script {
+
+    <script>
+        function onToolIconClick(event) {
+            // 当前点击的图标字体
+            var iconFont = this.iconFont;
+
+            F.notify({
+                message: '你点击了标题栏工具图标：' + iconFont,
+                messageIconFont: iconFont,
+                displayMilliseconds: 300000,
+                positionX: 'center',
+                positionY: 'center'
+            });
+        }
+    </script>
+
+}

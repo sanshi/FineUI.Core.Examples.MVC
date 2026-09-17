@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Button/ButtonGroupLayout";
+    var F = Html.F();
+}
+
+@section body {
+
+    @(F.Panel().ID("Panel1").Margin(24).ShowBorder(false).ShowHeader(false).AutoScroll(true).CssClass("f-widget-content").Layout(LayoutType.VBox).BoxConfigAlign(BoxLayoutAlign.Start).BoxConfigChildMargin("0 0 10 0").IsViewPort(true).BodyPadding(10)
+        .Items(
+            F.ButtonGroup().Layout(LayoutType.HBox).Width(600)
+                .Items(
+                    F.Button().ID("btnIcon1").BoxFlex(1).Text("图标在左侧").Icon(Icon.Email),
+                    F.Button().ID("btnIcon2").BoxFlex(1).Text("图标在右侧").IconAlign(IconAlign.Right).Icon(Icon.Star),
+                    F.Button().ID("Button7").BoxFlex(1).Text("图标在左侧").IconFont(IconFont._Home),
+                    F.Button().ID("Button8").BoxFlex(1).Text("图标在右侧").IconAlign(IconAlign.Right).IconFont(IconFont._Car)
+                ),
+            F.ButtonGroup().Layout(LayoutType.HBox).Width(600)
+                .Items(
+                    F.Button().ID("btnIcon3").BoxFlex(1).Text("图标在上面").IconAlign(IconAlign.Top).Icon(Icon.Email),
+                    F.Button().ID("btnIcon4").BoxFlex(1).Text("图标在下面").IconAlign(IconAlign.Bottom).Icon(Icon.Star),
+                    F.Button().ID("Button9").BoxFlex(1).Text("图标在上面").IconAlign(IconAlign.Top).IconFont(IconFont._Camera),
+                    F.Button().ID("Button10").BoxFlex(1).Text("图标在下面").IconAlign(IconAlign.Bottom).IconFont(IconFont._Phone)
+                ),
+            F.ButtonGroup().Layout(LayoutType.VBox).Width(200).Vertical(true).MarginTop(50)
+                .Items(
+                    F.Button().Text("图标在左侧").Icon(Icon.Email),
+                    F.Button().Text("图标在右侧").IconAlign(IconAlign.Right).Icon(Icon.Star),
+                    F.Button().Text("图标在左侧").IconFont(IconFont._Home),
+                    F.Button().Text("图标在右侧").IconAlign(IconAlign.Right).IconFont(IconFont._Car)
+                ),
+           F.ButtonGroup().Layout(LayoutType.VBox).Width(200).Vertical(true)
+                .Items(
+                    F.Button().Text("图标在上面").IconAlign(IconAlign.Top).Icon(Icon.Email),
+                    F.Button().Text("图标在下面").IconAlign(IconAlign.Bottom).Icon(Icon.Star),
+                    F.Button().Text("图标在上面").IconAlign(IconAlign.Top).IconFont(IconFont._Camera),
+                    F.Button().Text("图标在下面").IconAlign(IconAlign.Bottom).IconFont(IconFont._Phone)
+                )
+        )
+    )
+
+
+
+}

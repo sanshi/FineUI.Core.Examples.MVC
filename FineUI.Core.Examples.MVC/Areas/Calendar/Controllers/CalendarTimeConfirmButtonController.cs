@@ -1,0 +1,53 @@
+using Microsoft.AspNetCore.Mvc;
+using System;
+
+namespace FineUI.Core.Examples.MVC.Areas.Calendar.Controllers
+{
+    [Area("Calendar")]
+    public class CalendarTimeConfirmButtonController : FineUI.Core.Examples.MVC.Controllers.BaseController
+    {
+        public static readonly string Calendar1DateFormatString = "yyyy/MM/dd HH:mm:ss";
+
+        // GET: Calendar/CalendarTimeConfirmButton
+        public IActionResult Index()
+        {
+            ViewBag.Calendar1DateFormatString = Calendar1DateFormatString;
+            ViewBag.Calendar1SelectedDate = DateTime.Now.AddDays(10);
+
+            DateTime newDate = DateTime.Now.AddDays(2);
+            newDate = new DateTime(newDate.Year, newDate.Month, newDate.Day, 0, 0, 0);
+            ViewBag.Button1Text = String.Format("选中{0}", newDate.ToString(Calendar1DateFormatString));
+
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Calendar1_DateSelect(string selectedDate)
+        {
+            UpdateResult(DateTime.Parse(selectedDate));
+
+            return UIHelper.Result();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Button1_Click()
+        {
+            var newDate = DateTime.Now.AddDays(2);
+            newDate = new DateTime(newDate.Year, newDate.Month, newDate.Day, 0, 0, 0);
+            UIHelper.Calendar("Calendar1").SelectedDate(newDate);
+
+            UpdateResult(newDate);
+
+            return UIHelper.Result();
+        }
+
+
+        private void UpdateResult(DateTime date)
+        {
+            UIHelper.Label("labResult").Text(String.Format("选择的日期：{0}", date.ToString(Calendar1DateFormatString)));
+        }
+    }
+}

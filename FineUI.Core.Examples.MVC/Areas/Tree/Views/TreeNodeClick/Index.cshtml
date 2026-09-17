@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Tree/TreeNodeClick";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Tree().IsFluid(true).ID("Tree1").Listener("nodeclick", "onTree1NodeClick").ShowHeader(true).Title("树控件")
+        .Nodes(
+            F.TreeNode().Text("中国").Expanded(true)
+                .Nodes(
+                    F.TreeNode().Text("河南省").Expanded(true)
+                        .Nodes(
+                            F.TreeNode().Text("驻马店市（点击回发）").Expanded(true).NodeID("zhumadian")
+                                .Nodes(
+                                    F.TreeNode().Text("遂平县（点击回发）").NodeID("suiping"),
+                                    F.TreeNode().Text("西平县（点击回发，确认提示框）").NodeID("xiping")
+                                ),
+                            F.TreeNode().Text("漯河市").NodeID("luohe")
+                        ),
+                    F.TreeNode().Text("安徽省").Expanded(true).NodeID("anhui")
+                        .Nodes(
+                            F.TreeNode().Text("合肥市").NodeID("hefei"),
+                            F.TreeNode().Text("黄山市").NodeID("huangshan")
+                        )
+                )
+        )
+    )
+    <br>
+
+    @(F.Label().ID("labResult").EncodeText(false))
+    <br>
+    <br>
+    
+
+
+}
+
+
+@section script {
+
+    <script>
+
+        function onTree1NodeClick(event, nodeId) {
+            var tree = this;
+
+            // 节点为西平县时，先弹出确认提示框
+            if (nodeId === 'xiping') {
+                if (!confirm('确定回发？')) {
+                    return;
+                }
+            }
+
+
+            if ($.inArray(nodeId, ["zhumadian", "suiping", "xiping"]) >= 0) {
+                var nodeData = tree.getNodeData(nodeId);
+
+                // 触发后台事件
+                F.doPostBack({
+                    url: '@Url.Action("Tree1_NodeClick")',
+                    params: {
+                        nodeId: nodeId,
+                        nodeText: nodeData.text
+                    }
+                });
+            }
+        }
+
+    </script>
+
+}

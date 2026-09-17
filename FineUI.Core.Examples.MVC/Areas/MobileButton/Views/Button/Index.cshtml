@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "MobileButton/Button";
+    ViewBag.BodyBGColor = false;
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Panel().ID("Panel1").ShowBorder(false).ShowHeader(false).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 5 0").BodyPadding(10).AutoScroll(true).IsViewPort(true)
+        .Items(
+            F.Button().ID("Button1").Text("普通按钮"),
+            F.Button().ID("Button2").Text("按下按钮").EnablePress(true).Pressed(true),
+            F.Button().ID("Button3").Text("禁用按钮").Enabled(false).MarginBottom(30),
+            F.Panel().ShowBorder(false).ShowHeader(false).Layout(LayoutType.HBox).BoxConfigChildMargin("0 5 0 0").MarginBottom(30)
+                .Items(
+                    F.Button().ID("Button4").Text("普通按钮").BoxFlex(1),
+                    F.Button().ID("Button5").Text("按下按钮").BoxFlex(1).EnablePress(true).Pressed(true),
+                    F.Button().ID("Button6").Text("禁用按钮").BoxFlex(1).Enabled(false).Margin(0)
+                ),
+            F.Panel().ID("Panel2").ShowBorder(false).ShowHeader(false).Layout(LayoutType.HBox).BoxConfigChildMargin("0 5 0 0").MarginBottom(30)
+                .Items(
+                    F.Button().ID("Button7").Text("普通按钮").BoxFlex(1).Icon(Icon.Star).IconAlign(IconAlign.Top),
+                    F.Button().ID("Button8").Text("按下按钮").BoxFlex(1).IconFont(IconFont._Mail).IconAlign(IconAlign.Top).EnablePress(true).Pressed(true),
+                    F.Button().ID("Button9").Text("禁用按钮").BoxFlex(1).IconFont(IconFont._Refresh).IconAlign(IconAlign.Top).Enabled(false).Margin(0)
+                )
+        )
+    )
+
+
+}
+

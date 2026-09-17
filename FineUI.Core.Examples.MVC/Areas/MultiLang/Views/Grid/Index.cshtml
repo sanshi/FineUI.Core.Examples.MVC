@@ -1,0 +1,47 @@
+@{
+    ViewBag.Title = "MultiLang/Grid";
+    var F = Html.F();
+}
+
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject IHtmlLocalizer<FineUI.Core.Examples.MVC.Areas.MultiLang.Controllers.GridController> Localizer
+@functions {
+    ParamsFunc<string, object, LocalizedString> _R => Localizer.GetString;
+}
+
+
+@section body {
+
+    @(F.Grid().IsFluid(true).Title(@_R("表格")).ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name")
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().HeaderText(@_R("姓名")).DataField("Name").Width(150),
+            F.RenderField().HeaderText(@_R("性别")).DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender").Width(150),
+            F.RenderField().HeaderText(@_R("入学年份")).DataField("EntranceYear").FieldType(FieldType.Int).Width(150),
+            F.RenderCheckField().HeaderText(@_R("是否在校")).DataField("AtSchool").RenderAsStaticField(true).Width(150),
+            F.RenderField().HeaderText(@_R("所学专业")).DataField("Major").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150),
+            F.RenderField().HeaderText(@_R("分组")).DataField("Group").RendererFunction("renderGroup").Width(150),
+            F.RenderField().HeaderText(@_R("注册日期")).DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd").Width(150)
+        )
+        .DataSource(DataSourceUtil.GetDataTable())
+    )
+    <br>
+    <br>
+
+    @(F.Button().Text(@_R("选中了哪些行")).ID("Button1").ClickHandler("onNotifySelectedRowsClick"))
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+    <!-- 输出多语言资源 -->
+    <script type="text/javascript">
+        @Html.Raw(FineUI.Core.PageContext.GetJavaScriptResourcesReference<SharedJavaScriptResources>())
+    </script>
+
+}

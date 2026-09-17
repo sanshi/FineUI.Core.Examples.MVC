@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Form/CheckBoxSwitch";
+    var F = Html.F();
+}
+
+@section head {
+    <style>
+        .mycheckbox .f-field-checkbox-switch .f-field-checkbox-switch-text {
+            min-width: 40px;
+        }
+    </style>
+}
+
+
+@section body {
+
+    @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).Title("简单表单").LabelWidth(200)
+        .Items(
+            F.CheckBox().ID("CheckBox1").ShowLabel(false).Text("复选框").Checked(true).DisplayType(CheckBoxDisplayType.Switch),
+            F.Button().ID("btnSelectCheckBox").CssClass("marginr").Text("选择/反选复选框").OnClick(Url.Action("btnSelectCheckBox_Click"), new Parameter("isChecked", "F.ui.CheckBox1.isChecked()")),
+            F.Button().ID("btnChangeCheckStatus").CssClass("marginr").Text("选择/反选复选框（客户端脚本）").ClickHandler("onChangeCheckStatusClick"),
+            F.Button().ID("btnChangeEnabled").CssClass("marginr").Text("禁用/启用复选框（客户端脚本）").ClickHandler("onChangeEnabledClick"),
+            F.Button().ID("btnDisableCheckBox").CssClass("marginr").Text("启用/禁用复选框").OnClick(Url.Action("btnDisableCheckBox_Click"), new Parameter("isDisabled", "F.ui.CheckBox1.isDisabled()")),
+            F.Label().ID("Label1"),
+            F.CheckBox().ID("CheckBox2").Label("OnCheckedChanged").OnCheckedChanged(Url.Action("CheckBox2_CheckedChanged"), new Parameter("isChecked", "F.ui.CheckBox2.isChecked()")).Checked(true).DisplayType(CheckBoxDisplayType.Switch),
+            F.Label().ID("Label2"),
+            F.CheckBox().ID("CheckBox3").Label("开关文本").Checked(true).DisplayType(CheckBoxDisplayType.Switch).SwitchTextVisible(true),
+            F.CheckBox().ID("CheckBox4").Label("开关文本（自定义）").DisplayType(CheckBoxDisplayType.Switch).SwitchTextVisible(true).SwitchOnText("1").SwitchOffText("0"),
+            F.CheckBox().ID("CheckBox5").Label("开关文本（图标字体）").DisplayType(CheckBoxDisplayType.Switch).SwitchTextVisible(true).SwitchOnTextRawHtml(new RawHtml((string)ViewBag.CheckBox5SwitchOnText)).SwitchOffTextRawHtml(new RawHtml((string)ViewBag.CheckBox5SwitchOffText)),
+            F.CheckBox().ID("CheckBox6").CssClass("mycheckbox").Label("开关文本（自定义）").DisplayType(CheckBoxDisplayType.Switch).SwitchTextVisible(true).SwitchOnText("开启").SwitchOffText("关闭")
+        )
+    )
+
+
+}
+
+
+@section script {
+    <script>
+
+        function onChangeCheckStatusClick(event) {
+            var checkbox = F.ui.CheckBox1;
+            checkbox.setValue(!checkbox.getValue());
+        }
+
+        function onChangeEnabledClick(event) {
+            var checkbox = F.ui.CheckBox1;
+            checkbox.setDisabled(!checkbox.isDisabled());
+        }
+
+
+    </script>
+}

@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.SourceFiles = "~/Areas/IFrame/Views/IFrameCloseAll/IFrameWindow.cshtml;~/Areas/IFrame/Views/IFrameCloseAll/IFrameWindow2.cshtml";
+    ViewBag.Title = "IFrame/IFrameIFrame";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Button().ID("Button1").Text("在本页面弹出窗体").ClickHandler("onOpenWindow1Click"))
+
+    @(F.Window().ID("Window1").EnableIFrame(true).IFrameUrl(Url.Content("~/IFrame/IFrameCloseAll/IFrameWindow")).EnableMaximize(true).EnableResize(true).OnClose(Url.Action("Window1_Close")).Height(500).Width(900).Title("窗体一").Hidden(true))
+    <br>
+
+    @(F.Button().ID("Button2").Text("在父页面弹出窗体").ClickHandler("onOpenWindow2Click"))
+
+    @(F.Window().ID("Window2").EnableIFrame(true).IFrameUrl(Url.Content("~/IFrame/IFrameCloseAll/IFrameWindow")).EnableMaximize(true).EnableResize(true).Target(Target.Parent).OnClose(Url.Action("Window2_Close")).Height(500).Width(900).Title("窗体二").Hidden(true))
+    <br>
+
+    @(F.Label().ID("labResult").EncodeText(false).CssStyle("font-weight:bold;")
+        .Text("页面加载时间：" + DateTime.Now.ToLongTimeString())
+    )
+
+
+
+}
+
+@section script {
+
+    <script type="text/javascript">
+
+        function onOpenWindow1Click(event) {
+            F.ui.Window1.show();
+        }
+
+        function onOpenWindow2Click(event) {
+            F.ui.Window2.show();
+        }
+
+    </script>
+}

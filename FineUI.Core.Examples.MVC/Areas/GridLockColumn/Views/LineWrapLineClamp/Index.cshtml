@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "GridLockColumn/LineWrapLineClamp";
+    var F = Html.F();
+}
+
+
+@section head {
+
+    <style>
+             /* 最多显示 3 行文字，超出则显示省略号 */
+            .f-grid-row .f-grid-cell-text {
+                white-space: normal;
+                word-break: break-all;
+                overflow: hidden;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                display: -webkit-box;
+            }
+    </style>
+
+}
+
+
+@section body {
+
+    @(F.Grid().IsFluid(true).Height(450).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name")
+		.AllowColumnLocking(true).Width(1000)
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().HeaderText("姓名").DataField("Name").EnableLock(true).Locked(true),
+            F.RenderField().HeaderText("性别").DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender").EnableLock(true),
+            F.RenderField().HeaderText("入学年份").DataField("EntranceYear").FieldType(FieldType.Int).EnableLock(true),
+            F.RenderCheckField().HeaderText("是否在校").DataField("AtSchool").RenderAsStaticField(true).EnableLock(true),
+            F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").Width(200).EnableLock(true),
+            F.RenderField().DataField("Desc").HeaderText("个人简介").Width(400),
+			F.RenderField().EnableLock(true).DataField("ShenGao").HeaderText("身高"),
+            F.RenderField().EnableLock(true).DataField("TiZhong").HeaderText("体重"),
+            F.RenderField().EnableLock(true).DataField("XueYaDi").HeaderText("血压（低）"),
+            F.RenderField().EnableLock(true).DataField("XueYaGao").HeaderText("血压（高）"),
+            F.RenderField().EnableLock(true).DataField("ShiLiZuo").HeaderText("视力（左）"),
+            F.RenderField().EnableLock(true).DataField("ShiLiYou").HeaderText("视力（右）"),
+			F.RenderField().EnableLock(true).HeaderText("分组").DataField("Group").RendererFunction("renderGroup"),
+			F.RenderField().EnableLock(true).HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+        )
+        .DataSource(DataSourceUtil.GetDataTable())
+    )
+    <br>
+    <br>
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+}

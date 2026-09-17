@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Form/FormDynamic";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Form().BodyPadding(10).ID("Form1").IsFluid(true).EnableCollapse(false).Title("表单").LabelWidth(120).LabelAlign(LabelAlign.Top)
+        .Rows(
+            F.FormRow()
+                .Items(
+                    F.Label().ID("Label1").ShowLabel(false).Text("这是一个标签")
+                ),
+            F.FormRow()
+                .Items(ViewBag.DynamicItems)
+        )
+    )
+    <br>
+    注：用户名和性别两个控件是动态创建的。
+    <br>
+    <br>
+
+    @(F.Button().ID("Button1").ValidateForms("Form1").ValidateTarget(Target.Top).Text("验证表单并提交").OnClick(Url.Action("Button1_Click"), "Form1"))
+
+
+
+}

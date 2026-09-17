@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "TabStrip/CloseMenuIconFontCSS";
+    var F = Html.F();
+}
+
+
+@section head {
+
+    <style>
+        .f-tabstrip-tabmenu-close .f-menu-item-icon-wrap:before,
+        .f-tabstrip-tabmenu-close-others .f-menu-item-icon-wrap:before,
+        .f-tabstrip-tabmenu-close-all .f-menu-item-icon-wrap:before {
+            font-family: "FontAwesome";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 16px;
+        }
+
+        .f-tabstrip-tabmenu-close .f-menu-item-icon-wrap:before {
+            content: "\f00d";
+        }
+
+        .f-tabstrip-tabmenu-close-others .f-menu-item-icon-wrap:before {
+            content: "\f014";
+        }
+
+        .f-tabstrip-tabmenu-close-all .f-menu-item-icon-wrap:before {
+            content: "\f1f8";
+        }
+
+        .f-largemode .f-tabstrip-tabmenu-close .f-menu-item-icon-wrap:before,
+        .f-largemode .f-tabstrip-tabmenu-close-others .f-menu-item-icon-wrap:before,
+        .f-largemode .f-tabstrip-tabmenu-close-all .f-menu-item-icon-wrap:before {
+            font-size: 20px;
+        }
+    </style>
+
+}
+
+
+@section body {
+
+    @(F.TabStrip().IsFluid(true).ID("TabStrip1").Height(500).EnableTabCloseMenu(true).ShowBorder(true).ActiveTabIndex(1)
+        .Tabs(
+            F.Tab().ID("Tab1").Title("标签一").EnableClose(false).BodyPadding(10)
+                .Items(
+                    F.Label().ID("Label5").Text("标签一中的文本")
+                ),
+            F.Tab().ID("Tab2").Title("标签二").BodyPadding(10).EnableClose(true)
+                .Items(
+                    F.Label().ID("Label4").Text("标签二中的文本")
+                ),
+            F.Tab().ID("Tab3").Title("标签三").Hidden(true).BodyPadding(10).EnableClose(true)
+                .Items(
+                    F.Label().ID("Label3").Text("标签三中的文本")
+                ),
+            F.Tab().ID("Tab4").Title("标签四").BodyPadding(10).EnableClose(true)
+                .Items(
+                    F.Label().ID("Label2").Text("标签四中的文本")
+                ),
+            F.Tab().ID("Tab5").EnableClose(true).Title("标签五").BodyPadding(10)
+                .Items(
+                    F.Label().ID("Label1").Text("标签五中的文本")
+                )
+        )
+    )
+    <br>
+    <br>
+
+    @(F.Button().ID("btnShowInClient").Text("显示标签三（客户端代码）").CssClass("marginr").ClickHandler("onShowInClientClick"))
+
+    @(F.Button().ID("btnHideInClient").Text("隐藏标签三（客户端代码）").ClickHandler("onHideInClientClick"))
+    <br>
+    <br>
+
+    @(F.Button().ID("btnShowInServer").Text("显示标签三（服务端代码）").CssClass("marginr").OnClick(Url.Action("btnShowInServer_Click")))
+
+    @(F.Button().ID("btnHideInServer").Text("隐藏标签三（服务端代码）").OnClick(Url.Action("btnHideInServer_Click")))
+    <br>
+    <br>
+    <br>
+    注：推荐使用 JavaScript 方式来新增菜单项的图标字体，更加灵活可靠。
+    <br>
+
+
+}
+
+
+
+@section script {
+
+    <script>
+
+        function onShowInClientClick(event) {
+            F.ui.Tab3.show();
+        }
+
+        function onHideInClientClick(event) {
+            F.ui.Tab3.hide();
+        }
+
+
+    </script>
+
+}

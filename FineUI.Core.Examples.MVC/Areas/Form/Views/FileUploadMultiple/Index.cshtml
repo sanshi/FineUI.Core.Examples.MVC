@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Form/FileUploadMultiple";
+    var F = Html.F();
+}
+
+@section head {
+
+    <style type="text/css">
+        .result img {
+            border: 1px solid #CCCCCC;
+            max-width: 550px;
+            padding: 3px;
+        }
+    </style>
+
+}
+
+
+@section body {
+
+
+    @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).ShowBorder(true).Title("表单").ShowHeader(true)
+        .Items(
+            F.TextBox().Label("用户名").ID("tbxUserName").EmptyText("请输入用户名").Required(true).ShowRedStar(true),
+            F.FileUpload().ID("filePhotos").EmptyText("请选择多张照片").Label("个人照片").Required(true).ShowRedStar(true).Multiple(true),
+            F.Button().ID("btnSubmit").OnClick(Url.Action("btnSubmit_Click"), "SimpleForm1").ValidateForms("SimpleForm1").Text("提交")
+        )
+    )
+    @(F.Label().ID("labResult").EncodeText(false).CssClass("result"))
+    <br />
+    <br />
+    注：本示例支持的浏览器版本为：Edge、Chrome、Firefox、Safari、IE10+。
+
+}

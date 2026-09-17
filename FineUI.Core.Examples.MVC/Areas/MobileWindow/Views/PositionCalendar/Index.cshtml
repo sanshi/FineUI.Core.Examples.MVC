@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "MobileWindow/PositionCalendar";
+    ViewBag.BodyBGColor = false;
+    var F = Html.F();
+}
+
+
+@section head {
+
+    <style>
+        .mybgpanel > .f-panel-bodyct > .f-panel-body {
+            background-color: #FEF3D5;
+            background-image: url(@Url.Content("~/res/images/bg/small/3.jpg"));
+            background-position: right bottom;
+            background-repeat: no-repeat;
+        }
+
+        .mywindow,
+        .mywindow > .f-panel-bodyct > .f-panel-body {
+            background-image: none;
+            background-color: transparent;
+            -moz-box-shadow: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+    </style>
+
+}
+
+@section body {
+
+    @(F.Panel().ID("Panel1").CssClass("mybgpanel").ShowBorder(false).ShowHeader(false).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 5 0").BodyPadding(10).IsViewPort(true)
+        .Items(
+            F.Button().ID("btnOpenWindow").Text("选择日期").ClickHandler("onOpenWindow1Click")
+        )
+    )
+
+    @(F.Window().ID("Window1").CssClass("mywindow").ShowHeader(false).ShowBorder(false).HideOnMaskClick(true).IsModal(true).BodyPadding(10).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 5 0").PercentWidth("100%").EnableDefaultCorner(false).PositionY(Position.Bottom).Hidden(true)
+        .Items(
+            F.Calendar().ID("Calendar1").DateFormatString("yyyy/MM/dd").MarginBottom(10).Listener("select", "onCalendar1Select"),
+            F.Button().ID("Button3").Text("取消").Margin(0).ClickHandler("onCloseWindow1Click")
+        )
+    )
+
+
+}
+
+
+@section script {
+
+    
+    <script>
+
+        function onOpenWindow1Click(event) {
+            F.ui.Window1.show();
+        }
+
+        function onCloseWindow1Click(event) {
+            F.ui.Window1.hide();
+        }
+
+
+        function onCalendar1Select(event) {
+            F.ui.Window1.hide();
+            showCenterNotify('你选择的日期是：' + F.ui.Calendar1.getText());
+        }
+
+    </script>
+
+}
+
+

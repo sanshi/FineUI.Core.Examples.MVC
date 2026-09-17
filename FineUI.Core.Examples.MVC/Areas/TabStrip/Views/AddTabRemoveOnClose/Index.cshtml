@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "TabStrip/AddTabRemoveOnClose";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.TabStrip().IsFluid(true).ID("TabStrip1").Height(500).ShowBorder(true).ActiveTabIndex(0)
+        .Tabs(
+            F.Tab().Title("FineUI官网").EnableIFrame(true).IFrameUrl("https://fineui.com/")
+        )
+    )
+    <br>
+
+    @(F.Button().ID("btnAddTab1").CssClass("marginr").Text("DeepSeek官网（客户端代码）").ClickHandler("onAddTab1Click"))
+
+    @(F.Button().ID("btnAddTab2").CssClass("marginr").Text("ASP.NET官网（客户端代码）").ClickHandler("onAddTab2Click"))
+
+    @(F.Button().ID("btnRemoveTab1").CssClass("marginr").Text("删除DeepSeek官网（客户端代码）").ClickHandler("onRemoveTab1Click"))
+
+    @(F.Button().ID("btnRemoveTab2").CssClass("marginr").Text("删除ASP.NET官网（客户端代码）").ClickHandler("onRemoveTab2Click"))
+    <br>
+    <br>
+
+    @(F.Button().ID("btnAddTab3").CssClass("marginr").Text("DeepSeek官网（服务端代码）").OnClick(Url.Action("btnAddTab3_Click")))
+
+    @(F.Button().ID("btnAddTab4").CssClass("marginr").Text("ASP.NET官网（服务端代码）").OnClick(Url.Action("btnAddTab4_Click")))
+
+    @(F.Button().ID("btnRemoveTab3").CssClass("marginr").Text("删除DeepSeek官网（服务端代码）").OnClick(Url.Action("btnRemoveTab3_Click")))
+
+    @(F.Button().ID("btnRemoveTab4").CssClass("marginr").Text("删除ASP.NET官网（服务端代码）").OnClick(Url.Action("btnRemoveTab4_Click")))
+    <br>
+    <br>
+
+
+}
+
+
+@section script {
+
+    <script>
+
+        function onAddTab1Click(event) {
+            F.ui.TabStrip1.addTab({
+                id: 'dynamic_tab1',
+                iframe: true,
+                iframeUrl: 'https://deepseek.com/',
+                title: 'DeepSeek官网',
+                closable: true,
+                icon: '@Url.Content("~/res/icon/application.png")',
+                removeOnClose: true
+            });
+        }
+
+        function onAddTab2Click(event) {
+            F.ui.TabStrip1.addTab({
+                id: 'dynamic_tab2',
+                iframe: true,
+                iframeUrl: 'https://asp.net/',
+                title: 'ASP.NET官网',
+                closable: true,
+                icon: '@Url.Content("~/res/icon/application_add.png")',
+                removeOnClose: true
+            });
+
+        }
+
+        function onRemoveTab1Click(event) {
+            F.ui.TabStrip1.closeTab('dynamic_tab1');
+        }
+
+        function onRemoveTab2Click(event) {
+            F.ui.TabStrip1.closeTab('dynamic_tab2');
+        }
+
+    </script>
+}

@@ -1,0 +1,50 @@
+@using FineUI.Core.Examples.MVC.Areas.MultiLang.Models;
+@{
+    ViewBag.SourceFiles = "~/Areas/MultiLang/Models/Student.cs;~/Areas/MultiLang/Models/StudentHelper.cs";
+    ViewBag.Title = "MultiLang/GridAnnotation";
+    var F = Html.F();
+}
+
+@model IList<FineUI.Core.Examples.MVC.Areas.MultiLang.Models.Student>
+
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject IHtmlLocalizer<FineUI.Core.Examples.MVC.Areas.MultiLang.Controllers.GridAnnotationController> Localizer
+@functions {
+    ParamsFunc<string, object, LocalizedString> _R => Localizer.GetString;
+}
+
+@section body {
+
+
+    @(F.Grid().IsFluid(true).Title(@_R("表格")).ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name")
+        .Columns(
+            F.RowNumberField(),
+            F.RenderFieldFor(m => m.Name).Width(120),
+            F.RenderFieldFor(m => m.Gender).RendererFunction("renderGender").Width(120),
+            F.RenderFieldFor(m => m.EntranceYear).Width(120),
+            F.RenderCheckFieldFor(m => m.AtSchool).RenderAsStaticField(true).Width(120),
+            F.RenderFieldFor(m => m.Major).RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150),
+            F.RenderFieldFor(m => m.Group).RendererFunction("renderGroup").Width(120),
+            F.RenderFieldFor(m => m.EntranceDate).Width(120)
+        ).DataSource(Model)
+    )
+    <br>
+    <br>
+
+    @(F.Button().Text(@_R("选中了哪些行")).ID("Button1").ClickHandler("onNotifySelectedRowsClick"))
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+    <!-- 输出多语言资源 -->
+    <script type="text/javascript">
+        @Html.Raw(FineUI.Core.PageContext.GetJavaScriptResourcesReference<SharedJavaScriptResources>())
+    </script>
+
+}

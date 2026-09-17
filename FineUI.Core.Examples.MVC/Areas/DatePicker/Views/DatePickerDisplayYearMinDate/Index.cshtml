@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "DatePicker/DatePickerDisplayYearMinDate";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).Title("简单表单")
+        .Items(
+            F.DatePicker().Required(true).DateFormatString("yyyy").DisplayType(CalendarDisplayType.Year).ShowTodayButton(false).Label("开始年份").EmptyText("请选择开始年份").ID("DatePicker1").ShowRedStar(true).SelectedDate(@ViewBag.DatePicker1SelectedDate).MinDate(@ViewBag.DatePicker1MinDate).MaxDate(@ViewBag.DatePicker1MaxDate),
+            F.DatePicker().ID("DatePicker2").Required(true).Readonly(false).CompareControl("DatePicker1").DateFormatString("yyyy").DisplayType(CalendarDisplayType.Year).ShowTodayButton(false).CompareOperator(Operator.GreaterThan).CompareMessage("结束年份应该大于开始年份").Label("结束年份").ShowRedStar(true),
+            F.Button().ID("btnSubmit").ValidateForms("SimpleForm1").Text("提交表单").OnClick(Url.Action("btnSubmit_Click"), "SimpleForm1")
+        )
+    )
+    <br>
+
+    @(F.Label().ID("labResult").EncodeText(false).ShowLabel(false))
+
+
+}

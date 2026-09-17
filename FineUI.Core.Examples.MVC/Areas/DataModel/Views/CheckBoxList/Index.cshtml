@@ -1,0 +1,51 @@
+@{
+    ViewBag.SourceFiles = "~/Areas/DataModel/Models/CheckBoxListModel.cs";
+    ViewBag.Title = "DataModel/CheckBoxList";
+    var F = Html.F();
+}
+
+@model FineUI.Core.Examples.MVC.Areas.DataModel.Models.CheckBoxListModel
+
+
+@section body {
+
+
+    @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).LabelWidth(150).ShowBorder(true).ShowHeader(true).Title("简单表单")
+        .Items(
+            F.CheckBoxFor(m => m.IsChecked).Text("复选框"),
+            F.CheckBoxListFor(m=> m.CheckBoxList1).ColumnNumber(3)
+                .Items(Model.CheckBoxList1Items.ToArray()),
+            F.RadioButtonListFor(m => m.RadioButtonList1).ColumnNumber(3)
+                .Items(Model.RadioButton1Items.ToArray()),
+            F.RadioButtonListFor(m => m.Gender).ColumnNumber(3)
+                .Items(
+                    F.RadioItem().Text("男").Value("1"),
+                    F.RadioItem().Text("女").Value("0")
+                ),
+            F.RadioButtonListFor(m => m.GenderType).ColumnNumber(3)
+                .Items(
+                    F.RadioItem().Text("男").Value("1"),
+                    F.RadioItem().Text("女").Value("0")
+                ),
+            F.DropDownListFor(m => m.GenderType).ID("GenderType2").Name("GenderType2")
+                .Items(
+                    F.ListItem().Text("男").Value("1"),
+                    F.ListItem().Text("女").Value("0")
+                ),
+            F.Button().ID("btnSubmit").ValidateForms("SimpleForm1").CssClass("marginr").Text("提交表单").OnClick(Url.Action("btnSubmit_Click"), "SimpleForm1"),
+            F.Button().ID("btnReset").Text("重置表单").ClickHandler("onResetClick")
+        )
+    )
+
+}
+
+@section script {
+
+    <script type="text/javascript">
+
+        function onResetClick(event) {
+            F.ui.SimpleForm1.reset();
+        }
+
+    </script>
+}

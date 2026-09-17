@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Layout/HBoxAutoHeightStretch";
+
+
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Panel().IsFluid(true).ShowBorder(true).Layout(LayoutType.HBox).BodyPadding(10).BoxConfigChildMargin("0 5 0 0").ShowHeader(true).Title("面板（Layout=HBox）（默认值：BoxConfigAlign=Stretch）")
+        .Items(
+            F.Panel().Title("面板1").Width(200).BodyPadding(10).ShowBorder(true).ShowHeader(false)
+                .Items(
+                    F.Label().Text("Width=200")
+                ),
+            F.Panel().Title("面板2").Width(200).BodyPadding(10).ShowBorder(true).ShowHeader(false)
+                .Items(
+                    F.Label().EncodeText(false).Text("Width=200px<br><br><br><br><br><br><br><br>bottom line")
+                ),
+            F.Panel().Title("面板3").BoxFlex(1).BodyPadding(10).Margin(0).ShowBorder(true).ShowHeader(false)
+                .Items(
+                    F.Label().Text("BoxFlex=1")
+                )
+        )
+    )
+    <br>
+    <br>
+    @(F.Panel().IsFluid(true).ShowBorder(true).Layout(LayoutType.HBox).BodyPadding(10).BoxConfigChildMargin("0 5 0 0").ShowHeader(true).Title("面板（Layout=HBox）（默认值：BoxConfigAlign=Stretch）")
+        .Items(
+            F.Panel().Title("面板1").Width(200).BodyPadding(10).ShowBorder(true).ShowHeader(false)
+                .Items(
+                    F.Label().Text("Width=200")
+                ),
+            F.Panel().Title("面板2").Width(200).Height(250).BodyPadding(10).ShowBorder(true).ShowHeader(false)
+                .Items(
+                    F.Label().EncodeText(false).Text("Width=200 Height=250")
+                ),
+            F.Panel().Title("面板3").BoxFlex(1).BodyPadding(10).Margin(0).ShowBorder(true).ShowHeader(false)
+                .Items(
+                    F.Label().Text("BoxFlex=1")
+                )
+        )
+    )
+    <br>
+    <br>
+    @(F.Panel().IsFluid(true).ShowBorder(true).Layout(LayoutType.HBox).BoxConfigAlign(BoxLayoutAlign.Start).BodyPadding(10).BoxConfigChildMargin("0 5 0 0").ShowHeader(true).Title("面板（Layout=HBox BoxConfigAlign=Start）")
+        .Items(
+            F.Panel().Title("面板1").Width(200).BodyPadding(10).ShowBorder(true).ShowHeader(false)
+                .Items(
+                    F.Label().Text("Width=200")
+                ),
+            F.Panel().Title("面板2").Width(200).BodyPadding(10).ShowBorder(true).ShowHeader(false)
+                .Items(
+                    F.Label().EncodeText(false).Text("Width=200px<br><br><br><br><br><br><br><br>bottom line")
+                ),
+            F.Panel().Title("面板3").BoxFlex(1).BodyPadding(10).Margin(0).ShowBorder(true).ShowHeader(false)
+                .Items(
+                    F.Label().Text("BoxFlex=1")
+                )
+        )
+    )
+    <br>
+    <br>
+    @(F.Panel().IsFluid(true).ShowBorder(true).Layout(LayoutType.HBox).BoxConfigAlign(BoxLayoutAlign.Start).BodyPadding(10).BoxConfigChildMargin("0 5 0 0").ShowHeader(true).Title("面板（Layout=HBox BoxConfigAlign=Start）")
+        .Items(
+            F.Panel().Title("面板1").Width(200).BodyPadding(10).ShowBorder(true).ShowHeader(false)
+                .Items(
+                    F.Label().Text("Width=200")
+                ),
+            F.Panel().Title("面板2").Width(200).Height(250).BodyPadding(10).ShowBorder(true).ShowHeader(false)
+                .Items(
+                    F.Label().EncodeText(false).Text("Width=200 Height=250")
+                ),
+            F.Panel().Title("面板3").BoxFlex(1).BodyPadding(10).Margin(0).ShowBorder(true).ShowHeader(false)
+                .Items(
+                    F.Label().Text("BoxFlex=1")
+                )
+        )
+    )
+    <br>
+    <br>
+
+}
+

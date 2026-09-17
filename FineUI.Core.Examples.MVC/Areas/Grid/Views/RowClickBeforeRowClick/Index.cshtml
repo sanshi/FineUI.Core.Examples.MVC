@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Grid/RowClickBeforeRowClick";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name").EnableCheckBoxSelect(true)
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().HeaderText("姓名").DataField("Name"),
+            F.RenderField().HeaderText("性别").DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender"),
+            F.RenderField().HeaderText("入学年份").DataField("EntranceYear").FieldType(FieldType.Int),
+            F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150),
+            F.RenderField().HeaderText("分组").DataField("Group").RendererFunction("renderGroup"),
+            F.RenderField().HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+        ).Listener("rowclick", "onGrid1RowClick").Listener("beforerowclick", "onGrid1BeforeRowClick")
+        .DataSource(DataSourceUtil.GetDataTable())
+    )
+    <br>
+    <br>
+
+    @(F.Button().Text("选中了哪些行").ID("Button1").ClickHandler("onNotifySelectedRowsClick"))
+
+    <br />
+    <br />
+    注：通过 beforerowclick 事件阻止 “分组” 列的行点击事件。
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+    <script>
+
+        function onGrid1BeforeRowClick(event, rowId) {
+            if ($(event.target).closest('.f-grid-cell-Group').length) {
+                // 如果当前点击的单位格属于 “分组” 列，则阻止行点击事件
+                return false; // 阻止行点击事件
+            }
+        }
+
+        function onGrid1RowClick(event, rowId) {
+            var grid1 = F.ui.Grid1;
+            var rowData = grid1.getRowData(rowId);
+            var rowEl = grid1.getRowEl(rowId);
+            var column = grid1.getColumn(grid1.getSelectedCell()[1]);
+
+            // 触发后台事件
+            F.doPostBack({
+                url: '@Url.Action("Grid1_RowClick")',
+                params: {
+                    rowId: rowData.id,
+                    rowText: rowData.text,
+                    rowIndex: rowEl.index(),
+                    columnText: column.text
+                }
+            });
+
+        }
+
+    </script>
+}

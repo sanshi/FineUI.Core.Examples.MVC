@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Toolbar/ToolbarIFrame";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Panel().IsFluid(true).IFrameName("main").EnableIFrame(true).Height(500).Title("面板").ID("Panel1")
+        .Toolbars(
+            F.Toolbar().Position(ToolbarPosition.Top)
+                .Items(
+                    F.Button().ClickHandler("onOpenPage1Click").Text("打开页面一").ID("Button1"),
+                    F.Button().ClickHandler("onOpenPage2Click").Text("打开页面二").ID("Button2"),
+                    F.Button().OnClick(Url.Action("Button3_Click")).Text("打开页面三（服务器端）").ID("Button3")
+                )
+        )
+    )
+
+}
+
+
+@section script {
+
+    <script>
+
+        function updateIFrameUrl(url) {
+            F.ui.Panel1.setIFrameUrl(url);
+        }
+
+        // updateIFrameUrl 和 updateIFrameUrl2 效果一样
+        function updateIFrameUrl2(url) {
+            window.open(url, 'main');
+        }
+
+        function onOpenPage1Click(event) {
+            updateIFrameUrl2('@Url.Content("~/Basic/Hello")');
+        }
+
+        function onOpenPage2Click(event) {
+            updateIFrameUrl2('@Url.Content("~/Config/ModifyWebConfig")');
+        }
+
+    </script>
+
+}

@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Form/CheckBoxClientServerEvent";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).Title("简单表单")
+        .Items(
+            F.CheckBox().ID("CheckBox1").ShowLabel(false).Text("复选框1（先执行客户端事件，再执行服务端事件）")
+                .OnCheckedChanged(Url.Action("CheckBox1_CheckedChanged"), new Parameter("isChecked", "F.ui.CheckBox1.isChecked()")).Checked(true)
+                .Listener("change", "onCheckBox1Changed"),
+            F.CheckBox().ID("CheckBox2").ShowLabel(false).Text("复选框2（只执行客户端事件）")
+                .OnCheckedChanged(Url.Action("CheckBox2_CheckedChanged"), new Parameter("isChecked", "F.ui.CheckBox2.isChecked()")).Checked(true)
+                .Listener("change", "onCheckBox2Changed"),
+            F.Label().ID("labResult").EncodeText(false).ShowLabel(false)
+        )
+    )
+
+
+}
+
+
+@section script {
+    <script>
+
+        function onCheckBox1Changed(event, checked) {
+            F.ui.labResult.setValue("【客户端】复选框1的状态：" + (checked ? "选中" : "未选中"));
+        }
+
+        function onCheckBox2Changed(event, checked) {
+            F.ui.labResult.setValue("【客户端】复选框2的状态：" + (checked ? "选中" : "未选中"));
+
+            // 客户端事件（change）显式返回false，用于阻止服务端事件的执行（OnCheckedChanged）
+            return false;
+        }
+
+    </script>
+}

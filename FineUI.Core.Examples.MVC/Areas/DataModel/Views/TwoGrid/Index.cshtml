@@ -1,0 +1,24 @@
+@{
+    ViewBag.SourceFiles = "~/Areas/DataModel/Models/Student.cs;~/Areas/DataModel/Models/StudentHelper.cs;~/Areas/DataModel/Views/TwoGridLayout/PartialGrid.cshtml";
+    ViewBag.Title = "DataModel/TwoGridLayout";
+    var F = Html.F();
+}
+
+@using FineUI.Core.Examples.MVC.Areas.DataModel.Models;
+
+@model Tuple<IList<Student>, IList<Student>>
+
+@section body 
+{
+    @(await Html.PartialAsync("../TwoGridLayout/PartialGrid", Model.Item1, new ViewDataDictionary(ViewData) { { "__GridId", "Grid1" }, { "__Title", "表格一（在校生）" }, { "__IsFluid", true } }))
+    <br />
+    @(await Html.PartialAsync("../TwoGridLayout/PartialGrid", Model.Item2, new ViewDataDictionary(ViewData) { { "__GridId", "Grid2" }, { "__Title", "表格二（毕业生）" }, { "__IsFluid", true } }))
+}
+
+
+@section script 
+{
+
+    <script src="~/res/js/grid.js"></script>
+
+}

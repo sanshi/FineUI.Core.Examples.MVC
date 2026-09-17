@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.SourceFiles = "~/Areas/IFrame/Views/ParentWindowClose/IFrameWindow1.cshtml;~/Areas/IFrame/Views/ParentWindowClose/IFrameWindow2.cshtml";
+    ViewBag.Title = "IFrame/ParentWindowClose";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    页面一：IFrame/ParentWindowClose/Index
+    <br>
+
+    @(F.Label().ID("labResult").EncodeText(false)
+        .Text(DateTime.Now.ToLongTimeString())
+    )
+    <br>
+
+    @(F.Button().ID("Button2").Text("刷新面板一中的IFrame").ClickHandler("onRefreshIFrameClick"))
+    <br>
+    <br>
+
+    @(F.Panel().IsFluid(true).ID("Panel1").ShowBorder(true).Height(500).EnableIFrame(true).IFrameUrl(Url.Content("~/IFrame/ParentWindowClose/IFrameWindow1")).ShowHeader(true).Title("面板一"))
+
+
+
+}
+
+
+@section script {
+
+    <script>
+
+        function updateLabelResult() {
+
+            F.ui.labResult.setValue(F.formatDate('HH:mm:ss', new Date));
+
+        }
+
+        function onRefreshIFrameClick(event) {
+            F.ui.Panel1.refreshIFrame();
+        }
+
+    </script>
+
+}
