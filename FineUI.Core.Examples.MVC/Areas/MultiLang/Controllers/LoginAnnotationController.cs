@@ -37,8 +37,8 @@ namespace FineUI.Core.Examples.MVC.Areas.MultiLang.Controllers
 
 
         // https://www.dotnetexpertguide.com/2012/12/aspnet-mvc-accessing-base-controller.html
-        // In the Model-View-Controller pattern the view should never know about the controller.
-        // If your view needs info about the User Role it should be passed to the view from the controller but you should never have your view access your controller.
+        // 在 MVC 模式里，视图不应该知道控制器的存在。
+        // 视图如果需要用户角色的信息，应该由控制器传给它，绝不要让视图反过来访问控制器。
 
     }
 }
