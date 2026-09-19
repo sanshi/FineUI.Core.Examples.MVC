@@ -1,13 +1,122 @@
-﻿@{
+@{
     ViewBag.Title = "Grid/Form";
     var F = Html.F();
 }
 
 
-@section body {
+@section head {
 
-    
-
+    <style>
+        /* 表格与表单左右分栏，给表格右侧留一条分隔线 */
+        .maingrid {
+            border-width: 0 1px 0 0;
+        }
+    </style>
 
 }
 
+
+@section body {
+
+    @(F.Panel().ID("Panel1").IsFluid(true).ShowBorder(true).ShowHeader(true).Title("表格与表单").Layout(LayoutType.HBox).Height(500)
+        .Items(
+            F.Grid().ID("Grid1").ShowBorder(true).ShowHeader(false).EnableCollapse(false).BoxFlex(1).CssClass("maingrid")
+                .DataIDField("Id").DataTextField("Name").AllowCellEditing(true).ClicksToEdit(2)
+                .Columns(
+                    F.RowNumberField().Width(60),
+                    F.RenderField().HeaderText("姓名").ColumnID("Name").DataField("Name"),
+                    F.RenderField().HeaderText("性别").ColumnID("Gender").DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender").Hidden(true),
+                    F.RenderField().HeaderText("入学年份").ColumnID("EntranceYear").DataField("EntranceYear").FieldType(FieldType.Int),
+                    F.RenderField().HeaderText("入学日期").ColumnID("EntranceDate").DataField("EntranceDate").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd").Width(150).Hidden(true),
+                    F.RenderCheckField().HeaderText("是否在校").ColumnID("AtSchool").DataField("AtSchool").EnableColumnEdit(false),
+                    F.RenderField().HeaderText("所学专业").ColumnID("Major").DataField("Major").ExpandUnusedSpace(true).MinWidth(150)
+                )
+                .Listener("rowselect", "onGridRowSelect")
+                .DataSource(ViewBag.Grid1DataSource),
+            F.SimpleForm().ID("SimpleForm1").ShowBorder(false).ShowHeader(false).BodyPadding(10).Width(300)
+                .Items(
+                    F.HiddenField().ID("hfFormID"),
+                    F.TextBox().ID("tbxFormUserName").Label("姓名").ShowRedStar(true).Required(true),
+                    F.RadioButtonList().ID("rblFormGender").Label("性别").ShowRedStar(true).Required(true)
+                        .Items(
+                            F.RadioItem().Text("男").Value("1"),
+                            F.RadioItem().Text("女").Value("0")
+                        ),
+                    F.NumberBox().ID("nbFormEntranceYear").Label("入学年份").NoDecimal(true).NoNegative(true).MinValue(2000).MaxValue(2025).ShowRedStar(true).Required(true),
+                    F.DatePicker().ID("dpFormEntranceDate").Label("入学日期").ShowRedStar(true).Required(true),
+                    F.CheckBox().ID("cbFormAtSchool").Label("是否在校"),
+                    F.DropDownList().ID("ddlFormMajor").Label("所学专业").ShowRedStar(true).Required(true).AutoSelectFirstItem(false)
+                        .Items(
+                            F.ListItem().Text("材料科学与工程系").Value("材料科学与工程系"),
+                            F.ListItem().Text("化学系").Value("化学系"),
+                            F.ListItem().Text("数学系").Value("数学系"),
+                            F.ListItem().Text("物理系").Value("物理系"),
+                            F.ListItem().Text("自动化系").Value("自动化系"),
+                            F.ListItem().Text("计算机科学与工程系").Value("计算机科学与工程系")
+                        )
+                )
+                .Toolbars(
+                    F.Toolbar().Position(ToolbarPosition.Bottom)
+                        .Items(
+                            F.Button().ID("btnNew").Icon(Icon.Add).ClickHandler("onNewButtonClick"),
+                            F.Button().ID("btnDelete").Enabled(false).Icon(Icon.Delete).ConfirmText("确定删除当前数据？").OnClick(Url.Action("btnDelete_Click"), "SimpleForm1,Grid1"),
+                            F.ToolbarFill(),
+                            F.Button().ID("btnSave").Icon(Icon.SystemSave).Text("保存数据（新增）").ValidateForms("SimpleForm1").OnClick(Url.Action("btnSave_Click"), "SimpleForm1,Grid1")
+                        )
+                )
+        )
+    )
+
+}
+
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+    <script>
+
+        // 注意：保存按钮回发时把表格也带上了（OnClick 第二个参数是逗号分隔的控件列表），
+        // 因为服务端要按表格的字段列表重建行数据；只发表单的话，表格重绑后每一行都会是空的
+
+        // 表格选中行变化：把当前行数据灌进右侧表单，并切成「编辑」状态
+        function onGridRowSelect(event, rowId) {
+            var grid1 = F.ui.Grid1;
+
+            // 有选中行才允许删除
+            F.ui.btnDelete.enable();
+
+            // 当前行数据
+            var rowValue = grid1.getRowValue(rowId);
+
+            // 使用当前行数据填充表单字段
+            F.ui.hfFormID.setValue(rowId);
+            F.ui.tbxFormUserName.setValue(rowValue['Name']);
+            F.ui.rblFormGender.setValue(rowValue['Gender']);
+            F.ui.nbFormEntranceYear.setValue(rowValue['EntranceYear']);
+            F.ui.dpFormEntranceDate.setValue(rowValue['EntranceDate']);
+            F.ui.cbFormAtSchool.setValue(rowValue['AtSchool']);
+            F.ui.ddlFormMajor.setValue(rowValue['Major']);
+
+            // 更新保存按钮文本
+            F.ui.btnSave.setText('保存数据（编辑）');
+        }
+
+
+        // 新增：清空表单与表格选中行，回到「新增」状态
+        // 删除成功后，服务端也调用这个函数让页面回到新增状态
+        function onNewButtonClick(event) {
+            // 重置表单字段
+            F.ui.SimpleForm1.reset();
+            // 清空表格选中行
+            F.ui.Grid1.clearSelection();
+            // 禁用删除按钮
+            F.ui.btnDelete.disable();
+
+            // 更新保存按钮文本
+            F.ui.btnSave.setText('保存数据（新增）');
+        }
+
+    </script>
+
+}

@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Grid/FormWindow";
     var F = Html.F();
 }
@@ -6,8 +6,198 @@
 
 @section body {
 
-    
+    @(F.Grid().IsFluid(true).ID("Grid1").ShowBorder(true).ShowHeader(true).EnableCollapse(false).Title("表格与表单")
+        .DataIDField("Id").DataTextField("Name").AllowCellEditing(true).ClicksToEdit(2)
+        .Columns(
+            F.RowNumberField().Width(60),
+            F.RenderField().HeaderText("姓名").ColumnID("Name").DataField("Name"),
+            F.RenderField().HeaderText("性别").ColumnID("Gender").DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender").Hidden(true),
+            F.RenderField().HeaderText("入学年份").ColumnID("EntranceYear").DataField("EntranceYear").FieldType(FieldType.Int),
+            F.RenderField().HeaderText("入学日期").ColumnID("EntranceDate").DataField("EntranceDate").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd").Width(150).Hidden(true),
+            F.RenderCheckField().HeaderText("是否在校").ColumnID("AtSchool").DataField("AtSchool").EnableColumnEdit(false),
+            F.RenderField().HeaderText("所学专业").ColumnID("Major").DataField("Major").ExpandUnusedSpace(true).MinWidth(150),
+            F.RenderField().ColumnID("Edit").Width(50).TextAlign(TextAlign.Center).EnableHeaderMenu(false).RendererFunction("renderEditAction"),
+            F.RenderField().ColumnID("Delete").Width(50).TextAlign(TextAlign.Center).EnableHeaderMenu(false).RendererFunction("renderDeleteAction")
+        )
+        .Toolbars(
+            F.Toolbar().Position(ToolbarPosition.Top)
+                .Items(
+                    F.Button().ID("btnNew").Text("新增").Icon(Icon.Add).ClickHandler("onNewButtonClick"),
+                    F.Button().ID("btnEdit").Text("编辑").Icon(Icon.Pencil).ClickHandler("onEditButtonClick"),
+                    F.Button().ID("btnDelete").Text("删除").Icon(Icon.Delete).ClickHandler("onDeleteButtonClick")
+                )
+        ).DataSource(ViewBag.Grid1DataSource)
+    )
 
+    <br>
+
+    @(F.Window().ID("Window1").Title("弹出窗体").Hidden(true).EnableIFrame(false).EnableMaximize(true).EnableResize(true).IsModal(true).Target(Target.Self).Width(600)
+        .Items(
+            F.SimpleForm().ID("SimpleForm1").ShowBorder(false).ShowHeader(false).BodyPadding(10)
+                .Items(
+                    F.HiddenField().ID("hfFormID"),
+                    F.TextBox().ID("tbxFormUserName").Label("姓名").ShowRedStar(true).Required(true),
+                    F.RadioButtonList().ID("rblFormGender").Label("性别").ShowRedStar(true).Required(true)
+                        .Items(
+                            F.RadioItem().Text("男").Value("1"),
+                            F.RadioItem().Text("女").Value("0")
+                        ),
+                    F.NumberBox().ID("nbFormEntranceYear").Label("入学年份").NoDecimal(true).NoNegative(true).MinValue(2000).MaxValue(2025).ShowRedStar(true).Required(true),
+                    F.DatePicker().ID("dpFormEntranceDate").Label("入学日期").ShowRedStar(true).Required(true).EnableEdit(false),
+                    F.CheckBox().ID("cbFormAtSchool").Label("是否在校"),
+                    F.DropDownList().ID("ddlFormMajor").Label("所学专业").ShowRedStar(true).Required(true).AutoSelectFirstItem(false)
+                        .Items(
+                            F.ListItem().Text("材料科学与工程系").Value("材料科学与工程系"),
+                            F.ListItem().Text("化学系").Value("化学系"),
+                            F.ListItem().Text("数学系").Value("数学系"),
+                            F.ListItem().Text("物理系").Value("物理系"),
+                            F.ListItem().Text("自动化系").Value("自动化系"),
+                            F.ListItem().Text("计算机科学与工程系").Value("计算机科学与工程系")
+                        )
+                )
+                .Toolbars(
+                    F.Toolbar().Position(ToolbarPosition.Bottom).ToolbarAlign(ToolbarAlign.Right)
+                        .Items(
+                            F.Button().ID("btnSave").Icon(Icon.SystemSave).Text("保存数据").ValidateForms("SimpleForm1").OnClick(Url.Action("btnSave_Click"), "SimpleForm1,Grid1")
+                        )
+                )
+        )
+    )
 
 }
 
+
+@section script {
+
+    <script src="~/res/js/grid.js"></script>
+
+    <script>
+
+        // 注意：保存按钮回发时把表格也带上了（OnClick 第二个参数是逗号分隔的控件列表），
+        // 因为服务端要按表格的字段列表重建行数据；只发表单的话，表格重绑后每一行都会是空的
+
+        // 表格列 - 编辑图标（删除图标用共享的 renderDeleteAction，两个渲染函数产出的链接都带 action-btn 类，
+        // 由页面底部的委托点击统一处理）
+        function renderEditAction(value, params) {
+            return $('<a>').addClass('action-btn edit').attr('href', 'javascript:;')
+                .append($('<img>').addClass('f-grid-cell-icon').attr('src', F.resolveUrl('/res/icon/pencil.png')).attr('alt', 'Edit'));
+        }
+
+
+        // 删除若干行：行数只有浏览器知道，所以在客户端拼提示文案，确认后把行标识随自定义回发送到服务端
+        function deleteRows(selectedRows) {
+            F.doPostBack({
+                url: '@Url.Action("Grid1_DeleteRows")',
+                fields: 'Grid1',
+                params: {
+                    selectedRows: selectedRows
+                }
+            });
+        }
+
+
+        // 新增：清空表单字段后弹出窗体
+        function onNewButtonClick(event) {
+            // 重置表单字段
+            F.ui.SimpleForm1.reset();
+
+            // 弹出窗体
+            F.ui.Window1.show();
+            F.ui.Window1.setTitle('新增数据');
+        }
+
+
+        // 编辑：作用于表格当前选中的那一行
+        function onEditButtonClick(event) {
+            showEditWindow();
+        }
+
+
+        // 删除：工具栏按钮，删除表格中选中的行
+        // 确认框是异步的，没法在这里等用户点完，所以先取消本次点击的后续动作
+        function onDeleteButtonClick(event) {
+            var grid1 = F.ui.Grid1;
+            if (!grid1.hasSelection()) {
+                F.alert('请至少选择一项！');
+                return false;
+            }
+
+            var selectedRows = grid1.getSelectedRows();
+            F.confirm({
+                message: F.rawHtml('你确定要删除选中的&nbsp;<b>' + selectedRows.length + '</b>&nbsp;行数据吗？'),
+                messageIcon: 'warning',
+                ok: function () {
+                    deleteRows(selectedRows);
+                }
+            });
+
+            return false;
+        }
+
+
+        // 弹出编辑窗体，并把当前行数据灌进表单字段
+        function showEditWindow(rowId) {
+            var grid1 = F.ui.Grid1;
+
+            // 如果传入参数为空，则获取当前选中行
+            if (!rowId) {
+                var selectedRowIds = grid1.getSelectedRows();
+                if (!selectedRowIds.length) {
+                    F.alert('请至少选择一项！');
+                    return;
+                }
+
+                rowId = selectedRowIds[0];
+            }
+
+            F.ui.Window1.setTitle('编辑数据');
+
+            // 当前行数据
+            var rowValue = grid1.getRowValue(rowId);
+
+            // 使用当前行数据填充表单字段
+            F.ui.hfFormID.setValue(rowId);
+            F.ui.tbxFormUserName.setValue(rowValue['Name']);
+            F.ui.rblFormGender.setValue(rowValue['Gender']);
+            F.ui.nbFormEntranceYear.setValue(rowValue['EntranceYear']);
+            F.ui.dpFormEntranceDate.setValue(rowValue['EntranceDate']);
+            F.ui.cbFormAtSchool.setValue(rowValue['AtSchool']);
+            F.ui.ddlFormMajor.setValue(rowValue['Major']);
+
+            // 弹出窗体
+            F.ui.Window1.show();
+        }
+
+
+        F.ready(function () {
+
+            var grid1 = F.ui.Grid1;
+            if (!grid1) {
+                return;
+            }
+
+            // 行内的[编辑]、[删除]图标由渲染函数生成，这里统一代理它们的点击
+            grid1.el.on('click', 'a.action-btn.edit, a.action-btn.delete', function (event) {
+                var cnode = $(this);
+                var rowData = grid1.getRowData(cnode.closest('.f-grid-row'));
+
+                if (cnode.hasClass('edit')) {
+                    // 点击了行编辑图标
+                    showEditWindow(rowData.id);
+                } else {
+                    // 点击了行删除图标
+                    F.confirm({
+                        message: '删除选中行？',
+                        target: '_top',
+                        ok: function () {
+                            deleteRows([rowData.id]);
+                        }
+                    });
+                }
+            });
+
+        });
+
+    </script>
+
+}
