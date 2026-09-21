@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Grid/GroupFieldManyColumns";
+    var F = Html.F();
+}
+
+
+@section body {
+
+    @(F.Grid().IsFluid(true).ID("Grid1").ShowBorder(true).ShowHeader(true).IsViewPort(true)
+        .Title("多级分组表头 + 大量列（约 425 列，验证表头/表体列线对齐）").DataIDField("Id")
+        .AllowColumnLocking(true).EnableColumnLines(true)
+        .Columns(ViewBag.Grid1Columns)
+        .DataSource(ViewBag.Grid1DataSource)
+
+    )
+
+
+}
