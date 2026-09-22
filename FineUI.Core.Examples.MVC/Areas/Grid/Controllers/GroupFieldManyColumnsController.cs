@@ -10,6 +10,8 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
     [Area("Grid")]
     public class GroupFieldManyColumnsController : FineUI.Core.Examples.MVC.Controllers.BaseController
     {
+        // 分组内部使用混合列宽，覆盖跨列分配时的累积舍入。
+        private static readonly int[] LEAF_WIDTHS = { 70, 100, 110, 150 };
         // GET: Grid/GroupFieldManyColumns
         public IActionResult Index()
         {
@@ -54,7 +56,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
                 fhGroup.TextAlign = TextAlign.Center;
                 for (int i = 0; i < 18; i++)
                 {
-                    fhGroup.Columns.Add(CreateLeafField(LEAF_NAMES[i], String.Format("m{0}_fh_{1}", mo, i)));
+                    fhGroup.Columns.Add(CreateLeafField(LEAF_NAMES[i], String.Format("m{0}_fh_{1}", mo, i), i));
                 }
 
                 GroupField kpGroup = new GroupField();
@@ -62,7 +64,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
                 kpGroup.TextAlign = TextAlign.Center;
                 for (int j = 0; j < 17; j++)
                 {
-                    kpGroup.Columns.Add(CreateLeafField(LEAF_NAMES[j], String.Format("m{0}_kp_{1}", mo, j)));
+                    kpGroup.Columns.Add(CreateLeafField(LEAF_NAMES[j], String.Format("m{0}_kp_{1}", mo, j), j));
                 }
 
                 monthGroup.Columns.Add(fhGroup);
@@ -86,13 +88,13 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
             return field;
         }
 
-        // 月份分组下的叶子列：宽 90、右对齐
-        private RenderField CreateLeafField(string headerText, string dataField)
+        // 月份分组下的叶子列：混合列宽、右对齐
+        private RenderField CreateLeafField(string headerText, string dataField, int leafIndex)
         {
             RenderField field = new RenderField();
             field.HeaderText = headerText;
             field.DataField = dataField;
-            field.Width = 90;
+            field.Width = LEAF_WIDTHS[leafIndex % LEAF_WIDTHS.Length];
             field.TextAlign = TextAlign.Right;
             return field;
         }
