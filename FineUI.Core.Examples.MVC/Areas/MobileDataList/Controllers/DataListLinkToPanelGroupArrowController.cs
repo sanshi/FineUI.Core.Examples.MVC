@@ -49,7 +49,7 @@ namespace FineUI.Core.Examples.MVC.Areas.MobileDataList.Controllers
                         HttpUtility.HtmlEncode(row["Name"]),
                         HttpUtility.HtmlEncode(row["Desc"]));
 
-                    listItem.NavigateUrl = "javascript:;";
+                    listItem.NavigateUrl = "#";
 
                     // 属于欧洲的子项，显示右侧箭头
                     if (groupName == "欧洲")

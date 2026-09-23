@@ -79,7 +79,7 @@
         // 表格列 - 编辑图标（删除图标用共享的 renderDeleteAction，两个渲染函数产出的链接都带 action-btn 类，
         // 由页面底部的委托点击统一处理）
         function renderEditAction(value, params) {
-            return $('<a>').addClass('action-btn edit').attr('href', 'javascript:;')
+            return $('<a>').addClass('action-btn edit').attr('href', '#')
                 .append($('<img>').addClass('f-grid-cell-icon').attr('src', F.resolveUrl('/res/icon/pencil.png')).attr('alt', 'Edit'));
         }
 
@@ -178,7 +178,7 @@
 
             // 行内的[编辑]、[删除]图标由渲染函数生成，这里统一代理它们的点击
             grid1.el.on('click', 'a.action-btn.edit, a.action-btn.delete', function (event) {
-                // 删除链接是按钮型占位地址，先取消默认导航，避免执行脚本地址并触发 CSP。
+                // 删除链接是按钮型占位地址，先取消默认导航，避免改写页面 hash。
                 event.preventDefault();
 
                 var cnode = $(this);

@@ -32,7 +32,7 @@ namespace FineUI.Core.Examples.MVC.Areas.MobileDataList.Controllers
                     HttpUtility.HtmlEncode(row["Name"]),
                     HttpUtility.HtmlEncode(row["Desc"]));
 
-                listItem.NavigateUrl = "javascript:;";
+                listItem.NavigateUrl = "#";
                 listItem.ShowArrow = true;
                 listItem.Group = row["Group"].ToString();
 

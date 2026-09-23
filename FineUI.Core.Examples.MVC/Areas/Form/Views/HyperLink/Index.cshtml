@@ -12,7 +12,7 @@
     @(F.HyperLink().ID("HyperLink1").EncodeText(false).Text("新窗口打开 <span style='color:red;'>Google</span> 首页").Target("_blank").NavigateUrl("http://www.google.com/"))
     <br>
 
-    @(F.HyperLink().ID("HyperLink2").Enabled(false).Text("点击弹出对话框").NavigateUrl("javascript:;")
+    @(F.HyperLink().ID("HyperLink2").Enabled(false).Text("点击弹出对话框").NavigateUrl("#")
         .ClickHandler("onHyperLink2Click"))
     <br>
 

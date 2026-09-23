@@ -62,7 +62,7 @@ namespace FineUI.Core.Examples.MVC.Controllers
             //    DataListItem listItem = new DataListItem(); 
             //    string text = item.Value<string>("text");
             //    listItem.Text = String.Format("<div class=\"item-text\">{0}</div>", text);
-            //    listItem.NavigateUrl = "javascript:;";
+            //    listItem.NavigateUrl = "#";
             //    listItem.ShowArrow = true;
 
             //    items.Add(listItem);
