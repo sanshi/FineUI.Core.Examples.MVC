@@ -9,7 +9,7 @@
     @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).Title("用户注册表单")
         .Items(
             F.TextBox().ID("tbxUserName").Label("用户名").Required(true).NextFocusControl("tbxPassword").ShowRedStar(true).Text("admin"),
-            F.TextBox().ID("tbxPassword").Label("密码").Required(true).ShowRedStar(true).NextFocusControl("btnRegister").TextMode(TextMode.Password),
+            F.TextBox().ID("tbxPassword").Label("密码").Required(true).ShowRedStar(true).NextClickControl("btnRegister").TextMode(TextMode.Password),
             F.Button().ID("btnRegister").Text("注册").OnClick(Url.Action("btnRegister_Click"),
                     new Parameter("userName", "F.ui.tbxUserName.getValue()"),
                     new Parameter("password", "F.ui.tbxPassword.getValue()")).ValidateForms("SimpleForm1").ValidateTarget(Target.Top)
