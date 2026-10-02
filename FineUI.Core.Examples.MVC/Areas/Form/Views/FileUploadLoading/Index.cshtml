@@ -23,14 +23,11 @@
         .Items(
             F.TextBox().Label("用户名").ID("tbxUserName").EmptyText("请输入用户名").Required(true).ShowRedStar(true),
             F.FileUpload().ID("filePhoto").EmptyText("请选择一张照片").Label("个人头像").Required(true).ShowRedStar(true),
-            F.Button().ID("btnSubmit").ValidateForms("SimpleForm1").Text("提交").OnClick(e =>
-            {
-                e.Action = Url.Action("btnSubmit_Click");
-                e.Fields = "SimpleForm1";
-                e.AjaxLoadingType = AjaxLoadingType.Mask;
-                e.ShowAjaxLoadingMaskText = true;
-                e.AjaxLoadingMaskText = "正在导入数据，请稍后...";
-            })
+            F.Button().ID("btnSubmit").ValidateForms("SimpleForm1").Text("提交")
+                .AjaxLoadingType(AjaxLoadingType.Mask)
+                .ShowAjaxLoadingMaskText(true)
+                .AjaxLoadingMaskText("正在导入数据，请稍后...")
+                .OnClick(Url.Action("btnSubmit_Click"), "SimpleForm1")
         )
     )
     @(F.Label().ID("labResult").EncodeText(false).CssClass("result"))

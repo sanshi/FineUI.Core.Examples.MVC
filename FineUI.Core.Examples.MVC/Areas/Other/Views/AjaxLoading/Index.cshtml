@@ -11,11 +11,8 @@
     }
 
     @(F.Button().Text("不显示提示信息").ID("Button1")
-        .OnClick(e =>
-        {
-            e.Action = Url.Action("Button1_Click");
-            e.EnableAjaxLoading = false;
-        })
+        .EnableAjaxLoading(false)
+        .OnClick(Url.Action("Button1_Click"))
     )
     <br>
     <br>
@@ -25,44 +22,32 @@
     <br>
 
     @(F.Button().Text("默认风格提示信息").ID("Button3")
-        .OnClick(e =>
-        {
-            e.Action = Url.Action("Button1_Click");
-            e.AjaxLoadingType = AjaxLoadingType.Default;
-        })
+        .AjaxLoadingType(AjaxLoadingType.Default)
+        .OnClick(Url.Action("Button1_Click"))
     )
     <br>
     <br>
 
     @(F.Button().Text("Mask风格提示信息").ID("Button4")
-        .OnClick(e =>
-        {
-            e.Action = Url.Action("Button1_Click");
-            e.AjaxLoadingType = AjaxLoadingType.Mask;
-        })
+        .AjaxLoadingType(AjaxLoadingType.Mask)
+        .OnClick(Url.Action("Button1_Click"))
     )
     <br>
     <br>
 
     @(F.Button().Text("Mask风格提示信息（显示提示文本）").ID("Button5")
-        .OnClick(e =>
-        {
-            e.Action = Url.Action("Button1_Click");
-            e.AjaxLoadingType = AjaxLoadingType.Mask;
-            e.ShowAjaxLoadingMaskText = true;
-        })
+        .AjaxLoadingType(AjaxLoadingType.Mask)
+        .ShowAjaxLoadingMaskText(true)
+        .OnClick(Url.Action("Button1_Click"))
     )
     <br>
     <br>
 
     @(F.Button().Text("Mask风格提示信息（自定义提示文本）").ID("Button6")
-        .OnClick(e =>
-        {
-            e.Action = Url.Action("Button1_Click");
-            e.AjaxLoadingType = AjaxLoadingType.Mask;
-            e.ShowAjaxLoadingMaskText = true;
-            e.AjaxLoadingMaskText = "这是自定义提示文本";
-        })
+        .AjaxLoadingType(AjaxLoadingType.Mask)
+        .ShowAjaxLoadingMaskText(true)
+        .AjaxLoadingMaskText("这是自定义提示文本")
+        .OnClick(Url.Action("Button1_Click"))
     )
     <br>
     <br>
