@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 namespace FineUI.Core.Examples.MVC.Areas.GridBigData.Controllers
 {
     [Area("GridBigData")]
-    public class BigDataUrlPagingDatabaseDataController : FineUI.Core.Examples.MVC.Controllers.BaseController
+    public class BigDataUrlPagingDatabaseDataController : Controller
     {
         // GET: GridBigData/BigDataUrlPagingDatabaseData
         public IActionResult Index(int total, int pageIndex, int pageSize)

@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 namespace FineUI.Core.Examples.MVC.Areas.GridDataUrl.Controllers
 {
     [Area("GridDataUrl")]
-    public class PagingDatabaseDataController : FineUI.Core.Examples.MVC.Controllers.BaseController
+    public class PagingDatabaseDataController : Controller
     {
         // GET: GridDataUrl/PagingDatabaseData
         public IActionResult Index(int pageIndex, int pageSize, bool? data2)

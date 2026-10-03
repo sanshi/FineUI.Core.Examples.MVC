@@ -5,7 +5,7 @@ using System;
 namespace FineUI.Core.Examples.MVC.Areas.GridBigData.Controllers
 {
     [Area("GridBigData")]
-    public class BigDataUrlDataController : FineUI.Core.Examples.MVC.Controllers.BaseController
+    public class BigDataUrlDataController : Controller
     {
         // GET: GridBigData/BigDataUrlData
         public IActionResult Index(int total, string resultType)

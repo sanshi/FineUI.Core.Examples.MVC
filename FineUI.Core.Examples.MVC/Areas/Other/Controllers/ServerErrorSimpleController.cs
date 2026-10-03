@@ -12,6 +12,8 @@ namespace FineUI.Core.Examples.MVC.Areas.Other.Controllers
         // GET: Other/ServerErrorSimple
         public IActionResult Index()
         {
+            PageManager.Instance.SimpleError = true;
+
             return View();
         }
 

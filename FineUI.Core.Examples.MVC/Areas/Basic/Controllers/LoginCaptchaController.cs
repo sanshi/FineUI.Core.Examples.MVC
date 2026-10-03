@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,6 +13,12 @@ namespace FineUI.Core.Examples.MVC.Areas.Basic.Controllers
     [Area("Basic")]
     public class LoginCaptchaController : FineUI.Core.Examples.MVC.Controllers.BaseController
     {
+        protected override bool ShouldInitializePageManager(ActionExecutingContext context)
+        {
+            // 数据和下载请求不需要页面主题、语言等配置。
+            return ControllerContext.ActionDescriptor.ActionName != nameof(CaptchaImage);
+        }
+
         // GET: Basic/LoginCaptcha
         public IActionResult Index()
         {

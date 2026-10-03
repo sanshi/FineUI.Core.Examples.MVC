@@ -12,6 +12,8 @@ namespace FineUI.Core.Examples.MVC.Areas.Other.Controllers
         // GET: Other/AjaxLoading
         public IActionResult Index()
         {
+            PageManager.Instance.AjaxLoadingType = AjaxLoadingType.Mask;
+
             return View();
         }
 

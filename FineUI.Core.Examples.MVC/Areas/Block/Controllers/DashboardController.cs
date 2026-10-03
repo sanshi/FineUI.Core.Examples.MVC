@@ -12,6 +12,10 @@ namespace FineUI.Core.Examples.MVC.Areas.Block.Controllers
         // GET: Block/Dashboard
         public IActionResult Index()
         {
+            var pm = PageManager.Instance;
+            pm.EnableWatermark = true;
+            pm.WatermarkText = "I❤︎FineUI";
+
             return View();
         }
 

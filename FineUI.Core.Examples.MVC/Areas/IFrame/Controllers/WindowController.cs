@@ -18,6 +18,8 @@ namespace FineUI.Core.Examples.MVC.Areas.IFrame.Controllers
         // GET: IFrame/Window/IFrameWindow
         public IActionResult IFrameWindow()
         {
+            PageManager.Instance.EnableFormChangeConfirm = true;
+
             return View();
         }
 

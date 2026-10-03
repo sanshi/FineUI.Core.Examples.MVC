@@ -10,6 +10,9 @@ namespace FineUI.Core.Examples.MVC.Areas.GridPaging.Controllers
         // GET: GridPaging/PagerAutoSimpleMode
         public IActionResult Index()
         {
+            // 窄屏下分页栏放不下时，自动使用简洁分页。
+            PageManager.Instance.GridPagerAutoSimpleMode = true;
+
             LoadData();
 
             return View();

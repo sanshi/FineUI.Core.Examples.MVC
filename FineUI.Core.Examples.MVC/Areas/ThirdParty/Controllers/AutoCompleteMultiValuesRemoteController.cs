@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,12 @@ namespace FineUI.Core.Examples.MVC.Areas.ThirdParty.Controllers
     [Area("ThirdParty")]
     public class AutoCompleteMultiValuesRemoteController : FineUI.Core.Examples.MVC.Controllers.BaseController
     {
+        protected override bool ShouldInitializePageManager(ActionExecutingContext context)
+        {
+            // 数据和下载请求不需要页面主题、语言等配置。
+            return ControllerContext.ActionDescriptor.ActionName != nameof(SearchResult);
+        }
+
         // GET: ThirdParty/AutoCompleteMultiValuesRemote
         public IActionResult Index()
         {

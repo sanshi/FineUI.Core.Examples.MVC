@@ -12,6 +12,11 @@ namespace FineUI.Core.Examples.MVC.Areas.CSP.Controllers
         // GET: CSP/HtmlEditor
         public IActionResult Index()
         {
+            var pm = PageManager.Instance;
+            pm.CspScripts = true;
+            pm.CspScriptsAllowNonce = false;
+            pm.CspScriptsAllowUnsafeInline = true;
+
             return View();
         }
 

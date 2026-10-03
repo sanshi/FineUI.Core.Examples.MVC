@@ -12,6 +12,10 @@ namespace FineUI.Core.Examples.MVC.Areas.CSP.Controllers
         // GET: CSP/Button
         public IActionResult Index()
         {
+            var pm = PageManager.Instance;
+            pm.CspScripts = true;
+            pm.CspScriptsAllowNonce = true;
+
             return View();
         }
 

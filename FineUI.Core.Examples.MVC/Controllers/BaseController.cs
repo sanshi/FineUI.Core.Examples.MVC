@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,27 @@ namespace FineUI.Core.Examples.MVC.Controllers
 {
     public class BaseController : Controller
     {
+        /// <summary>
+        /// 页面同时提供界面和数据处理时，可按本次处理方法决定是否初始化页面配置。
+        /// </summary>
+        protected virtual bool ShouldInitializePageManager(ActionExecutingContext context)
+        {
+            return true;
+        }
+
+
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            base.OnActionExecuting(context);
+
+            if (HttpMethods.IsGet(Request.Method) && context.Result == null
+                && ShouldInitializePageManager(context))
+            {
+                // 公共偏好先于单页设置；AJAX 回发继续使用恢复后的页面配置。
+                AppPageManagerInitializer.Initialize(PageManager.Instance, Request);
+            }
+        }
+
         // 下面的 public 方法都标了 [NonAction]：MVC 把控制器的每个 public 实例方法都当成可路由的 action，
         // 不标的话它们会在 1000 多个派生控制器上各多出一组端点（同名重载还会撞成 AmbiguousMatchException）。
         // 派生类要用就直接调，不需要它们能被路由到。

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
 {
     [Area("Grid")]
-    public class RowExpanderGridDataController : FineUI.Core.Examples.MVC.Controllers.BaseController
+    public class RowExpanderGridDataController : Controller
     {
         // GET: Grid/RowExpanderGridData
         public IActionResult Index(int rowId)

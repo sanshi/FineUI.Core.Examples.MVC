@@ -6,9 +6,6 @@
 
 @section body {
 
-    @{
-        F.PageManager.CspScripts(true).CspScriptsAllowNonce(false).CspScriptsAllowUnsafeInline(true);
-    }
 
     @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).LabelAlign(LabelAlign.Top).Title("表单")
         .Items(

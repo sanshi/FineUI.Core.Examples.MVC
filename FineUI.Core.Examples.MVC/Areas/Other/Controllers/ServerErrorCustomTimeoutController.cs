@@ -12,6 +12,8 @@ namespace FineUI.Core.Examples.MVC.Areas.Other.Controllers
         // GET: Other/ServerError
         public IActionResult Index()
         {
+            PageManager.Instance.AjaxTimeout = 2;
+
             return View();
         }
 

@@ -12,6 +12,11 @@ namespace FineUI.Core.Examples.MVC.Areas.CSP.Controllers
         // GET: CSP/Grid
         public IActionResult Index()
         {
+            var pm = PageManager.Instance;
+            pm.CspScripts = true;
+            pm.CspScriptsAllowNonce = true;
+            pm.CspScriptsAllowUrls = new[] { "cdn.jsdelivr.net", "unpkg.com" };
+
             return View();
         }
 

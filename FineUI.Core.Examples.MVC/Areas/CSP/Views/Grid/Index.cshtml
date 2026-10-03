@@ -6,9 +6,6 @@
 
 @section body {
 
-    @{
-        F.PageManager.CspScripts(true).CspScriptsAllowNonce(true).CspScriptsAllowUrls(new string[] { "cdn.jsdelivr.net", "unpkg.com" });
-    }
 
     @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name")
         .Columns(
