@@ -1,4 +1,5 @@
 ﻿@{
+    ViewBag.SourceFiles = "~/Areas/Message/Controllers/AlertDownloadHideFileController.cs";
     ViewBag.Title = "Message/AlertDownloadHide";
     var F = Html.F();
 }
@@ -21,7 +22,7 @@
     <script>
 
         function confirmOKCallback() {
-            window.location.href = '@Url.Action("DownloadTextFile")';
+            window.location.href = '@Url.Action("DownloadTextFile", "AlertDownloadHideFile")';
         }
 
         function confirmCancelCallback() {

@@ -1,4 +1,5 @@
 ﻿@{
+    ViewBag.SourceFiles = "~/Areas/Message/Controllers/AlertDownloadHideIFrameFileController.cs";
     ViewBag.Title = "Message/AlertDownloadHideIFrame";
     var F = Html.F();
 }
@@ -20,7 +21,7 @@
             F.confirm({
                 message: '操作成功！点击确定按钮开始下载文件，点取消按钮弹出对话框',
                 ok: function () {
-                    window.location.href = '@Url.Action("DownloadTextFile")';
+                    window.location.href = '@Url.Action("DownloadTextFile", "AlertDownloadHideIFrameFile")';
                 },
                 cancel: function () {
                     // 触发后台事件

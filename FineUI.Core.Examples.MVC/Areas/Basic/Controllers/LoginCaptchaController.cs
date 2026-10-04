@@ -1,10 +1,4 @@
-using Microsoft.AspNetCore.Mvc.Filters;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 
@@ -13,12 +7,6 @@ namespace FineUI.Core.Examples.MVC.Areas.Basic.Controllers
     [Area("Basic")]
     public class LoginCaptchaController : FineUI.Core.Examples.MVC.Controllers.BaseController
     {
-        protected override bool ShouldInitializePageManager(ActionExecutingContext context)
-        {
-            // 数据和下载请求不需要页面主题、语言等配置。
-            return ControllerContext.ActionDescriptor.ActionName != nameof(CaptchaImage);
-        }
-
         // GET: Basic/LoginCaptcha
         public IActionResult Index()
         {
@@ -41,7 +29,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Basic.Controllers
         {
             // 创建一个 6 位的随机数并保存在 Session 对象中
             HttpContext.Session.SetString("CaptchaImageText", GenerateRandomCode());
-            
+
             string imageUrl = Url.Content("~/Basic/LoginCaptcha/CaptchaImage?w=100&h=26&t=" + DateTime.Now.Ticks);
 
             return String.Format("<img src=\"{0}\" />", imageUrl);
@@ -62,7 +50,6 @@ namespace FineUI.Core.Examples.MVC.Areas.Basic.Controllers
             return s;
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult imgCaptcha_Click()
@@ -73,7 +60,6 @@ namespace FineUI.Core.Examples.MVC.Areas.Basic.Controllers
 
             return UIHelper.Result();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -96,25 +82,6 @@ namespace FineUI.Core.Examples.MVC.Areas.Basic.Controllers
             }
 
             return UIHelper.Result();
-        }
-
-
-        // 返回验证图片
-        public IActionResult CaptchaImage(int w = 200, int h = 300)
-        {
-            byte[] imageBytes = null;
-
-            //// 从 Session 中读取验证码，并创建图片
-            //using (CaptchaImage.CaptchaImage ci = new CaptchaImage.CaptchaImage(HttpContext.Session["CaptchaImageText"].ToString(), w, h, "Consolas"))
-            //{
-            //    using (MemoryStream ms = new MemoryStream())
-            //    {
-            //        ci.Image.Save(ms, ImageFormat.Jpeg);
-            //        imageBytes = ms.ToArray();
-            //    }
-            //}
-
-            return File(imageBytes, "image/jpeg");
         }
     }
 }

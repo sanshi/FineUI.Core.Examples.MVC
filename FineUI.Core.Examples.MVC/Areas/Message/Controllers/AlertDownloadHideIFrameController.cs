@@ -1,9 +1,4 @@
-using Microsoft.AspNetCore.Mvc.Filters;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FineUI.Core.Examples.MVC.Areas.Message.Controllers
@@ -11,12 +6,6 @@ namespace FineUI.Core.Examples.MVC.Areas.Message.Controllers
     [Area("Message")]
     public class AlertDownloadHideIFrameController : FineUI.Core.Examples.MVC.Controllers.BaseController
     {
-        protected override bool ShouldInitializePageManager(ActionExecutingContext context)
-        {
-            // 数据和下载请求不需要页面主题、语言等配置。
-            return ControllerContext.ActionDescriptor.ActionName != nameof(DownloadTextFile);
-        }
-
         // GET: Message/AlertDownloadHideIFrame
         public IActionResult Index()
         {
@@ -29,12 +18,6 @@ namespace FineUI.Core.Examples.MVC.Areas.Message.Controllers
             return View();
         }
 
-        // GET: Message/AlertDownload/DownloadTextFile
-        public IActionResult DownloadTextFile()
-        {
-            return File(Encoding.UTF8.GetBytes("这是下载文件的内容！"), "text/plain", "alert_download.txt");
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ConfirmCancel()
@@ -43,7 +26,6 @@ namespace FineUI.Core.Examples.MVC.Areas.Message.Controllers
 
             return UIHelper.Result();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -54,6 +36,5 @@ namespace FineUI.Core.Examples.MVC.Areas.Message.Controllers
 
             return UIHelper.Result();
         }
-
     }
 }

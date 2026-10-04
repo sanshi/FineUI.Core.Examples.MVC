@@ -1,5 +1,5 @@
 @{
-    ViewBag.SourceFiles = "~/Areas/ThirdParty/Controllers/UploadController.cs;~/Controllers/HomeController.cs";
+    ViewBag.SourceFiles = "~/Areas/ThirdParty/Controllers/UploadController.cs;~/Controllers/DownloadController.cs";
     ViewBag.Title = "ThirdParty/WebUploaderFixed";
     var F = Html.F();
 }
@@ -79,7 +79,7 @@
 
             // 如果已经上传成功，则显示下载按钮
             if (status === 'uploaded') {
-                var downloadUrl = '@Url.Action("Download", "Home", new { area = "" })' + "?file=" + encodeURIComponent(savedName);
+                var downloadUrl = '@Url.Action("Download", "Download", new { area = "" })' + "?file=" + encodeURIComponent(savedName);
                 html += '&nbsp;&nbsp;<a href="' + downloadUrl + '" target="_blank" class="thedownloadbutton">下载</a>';
 
                 html += '&nbsp;&nbsp;<a href="#" class="thedeletebutton">删除</a>';

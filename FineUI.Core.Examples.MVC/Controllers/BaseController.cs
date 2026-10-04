@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System;
@@ -14,21 +13,11 @@ namespace FineUI.Core.Examples.MVC.Controllers
 {
     public class BaseController : Controller
     {
-        /// <summary>
-        /// 页面同时提供界面和数据处理时，可按本次处理方法决定是否初始化页面配置。
-        /// </summary>
-        protected virtual bool ShouldInitializePageManager(ActionExecutingContext context)
-        {
-            return true;
-        }
-
-
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             base.OnActionExecuting(context);
 
-            if (HttpMethods.IsGet(Request.Method) && context.Result == null
-                && ShouldInitializePageManager(context))
+            if (HttpMethods.IsGet(Request.Method) && context.Result == null)
             {
                 // 公共偏好先于单页设置；AJAX 回发继续使用恢复后的页面配置。
                 AppPageManagerInitializer.Initialize(PageManager.Instance, Request);
@@ -219,14 +208,7 @@ namespace FineUI.Core.Examples.MVC.Controllers
         [NonAction]
         public string GetAbsoluteUrl(string virtualPath)
         {
-            // http://benjii.me/2015/05/get-the-absolute-uri-from-asp-net-mvc-content-or-action/
-            var urlBuilder = new System.UriBuilder(Request.GetDisplayUrl())
-            {
-                Path = Url.Content(virtualPath),
-                Query = null,
-            };
-
-            return urlBuilder.ToString();
+            return UrlUtil.GetAbsoluteUrl(Request, Url, virtualPath);
         }
 
         #endregion

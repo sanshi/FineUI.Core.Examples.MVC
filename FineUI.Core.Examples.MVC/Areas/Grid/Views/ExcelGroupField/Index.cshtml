@@ -1,4 +1,5 @@
 ﻿@{
+    ViewBag.SourceFiles = "~/Areas/Grid/Controllers/ExcelGroupFieldExportController.cs";
     ViewBag.Title = "Grid/ExcelGroupField";
     var F = Html.F();
 }
@@ -30,7 +31,7 @@
 
     @(F.Button().ID("Button1").Text("导出为Excel文件").ClickHandler("onButton1Click"))
     <!-- 隐藏表单，用于自定义POST请求 -->
-    @using (Html.BeginForm("ExportToExcel", "ExcelGroupField", FormMethod.Post, new { id = "myform" }))
+    @using (Html.BeginForm("ExportToExcel", "ExcelGroupFieldExport", FormMethod.Post, new { id = "myform" }))
     {
         <input type="hidden" name="content" />
     }

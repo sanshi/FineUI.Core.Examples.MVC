@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.SourceFiles = "~/Areas/Grid/Views/ExcelSelectColumns/SelectColumnsIFrame.cshtml";
+    ViewBag.SourceFiles = "~/Areas/Grid/Views/ExcelSelectColumns/SelectColumnsIFrame.cshtml;~/Areas/Grid/Controllers/ExcelSelectColumnsExportController.cs;~/Code/UrlUtil.cs";
     ViewBag.Title = "Grid/ExcelSelectColumns";
     var F = Html.F();
 }
@@ -36,7 +36,7 @@
     <script>
 
         function exportToExcel(columns) {
-            var actionUrl = '@Url.Action("ExportToExcel")';
+            var actionUrl = '@Url.Action("ExportToExcel", "ExcelSelectColumnsExport")';
             window.location.href = F.formatString('{0}?columns={1}', actionUrl, F.urlEncode(F.toJSON(columns)));
         }
 

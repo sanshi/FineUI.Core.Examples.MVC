@@ -19,7 +19,7 @@ namespace FineUI.Core.Examples.MVC.Areas.ThirdParty.Controllers
     /// 这里的下载链接不带（任意文件、恒下载）。
     /// </summary>
     [Area("ThirdParty")]
-    public class UploadController : FineUI.Core.Examples.MVC.Controllers.BaseUploadController
+    public class UploadController : Controller
     {
         private static readonly string WEBUPLOADER_FIXED_SESSION_NAME = "webuploader.webuploader_fixed";
 
@@ -69,7 +69,11 @@ namespace FineUI.Core.Examples.MVC.Areas.ThirdParty.Controllers
             // 文件名完整路径
             string fileName = postedFile.FileName;
             // 保存到 App_Data/upload（wwwroot 之外），返回保存后的文件名
-            string savedFileName = SaveUploadFile(postedFile);
+            string savedFileName;
+            using (var stream = postedFile.OpenReadStream())
+            {
+                savedFileName = UploadStorage.Save(postedFile.FileName, stream);
+            }
 
             string shortFileName = GetFileName(fileName);
             string fileType = GetFileType(fileName);
@@ -141,7 +145,6 @@ namespace FineUI.Core.Examples.MVC.Areas.ThirdParty.Controllers
             return null;
         }
 
-
         // 模拟在服务器端保存数据
         // 特别注意：在真实的开发环境中，不要在Session放置大量数据，否则会严重影响服务器性能
         private void SaveToDatabase(string sessionName, JObject fileObj)
@@ -156,7 +159,6 @@ namespace FineUI.Core.Examples.MVC.Areas.ThirdParty.Controllers
 
             HttpContext.Session.SetObject<JArray>(sessionName, source);
         }
-
 
         private string GetFileType(string fileName)
         {
@@ -181,6 +183,5 @@ namespace FineUI.Core.Examples.MVC.Areas.ThirdParty.Controllers
 
             return shortFileName;
         }
-
     }
 }

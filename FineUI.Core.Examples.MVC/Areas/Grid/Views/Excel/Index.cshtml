@@ -1,4 +1,5 @@
 ﻿@{
+    ViewBag.SourceFiles = "~/Areas/Grid/Controllers/ExcelExportController.cs;~/Code/UrlUtil.cs";
     ViewBag.Title = "Grid/Excel";
     var F = Html.F();
 }
@@ -34,7 +35,7 @@
     <script>
 
         function onButton1Click(event) {
-            window.location.href = '@Url.Action("ExportToExcel")';
+            window.location.href = '@Url.Action("ExportToExcel", "ExcelExport")';
         }
 
     </script>

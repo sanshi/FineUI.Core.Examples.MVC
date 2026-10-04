@@ -65,7 +65,7 @@ namespace FineUI.Core.Examples.MVC.Controllers
         /// </summary>
         protected string GetImageUrl(string fileName)
         {
-            return Url.Action("Download", "Home", new { area = "", file = fileName, inline = "1" });
+            return Url.Action("Download", "Download", new { area = "", file = fileName, inline = "1" });
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace FineUI.Core.Examples.MVC.Controllers
         /// </summary>
         protected string GetFileUrl(string fileName)
         {
-            return Url.Action("Download", "Home", new { area = "", file = fileName });
+            return Url.Action("Download", "Download", new { area = "", file = fileName });
         }
     }
 }

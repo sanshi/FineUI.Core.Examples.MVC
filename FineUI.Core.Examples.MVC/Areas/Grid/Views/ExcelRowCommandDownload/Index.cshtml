@@ -1,4 +1,5 @@
 ﻿@{
+    ViewBag.SourceFiles = "~/Areas/Grid/Controllers/ExcelRowCommandDownloadExportController.cs";
     ViewBag.Title = "Grid/ExcelRowCommandDownload";
     var F = Html.F();
 }
@@ -25,7 +26,7 @@
     注：双击行时，同样可以下载文件。
 
     <!-- 隐藏表单，用于自定义POST请求 -->
-    @using (Html.BeginForm("ExportToExcel", "ExcelRowCommandDownload", FormMethod.Post, new { id = "myform" }))
+    @using (Html.BeginForm("ExportToExcel", "ExcelRowCommandDownloadExport", FormMethod.Post, new { id = "myform" }))
     {
         @Html.AntiForgeryToken()
         <input type="hidden" name="content" />
