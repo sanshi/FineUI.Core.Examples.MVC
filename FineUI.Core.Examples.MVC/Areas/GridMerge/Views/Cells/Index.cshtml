@@ -17,7 +17,7 @@
             F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150),
             F.RenderField().HeaderText("分组A").DataField("Group").RendererFunction("renderGroup"),
             F.RenderField().HeaderText("分组B").DataField("GroupB").RendererFunction("renderGroup"),
-            F.RenderField().HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+            F.RenderField().HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy-MM-dd")
         ).Listener("dataload", "onGridDataLoad")
         .DataSource(DataSourceUtil.GetDataTable())
     )

@@ -8,7 +8,7 @@
 
     @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).Title("简单表单")
         .Items(
-            F.DatePicker().Required(true).DateFormatString("yyyy/MM/dd")
+            F.DatePicker().Required(true).DateFormatString("yyyy-MM-dd")
                 .Label("日期范围").EmptyText("请选择日期范围").ID("DatePicker1").ShowRedStar(true)
                 .RangeStartDate(@ViewBag.DatePicker1RangeStartDate).RangeEndDate(@ViewBag.DatePicker1RangeEndDate)
                 .DisplayType(CalendarDisplayType.DayRange).IndependentRangePanels(true),

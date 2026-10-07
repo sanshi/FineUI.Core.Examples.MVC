@@ -17,7 +17,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Calendar.Controllers
             return String.Format("{0} - {1}", startDate.ToString(Calendar1DateFormatString), endDate.ToString(Calendar1DateFormatString));
         }
 
-        public static readonly string Calendar1DateFormatString = "yyyy/MM/dd";
+        public static readonly string Calendar1DateFormatString = "yyyy-MM-dd";
 
         // GET: Calendar/CalendarDayRangeMinDate
         public IActionResult Index()

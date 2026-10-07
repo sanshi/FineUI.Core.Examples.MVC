@@ -94,7 +94,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
                 }
                 if (columnDic.ContainsKey("注册日期"))
                 {
-                    sb.AppendFormat(TD_HTML, ((DateTime)row["LogTime"]).ToString("yyyy/MM/dd"));
+                    sb.AppendFormat(TD_HTML, ((DateTime)row["LogTime"]).ToString("yyyy-MM-dd"));
                 }
                 sb.Append("</tr>");
             }

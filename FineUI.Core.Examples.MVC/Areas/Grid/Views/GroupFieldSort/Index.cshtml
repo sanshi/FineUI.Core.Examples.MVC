@@ -30,7 +30,7 @@
                             F.RenderField().DataField("HLData2").SortField("HLData2").HeaderText("数据二")
                         )
                 ),
-            F.RenderField().BoxFlex(1).TextAlign(TextAlign.Center).DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd").HeaderText("记录时间")
+            F.RenderField().BoxFlex(1).TextAlign(TextAlign.Center).DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy-MM-dd").HeaderText("记录时间")
         ).DataSource(ViewBag.Grid1DataSource)
 
     )

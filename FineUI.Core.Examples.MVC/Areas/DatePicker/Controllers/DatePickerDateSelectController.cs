@@ -19,7 +19,7 @@ namespace FineUI.Core.Examples.MVC.Areas.DatePicker.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DatePicker1_TextChanged(string DatePicker1)
         {
-            var datePicker1 = DateUtil.ToDateTime(DatePicker1, "yyyy/MM/dd");
+            var datePicker1 = DateUtil.ToDateTime(DatePicker1, "yyyy-MM-dd");
             if (datePicker1.HasValue)
             {
                 UIHelper.DatePicker("DatePicker2").SelectedDate(datePicker1.Value.AddDays(3));
@@ -32,7 +32,7 @@ namespace FineUI.Core.Examples.MVC.Areas.DatePicker.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DatePicker3_DateSelect(string DatePicker3)
         {
-            var datePicker3 = DateUtil.ToDateTime(DatePicker3, "yyyy/MM/dd");
+            var datePicker3 = DateUtil.ToDateTime(DatePicker3, "yyyy-MM-dd");
             if (datePicker3.HasValue)
             {
                 UIHelper.DatePicker("DatePicker4").SelectedDate(datePicker3.Value.AddDays(3));

@@ -37,7 +37,7 @@
 
     @(F.Window().ID("Window1").CssClass("mywindow").ShowHeader(false).ShowBorder(false).HideOnMaskClick(true).IsModal(true).BodyPadding(10).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 5 0").PercentWidth("100%").EnableDefaultCorner(false).PositionY(Position.Bottom).Hidden(true)
         .Items(
-            F.Calendar().ID("Calendar1").DateFormatString("yyyy/MM/dd").MarginBottom(10).Listener("select", "onCalendar1Select"),
+            F.Calendar().ID("Calendar1").DateFormatString("yyyy-MM-dd").MarginBottom(10).Listener("select", "onCalendar1Select"),
             F.Button().ID("Button3").Text("取消").Margin(0).ClickHandler("onCloseWindow1Click")
         )
     )

@@ -36,7 +36,7 @@
                     F.NumberBox().ID("nbxEntranceYear").NoDecimal(true).NoNegative(true).MinValue(2000).MaxValue(2025)
                 ),
             F.RenderField().Width(160).ColumnID("EntranceYear2").DataField("EntranceYear").FieldType(FieldType.Int).HeaderText("入学年份（不可编辑）"),
-            F.RenderField().Width(150).ColumnID("EntranceDate").DataField("EntranceDate").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd").HeaderText("入学日期")
+            F.RenderField().Width(150).ColumnID("EntranceDate").DataField("EntranceDate").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy-MM-dd").HeaderText("入学日期")
                 .Editor(
                     F.DatePicker().ID("dpEntranceDate").Required(true)
                 ),

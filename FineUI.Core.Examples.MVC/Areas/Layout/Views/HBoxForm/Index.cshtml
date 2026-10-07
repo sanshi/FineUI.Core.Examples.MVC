@@ -24,8 +24,8 @@
 	    	.Layout(LayoutType.HBox).BoxConfigChildMargin("0 5 0 0").BoxConfigLastChildMargin("0").RemoveFieldsMargin(true)
                 .Items(
                     F.Label().Text("销毁统计时间段："),
-                    F.DatePicker().Width(150).Required(true).DateFormatString("yyyy/MM/dd").EmptyText("请选择开始日期").ShowLabel(false).Label("销毁统计开始时间").ID("dpStartDate").EnableEdit(false),
-                    F.DatePicker().ID("dpEndDate").Width(150).Required(true).Readonly(false).CompareControl("dpStartDate").DateFormatString("yyyy/MM/dd").CompareOperator(Operator.GreaterThan).CompareMessage("结束日期应该大于开始日期").EmptyText("请选择结束日期").ShowLabel(false).Label("销毁统计结束时间").EnableEdit(false),
+                    F.DatePicker().Width(150).Required(true).DateFormatString("yyyy-MM-dd").EmptyText("请选择开始日期").ShowLabel(false).Label("销毁统计开始时间").ID("dpStartDate").EnableEdit(false),
+                    F.DatePicker().ID("dpEndDate").Width(150).Required(true).Readonly(false).CompareControl("dpStartDate").DateFormatString("yyyy-MM-dd").CompareOperator(Operator.GreaterThan).CompareMessage("结束日期应该大于开始日期").EmptyText("请选择结束日期").ShowLabel(false).Label("销毁统计结束时间").EnableEdit(false),
                     F.Button().ID("btnClearDate").Text("重置起止时间").ClickHandler("onClearDateClick"),
                     F.Button().ID("btnSearch").Text("查询").ValidateForms("SimpleForm1")
                 ),
@@ -45,8 +45,8 @@
 	    	.Layout(LayoutType.Column).RemoveFieldsMargin(true)
                 .Items(
                     F.Label().ID("Label1").Text("销毁统计时间段："),
-                    F.DatePicker().Width(150).CssClass("marginr").Required(true).DateFormatString("yyyy/MM/dd").EmptyText("请选择开始日期").ShowLabel(false).Label("销毁统计开始时间").ID("DatePicker1").EnableEdit(false),
-                    F.DatePicker().ID("DatePicker2").Width(150).CssClass("marginr").Required(true).Readonly(false).CompareControl("DatePicker1").DateFormatString("yyyy/MM/dd").CompareOperator(Operator.GreaterThan).CompareMessage("结束日期应该大于开始日期").EmptyText("请选择结束日期").ShowLabel(false).Label("销毁统计结束时间").EnableEdit(false),
+                    F.DatePicker().Width(150).CssClass("marginr").Required(true).DateFormatString("yyyy-MM-dd").EmptyText("请选择开始日期").ShowLabel(false).Label("销毁统计开始时间").ID("DatePicker1").EnableEdit(false),
+                    F.DatePicker().ID("DatePicker2").Width(150).CssClass("marginr").Required(true).Readonly(false).CompareControl("DatePicker1").DateFormatString("yyyy-MM-dd").CompareOperator(Operator.GreaterThan).CompareMessage("结束日期应该大于开始日期").EmptyText("请选择结束日期").ShowLabel(false).Label("销毁统计结束时间").EnableEdit(false),
                     F.Button().ID("Button1").CssClass("marginr").Text("重置起止时间").ClickHandler("onClearDateClick"),
                     F.Button().ID("Button2").Text("查询").ValidateForms("SimpleForm2")
                 ),

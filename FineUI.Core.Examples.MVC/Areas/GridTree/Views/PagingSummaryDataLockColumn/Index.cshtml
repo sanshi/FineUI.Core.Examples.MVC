@@ -23,7 +23,7 @@
             F.RenderField().ColumnID("Name").ExpandUnusedSpace(true).MinWidth(150).DataField("Name").HeaderText("名称").EnableLock(true),
             F.RenderField().Width(150).DataField("Type").HeaderText("类型").EnableLock(true),
             F.RenderField().Width(150).DataField("Size").HeaderText("大小").EnableLock(true),
-            F.RenderField().Width(150).DataField("ModifyDate").HeaderText("修改日期").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd").EnableLock(true)
+            F.RenderField().Width(150).DataField("ModifyDate").HeaderText("修改日期").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy-MM-dd").EnableLock(true)
         )
         .PageItems(
             F.Button().ID("btnExpandAll").Text("展开全部").ClickHandler("onExpandAllClick"),

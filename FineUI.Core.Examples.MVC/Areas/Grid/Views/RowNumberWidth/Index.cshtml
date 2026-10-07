@@ -10,7 +10,7 @@
         .Columns(
             F.RowNumberField().Width(60).EnablePagingNumber(true),
             F.RenderField().HeaderText("ID").DataField("Id").Width(150),
-            F.RenderField().HeaderText("时间").DataField("EntranceTime").ExpandUnusedSpace(true).MinWidth(150).FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd HH:mm:ss")
+            F.RenderField().HeaderText("时间").DataField("EntranceTime").ExpandUnusedSpace(true).MinWidth(150).FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy-MM-dd HH:mm:ss")
         ).RecordCount(ViewBag.Grid1RecordCount).DataSource(ViewBag.Grid1DataSource)
 
     )

@@ -33,7 +33,7 @@
                 .Editor(
                     F.NumberBox().ID("tbxSize").NoDecimal(true).NoNegative(true).MinValue(0)
                 ),
-            F.RenderField().Width(150).ColumnID("ModifyDate").DataField("ModifyDate").HeaderText("修改日期").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+            F.RenderField().Width(150).ColumnID("ModifyDate").DataField("ModifyDate").HeaderText("修改日期").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy-MM-dd")
                 .Editor(
                     F.DatePicker().ID("DatePicker1").Required(true)
                 ),

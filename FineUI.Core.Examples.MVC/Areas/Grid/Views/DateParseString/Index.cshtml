@@ -16,7 +16,7 @@
             F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150),
             F.RenderField().HeaderText("分组").DataField("Group").RendererFunction("renderGroup"),
             F.RenderField().HeaderText("入学日期（DateParseString）").DataField("EntranceDate")
-                .FieldType(FieldType.Date).DateParseString("MM/dd/yyyy").Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd").Width(200)
+                .FieldType(FieldType.Date).DateParseString("MM/dd/yyyy").Renderer(Renderer.Date).RendererArgument("yyyy-MM-dd").Width(200)
         )
         .DataSource(ViewBag.Grid1Source)
     )

@@ -6,7 +6,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Calendar.Controllers
     [Area("Calendar")]
     public class CalendarTimeController : FineUI.Core.Examples.MVC.Controllers.BaseController
     {
-        public static readonly string Calendar1DateFormatString = "yyyy/MM/dd HH:mm:ss";
+        public static readonly string Calendar1DateFormatString = "yyyy-MM-dd HH:mm:ss";
 
         // GET: Calendar/Calendar
         public IActionResult Index()

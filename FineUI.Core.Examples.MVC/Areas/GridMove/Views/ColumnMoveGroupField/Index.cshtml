@@ -57,7 +57,7 @@
                             F.RenderField().ColumnID("HLData2").DataField("HLData2").HeaderText("数据二")
                         )
                 ),
-            F.RenderField().ColumnID("LogTime").DataField("LogTime").BoxFlex(1).TextAlign(TextAlign.Center).FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd").HeaderText("记录时间")
+            F.RenderField().ColumnID("LogTime").DataField("LogTime").BoxFlex(1).TextAlign(TextAlign.Center).FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy-MM-dd").HeaderText("记录时间")
         ).DataSource(ViewBag.Grid1DataSource).Listener("columnmove", "onGridColumnMove")
     )
     <br>

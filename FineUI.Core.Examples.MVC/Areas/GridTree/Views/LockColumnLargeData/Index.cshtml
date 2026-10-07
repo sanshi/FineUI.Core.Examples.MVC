@@ -14,7 +14,7 @@
             F.RenderField().ColumnID("Name").ExpandUnusedSpace(true).MinWidth(150).DataField("Name").HeaderText("名称").EnableLock(true).Locked(true).Width(300),
             F.RenderField().Width(150).DataField("Type").HeaderText("类型").EnableLock(true),
             F.RenderField().Width(150).DataField("Size").HeaderText("大小").EnableLock(true),
-            F.RenderField().Width(150).DataField("ModifyDate").HeaderText("修改日期").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+            F.RenderField().Width(150).DataField("ModifyDate").HeaderText("修改日期").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy-MM-dd")
         )
         .DataSource(DataSourceUtil.GetLargeTreeDataTable())
 

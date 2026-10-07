@@ -18,7 +18,7 @@
             F.RenderField().HeaderText("入学年份").ColumnID("EntranceYear").DataField("EntranceYear").FieldType(FieldType.Int),
             F.RenderCheckField().HeaderText("是否在校").ColumnID("AtSchool").DataField("AtSchool").RenderAsStaticField(true),
             F.RenderField().HeaderText("所学专业").ColumnID("Major").DataField("Major").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150),
-            F.RenderField().HeaderText("注册日期").ColumnID("LogTime").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+            F.RenderField().HeaderText("注册日期").ColumnID("LogTime").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy-MM-dd")
         )
         .Toolbars(
             F.Toolbar().ToolbarAlign(ToolbarAlign.Right).Position(ToolbarPosition.Top)

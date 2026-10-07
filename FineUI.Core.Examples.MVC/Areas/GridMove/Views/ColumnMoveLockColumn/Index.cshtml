@@ -16,7 +16,7 @@
             F.RenderCheckField().HeaderText("是否在校").ColumnID("AtSchool").DataField("AtSchool").RenderAsStaticField(true).EnableLock(true),
             F.RenderField().HeaderText("所学专业").ColumnID("Major").DataField("Major").RendererFunction("renderMajor").Width(300).EnableLock(true),
             F.RenderField().HeaderText("分组").ColumnID("Group").DataField("Group").RendererFunction("renderGroup").ExpandUnusedSpace(true).MinWidth(150),
-            F.RenderField().HeaderText("注册日期").ColumnID("LogTime").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+            F.RenderField().HeaderText("注册日期").ColumnID("LogTime").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy-MM-dd")
         )
         .DataSource(DataSourceUtil.GetDataTable()).Listener("columnmove", "onGrid1ColumnMove").Listener("columnlock", "onGrid1ColumnLock").Listener("columnunlock", "onGrid1ColumnUnlock")
     )

@@ -8,7 +8,7 @@
 
     <b>日期范围</b>
     <br>
-    @(F.Calendar().ID("Calendar1").DateFormatString("yyyy/MM/dd")
+    @(F.Calendar().ID("Calendar1").DateFormatString("yyyy-MM-dd")
         .RangeStartDate(ViewBag.Calendar1RangeStartDate).RangeEndDate(ViewBag.Calendar1RangeEndDate)
         .DisplayType(CalendarDisplayType.DayRange).IndependentRangePanels(true))
     <br>

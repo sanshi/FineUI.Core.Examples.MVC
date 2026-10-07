@@ -56,7 +56,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
                 sb.AppendFormat(TD_HTML, row["MathScore"]);
                 sb.AppendFormat(TD_HTML, row["TotalScore"]);
                 sb.AppendFormat(TD_HTML, row["Major"]);
-                sb.AppendFormat(TD_HTML, ((DateTime)row["LogTime"]).ToString("yyyy/MM/dd"));
+                sb.AppendFormat(TD_HTML, ((DateTime)row["LogTime"]).ToString("yyyy-MM-dd"));
                 sb.Append("</tr>");
             }
             sb.Append("</table>");

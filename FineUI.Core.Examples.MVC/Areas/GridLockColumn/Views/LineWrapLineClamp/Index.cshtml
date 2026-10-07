@@ -40,7 +40,7 @@
             F.RenderField().EnableLock(true).DataField("ShiLiZuo").HeaderText("视力（左）"),
             F.RenderField().EnableLock(true).DataField("ShiLiYou").HeaderText("视力（右）"),
 			F.RenderField().EnableLock(true).HeaderText("分组").DataField("Group").RendererFunction("renderGroup"),
-			F.RenderField().EnableLock(true).HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+			F.RenderField().EnableLock(true).HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy-MM-dd")
         )
         .DataSource(DataSourceUtil.GetDataTable())
     )

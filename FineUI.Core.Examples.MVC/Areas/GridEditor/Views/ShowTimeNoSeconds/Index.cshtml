@@ -25,9 +25,9 @@
                 .Editor(
                     F.NumberBox().ID("nbxEntranceYear").NoDecimal(true).NoNegative(true).MinValue(2000).MaxValue(2025)
                 ),
-            F.RenderField().Width(180).ColumnID("EntranceDate").DataField("EntranceDate").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd HH:mm").HeaderText("入学日期")
+            F.RenderField().Width(180).ColumnID("EntranceDate").DataField("EntranceDate").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy-MM-dd HH:mm").HeaderText("入学日期")
                 .Editor(
-                    F.DatePicker().ID("dpEntranceDate").Required(true).DateFormatString("yyyy/MM/dd HH:mm").ShowTime(true).ShowSecond(false)
+                    F.DatePicker().ID("dpEntranceDate").Required(true).DateFormatString("yyyy-MM-dd HH:mm").ShowTime(true).ShowSecond(false)
                 ),
             F.RenderCheckField().ColumnID("AtSchool").DataField("AtSchool").HeaderText("是否在校"),
             F.RenderField().ColumnID("Major").DataField("Major").ExpandUnusedSpace(true).MinWidth(150).HeaderText("所学专业")
@@ -46,8 +46,8 @@
     <br>
     为了正确的显示和编辑时间，请注意如下属性：
     <ul>
-        <li>入学日期列（RenderField）：FieldType="Date" Renderer="Date" RendererArgument="yyyy/MM/dd HH:mm"</li>
-        <li>入学日期的编辑表单字段（DatePicker）：DateFormatString="yyyy/MM/dd HH:mm" ShowTime="true" ShowSecond="false"</li>
+        <li>入学日期列（RenderField）：FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd HH:mm"</li>
+        <li>入学日期的编辑表单字段（DatePicker）：DateFormatString="yyyy-MM-dd HH:mm" ShowTime="true" ShowSecond="false"</li>
     </ul>
 
 }

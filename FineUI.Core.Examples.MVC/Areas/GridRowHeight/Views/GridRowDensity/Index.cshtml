@@ -16,7 +16,7 @@
             F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150),
             F.RenderField().HeaderText("个人简介").ColumnID("Desc").DataField("Desc").Width(400),
             F.RenderField().HeaderText("分组").DataField("Group").RendererFunction("renderGroup"),
-            F.RenderField().HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy/MM/dd")
+            F.RenderField().HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy-MM-dd")
         )
         .Tools(
             F.Tool().ID("toolRowDensity").IconFont(IconFont._List).Text("行密度")

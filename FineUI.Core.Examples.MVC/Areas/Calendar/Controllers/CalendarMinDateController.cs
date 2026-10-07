@@ -10,7 +10,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Calendar.Controllers
     [Area("Calendar")]
     public class CalendarMinDateController : FineUI.Core.Examples.MVC.Controllers.BaseController
     {
-        public static readonly string Calendar1DateFormatString = "yyyy/MM/dd";
+        public static readonly string Calendar1DateFormatString = "yyyy-MM-dd";
 
         // GET: Calendar/CalendarMinDate
         public IActionResult Index()
