@@ -27,7 +27,7 @@
         </p>
     </div>
 
-    @(F.Panel().ID("Panel1").ShowHeader(false).ShowBorder(false).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 10 0").BodyPadding(10).IsViewPort(true)
+    @(F.Panel().ID("Panel1").ShowHeader(false).ShowBorder(false).Layout(LayoutType.VBox).BoxConfigSpace(10).BodyPadding(10).IsViewPort(true)
         .Toolbars(
             F.Toolbar().Title("Panel1").HeaderStyle(true)
         )
@@ -37,7 +37,7 @@
         )
     )
 
-    @(F.Panel().ID("Panel2").ShowHeader(false).ShowBorder(false).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 10 0").BodyPadding(10).IsViewPort(true).Hidden(true)
+    @(F.Panel().ID("Panel2").ShowHeader(false).ShowBorder(false).Layout(LayoutType.VBox).BoxConfigSpace(10).BodyPadding(10).IsViewPort(true).Hidden(true)
         .Toolbars(
             F.Toolbar().ID("Toolbar1").Title("Panel2").HeaderStyle(true)
                 .Items(

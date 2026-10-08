@@ -29,16 +29,16 @@
 
 @section body {
 
-    @(F.Panel().ID("Panel1").CssClass("mybgpanel").ShowBorder(false).ShowHeader(false).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 5 0").BodyPadding(10).IsViewPort(true)
+    @(F.Panel().ID("Panel1").CssClass("mybgpanel").ShowBorder(false).ShowHeader(false).Layout(LayoutType.VBox).BoxConfigSpace(5).BodyPadding(10).IsViewPort(true)
         .Items(
             F.Button().ID("btnOpenWindow").Text("选择日期").ClickHandler("onOpenWindow1Click")
         )
     )
 
-    @(F.Window().ID("Window1").CssClass("mywindow").ShowHeader(false).ShowBorder(false).HideOnMaskClick(true).IsModal(true).BodyPadding(10).Layout(LayoutType.VBox).BoxConfigChildMargin("0 0 5 0").PercentWidth("100%").EnableDefaultCorner(false).PositionY(Position.Bottom).Hidden(true)
+    @(F.Window().ID("Window1").CssClass("mywindow").ShowHeader(false).ShowBorder(false).HideOnMaskClick(true).IsModal(true).BodyPadding(10).Layout(LayoutType.VBox).BoxConfigSpace(5).PercentWidth("100%").EnableDefaultCorner(false).PositionY(Position.Bottom).Hidden(true)
         .Items(
             F.Calendar().ID("Calendar1").DateFormatString("yyyy-MM-dd").MarginBottom(10).Listener("select", "onCalendar1Select"),
-            F.Button().ID("Button3").Text("取消").Margin(0).ClickHandler("onCloseWindow1Click")
+            F.Button().ID("Button3").Text("取消").ClickHandler("onCloseWindow1Click")
         )
     )
 

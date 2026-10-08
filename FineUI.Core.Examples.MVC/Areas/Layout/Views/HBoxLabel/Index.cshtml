@@ -39,23 +39,23 @@
         </p>
     </div>
 
-    @(F.Panel().ID("Panel2").IsFluid(true).Height(200).ShowBorder(true).EnableCollapse(true).Layout(LayoutType.HBox).BodyPadding(10).BoxConfigChildMargin("0 5 0 0").ShowHeader(true).Title("面板（Panel）")
+    @(F.Panel().ID("Panel2").IsFluid(true).Height(200).ShowBorder(true).EnableCollapse(true).Layout(LayoutType.HBox).BodyPadding(10).BoxConfigSpace(5).ShowHeader(true).Title("面板（Panel）")
         .Items(
             F.Panel().ID("Panel1").ShowBorder(true).ShowHeader(false).AutoScroll(true).BoxFlex(1).ContentEl("#zuckerberg"),
-            F.Panel().ID("Panel4").BoxFlex(2).Margin(0).BodyPadding(10).ShowBorder(true).ShowHeader(false)
+            F.Panel().ID("Panel4").BoxFlex(2).BodyPadding(10).ShowBorder(true).ShowHeader(false)
                 .Items(
-                    F.Label().ID("Label3").Text("BoxFlex=2 Margin=0")
+                    F.Label().ID("Label3").Text("BoxFlex=2 末项无额外间隔")
                 )
         )
     )
     <br>
 
-    @(F.Panel().ID("Panel5").IsFluid(true).Height(200).ShowBorder(true).EnableCollapse(true).Layout(LayoutType.HBox).BodyPadding(10).BoxConfigChildMargin("0 5 0 0").ShowHeader(true).Title("面板（Label）")
+    @(F.Panel().ID("Panel5").IsFluid(true).Height(200).ShowBorder(true).EnableCollapse(true).Layout(LayoutType.HBox).BodyPadding(10).BoxConfigSpace(5).ShowHeader(true).Title("面板（Label）")
         .Items(
             F.Label().ID("Label1").CssClass("mylabel f-widget-content").EncodeText(false).AutoScroll(true).BoxFlex(1).Text(@ViewBag.Label1Text),
-            F.Panel().ID("Panel8").BoxFlex(2).Margin(0).BodyPadding(10).ShowBorder(true).ShowHeader(false)
+            F.Panel().ID("Panel8").BoxFlex(2).BodyPadding(10).ShowBorder(true).ShowHeader(false)
                 .Items(
-                    F.Label().ID("Label6").Text("BoxFlex=2 Margin=0")
+                    F.Label().ID("Label6").Text("BoxFlex=2 末项无额外间隔")
                 )
         )
     )

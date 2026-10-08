@@ -32,7 +32,7 @@
     @(F.Window().Hidden(true).EnableDefaultCorner(false).ShowHeader(false).BodyPadding(10).AutoScroll(true).HideOnMaskClick(true).IsModal(true).PercentWidth("100%").Height(100).PositionY(Position.Bottom).ID("Window4").Content("PositionY=Bottom Height=100 PercentWidth=100% IsModal=true HideOnMaskClick=true"))
 
 
-    @(F.Window().IsModal(false).ShowHeader(false).BodyPadding(10).AutoScroll(true).PositionY(Position.Center).PositionX(Position.Center).BoxConfigChildMargin("0 0 5 0").Layout(LayoutType.VBox).Width(300).ID("Window5")
+    @(F.Window().IsModal(false).ShowHeader(false).BodyPadding(10).AutoScroll(true).PositionY(Position.Center).PositionX(Position.Center).BoxConfigSpace(5).Layout(LayoutType.VBox).Width(300).ID("Window5")
         .Items(
             F.Button().Text("左侧窗体").ID("Button1").ClickHandler("onOpenWindow1Click"),
             F.Button().Text("右侧窗体").ID("Button2").ClickHandler("onOpenWindow2Click"),

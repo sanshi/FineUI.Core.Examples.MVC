@@ -40,11 +40,11 @@
 
     @(F.TabStrip().ID("TabStrip1").ShowBorder(false).ActiveTabIndex(0).ShowTabHeader(false).IsViewPort(true)
         .Toolbars(
-            F.Toolbar().CssClass("f-widget-header mytoolbar").Position(ToolbarPosition.Bottom).Layout(LayoutType.HBox).BoxConfigChildMargin("0 5px 0 0")
+            F.Toolbar().CssClass("f-widget-header mytoolbar").Position(ToolbarPosition.Bottom).Layout(LayoutType.HBox).BoxConfigSpace(5)
                 .Items(
                     F.Button().ID("Button1").Text("标签一").Icon(Icon.Cake).IconAlign(IconAlign.Top).BoxFlex(1).EnablePress(true).Pressed(true),
                     F.Button().ID("Button2").Text("标签二").IconFont(IconFont._Bank).IconAlign(IconAlign.Top).BoxFlex(1).EnablePress(true),
-                    F.Button().ID("Button3").Text("标签三").IconFont(IconFont._Group).IconAlign(IconAlign.Top).BoxFlex(1).Margin(0).EnablePress(true)
+                    F.Button().ID("Button3").Text("标签三").IconFont(IconFont._Group).IconAlign(IconAlign.Top).BoxFlex(1).EnablePress(true)
                 )
         )
         .Tabs(

@@ -1,0 +1,39 @@
+@{
+    ViewBag.Title = "Layout/VBoxSpace";
+    var F = Html.F();
+}
+
+@section body {
+    @* 两个容器使用相同尺寸和内边距，便于直接比较两种间隔配置的结果。 *@
+    @(F.Panel()
+        .ID("PanelSpace")
+        .IsFluid(true)
+        .Layout(LayoutType.VBox)
+        .Height(210)
+        .BodyPadding(10)
+        .BoxConfigSpace(10)
+        .Title("推荐写法：BoxConfigSpace=\"10\"")
+        .Items(
+            F.Panel().ID("SpaceItem1").BoxFlex(1).ShowHeader(false).BodyPadding(4).Content("子项一"),
+            F.Panel().ID("SpaceItem2").BoxFlex(1).ShowHeader(false).BodyPadding(4).Content("子项二"),
+            F.Panel().ID("SpaceItem3").BoxFlex(1).ShowHeader(false).BodyPadding(4).Content("子项三")
+        )
+    )
+    <br />
+    @(F.Panel()
+        .ID("PanelMargins")
+        .IsFluid(true)
+        .Layout(LayoutType.VBox)
+        .Height(210)
+        .BodyPadding(10)
+        .BoxConfigChildMargin("0 0 10 0")
+        .BoxConfigLastChildMargin("0")
+        .Title("等效写法：普通子项边距 + 末项边距")
+        .Items(
+            F.Panel().ID("MarginsItem1").BoxFlex(1).ShowHeader(false).BodyPadding(4).Content("子项一"),
+            F.Panel().ID("MarginsItem2").BoxFlex(1).ShowHeader(false).BodyPadding(4).Content("子项二"),
+            F.Panel().ID("MarginsItem3").BoxFlex(1).ShowHeader(false).BodyPadding(4).Content("子项三")
+        )
+    )
+    <p>VBox 中的子项纵向间隔为 10px，最后一个可见子项不留尾部间隔。父容器的 BodyPadding 负责四周留白，子项自身的 Margin 仍可覆盖布局边距。</p>
+}

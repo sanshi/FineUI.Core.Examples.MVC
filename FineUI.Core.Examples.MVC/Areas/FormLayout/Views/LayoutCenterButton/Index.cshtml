@@ -42,7 +42,7 @@
                 ),
             F.FormRow()
                 .Items(
-                    F.Panel().ID("Panel1").ShowBorder(true).CssClass("mypanel").ShowHeader(false).Layout(LayoutType.HBox).BoxConfigPosition(BoxLayoutPosition.Center).BoxConfigChildMargin("0 5 0 0").BoxConfigLastChildMargin("0")
+                    F.Panel().ID("Panel1").ShowBorder(true).CssClass("mypanel").ShowHeader(false).Layout(LayoutType.HBox).BoxConfigPosition(BoxLayoutPosition.Center).BoxConfigSpace(5)
                         .Items(
                             F.Button().Text("验证此表单并提交").ValidateForms("Form1").ID("btnSubmit").OnClick(Url.Action("btnSubmit_Click"), "Form1"),
                             F.Button().ID("btnResetForm1").Text("重置表单").ClickHandler("onResetClick")

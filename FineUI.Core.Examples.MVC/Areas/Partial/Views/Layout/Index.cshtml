@@ -11,7 +11,7 @@
         var PartialViewIndex = 0;
     }
 
-    @(F.Panel().ID("Panel1").IsFluid(true).EnableCollapse(false).Height(300).Layout(LayoutType.VBox).BoxConfigAlign(BoxLayoutAlign.Stretch).BoxConfigPosition(BoxLayoutPosition.Start).BodyPadding(10).BoxConfigChildMargin("0 0 5 0").Title("面板一")
+    @(F.Panel().ID("Panel1").IsFluid(true).EnableCollapse(false).Height(300).Layout(LayoutType.VBox).BoxConfigAlign(BoxLayoutAlign.Stretch).BoxConfigPosition(BoxLayoutPosition.Start).BodyPadding(10).BoxConfigSpace(5).Title("面板一")
         .Items(
             F.PartialConnector().Content(await Html.PartialAsync("PartialView", new ViewDataDictionary(ViewData) { { "PartialViewIndex", PartialViewIndex++ }, { "UserName", "陈萍萍" }, { "UserAge", 20 }, { "UserCountry", "合肥" } })),
             F.Panel().BodyPadding(10).BoxFlex(1).Margin(0).Title("面板二")
@@ -22,7 +22,7 @@
     )
     <br>
 
-    @(F.Panel().ID("Panel2").IsFluid(true).EnableCollapse(false).Height(300).Layout(LayoutType.VBox).BodyPadding(10).BoxConfigChildMargin("0 0 5 0").Title("面板三")
+    @(F.Panel().ID("Panel2").IsFluid(true).EnableCollapse(false).Height(300).Layout(LayoutType.VBox).BodyPadding(10).BoxConfigSpace(5).Title("面板三")
         .Items(
             F.PartialConnector().Content(await Html.PartialAsync("PartialView", new ViewDataDictionary(ViewData) { { "PartialViewIndex", PartialViewIndex++ }, { "UserName", "陈萍萍" }, { "UserAge", 20 }, { "UserCountry", "合肥" }, { "BoxFlex", 1 } })),
             F.PartialConnector().Content(await Html.PartialAsync("PartialView", new ViewDataDictionary(ViewData) { { "PartialViewIndex", PartialViewIndex++ }, { "UserName", "胡斐" }, { "UserAge", 22 }, { "UserCountry", "驻马店" }, { "BoxFlex", 1 }, { "Margin", 0 } }))
@@ -30,7 +30,7 @@
     )
     <br>
 
-    @(F.Panel().ID("Panel4").IsFluid(true).EnableCollapse(false).Height(300).Layout(LayoutType.HBox).BodyPadding(10).BoxConfigChildMargin("0 5 0 0").Title("面板四")
+    @(F.Panel().ID("Panel4").IsFluid(true).EnableCollapse(false).Height(300).Layout(LayoutType.HBox).BodyPadding(10).BoxConfigSpace(5).Title("面板四")
         .Items(
             F.PartialConnector().Content(await Html.PartialAsync("PartialView", new ViewDataDictionary(ViewData) { { "PartialViewIndex", PartialViewIndex++ }, { "UserName", "陈萍萍" }, { "UserAge", 20 }, { "UserCountry", "合肥" }, { "BoxFlex", 1 } })),
             F.PartialConnector().Content(await Html.PartialAsync("PartialView", new ViewDataDictionary(ViewData) { { "PartialViewIndex", PartialViewIndex++ }, { "UserName", "陈萍萍" }, { "UserAge", 20 }, { "UserCountry", "合肥" }, { "BoxFlex", 1 }, { "Margin", 0 } }))
