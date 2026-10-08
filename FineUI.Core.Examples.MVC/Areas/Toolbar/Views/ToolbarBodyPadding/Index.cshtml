@@ -1,0 +1,91 @@
+@{
+    ViewBag.Title = "工具栏主体内边距";
+    var F = Html.F();
+}
+
+@section body {
+    @(F.Panel().ID("PanelDefault").Width(600).Title("默认内边距").ShowBorder(true)
+        .Toolbars(
+            F.Toolbar().ID("ToolbarDefault")
+                .Items(
+                    F.Button().ID("FirstDefault").Text("第一项").Width(80),
+                    F.Button().ID("LastDefault").Text("第二项").Width(120)
+                )
+        )
+    )
+    <br />
+    @(F.Panel().ID("PanelZero").Width(600).Title("零内边距：保持默认效果").ShowBorder(true)
+        .Toolbars(
+            F.Toolbar().ID("ToolbarZero").BodyPadding("0")
+                .Items(
+                    F.Button().ID("FirstZero").Text("第一项").Width(80),
+                    F.Button().ID("LastZero").Text("第二项").Width(120)
+                )
+        )
+    )
+    <br />
+    @(F.Panel().ID("PanelLeft").Width(600).Title("左对齐：四周 12px").ShowBorder(true)
+        .Toolbars(
+            F.Toolbar().ID("ToolbarLeft").BodyPadding(12)
+                .Items(
+                    F.Button().ID("FirstLeft").Text("第一项").Width(80),
+                    F.Button().ID("LastLeft").Text("第二项").Width(120)
+                )
+        )
+    )
+    <br />
+    @(F.Panel().ID("PanelRight").Width(600).Title("右对齐：上下 8px，左右 16px").ShowBorder(true)
+        .Toolbars(
+            F.Toolbar().ID("ToolbarRight").BodyPadding("8px 16px").ToolbarAlign(ToolbarAlign.Right)
+                .Items(
+                    F.Button().ID("FirstRight").Text("第一项").Width(80),
+                    F.Button().ID("LastRight").Text("第二项").Width(120)
+                )
+        )
+    )
+    <br />
+    @(F.Panel().ID("PanelCenter").Width(600).Title("居中：四边内边距不同").ShowBorder(true)
+        .Toolbars(
+            F.Toolbar().ID("ToolbarCenter").BodyPadding("3px 17px 11px 29px").ToolbarAlign(ToolbarAlign.Center)
+                .Items(
+                    F.Button().ID("FirstCenter").Text("第一项").Width(80),
+                    F.Button().ID("LastCenter").Text("第二项").Width(120)
+                )
+        )
+    )
+    <br />
+    @(F.Panel().ID("PanelFill").Width(600).Title("两个填充项：左中右排列").ShowBorder(true)
+        .Toolbars(
+            F.Toolbar().ID("ToolbarFill").BodyPadding("3px 17px 11px 29px")
+                .Items(
+                    F.Button().ID("FirstFill").Text("第一项").Width(80),
+                    F.ToolbarFill().ID("FillLeft"),
+                    F.Button().ID("CenterFill").Text("中间项").Width(100),
+                    F.ToolbarFill().ID("FillRight"),
+                    F.Button().ID("LastFill").Text("第二项").Width(120)
+                )
+        )
+    )
+    <br />
+    @(F.Panel().ID("PanelMulti").Width(220).Title("窄工具栏自动换行").ShowBorder(true)
+        .Toolbars(
+            F.Toolbar().ID("ToolbarMulti").BodyPadding("3px 17px 11px 29px")
+                .Items(
+                    F.Button().ID("FirstMulti").Text("第一项").Width(80),
+                    F.Button().ID("LastMulti").Text("第二项").Width(120)
+                )
+        )
+    )
+    <br />
+    @(F.Panel().ID("PanelHBox").Width(600).Title("显式 HBox 布局").ShowBorder(true)
+        .Toolbars(
+            F.Toolbar().ID("ToolbarHBox").BodyPadding("8px 16px").Layout(LayoutType.HBox).BoxConfigSpace(5)
+                .Items(
+                    F.Button().ID("FirstHBox").Text("第一项").Width(80),
+                    F.Button().ID("LastHBox").Text("第二项").BoxFlex(1)
+                )
+        )
+    )
+    <br />
+    <p>BodyPadding 设置工具栏中 <code>.f-panel-body</code> 节点的内边距。例如 <code>8</code> 表示四周各 8px，<code>8px 12px</code> 表示上下各 8px、左右各 12px。默认不增加该节点的内边距，仅创建控件时生效；工具栏原有的外层内边距仍然保留。</p>
+}
