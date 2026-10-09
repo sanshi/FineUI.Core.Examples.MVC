@@ -76,7 +76,7 @@
             @(F.TwinTriggerBox().ID("ttbxSearch").CssClass("searchbox collapsed").ShowLabel(false).Trigger1Icon(TriggerIcon.Clear).ShowTrigger1(false).EmptyText("搜索示例").Trigger2Icon(TriggerIcon.Search).Width(24).Listener("trigger1click", "onSearchTrigger1Click").Listener("trigger2click", "onSearchTrigger2Click").Listener("blur", "onSearchBlur"))
             @(F.Button().CssClass("icononlyaction btn-apply-trial").ToolTip("社区版下载").IconAlign(IconAlign.Top).IconFont(IconFont._Download).EnableDefaultState(false).TabIndex(-1).ClickHandler("onBaseDownloadClick").Badge(true).BadgeType(BadgeType.Warning).BadgeAnimationType(BadgeAnimationType.Processing))
             @(F.Button().CssClass("icononlyaction").ID("btnThemeSelect").ToolTip("主题仓库").IconAlign(IconAlign.Top).IconFont(IconFont._Skin).EnableDefaultState(false).TabIndex(-1).ClickHandler("onThemeSelectClick"))
-            @(F.Button().EnableDefaultState(false).IconAlign(IconAlign.Left).IconUrl(Url.Content("~/res/images/my_face_80.jpg")).Text("三生石上").CssClass("userpicaction").Badge(ViewBag.CookieShowOnlyCommunity).BadgeType(BadgeType.Warning).BadgeText("仅社区版")
+            @(F.Button().EnableDefaultState(false).IconAlign(IconAlign.Left).IconUrl(Url.Content("~/res/images/my-face-80.jpg")).Text("三生石上").CssClass("userpicaction").Badge(ViewBag.CookieShowOnlyCommunity).BadgeType(BadgeType.Warning).BadgeText("仅社区版")
                 .Menu(F.Menu()
                     .Items(
                         F.MenuCheckBox().Text("仅显示社区版示例").ID("cbxShowOnlyCommunity").ClickHandler("onShowOnlyCommunityClick").Checked(ViewBag.CookieShowOnlyCommunity),
