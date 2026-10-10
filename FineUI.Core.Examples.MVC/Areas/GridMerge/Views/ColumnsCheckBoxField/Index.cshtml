@@ -6,7 +6,7 @@
 
 @section body {
 
-    @(F.Grid().RowDataBoundFunction("onGridRowDataBound").IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name").EnableColumnLines(true)
+    @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name").EnableColumnLines(true)
         .Columns(
             F.RowNumberField(),
             F.RenderField().HeaderText("ID").DataField("ID"),
@@ -36,11 +36,6 @@
     <script src="~/res/js/grid.js"></script>
 
     <script>
-
-        function onGridRowDataBound(rowData) {
-            // 同一组初始没有激活项；空值会渲染为空白单元格。
-            rowData.values['CheckBoxField1'] = false;
-        }
 
         function onGridDataLoad(event) {
             this.mergeColumns(['GroupB']);

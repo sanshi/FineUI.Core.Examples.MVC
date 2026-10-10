@@ -17,7 +17,7 @@
 @section body {
 
 
-    @(F.Grid().RowDataBoundFunction("onGridRowDataBound").IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name")
+    @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name")
         .Columns(
             F.RowNumberField(),
             F.RenderField().HeaderText("姓名").DataField("Name"),
@@ -43,13 +43,6 @@
     <script src="~/res/js/grid.js"></script>
 
     <script>
-
-        function onGridRowDataBound(rowData) {
-            // 这些列用于单选互斥，初始全部未选中；空值会渲染为空白单元格。
-            rowData.values['AtSchool2'] = false;
-            rowData.values['AtSchool3'] = false;
-            rowData.values['AtSchool4'] = false;
-        }
 
 
 
