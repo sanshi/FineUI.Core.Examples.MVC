@@ -11,7 +11,7 @@
             F.DatePicker().Required(true).DateFormatString("yyyy-MM-dd HH:mm")
                 .Label("日期范围").EmptyText("请选择日期范围").ID("DatePicker1").ShowRedStar(true)
                 .RangeStartDate(@ViewBag.DatePicker1RangeStartDate).RangeEndDate(@ViewBag.DatePicker1RangeEndDate)
-                .DisplayType(CalendarDisplayType.DayRange).ShowTime(true),
+                .DisplayType(CalendarDisplayType.DayRange).ShowTime(true).ShowSecond(false),
             F.Button().ID("btnSubmit").ValidateForms("SimpleForm1").Text("提交表单").OnClick(Url.Action("btnSubmit_Click"), "SimpleForm1")
         )
     )
