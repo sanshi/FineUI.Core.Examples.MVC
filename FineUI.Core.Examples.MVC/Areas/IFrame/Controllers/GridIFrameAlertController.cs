@@ -71,7 +71,7 @@ namespace FineUI.Core.Examples.MVC.Areas.IFrame.Controllers
                 Message = "保存成功！",
                 MessageBoxIcon = MessageBoxIcon.Success,
                 Target = Target.Top,
-                OkCommand = ClientCommand.HideActiveWindowPostBack("参数 - " + DateTime.Now.Millisecond)
+                OkCommand = ActiveWindow.CreateHidePostBackCommand("参数 - " + DateTime.Now.Millisecond)
             }.Show();
 
 
