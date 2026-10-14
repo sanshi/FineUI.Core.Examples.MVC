@@ -53,7 +53,7 @@ namespace FineUI.Core.Examples.MVC.Controllers
 
 
             // 移动菜单数据源
-            ViewBag.StartupScript = String.Format("window.MENUSOURCE = {0};", menuSource.ToString());
+            ViewBag.MenuSource = menuSource;
 
             
             //List<DataListItem> items = new List<DataListItem>();

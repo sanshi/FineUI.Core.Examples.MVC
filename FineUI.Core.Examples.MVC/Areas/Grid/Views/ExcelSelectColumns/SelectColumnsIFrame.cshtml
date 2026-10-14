@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Grid/SelectColumnsIFrame";
     var F = Html.F();
 }
@@ -12,7 +12,7 @@
                 .Items(
                     F.Button().ID("btnClose").Text("取消").Icon(Icon.SystemClose).ClickHandler("onCloseActiveWindowClick"),
                     F.Button().ID("btnSaveContinue").Text("导出").Icon(Icon.SystemSave).OnClick(Url.Action("SelectColumnsIFrame_btnSaveContinue_Click"),
-                            new Parameter("columns", "F.ui.cblColumns.getValue()"))
+                            Parameter.FromFunction("columns", "getcblColumnsColumnsPostbackValue"))
                 )
         )
         .Items(
@@ -32,6 +32,14 @@
 }
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getcblColumnsColumnsPostbackValue() {
+            return F.ui.cblColumns.getValue();
+        }
+
+    </script>
+
 
     <script type="text/javascript">
 

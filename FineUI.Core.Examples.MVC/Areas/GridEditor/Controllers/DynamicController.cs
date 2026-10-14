@@ -73,7 +73,8 @@ namespace FineUI.Core.Examples.MVC.Areas.GridEditor.Controllers
 
             ViewBag.Grid1Columns = columns.ToArray();
 
-            ViewBag.StartupScript = String.Format("window._MINYEAR={0};window._MAXYEAR={1};", _minYear, _maxYear);
+            ViewBag.MinYear = _minYear;
+            ViewBag.MaxYear = _maxYear;
         }
 
 

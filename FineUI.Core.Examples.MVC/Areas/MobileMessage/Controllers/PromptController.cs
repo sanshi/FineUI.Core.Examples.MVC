@@ -22,7 +22,7 @@ namespace FineUI.Core.Examples.MVC.Areas.MobileMessage.Controllers
             Prompt prompt = new Prompt();
             prompt.Message = "请输入你的姓名？";
             prompt.Title = "请输入";
-            prompt.OkScript = "notifyit(arguments[0]);";
+            prompt.OkFunction = "notifyit";
             prompt.Show();
 
             return UIHelper.Result();
@@ -35,7 +35,7 @@ namespace FineUI.Core.Examples.MVC.Areas.MobileMessage.Controllers
             Prompt prompt = new Prompt();
             prompt.Message = "请输入你的姓名？";
             prompt.Title = "请输入";
-            prompt.OkScript = "notifyit(arguments[0]);";
+            prompt.OkFunction = "notifyit";
             prompt.TitleAlign = TextAlign.Center;
             prompt.EnableClose = false;
             prompt.ButtonFill = true;
@@ -51,7 +51,7 @@ namespace FineUI.Core.Examples.MVC.Areas.MobileMessage.Controllers
             Prompt prompt = new Prompt();
             prompt.Message = "请输入你的姓名？";
             prompt.Title = "请输入";
-            prompt.OkScript = "notifyit(arguments[0]);";
+            prompt.OkFunction = "notifyit";
             prompt.TitleAlign = TextAlign.Center;
             prompt.EnableClose = false;
             prompt.ButtonPlain = true;
@@ -68,7 +68,7 @@ namespace FineUI.Core.Examples.MVC.Areas.MobileMessage.Controllers
             Prompt prompt = new Prompt();
             prompt.Message = "请输入你的密码？";
             prompt.Title = "请输入";
-            prompt.OkScript = "notifyit(arguments[0]);";
+            prompt.OkFunction = "notifyit";
             prompt.TitleAlign = TextAlign.Center;
             prompt.EnableClose = false;
             prompt.ButtonPlain = true;
@@ -85,7 +85,7 @@ namespace FineUI.Core.Examples.MVC.Areas.MobileMessage.Controllers
             Prompt prompt = new Prompt();
             prompt.Message = "请输入你的姓名？";
             prompt.Title = "请输入";
-            prompt.OkScript = "notifyit(arguments[0]);";
+            prompt.OkFunction = "notifyit";
             prompt.TitleAlign = TextAlign.Center;
             prompt.EnableClose = false;
             prompt.ButtonPlain = true;

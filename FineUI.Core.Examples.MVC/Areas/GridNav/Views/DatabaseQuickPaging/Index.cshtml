@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "GridNav/DatabaseQuickPaging";
     var F = Html.F();
 }
@@ -6,7 +6,7 @@
 
 @section body {
 
-    @(F.Grid().IsFluid(true).EnableCheckBoxSelect(true).Height(350).ShowHeader(true).ShowBorder(true).Title("表格").ID("Grid1").DataIDField("Id").DataTextField("Name").AllowPaging(true).PageSize(5).IsDatabasePaging(true).OnPageIndexChanged(Url.Action("Grid1_PageIndexChanged"), "Grid1").QuickPaging(true).MouseWheelSelection(true)
+    @(F.Grid().IsFluid(true).EnableCheckBoxSelect(true).Height(350).ShowHeader(true).ShowBorder(true).Title("表格").ID("Grid1").DataIDField("Id").DataTextField("Name").AllowPaging(true).ShowPagingMessage(false).PageSize(5).IsDatabasePaging(true).OnPageIndexChanged(Url.Action("Grid1_PageIndexChanged"), "Grid1").QuickPaging(true).MouseWheelSelection(true)
         .Columns(
             F.RowNumberField(),
             F.RenderField().HeaderText("姓名").DataField("Name"),

@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.SourceFiles = "~/Areas/Tree/Content/website.xml";
     ViewBag.Title = "Tree/DataBindDocumentCustomAttributes";
     var F = Html.F();
@@ -18,7 +18,7 @@
 
 @section body {
 
-    @(F.Tree().IsFluid(true).ID("Tree1").ShowHeader(true).Title("树控件（点击树节点回发）").OnNodeClick(Url.Action("Tree1_NodeClick"), new Parameter("nodeInfo", "getNodeInfo(arguments[1])"))
+    @(F.Tree().IsFluid(true).ID("Tree1").ShowHeader(true).Title("树控件（点击树节点回发）").OnNodeClick(Url.Action("Tree1_NodeClick"), Parameter.FromFunction("nodeInfo", "getCurrentControlNodeInfoPostbackValue"))
         .Nodes((TreeNode[])ViewBag.Tree1Nodes)
     )
 
@@ -32,6 +32,14 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCurrentControlNodeInfoPostbackValue() {
+            return getNodeInfo(arguments[1]);
+        }
+
+    </script>
+
 
     <script>
 

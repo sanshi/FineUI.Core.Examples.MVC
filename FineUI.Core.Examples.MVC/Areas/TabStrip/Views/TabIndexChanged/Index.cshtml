@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "TabStrip/TabIndexChanged";
     var F = Html.F();
 }
@@ -6,7 +6,7 @@
 
 @section body {
 
-    @(F.TabStrip().IsFluid(true).ID("TabStrip1").Height(350).OnTabIndexChanged(Url.Action("TabStrip1_TabIndexChanged"), new Parameter("activeIndex", "F.ui.TabStrip1.getActiveTabIndex()")).ShowBorder(true).ActiveTabIndex(1)
+    @(F.TabStrip().IsFluid(true).ID("TabStrip1").Height(350).OnTabIndexChanged(Url.Action("TabStrip1_TabIndexChanged"), Parameter.FromFunction("activeIndex", "getTabStrip1ActiveIndexPostbackValue")).ShowBorder(true).ActiveTabIndex(1)
         .Tabs(
             F.Tab().Title("标签一").BodyPadding(10).Layout(LayoutType.Fit)
                 .Items(
@@ -33,8 +33,18 @@
 
     @(F.Button().ID("Button2").CssClass("marginr").ValidateForms("SimpleForm1").Text("验证第一个标签中的表单"))
 
-    @(F.Button().ID("Button3").Text("选中下一个标签").OnClick(Url.Action("Button3_Click"), new Parameter("activeIndex", "F.ui.TabStrip1.getActiveTabIndex()")))
+    @(F.Button().ID("Button3").Text("选中下一个标签").OnClick(Url.Action("Button3_Click"), Parameter.FromFunction("activeIndex", "getTabStrip1ActiveIndexPostbackValue")))
 
 
 }
 
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getTabStrip1ActiveIndexPostbackValue() {
+            return F.ui.TabStrip1.getActiveTabIndex();
+        }
+
+    </script>
+}

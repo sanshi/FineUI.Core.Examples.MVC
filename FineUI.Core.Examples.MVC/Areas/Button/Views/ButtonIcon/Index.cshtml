@@ -1,4 +1,4 @@
-﻿
+
 @{
     ViewBag.Title = "Button/ButtonIcon";
     var F = Html.F();
@@ -21,7 +21,7 @@
     <br />
     <br />
 
-    @(F.Button().ID("btnCustomIcon").Text("自定义图标（点击修改图标）").IconUrl(Url.Content("~/res/images/16/1.png")).OnClick(Url.Action("btnCustomIcon_Click"), new Parameter("iconUrl", "this.icon")))
+    @(F.Button().ID("btnCustomIcon").Text("自定义图标（点击修改图标）").IconUrl(Url.Content("~/res/images/16/1.png")).OnClick(Url.Action("btnCustomIcon_Click"), Parameter.FromFunction("iconUrl", "getCurrentControlIconUrlPostbackValue")))
 
     <br />
     <br />
@@ -51,7 +51,13 @@
 
 }
 
+@section script {
 
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCurrentControlIconUrlPostbackValue() {
+            return this.icon;
+        }
 
-
-
+    </script>
+}

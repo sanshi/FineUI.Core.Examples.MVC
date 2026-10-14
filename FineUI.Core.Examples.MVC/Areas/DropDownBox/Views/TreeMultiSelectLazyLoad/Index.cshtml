@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "DropDownBox/TreeMultiSelectLazyLoad";
     var F = Html.F();
 }
@@ -10,7 +10,7 @@
         .Items(
             F.DropDownBox().ID("DropDownBox1").EnableMultiSelect(true).Values("henan,anhui")
                 .PopPanel(
-                    F.Tree().ID("Tree1").ShowHeader(false).AutoLeafIdentification(false).OnNodeLazyLoad(Url.Action("Tree1_NodeLazyLoad"), new Parameter("nodeId", "arguments[1]")).EnableMultiSelect(true).KeepCurrentSelection(true).Hidden(true)
+                    F.Tree().ID("Tree1").ShowHeader(false).AutoLeafIdentification(false).OnNodeLazyLoad(Url.Action("Tree1_NodeLazyLoad"), Parameter.FromEventArgument("nodeId", "nodeId")).EnableMultiSelect(true).KeepCurrentSelection(true).Hidden(true)
                         .Nodes(
                             F.TreeNode().Text("中国").Expanded(true).NodeID("china")
                                 .Nodes(

@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "CSP/Button";
     var F = Html.F();
 }
@@ -18,7 +18,7 @@
     <br />
     <br />
 
-    @(F.Button().ID("btnChangePressed").Text("改变后面按钮的按下状态").CssClass("marginr").OnClick(Url.Action("btnChangePressed_Click"), new Parameter("pressed", "F.ui.btnPressed.isPressed()")))
+    @(F.Button().ID("btnChangePressed").Text("改变后面按钮的按下状态").CssClass("marginr").OnClick(Url.Action("btnChangePressed_Click"), Parameter.FromFunction("pressed", "getbtnPressedPressedPostbackValue")))
     @(F.Button().ID("btnPressed").Text("按下的按钮").EnablePress(true).Pressed(true))
 
     <br />
@@ -41,6 +41,14 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getbtnPressedPressedPostbackValue() {
+            return F.ui.btnPressed.isPressed();
+        }
+
+    </script>
+
 
     <script nonce="@PageManager.Instance.CspScriptsNonceValue" type="text/javascript">
 

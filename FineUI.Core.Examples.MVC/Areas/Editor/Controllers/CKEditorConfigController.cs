@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FineUI.Core.Examples.MVC.Areas.Editor.Controllers
 {
     [Area("Editor")]
-    public class CKEditorConfigController : FineUI.Core.Examples.MVC.Controllers.BaseController
+    public class CKEditorConfigController : FineUI.Core.Examples.MVC.Controllers.BaseThirdPartyEditorController
     {
         // GET: Editor/CKEditorConfig
         public IActionResult Index()

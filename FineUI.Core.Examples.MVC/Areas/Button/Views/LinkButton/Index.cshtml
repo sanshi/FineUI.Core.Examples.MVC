@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Button/LinkButton";
     var F = Html.F();
 }
@@ -18,12 +18,20 @@
 
     <br />
 
-    @(F.Button().ID("btnChangeEnable").Text("启用/禁用最后一个链接按钮").OnClick(Url.Action("btnChangeEnable_Click"), new Parameter("enabled", "F.ui.LinkButton1.isEnabled()")))
+    @(F.Button().ID("btnChangeEnable").Text("启用/禁用最后一个链接按钮").OnClick(Url.Action("btnChangeEnable_Click"), Parameter.FromFunction("enabled", "getLinkButton1EnabledPostbackValue")))
 
 
 }
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getLinkButton1EnabledPostbackValue() {
+            return F.ui.LinkButton1.isEnabled();
+        }
+
+    </script>
+
     <script>
         function onLinkButtonClick(event) {
             top.F.alert("这是初始禁用的链接按钮的客户端事件！");

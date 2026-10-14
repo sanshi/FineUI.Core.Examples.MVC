@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Button/ButtonGroupChangeText";
     var F = Html.F();
 }
@@ -19,8 +19,8 @@
                 )
         )
         .Items(
-            F.Button().CssClass("marginr").ID("btnChangeButtonText").Text("修改[按钮四]的文本").OnClick(Url.Action("btnChangeButtonText_Click"), new Parameter("text", "F.ui.Button4.getText()")),
-            F.Button().ID("btnShowHideButton").Text("显示隐藏[按钮四]").OnClick(Url.Action("btnShowHideButton_Click"), new Parameter("hidden", "F.ui.Button4.isHidden()"))
+            F.Button().CssClass("marginr").ID("btnChangeButtonText").Text("修改[按钮四]的文本").OnClick(Url.Action("btnChangeButtonText_Click"), Parameter.FromFunction("text", "getButton4TextPostbackValue")),
+            F.Button().ID("btnShowHideButton").Text("显示隐藏[按钮四]").OnClick(Url.Action("btnShowHideButton_Click"), Parameter.FromFunction("hidden", "getButton4HiddenPostbackValue"))
         )
     )
     <br>
@@ -36,10 +36,33 @@
     )
     <br>
 
-    @(F.Button().CssClass("marginr").ID("btnChangeButtonText2").Text("修改[按钮八]的文本").OnClick(Url.Action("btnChangeButtonText2_Click"), new Parameter("text", "F.ui.Button8.getText()")))
-    @(F.Button().ID("btnShowHideButton2").Text("显示隐藏[按钮八]").OnClick(Url.Action("btnShowHideButton2_Click"), new Parameter("hidden", "F.ui.Button8.isHidden()")))
+    @(F.Button().CssClass("marginr").ID("btnChangeButtonText2").Text("修改[按钮八]的文本").OnClick(Url.Action("btnChangeButtonText2_Click"), Parameter.FromFunction("text", "getButton8TextPostbackValue")))
+    @(F.Button().ID("btnShowHideButton2").Text("显示隐藏[按钮八]").OnClick(Url.Action("btnShowHideButton2_Click"), Parameter.FromFunction("hidden", "getButton8HiddenPostbackValue")))
 
 
 
 
+}
+
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getButton4TextPostbackValue() {
+            return F.ui.Button4.getText();
+        }
+
+        function getButton4HiddenPostbackValue() {
+            return F.ui.Button4.isHidden();
+        }
+
+        function getButton8TextPostbackValue() {
+            return F.ui.Button8.getText();
+        }
+
+        function getButton8HiddenPostbackValue() {
+            return F.ui.Button8.isHidden();
+        }
+
+    </script>
 }

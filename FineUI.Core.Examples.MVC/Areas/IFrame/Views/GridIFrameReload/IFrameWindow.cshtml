@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Grid/GridIFrameReload/IFrameWindow";
     var F = Html.F();
 }
@@ -10,7 +10,7 @@
             F.Toolbar()
                 .Items(
                     F.Button().Icon(Icon.SystemClose).Text("关闭").ID("btnHide").ClickHandler("onCloseActiveWindowClick"),
-                    F.Button().OnClick(Url.Action("btnUpdateParentGrid_Click")).Icon(Icon.SystemSave).Text("更新父页面表格").ID("btnUpdateParentGrid")
+                    F.Button().OnClick(Url.Action("btnUpdateParentGrid_Click")).Icon(Icon.SystemSave).Text("更新父页面表格").ID("btnSaveContinue")
                 )
         )
         .Rows(

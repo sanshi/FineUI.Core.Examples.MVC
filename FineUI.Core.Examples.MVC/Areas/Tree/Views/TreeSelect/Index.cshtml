@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Tree/TreeSelect";
     var F = Html.F();
 }
@@ -8,9 +8,9 @@
 
     @(F.Tree().IsFluid(true).ID("Tree1").ShowHeader(true).Title("树控件")
         .Nodes(
-            F.TreeNode().Text("中国").Expanded(true)
+            F.TreeNode().Text("中国").NodeID("china").Expanded(true)
                 .Nodes(
-                    F.TreeNode().Text("河南省").Expanded(true)
+                    F.TreeNode().Text("河南省").NodeID("henan").Expanded(true)
                         .Nodes(
                             F.TreeNode().Text("驻马店市").Expanded(true).NodeID("zhumadian")
                                 .Nodes(
@@ -29,7 +29,7 @@
     )
     <br>
 
-    @(F.Button().ID("btnGetSelectedNode").OnClick(Url.Action("btnGetSelectedNode_Click"), new Parameter("selectedNode", "getSelectedNode()")).CssClass("marginr").Text("获取选中的节点"))
+    @(F.Button().ID("btnGetSelectedNode").OnClick(Url.Action("btnGetSelectedNode_Click"), Parameter.FromFunction("selectedNode", "getCurrentControlSelectedNodePostbackValue")).CssClass("marginr").Text("获取选中的节点"))
 
     @(F.Button().ID("btnSelecthefei").OnClick(Url.Action("btnSelecthefei_Click")).Text("选中[合肥市]"))
     <br>
@@ -43,6 +43,14 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCurrentControlSelectedNodePostbackValue() {
+            return getSelectedNode();
+        }
+
+    </script>
+
 
     <script>
         function getSelectedNode() {

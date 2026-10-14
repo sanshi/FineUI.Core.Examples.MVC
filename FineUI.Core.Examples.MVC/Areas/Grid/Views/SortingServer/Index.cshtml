@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Grid/SortingServer";
     var F = Html.F();
 }
@@ -25,13 +25,21 @@
 
     @(F.Button().Text("选中了哪些行").ID("Button1").MarginRight(5).ClickHandler("onNotifySelectedRowsClick"))
     @(F.Button().OnClick(Url.Action("Button2_Click"),
-            new Parameter("fields", "F.ui.Grid1.fields")).Text("[入学年份]倒序排列").ID("Button2")
+            Parameter.FromFunction("fields", "getGrid1FieldsPostbackValue")).Text("[入学年份]倒序排列").ID("Button2")
     )
 
 }
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getGrid1FieldsPostbackValue() {
+            return F.ui.Grid1.fields;
+        }
+
+    </script>
+
 
     <script src="~/res/js/grid.js"></script>
 

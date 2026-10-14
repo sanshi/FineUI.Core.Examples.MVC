@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "GridTree/ExpandOnDblClick";
     var F = Html.F();
 }
@@ -7,7 +7,7 @@
 @section body {
 
     @(F.Grid().IsFluid(true).ID("Grid1").ShowBorder(true).ShowHeader(true).Title("树表格").DataIDField("Id").DataTextField("Name").EnableTree(true).TreeColumn("Name").DataIDField("Id").DataParentIDField("ParentId").OnRowDoubleClick(Url.Action("Grid1_RowDoubleClick"),
-            new Parameter("rowInfo", "F.toJSON(this.getRowData(arguments[1]))")).TreeExpandOnDblClick(false)
+            Parameter.FromFunction("rowInfo", "getCurrentControlRowInfoPostbackValue")).TreeExpandOnDblClick(false)
         .Columns(
             F.RowNumberField(),
             F.RenderField().ColumnID("Name").ExpandUnusedSpace(true).MinWidth(150).DataField("Name").HeaderText("名称"),
@@ -30,6 +30,14 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCurrentControlRowInfoPostbackValue() {
+            return F.toJSON(this.getRowData(arguments[1]));
+        }
+
+    </script>
+
 
     <script src="~/res/js/grid.js"></script>
 

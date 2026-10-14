@@ -1,11 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Tree>
   <TreeNode Text="中国" Expanded="true" NodeID="China" IconFontColor="#2791BE">
     <TreeNode Text="河南省" Expanded="true" NodeID="henan" IconFontColor="#CA8436">
       <TreeNode Text="驻马店市" Expanded="true" NodeID="zhumadian" IconFont="Flag" IconFontColor="red">
-        <TreeNode Text="遂平县" IconFont="Tag" NodeID="Suiping" IconFontColor="purple">
+        <TreeNode Text="遂平县" IconFont="Tag" NodeID="suiping" IconFontColor="purple">
         </TreeNode>
-        <TreeNode Text="西平县" IconFont="Book" NodeID="Xiping" IconFontColor="green">
+        <TreeNode Text="西平县" IconFont="Book" NodeID="xiping" IconFontColor="green">
         </TreeNode>
       </TreeNode>
       <TreeNode Text="漯河市" NodeID="luohe" IconFont="Bookmark" IconFontColor="blue"/>

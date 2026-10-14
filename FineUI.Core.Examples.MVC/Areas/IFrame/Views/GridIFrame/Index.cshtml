@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.SourceFiles = "~/Grid/IFrameWindow";
     ViewBag.Title = "IFrame/GridIFrame";
 
@@ -47,7 +47,7 @@
 
         )
     )
-    @(F.Window().ID("Window1").Title("弹出窗体").EnableIFrame(true).EnableMaximize(true).Target(Target.Top).EnableResize(true).CloseAction(CloseAction.HidePostBack).Listener("close", "onWindow1Close").IsModal(true).Width(850).Height(550).Hidden(true))
+    @(F.Window().ID("Window1").Title("弹出窗体").EnableIFrame(true).EnableMaximize(true).Target(Target.Top).EnableResize(true).CloseAction(CloseAction.HidePostBack).Listener("close", "onWindow1Close").Listener("iframeload", "onIFrameLoad").IsModal(true).Width(850).Height(550).Hidden(true))
 
 
 }
@@ -97,6 +97,10 @@
             });
         }
 
+        function onIFrameLoad(event) {
+            console.log('Window1 iframeload event fired!');
+        }
+
         function onWindow1Close(event) {
             doCustomPostBack('windowclose');
         }
@@ -117,7 +121,7 @@
             var iframeUrl = iframeWindowUrl + '?id=' + rowData.id + '&name=' + encodeURIComponent(rowData.text);
 
             // 显示窗体
-            F.ui.Window1.show(iframeUrl, '详细信息 - ' + rowData.text);
+            F.ui.Window1.show(iframeUrl, '编辑 - ' + rowData.text);
         }
 
         F.ready(function () {

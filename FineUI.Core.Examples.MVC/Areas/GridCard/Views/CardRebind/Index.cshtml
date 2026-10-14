@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.SourceFiles = "~/wwwroot/res/js/gridcard.js";
     ViewBag.Title = "GridCard/CardRebind";
     var F = Html.F();
@@ -28,14 +28,26 @@
     <br>
     <br>
     @(F.Button().OnClick(Url.Action("Button1_Click"),
-        new Parameter("fields", "F.ui.Grid1.fields"),
-        new Parameter("source", "F.ui.Grid1.getAttr('data-source-key')")).CssClass("marginr").Text("重新绑定表格").ID("Button1")
+        Parameter.FromFunction("fields", "getGrid1FieldsPostbackValue"),
+        Parameter.FromFunction("source", "getGrid1SourcePostbackValue")).CssClass("marginr").Text("重新绑定表格").ID("Button1")
     )
 
 }
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getGrid1FieldsPostbackValue() {
+            return F.ui.Grid1.fields;
+        }
+
+        function getGrid1SourcePostbackValue() {
+            return F.ui.Grid1.getAttr('data-source-key');
+        }
+
+    </script>
+
 
     <script src="~/res/js/grid.js"></script>
     <script src="~/res/js/gridcard.js"></script>

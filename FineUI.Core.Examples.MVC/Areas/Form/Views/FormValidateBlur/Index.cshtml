@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Form/FormValidateBlur";
     var F = Html.F();
 }
@@ -8,7 +8,7 @@
 
     @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).Title("用户注册表单")
         .Items(
-            F.TextBox().ID("tbxUserName").Label("用户名").Required(true).NextFocusControl("tbxPassword").OnBlur(Url.Action("tbxUserName_Blur"), new Parameter("userName", "F.ui.tbxUserName.getValue()")).ShowRedStar(true).Text("admin"),
+            F.TextBox().ID("tbxUserName").Label("用户名").Required(true).NextFocusControl("tbxPassword").OnBlur(Url.Action("tbxUserName_Blur"), Parameter.FromFunction("userName", "gettbxUserNameUserNamePostbackValue")).ShowRedStar(true).Text("admin"),
             F.TextBox().ID("tbxPassword").Label("密码").Required(true).ShowRedStar(true).NextClickControl("btnRegister").TextMode(TextMode.Password),
             F.Button().ID("btnRegister").Text("注册").OnClick(Url.Action("btnRegister_Click"), "SimpleForm1").ValidateForms("SimpleForm1").ValidateTarget(Target.Top)
         )
@@ -29,4 +29,15 @@
     </ul>
 
 
+}
+
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function gettbxUserNameUserNamePostbackValue() {
+            return F.ui.tbxUserName.getValue();
+        }
+
+    </script>
 }

@@ -77,7 +77,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Message.Controllers
                 prompt.EnableClose = false;
             }
 
-            prompt.OkScript = "promptOKCallback(arguments[0]);";
+            prompt.OkFunction = "promptOKCallback";
 
             prompt.Show();
 

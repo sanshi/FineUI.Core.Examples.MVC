@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "GridEditor/GridEditorProgress";
     var F = Html.F();
 }
@@ -32,8 +32,8 @@
     )
     <br>
 
-    @(F.Button().Text("[进度条1]加5%").ClickHandler("onIncreaseProgressClick").MarginRight(5))
-    @(F.Button().Text("[进度条1]减5%").ClickHandler("onDecreaseProgressClick"))
+    @(F.Button().ID("Button1").Text("[进度条1]加5%").ClickHandler("onIncreaseProgressClick").MarginRight(5))
+    @(F.Button().ID("Button3").Text("[进度条1]减5%").ClickHandler("onDecreaseProgressClick"))
     <br>
     <br>
     @(F.Button().ID("btnSubmit").Text("保存数据").OnClick(Url.Action("btnSubmit_Click"), "Grid1"))

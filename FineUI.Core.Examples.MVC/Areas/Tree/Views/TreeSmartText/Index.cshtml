@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Tree/TreeSmartText";
     var F = Html.F();
 }
@@ -32,9 +32,9 @@
     @(F.Tree().Width(300).Height(400).ID("Tree1").ShowHeader(false)
         .EnableSingleClickExpand(true)
         .Nodes(
-            F.TreeNode().Text("中国").Expanded(true).IconFont(IconFont._Home)
+            F.TreeNode().Text("中国").NodeID("china").Expanded(true).IconFont(IconFont._Home)
                 .Nodes(
-                    F.TreeNode().Text("河南省").Expanded(true)
+                    F.TreeNode().Text("河南省").NodeID("henan").Expanded(true)
                         .Nodes(
                             F.TreeNode().Text("驻马店市").NodeID("zhumadian").Leaf(true),
                             F.TreeNode().Text("漯河").NodeID("luohe").Leaf(true)

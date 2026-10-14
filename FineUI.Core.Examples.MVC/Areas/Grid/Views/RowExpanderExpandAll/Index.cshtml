@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Grid/RowExpanderExpandAll";
     var F = Html.F();
 }
@@ -29,8 +29,8 @@
     <br>
 
     @(F.Button().OnClick(Url.Action("Button1_Click"),
-            new Parameter("fields", "F.ui.Grid1.fields"),
-            new Parameter("source", "F.ui.Grid1.getAttr('data-source-key')")).CssClass("marginr").Text("重新绑定表格").ID("Button1")
+            Parameter.FromFunction("fields", "getGrid1FieldsPostbackValue"),
+            Parameter.FromFunction("source", "getGrid1SourcePostbackValue")).CssClass("marginr").Text("重新绑定表格").ID("Button1")
     )
     @(F.Button().ClickHandler("onExpandAllClick").Text("展开全部的行扩展列").CssClass("marginr").ID("btnExpandRowExpanders"))
     @(F.Button().ClickHandler("onCollapseAllClick").Text("折叠全部的行扩展列").ID("btnCollapseRowExpanders"))
@@ -42,6 +42,18 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getGrid1FieldsPostbackValue() {
+            return F.ui.Grid1.fields;
+        }
+
+        function getGrid1SourcePostbackValue() {
+            return F.ui.Grid1.getAttr('data-source-key');
+        }
+
+    </script>
+
 
     <script src="~/res/js/grid.js"></script>
     <script type="text/javascript">

@@ -24,7 +24,7 @@ namespace FineUI.Core.Examples.MVC.Areas.GridEditor.Controllers
         {
             ViewBag.Grid1DataSource = GetSourceData();
 
-            ViewBag.StartupScript = String.Format("window._SHI={0};", DataSourceUtil.SHI_JSON.ToString());
+            ViewBag.CityData = DataSourceUtil.SHI_JSON;
         }
 
 

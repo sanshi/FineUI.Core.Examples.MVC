@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "GridLockColumn/SummaryGroupField";
     var F = Html.F();
 }
@@ -18,7 +18,7 @@
 @section body {
 
     @(F.Grid().IsFluid(true).EnableCheckBoxSelect(true).Height(500).ShowHeader(true).ShowBorder(true).Title("表格").ID("Grid1").DataIDField("Id").DataTextField("Name")
-		.AllowPaging(true).PageSize(15).IsDatabasePaging(true).OnPageIndexChanged(Url.Action("Grid1_PageIndexChanged"), "Grid1")
+		.AllowPaging(true).PageSize(5).IsDatabasePaging(true).OnPageIndexChanged(Url.Action("Grid1_PageIndexChanged"), "Grid1")
 		.EnableSummary(true).SummaryPosition(SummaryPosition.Bottom)
 		.AllowColumnLocking(true).Width(1000)
         .Columns(

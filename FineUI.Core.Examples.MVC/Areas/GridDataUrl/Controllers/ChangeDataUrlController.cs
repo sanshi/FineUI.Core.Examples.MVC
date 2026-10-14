@@ -20,6 +20,15 @@ namespace FineUI.Core.Examples.MVC.Areas.GridDataUrl.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public IActionResult btnReload_Click()
+        {
+            // 不传地址，沿用页面当前数据源；客户端切换后重载也不会跳回首次地址。
+            FineUI.Core.PageContext.InvokeFunction("reloadCurrentDataUrl");
+            return UIHelper.Result();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Button2_Click(string Grid1_sourceKey)
         {
             var grid1 = UIHelper.Grid("Grid1");

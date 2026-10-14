@@ -28,7 +28,8 @@ namespace FineUI.Core.Examples.MVC.Areas.IFrame.Controllers
             var window1 = UIHelper.Window("Window1");
             string openUrl = String.Format("{0}?selected={1}", Url.Content("~/IFrame/PassValue/IFrameWindow"), HttpUtility.UrlEncode(province));
 
-            PageContext.RegisterStartupScript(window1.GetSaveStateReference("tbxProvince") + window1.GetShowReference(openUrl));
+            window1.SaveStateControlIDs("tbxProvince");
+            window1.Show(openUrl);
 
             return UIHelper.Result();
         }
@@ -48,7 +49,8 @@ namespace FineUI.Core.Examples.MVC.Areas.IFrame.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ddlSheng_SelectedIndexChanged(string province)
         {
-            PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(province) + ActiveWindow.GetHideReference());
+            ActiveWindow.WriteBackValue(province);
+            ActiveWindow.Hide();
             
             return UIHelper.Result();
         }

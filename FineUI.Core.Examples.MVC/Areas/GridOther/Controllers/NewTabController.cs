@@ -19,6 +19,7 @@ namespace FineUI.Core.Examples.MVC.Areas.GridOther.Controllers
         }
 
         // GET: GridOther/NewTab/Window
+        [FineUI.Core.Examples.MVC.Controllers.ThirdPartyEditor]
         public IActionResult Window()
         {
             return View();

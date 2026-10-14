@@ -31,7 +31,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Tree.Controllers
 
                 foreach (JObject checkedNode in checkedNodes)
                 {
-                    sb.AppendFormat("<li>{0}（{1}）</li>", checkedNode.Value<string>("text"), checkedNode.Value<string>("id"));
+                    sb.AppendFormat("<li>{0}（{1}）</li>", checkedNode.Value<string>("id"), checkedNode.Value<string>("text"));
                 }
 
                 sb.Append("</ul>");

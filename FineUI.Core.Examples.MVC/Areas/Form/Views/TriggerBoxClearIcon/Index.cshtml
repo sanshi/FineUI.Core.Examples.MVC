@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Form/TriggerBoxClearIcon";
     var F = Html.F();
 }
@@ -9,8 +9,19 @@
     @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).ShowBorder(true).Title("表单").ShowHeader(true)
         .Items(
             F.TriggerBox().ID("TriggerBox1").ShowLabel(false).TriggerIcon(TriggerIcon.Clear).Text("默认值").AutoShowClearIcon(true),
-            F.Button().ID("btnSubmit").Text("提交").OnClick(Url.Action("btnSubmit_Click"), new Parameter("box1Value", "F.ui.TriggerBox1.getValue()"))
+            F.Button().ID("btnSubmit").Text("提交").OnClick(Url.Action("btnSubmit_Click"), Parameter.FromFunction("box1Value", "getTriggerBox1Box1ValuePostbackValue"))
         )
     )
 
+}
+
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getTriggerBox1Box1ValuePostbackValue() {
+            return F.ui.TriggerBox1.getValue();
+        }
+
+    </script>
 }

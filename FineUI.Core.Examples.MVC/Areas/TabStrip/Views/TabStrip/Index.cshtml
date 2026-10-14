@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "TabStrip/TabStrip";
     var F = Html.F();
 }
@@ -33,8 +33,18 @@
 
     @(F.Button().ID("Button2").CssClass("marginr").ValidateForms("SimpleForm1").Text("验证第一个标签中的表单"))
 
-    @(F.Button().ID("Button3").Text("打开下一个标签").OnClick(Url.Action("Button3_Click"), new Parameter("activeIndex", "F.ui.TabStrip1.getActiveTabIndex()")))
+    @(F.Button().ID("Button3").Text("打开下一个标签").OnClick(Url.Action("Button3_Click"), Parameter.FromFunction("activeIndex", "getTabStrip1ActiveIndexPostbackValue")))
 
 
 }
 
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getTabStrip1ActiveIndexPostbackValue() {
+            return F.ui.TabStrip1.getActiveTabIndex();
+        }
+
+    </script>
+}

@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Grid/IFrameWindow";
     var F = Html.F();
 }
@@ -9,7 +9,7 @@
         .Toolbars(
             F.Toolbar()
                 .Items(
-                    F.Button().Icon(Icon.SystemClose).Text("关闭").ID("btnHide").ClickHandler("onCloseActiveWindowClick"),
+                    F.Button().Icon(Icon.SystemClose).Text("关闭").ID("btnClose").ClickHandler("onCloseActiveWindowClick"),
                     F.Button().OnClick(Url.Action("btnSaveClose_Click")).Icon(Icon.SystemSave).Text("回发弹出窗体").ID("btnSaveClose"),
                     F.Button().OnClick(Url.Action("btnSaveHideRefresh_Click")).Icon(Icon.SystemSaveNew).Text("刷新父页面").ID("btnSaveHideRefresh"),
                     F.Button().OnClick(Url.Action("btnSaveCloseTab_Click")).Icon(Icon.SystemSaveClose).Text("关闭当前选项卡").ID("btnSaveCloseTab"),

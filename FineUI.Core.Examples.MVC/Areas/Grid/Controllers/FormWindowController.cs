@@ -95,7 +95,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
             UIHelper.Grid("Grid1").DataSource(source, Grid1_fields);
 
             // 重新绑定表格，选中刚保存的那一行，并关闭弹出窗体
-            RegisterStartupScript(String.Format("F.ui.Grid1.selectRow('{0}');", rowData["Id"]));
+            UIHelper.Grid("Grid1").SelectedRowIDArray(rowData["Id"].ToString());
             UIHelper.Window("Window1").Hide();
 
             return UIHelper.Result();

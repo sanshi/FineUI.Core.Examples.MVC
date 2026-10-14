@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "MobileDataList/DataListMore";
     ViewBag.BodyBGColor = false;
     var F = Html.F();
@@ -32,7 +32,7 @@
         )
         .Items(
             F.DataList().ID("DataList1").Items(ViewBag.DataList1Items).Attribute("data-index", "0"),
-            F.LinkButton().ID("btnMore").CssClass("morebutton").Text("加载更多...").OnClick(@Url.Action("btnMore_Click"), new Parameter("dataIndex", "F.ui.DataList1.getAttr('data-index')"))
+            F.LinkButton().ID("btnMore").CssClass("morebutton").Text("加载更多...").OnClick(@Url.Action("btnMore_Click"), Parameter.FromFunction("dataIndex", "getDataList1DataIndexPostbackValue"))
         )
     )
 
@@ -41,3 +41,13 @@
 
 }
 
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getDataList1DataIndexPostbackValue() {
+            return F.ui.DataList1.getAttr('data-index');
+        }
+
+    </script>
+}

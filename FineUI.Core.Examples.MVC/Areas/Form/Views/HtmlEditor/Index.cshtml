@@ -11,11 +11,26 @@
             F.HtmlEditor().Label("文本编辑器").ID("HtmlEditor1").Editor(Editor.UMEditor)
                 .BasePath(Url.Content("~/res/third-party/umeditor/")).Height(250).Text("FineUI.Pro<br>企业级 ASP.NET UI 控件库<br><br>FineUI的使命<br>创建 No JavaScript，No CSS，No UpdatePanel，No ViewState 的网站应用程序<br><br>支持的浏览器<br>IE 8.0+、Chrome、Firefox、Opera、Safari<br><br>授权协议<br>商业授权<br><br>相关链接<br>论坛：<a href=\"http://fineui.com/bbs/\">http://fineui.com/bbs/</a><br>示例：<a href=\"https://fineui.com/pro/demo/\">https://fineui.com/pro/demo/</a><br><br>"),
             F.TextArea().ID("TextArea1").Label("多行文本框").Height(150).Text("FineUI的使命是创建 No JavaScript，No CSS，No UpdatePanel，No ViewState 的网站应用程序"),
-            F.Button().ID("Button1").OnClick(Url.Action("Button1_Click"), new Parameter("content", "F.ui.HtmlEditor1.getValue()")).Text("获取 HTML 编辑器的内容").CssClass("marginr"),
-            F.Button().ID("Button2").OnClick(Url.Action("Button2_Click"), new Parameter("content", "F.ui.TextArea1.getValue()")).Text("设置 HTML 编辑器的内容")
+            F.Button().ID("Button1").OnClick(Url.Action("Button1_Click"), Parameter.FromFunction("content", "getHtmlEditor1ContentPostbackValue")).Text("获取 HTML 编辑器的内容").CssClass("marginr"),
+            F.Button().ID("Button2").OnClick(Url.Action("Button2_Click"), Parameter.FromFunction("content", "getTextArea1ContentPostbackValue")).Text("设置 HTML 编辑器的内容")
         )
     )
     <br>
     注：富文本编辑器可以在UMEditor、UEditor、CKEditor、TinyMCE中间选择，通过控件属性就能简单切换。
 
+}
+
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getHtmlEditor1ContentPostbackValue() {
+            return F.ui.HtmlEditor1.getValue();
+        }
+
+        function getTextArea1ContentPostbackValue() {
+            return F.ui.TextArea1.getValue();
+        }
+
+    </script>
 }

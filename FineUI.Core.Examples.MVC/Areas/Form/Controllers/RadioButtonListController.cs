@@ -76,7 +76,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Form.Controllers
         {
             if (selected.Count > 0)
             {
-                ShowNotify(String.Format("列表一的选中项：{0}（{1}）", selected["label"], selected["value"]));
+                ShowNotify(String.Format("列表一的选中项：{0}（{1}）", selected["value"], selected["label"]));
             }
             else
             {

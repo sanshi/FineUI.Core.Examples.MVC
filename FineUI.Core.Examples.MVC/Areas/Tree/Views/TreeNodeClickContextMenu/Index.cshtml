@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Tree/TreeNodeClickContextMenu";
     var F = Html.F();
 }
@@ -8,9 +8,9 @@
 
     @(F.Tree().IsFluid(true).ID("Tree1").Listener("nodeclick", "onTree1NodeClick").ShowHeader(true).Title("树控件")
         .Nodes(
-            F.TreeNode().Text("中国").Expanded(true)
+            F.TreeNode().Text("中国").NodeID("china").Expanded(true)
                 .Nodes(
-                    F.TreeNode().Text("河南省").Expanded(true)
+                    F.TreeNode().Text("河南省").NodeID("henan").Expanded(true)
                         .Nodes(
                             F.TreeNode().Text("驻马店市（点击回发）").Expanded(true).NodeID("zhumadian")
                                 .Nodes(

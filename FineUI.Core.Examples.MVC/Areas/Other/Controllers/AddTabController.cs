@@ -19,7 +19,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Other.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Button3_Click()
         {
-            PageContext.RegisterStartupScript("onCloseActiveTabClick();");
+            PageContext.InvokeFunction("onCloseActiveTabClick");
 
             return UIHelper.Result();
         }

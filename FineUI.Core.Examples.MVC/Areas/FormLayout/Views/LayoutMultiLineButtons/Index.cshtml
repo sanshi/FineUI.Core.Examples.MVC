@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "FormLayout/LayoutMultiLineButtons";
     var F = Html.F();
 }
@@ -23,8 +23,8 @@
                 ),
             F.Panel().ID("Panel2").ShowBorder(false).ShowHeader(false)
                 .Items(
-                    F.Button().Text("验证此表单并提交").CssClass("marginr").ValidateForms("Form1").ID("Button1").OnClick(Url.Action("btnSubmit_Click"), "Form1"),
-                    F.Button().ID("btnReset").CssClass("marginr").Text("重置表单").ClickHandler("onResetClick")
+                    F.Button().Text("验证此表单并提交").CssClass("marginr").ValidateForms("Form1").ID("btnSubmit").OnClick(Url.Action("btnSubmit_Click"), "Form1"),
+                    F.Button().ID("btnResetForm1").CssClass("marginr").Text("重置表单").ClickHandler("onResetClick")
                 )
         )
     )

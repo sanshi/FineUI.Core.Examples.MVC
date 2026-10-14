@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Panel/Group";
     var F = Html.F();
 }
@@ -45,8 +45,18 @@
     )
     <br>
 
-    @(F.Button().OnClick(Url.Action("Button2_Click"), new Parameter("collapsed", "F.ui.GroupPanel2.collapsed")).Text("展开/折叠分组面板二").ID("Button2"))
+    @(F.Button().OnClick(Url.Action("Button2_Click"), Parameter.FromFunction("collapsed", "getGroupPanel2CollapsedPostbackValue")).Text("展开/折叠分组面板二").ID("Button2"))
     <br>
 
 }
 
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getGroupPanel2CollapsedPostbackValue() {
+            return F.ui.GroupPanel2.collapsed;
+        }
+
+    </script>
+}

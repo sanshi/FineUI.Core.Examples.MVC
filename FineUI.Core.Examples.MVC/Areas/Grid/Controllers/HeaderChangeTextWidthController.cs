@@ -19,7 +19,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Button1_Click()
         {
-            PageContext.RegisterStartupScript(String.Format("changeColumnTitleAndWidth('入学年份（已修改）', 200);"));
+            PageContext.InvokeFunction("changeColumnTitleAndWidth", "入学年份（已修改）", 200);
 
             return UIHelper.Result();
         }
@@ -28,7 +28,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Button2_Click()
         {
-            PageContext.RegisterStartupScript(String.Format("changeColumnTitleAndWidth('入学年份', 120);"));
+            PageContext.InvokeFunction("changeColumnTitleAndWidth", "入学年份", 120);
 
             return UIHelper.Result();
         }

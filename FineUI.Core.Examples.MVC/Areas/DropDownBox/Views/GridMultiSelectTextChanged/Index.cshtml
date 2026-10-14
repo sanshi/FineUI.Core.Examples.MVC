@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "DropDownBox/GridMultiSelectTextChanged";
     var F = Html.F();
 }
@@ -8,7 +8,7 @@
 
     @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).ShowBorder(true).Title("下拉表格（多选）").ShowHeader(true)
         .Items(
-            F.DropDownBox().ID("DropDownBox1").EmptyText("请从下拉表格中选择").MatchFieldWidth(false).EnableMultiSelect(true).OnTextChanged(Url.Action("DropDownBox1_TextChanged"), "DropDownBox1")
+            F.DropDownBox().ID("DropDownBox1").Values("105", "108").Texts("康颖颖", "唐超").EmptyText("请从下拉表格中选择").MatchFieldWidth(false).EnableMultiSelect(true).OnTextChanged(Url.Action("DropDownBox1_TextChanged"), "DropDownBox1")
                 .PopPanel(
                     F.Grid().ID("Grid1").ShowBorder(true).ShowHeader(false).DataIDField("Id").DataTextField("Name").Width(550).Height(300).EnableMultiSelect(true).KeepCurrentSelection(true).EnableCheckBoxSelect(true).Hidden(true)
                         .Columns(

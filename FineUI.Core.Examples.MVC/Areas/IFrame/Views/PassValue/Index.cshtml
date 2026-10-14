@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.SourceFiles = "~/Areas/IFrame/Views/PassValue/IFrameWindow.cshtml";
     ViewBag.Title = "IFrame/PassValue";
     var F = Html.F();
@@ -11,9 +11,20 @@
         .Items(
             F.TextBox().Label("你所在的省份").ID("tbxProvince").Text("安徽"),
             F.Button().ID("Button1").OnClick(Url.Action("Button1_Click"),
-                    new Parameter("province", "F.ui.tbxProvince.getValue()")).Text("从列表中选择")
+                    Parameter.FromFunction("province", "gettbxProvinceProvincePostbackValue")).Text("从列表中选择")
         )
     )
     @(F.Window().ID("Window1").Title("编辑").EnableIFrame(true).EnableMaximize(true).EnableResize(true).Target(Target.Parent).IsModal(true).Width(550).Height(350).Hidden(true))
 
+}
+
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function gettbxProvinceProvincePostbackValue() {
+            return F.ui.tbxProvince.getValue();
+        }
+
+    </script>
 }

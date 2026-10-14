@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Calendar/CalendarTimeConfirmButton";
     var F = Html.F();
 }
@@ -7,7 +7,7 @@
 @section body {
 
     @(F.Calendar().ID("Calendar1").DateFormatString(ViewBag.Calendar1DateFormatString).SelectedDate(ViewBag.Calendar1SelectedDate)
-        .OnDateSelect(Url.Action("Calendar1_DateSelect"), new Parameter("selectedDate", "F.ui.Calendar1.getText()")).ShowTime(true)
+        .OnDateSelect(Url.Action("Calendar1_DateSelect"), Parameter.FromFunction("selectedDate", "getCalendar1SelectedDatePostbackValue")).ShowTime(true)
         .ShowConfirmButton(true).ConfirmToSelect(true))
     <br>
     <br>
@@ -21,3 +21,13 @@
 
 }
 
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCalendar1SelectedDatePostbackValue() {
+            return F.ui.Calendar1.getText();
+        }
+
+    </script>
+}

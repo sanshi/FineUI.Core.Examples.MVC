@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Form/RadioButtonList";
     var F = Html.F();
 }
@@ -15,12 +15,12 @@
                     F.RadioItem().Text("可选项 3").Value("value3")
                 ),
             F.Button().ID("btnServerSetSelectedValue").CssClass("marginr").Text("选中上面列表中的第一项").OnClick(Url.Action("btnServerSetSelectedValue_Click")),
-            F.Button().ID("btnServerGetSelectedValue").CssClass("marginr").Text("获取上面列表的选中项").OnClick(Url.Action("btnServerGetSelectedValue_Click"), new Parameter("selected", "getRadioButtonList1Selected()")),
+            F.Button().ID("btnServerGetSelectedValue").CssClass("marginr").Text("获取上面列表的选中项").OnClick(Url.Action("btnServerGetSelectedValue_Click"), Parameter.FromFunction("selected", "getCurrentControlSelectedPostbackValue")),
             F.Button().ID("btnClientGetSelectedValue").Text("获取上面列表的选中项（JavaScript 脚本）").ClickHandler("onAlertSelectedValueClick"),
             F.Label(),
             F.RadioButtonList().ID("RadioButtonList2").Label("列表二（一列）").ColumnNumber(1).DataTextField("Name").DataValueField("Id").DataSource(ViewBag.RadioButtonList2DataSource).SelectedValue(ViewBag.RadioButtonList2SelectedValue),
             F.Label(),
-            F.RadioButtonList().ID("RadioButtonList3").OnSelectedIndexChanged(Url.Action("RadioButtonList3_SelectedIndexChanged"), new Parameter("selected", "this.getValue()")).Label("列表三（选中改变事件）").ColumnNumber(3).ShowRedStar(true).Required(true)
+            F.RadioButtonList().ID("rblAutoPostBack").OnSelectedIndexChanged(Url.Action("RadioButtonList3_SelectedIndexChanged"), Parameter.FromFunction("selected", "getCurrentControlSelectedPostbackValue2")).Label("列表三（选中改变事件）").ColumnNumber(3).ShowRedStar(true).Required(true)
                 .Items(
                     F.RadioItem().Text("可选项 1（很长很长很长很长很长很长的可选项）").Value("value1"),
                     F.RadioItem().Text("可选项 2").Value("value2"),
@@ -57,6 +57,18 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCurrentControlSelectedPostbackValue() {
+            return getRadioButtonList1Selected();
+        }
+
+        function getCurrentControlSelectedPostbackValue2() {
+            return this.getValue();
+        }
+
+    </script>
+
     <script type="text/javascript">
 
         function onAlertSelectedValueClick(event) {

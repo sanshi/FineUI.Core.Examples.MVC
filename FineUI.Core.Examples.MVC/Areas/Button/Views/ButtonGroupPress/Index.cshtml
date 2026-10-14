@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Button/ButtonGroupPress";
     var F = Html.F();
 }
@@ -52,7 +52,7 @@
             F.Button().ID("Button16").Text("按钮二").EnablePress(true).Size(ButtonSize.Large).IconAlign(IconAlign.Bottom).Icon(Icon.Star),
             F.Button().ID("Button17").Text("按钮三").EnablePress(true).Pressed(true).Size(ButtonSize.Large).IconAlign(IconAlign.Top).IconFont(IconFont._Camera),
             F.Button().ID("Button18").Text("按钮四").EnablePress(true).Size(ButtonSize.Large).IconAlign(IconAlign.Bottom).IconFont(IconFont._Phone)
-        ).OnPressChanged(Url.Action("ButtonGroup_PressChanged"), new Parameter("pressedInfo", "getPressedInfo(this)"))
+        ).OnPressChanged(Url.Action("ButtonGroup_PressChanged"), Parameter.FromFunction("pressedInfo", "getCurrentControlPressedInfoPostbackValue"))
     )
     <br />
     @(F.Label().Text("可以多选（AllowMultiPress=true）："))
@@ -62,7 +62,7 @@
             F.Button().ID("Button20").Text("按钮二").EnablePress(true).Size(ButtonSize.Large).IconAlign(IconAlign.Bottom).Icon(Icon.Star),
             F.Button().ID("Button21").Text("按钮三").EnablePress(true).Size(ButtonSize.Large).IconAlign(IconAlign.Top).IconFont(IconFont._Camera),
             F.Button().ID("Button22").Text("按钮四").EnablePress(true).Pressed(true).Size(ButtonSize.Large).IconAlign(IconAlign.Bottom).IconFont(IconFont._Phone)
-        ).OnPressChanged(Url.Action("ButtonGroup_PressChanged"), new Parameter("pressedInfo", "getPressedInfo(this)"))
+        ).OnPressChanged(Url.Action("ButtonGroup_PressChanged"), Parameter.FromFunction("pressedInfo", "getCurrentControlPressedInfoPostbackValue"))
     )
     <br />
 
@@ -71,6 +71,14 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCurrentControlPressedInfoPostbackValue() {
+            return getPressedInfo(this);
+        }
+
+    </script>
+
 
     <script>
 

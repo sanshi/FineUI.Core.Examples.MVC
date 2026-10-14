@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
 {
     [Area("Grid")]
-    public class IFrameWindowController : FineUI.Core.Examples.MVC.Controllers.BaseController
+    public class IFrameWindowController : FineUI.Core.Examples.MVC.Controllers.BaseThirdPartyEditorController
     {
         // GET: Grid/IFrameWindow
         public IActionResult Index()
@@ -22,7 +22,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
             // 1. 这里放置保存窗体中数据的逻辑
 
             // 2. 关闭本窗体（触发窗体的关闭事件）
-            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
+            ActiveWindow.HidePostBack();
 
             return UIHelper.Result();
         }
@@ -34,7 +34,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
             // 1. 这里放置保存窗体中数据的逻辑
 
             // 2. 隐藏本窗体，然后刷新父窗体
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+            ActiveWindow.HideRefresh();
 
             return UIHelper.Result();
         }
@@ -46,7 +46,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
             // 1. 这里放置保存窗体中数据的逻辑
 
             // 2. 隐藏本窗体，然后执行JavaScript脚本（关闭当前激活的选项卡）
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideExecuteScriptReference("parent.removeActiveTab();"));
+            ActiveWindow.HideCallParentFunction("removeActiveTab");
 
             return UIHelper.Result();
         }

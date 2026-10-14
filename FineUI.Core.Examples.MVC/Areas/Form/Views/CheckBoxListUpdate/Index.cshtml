@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Form/CheckBoxListUpdate";
     var F = Html.F();
 }
@@ -16,20 +16,20 @@
                 ),
             F.Button().ID("btnUpdateList1").CssClass("marginr").Text("更新列表一").OnClick(Url.Action("btnUpdateList1_Click")),
             F.Button().ID("btnCheckedItemsList1").Text("获取列表一的选中项").OnClick(Url.Action("btnCheckedItemsList_Click"),
-                    new Parameter("name", "列表一", ParameterMode.String),
-                    new Parameter("selected", "getCheckBoxListSelected('CheckBoxList1')")),
+                    Parameter.FromData("name", "列表一"),
+                    Parameter.FromFunction("selected", "getCurrentControlSelectedPostbackValue")),
             F.Label(),
             F.CheckBoxList().ID("CheckBoxList2").Label("列表二（竖排）").ColumnNumber(3).ColumnVertical(true).DataTextField("Name").DataValueField("Id").DataSource(ViewBag.CheckBoxList2DataSource).SelectedValueArray(ViewBag.CheckBoxList2SelectedValueArray),
             F.Button().ID("btnUpdateList2").CssClass("marginr").Text("更新列表二").OnClick(Url.Action("btnUpdateList2_Click")),
             F.Button().ID("btnCheckedItemsList2").Text("获取列表二的选中项").OnClick(Url.Action("btnCheckedItemsList_Click"),
-                    new Parameter("name", "列表二", ParameterMode.String),
-                    new Parameter("selected", "getCheckBoxListSelected('CheckBoxList2')")),
+                    Parameter.FromData("name", "列表二"),
+                    Parameter.FromFunction("selected", "getCurrentControlSelectedPostbackValue2")),
             F.Label(),
             F.CheckBoxList().ID("CheckBoxList4").Label("列表四").ColumnNumber(3).ColumnVertical(false),
-            F.Button().ID("btnUpdateList4").CssClass("marginr").Text("更新列表四（可反复操作）").OnClick(Url.Action("btnUpdateList4_Click"), new Parameter("count", "F.ui.CheckBoxList4.items.length")),
+            F.Button().ID("btnUpdateList4").CssClass("marginr").Text("更新列表四（可反复操作）").OnClick(Url.Action("btnUpdateList4_Click"), Parameter.FromFunction("count", "getCheckBoxList4CountPostbackValue")),
             F.Button().ID("btnCheckedItemsList4").Text("获取列表四的选中项").OnClick(Url.Action("btnCheckedItemsList_Click"),
-                    new Parameter("name", "列表四", ParameterMode.String),
-                    new Parameter("selected", "getCheckBoxListSelected('CheckBoxList4')"))
+                    Parameter.FromData("name", "列表四"),
+                    Parameter.FromFunction("selected", "getCurrentControlSelectedPostbackValue3"))
         )
     )
     <br>
@@ -51,8 +51,8 @@
 
     @(F.Button().ID("btnUpdateList3").CssClass("marginr").Text("更新列表三").OnClick(Url.Action("btnUpdateList3_Click")))
     @(F.Button().ID("btnCheckedItemsList3").Text("获取列表三的选中项").OnClick(Url.Action("btnCheckedItemsList_Click"),
-            new Parameter("name", "列表三", ParameterMode.String),
-            new Parameter("selected", "getCheckBoxListSelected('CheckBoxList3')"))
+            Parameter.FromData("name", "列表三"),
+            Parameter.FromFunction("selected", "getCurrentControlSelectedPostbackValue4"))
     )
     <br>
 
@@ -60,6 +60,30 @@
 }
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCurrentControlSelectedPostbackValue() {
+            return getCheckBoxListSelected('CheckBoxList1');
+        }
+
+        function getCurrentControlSelectedPostbackValue2() {
+            return getCheckBoxListSelected('CheckBoxList2');
+        }
+
+        function getCheckBoxList4CountPostbackValue() {
+            return F.ui.CheckBoxList4.items.length;
+        }
+
+        function getCurrentControlSelectedPostbackValue3() {
+            return getCheckBoxListSelected('CheckBoxList4');
+        }
+
+        function getCurrentControlSelectedPostbackValue4() {
+            return getCheckBoxListSelected('CheckBoxList3');
+        }
+
+    </script>
+
     <script>
 
         function getCheckBoxListSelected(cbxListID) {

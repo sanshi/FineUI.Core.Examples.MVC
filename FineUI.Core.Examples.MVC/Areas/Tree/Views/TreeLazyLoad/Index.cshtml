@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Tree/TreeLazyLoad";
     var F = Html.F();
 }
@@ -6,11 +6,11 @@
 
 @section body {
 
-    @(F.Tree().IsFluid(true).ID("Tree1").OnNodeLazyLoad(Url.Action("Tree1_NodeLazyLoad"), new Parameter("nodeId", "arguments[1]")).ShowHeader(true).Title("延迟加载的树控件").AutoLeafIdentification(false)
+    @(F.Tree().IsFluid(true).ID("Tree1").OnNodeLazyLoad(Url.Action("Tree1_NodeLazyLoad"), Parameter.FromEventArgument("nodeId", "nodeId")).ShowHeader(true).Title("延迟加载的树控件").AutoLeafIdentification(false)
         .Nodes(
-            F.TreeNode().Text("中国").Expanded(true)
+            F.TreeNode().Text("中国").NodeID("china").Expanded(true)
                 .Nodes(
-                    F.TreeNode().Text("河南省").Expanded(true)
+                    F.TreeNode().Text("河南省").NodeID("henan").Expanded(true)
                         .Nodes(
                             F.TreeNode().Text("驻马店市（延迟加载）").NodeID("zhumadian"),
                             F.TreeNode().Text("漯河").NodeID("luohe").Leaf(true)
@@ -28,7 +28,7 @@
     )
     <br>
 
-    @(F.Button().ID("btnGetSelectedNode").OnClick(Url.Action("btnGetSelectedNode_Click"), new Parameter("selectedNode", "getSelectedNode()")).CssClass("marginr").Text("获取选中的节点"))
+    @(F.Button().ID("btnGetSelectedNode").OnClick(Url.Action("btnGetSelectedNode_Click"), Parameter.FromFunction("selectedNode", "getCurrentControlSelectedNodePostbackValue")).CssClass("marginr").Text("获取选中的节点"))
     <br>
 
     @(F.Label().ID("labResult").EncodeText(false))
@@ -38,6 +38,14 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCurrentControlSelectedNodePostbackValue() {
+            return getSelectedNode();
+        }
+
+    </script>
+
 
     <script>
         function getSelectedNode() {

@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Tree/TreeNodeExpand";
     var F = Html.F();
 }
@@ -6,13 +6,13 @@
 
 @section body {
 
-    @(F.Tree().IsFluid(true).ID("Tree1").ShowHeader(true).OnNodeExpand(Url.Action("Tree1_NodeExpand"), new Parameter("nodeInfo", "getNodeInfo(arguments[1])")).OnNodeCollapse(Url.Action("Tree1_NodeCollapse"), new Parameter("nodeInfo", "getNodeInfo(arguments[1])")).Title("树控件")
+    @(F.Tree().IsFluid(true).ID("Tree1").ShowHeader(true).OnNodeExpand(Url.Action("Tree1_NodeExpand"), Parameter.FromFunction("nodeInfo", "getCurrentControlNodeInfoPostbackValue")).OnNodeCollapse(Url.Action("Tree1_NodeCollapse"), Parameter.FromFunction("nodeInfo", "getCurrentControlNodeInfoPostbackValue")).Title("树控件")
         .Nodes(
-            F.TreeNode().Text("中国").Expanded(true)
+            F.TreeNode().Text("中国").NodeID("china").Expanded(true)
                 .Nodes(
-                    F.TreeNode().Text("河南省").Expanded(true)
+                    F.TreeNode().Text("河南省").NodeID("henan").Expanded(true)
                         .Nodes(
-                            F.TreeNode().Text("驻马店市").NodeID("zhumadian")
+                            F.TreeNode().Text("驻马店市").NodeID("zhumadian").Expanded(true)
                                 .Nodes(
                                     F.TreeNode().Text("遂平县").Leaf(false).NodeID("suiping")
                                         .Nodes(
@@ -44,6 +44,14 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCurrentControlNodeInfoPostbackValue() {
+            return getNodeInfo(arguments[1]);
+        }
+
+    </script>
+
 
     <script>
 

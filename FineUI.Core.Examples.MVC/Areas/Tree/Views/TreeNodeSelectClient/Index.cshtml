@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Tree/TreeNodeSelectClient";
     var F = Html.F();
 }
@@ -8,9 +8,9 @@
 
     @(F.Tree().IsFluid(true).ID("Tree1").ShowHeader(true).Title("树控件（多选）").EnableMultiSelect(true)
         .Nodes(
-            F.TreeNode().Text("中国").Expanded(true)
+            F.TreeNode().Text("中国").NodeID("china").Expanded(true)
                 .Nodes(
-                    F.TreeNode().Text("河南省").Expanded(true)
+                    F.TreeNode().Text("河南省").NodeID("henan").Expanded(true)
                         .Nodes(
                             F.TreeNode().Text("驻马店市").Expanded(true).NodeID("zhumadian")
                                 .Nodes(
@@ -32,7 +32,7 @@
     @(F.Label().ID("labResult").EncodeText(false))
     <br>
     <br />
-    事件列表（<a href="javascript:$('#result').html('');">clear</a>）：
+    事件列表（<a href="#" id="clearEvents">clear</a>）：
     <ul id="result"></ul>
 
 
@@ -43,6 +43,13 @@
 @section script {
 
     <script>
+
+        F.ready(function () {
+            $('#clearEvents').on('click', function (event) {
+                event.preventDefault();
+                $('#result').empty();
+            });
+        });
 
         function onTree1NodeSelect(event, nodeId) {
             var date = new Date();

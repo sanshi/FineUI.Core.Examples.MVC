@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "GridBigData/BigData10000";
     var F = Html.F();
 }
@@ -6,7 +6,7 @@
 
 @section body {
 
-    @(F.Grid().IsFluid(true).Height(500).Title("表格（10000行）").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name").EnableCheckBoxSelect(true)
+    @(F.Grid().IsFluid(true).Height(500).Title("表格（10,000行）").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name").EnableCheckBoxSelect(true)
         .EnableBigData(true).FixedRowHeight(true).EnableBigDataRowTip(true).PagingToolbarVisible(false)
         .Columns(
             F.RowNumberField().Width(50),

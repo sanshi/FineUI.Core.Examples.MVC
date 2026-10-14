@@ -32,7 +32,8 @@ namespace FineUI.Core.Examples.MVC.Areas.IFrame.Controllers
 
             // 然后关闭本窗体
             var panel1 = UIHelper.Panel("Panel1");
-            PageContext.RegisterStartupScript(panel1.GetClearDirtyReference() + ActiveWindow.GetHideReference());
+            panel1.ClearDirty();
+            ActiveWindow.Hide();
 
             return UIHelper.Result();
         }

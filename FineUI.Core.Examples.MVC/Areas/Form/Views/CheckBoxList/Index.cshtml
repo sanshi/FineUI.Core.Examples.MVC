@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Form/CheckBoxList";
     var F = Html.F();
 }
@@ -15,12 +15,12 @@
                     F.CheckItem().Text("可选项 3").Value("value3").Selected(true)
                 ),
             F.Button().ID("btnServerSetSelectedValue").CssClass("marginr").Text("选中上面列表中的第一项和第三项").OnClick(Url.Action("btnServerSetSelectedValue_Click")),
-            F.Button().ID("btnServerGetSelectedValue").CssClass("marginr").Text("获取上面列表的选中项").OnClick(Url.Action("btnServerGetSelectedValue_Click"), new Parameter("selected", "getCheckBoxList1Selected()")),
+            F.Button().ID("btnServerGetSelectedValue").CssClass("marginr").Text("获取上面列表的选中项").OnClick(Url.Action("btnServerGetSelectedValue_Click"), Parameter.FromFunction("selected", "getCurrentControlSelectedPostbackValue")),
             F.Button().ID("btnClientGetSelectedValue").Text("获取上面列表的选中项（JavaScript 脚本）").ClickHandler("onAlertSelectedValueClick"),
             F.Label(),
             F.CheckBoxList().ID("CheckBoxList2").Label("列表二（一列）").ColumnNumber(1).DataTextField("Name").DataValueField("Id").DataSource(ViewBag.CheckBoxList2DataSource).SelectedValueArray(ViewBag.CheckBoxList2SelectedValueArray),
             F.Label(),
-            F.CheckBoxList().ID("CheckBoxList3").OnSelectedIndexChanged(Url.Action("CheckBoxList3_SelectedIndexChanged"), new Parameter("selected", "this.getValue()")).Label("列表三（选中项改变事件）").ColumnNumber(3).ShowRedStar(true).Required(true)
+            F.CheckBoxList().ID("CheckBoxList3").OnSelectedIndexChanged(Url.Action("CheckBoxList3_SelectedIndexChanged"), Parameter.FromFunction("selected", "getCurrentControlSelectedPostbackValue2")).Label("列表三（选中项改变事件）").ColumnNumber(3).ShowRedStar(true).Required(true)
                 .Items(
                     F.CheckItem().Text("可选项 1（很长很长很长很长很长很长的可选项）").Value("value1"),
                     F.CheckItem().Text("可选项 2").Value("value2"),
@@ -57,6 +57,18 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCurrentControlSelectedPostbackValue() {
+            return getCheckBoxList1Selected();
+        }
+
+        function getCurrentControlSelectedPostbackValue2() {
+            return this.getValue();
+        }
+
+    </script>
+
     <script type="text/javascript">
 
         function onAlertSelectedValueClick(event) {

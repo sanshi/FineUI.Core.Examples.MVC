@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Form/RadioButtonListDisabled";
     var F = Html.F();
 }
@@ -15,7 +15,7 @@
                     F.RadioItem().Text("可选项 3").Value("value3")
                 ),
             F.Button().ID("btnServerSetSelectedValue").CssClass("marginr").Text("选中上面列表中的第一项").OnClick(Url.Action("btnServerSetSelectedValue_Click")),
-            F.Button().ID("btnServerGetSelectedValue").CssClass("marginr").Text("获取上面列表的选中项").OnClick(Url.Action("btnServerGetSelectedValue_Click"), new Parameter("selected", "getRadioButtonList1Selected()")),
+            F.Button().ID("btnServerGetSelectedValue").CssClass("marginr").Text("获取上面列表的选中项").OnClick(Url.Action("btnServerGetSelectedValue_Click"), Parameter.FromFunction("selected", "getCurrentControlSelectedPostbackValue")),
             F.Button().ID("btnClientGetSelectedValue").Text("获取上面列表的选中项（JavaScript 脚本）").ClickHandler("onAlertSelectedValueClick"),
             F.Label(),
             F.RadioButtonList().ID("RadioButtonList2").Label("列表二（一列）").ColumnNumber(1).DataTextField("Name").DataValueField("Id").DataEnabledField("Enabled").DataSource(ViewBag.RadioButtonList2DataSource).SelectedValue(ViewBag.RadioButtonList2SelectedValue)
@@ -33,6 +33,14 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCurrentControlSelectedPostbackValue() {
+            return getRadioButtonList1Selected();
+        }
+
+    </script>
+
     <script type="text/javascript">
 
         function onAlertSelectedValueClick(event) {

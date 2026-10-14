@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Form/RadioButtonList";
     var F = Html.F();
 }
@@ -16,20 +16,20 @@
                 ),
             F.Button().ID("btnUpdateList1").CssClass("marginr").Text("更新列表一").OnClick(Url.Action("btnUpdateList1_Click")),
             F.Button().ID("btnCheckedItemsList1").Text("获取列表一的选中项").OnClick(Url.Action("btnCheckedItemsList_Click"),
-                    new Parameter("name", "列表一", ParameterMode.String),
-                    new Parameter("selected", "getRadioButtonListSelected('RadioButtonList1')")),
+                    Parameter.FromData("name", "列表一"),
+                    Parameter.FromFunction("selected", "getCurrentControlSelectedPostbackValue")),
             F.Label(),
             F.RadioButtonList().ID("RadioButtonList2").Label("列表二（竖排）").ColumnNumber(3).ColumnVertical(true).DataTextField("Name").DataValueField("Id").DataSource(ViewBag.RadioButtonList2DataSource).SelectedValue(ViewBag.RadioButtonList2SelectedValue),
             F.Button().ID("btnUpdateList2").CssClass("marginr").Text("更新列表二").OnClick(Url.Action("btnUpdateList2_Click")),
             F.Button().ID("btnCheckedItemsList2").Text("获取列表二的选中项").OnClick(Url.Action("btnCheckedItemsList_Click"),
-                    new Parameter("name", "列表二", ParameterMode.String),
-                    new Parameter("selected", "getRadioButtonListSelected('RadioButtonList2')")),
+                    Parameter.FromData("name", "列表二"),
+                    Parameter.FromFunction("selected", "getCurrentControlSelectedPostbackValue2")),
             F.Label(),
             F.RadioButtonList().ID("RadioButtonList4").Label("列表四").ColumnNumber(3).ColumnVertical(false),
-            F.Button().ID("btnUpdateList4").CssClass("marginr").Text("更新列表四（可反复操作）").OnClick(Url.Action("btnUpdateList4_Click"), new Parameter("count", "F.ui.RadioButtonList4.items.length")),
+            F.Button().ID("btnUpdateList4").CssClass("marginr").Text("更新列表四（可反复操作）").OnClick(Url.Action("btnUpdateList4_Click"), Parameter.FromFunction("count", "getRadioButtonList4CountPostbackValue")),
             F.Button().ID("btnCheckedItemsList4").Text("获取列表四的选中项").OnClick(Url.Action("btnCheckedItemsList_Click"),
-                    new Parameter("name", "列表四", ParameterMode.String),
-                    new Parameter("selected", "getRadioButtonListSelected('RadioButtonList4')"))
+                    Parameter.FromData("name", "列表四"),
+                    Parameter.FromFunction("selected", "getCurrentControlSelectedPostbackValue3"))
         )
     )
     <br>
@@ -51,8 +51,8 @@
 
     @(F.Button().ID("btnUpdateList3").CssClass("marginr").Text("更新列表三").OnClick(Url.Action("btnUpdateList3_Click")))
     @(F.Button().ID("btnCheckedItemsList3").Text("获取列表三的选中项").OnClick(Url.Action("btnCheckedItemsList_Click"),
-            new Parameter("name", "列表三", ParameterMode.String),
-            new Parameter("selected", "getRadioButtonListSelected('RadioButtonList3')"))
+            Parameter.FromData("name", "列表三"),
+            Parameter.FromFunction("selected", "getCurrentControlSelectedPostbackValue4"))
     )
     <br>
 
@@ -60,6 +60,30 @@
 }
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCurrentControlSelectedPostbackValue() {
+            return getRadioButtonListSelected('RadioButtonList1');
+        }
+
+        function getCurrentControlSelectedPostbackValue2() {
+            return getRadioButtonListSelected('RadioButtonList2');
+        }
+
+        function getRadioButtonList4CountPostbackValue() {
+            return F.ui.RadioButtonList4.items.length;
+        }
+
+        function getCurrentControlSelectedPostbackValue3() {
+            return getRadioButtonListSelected('RadioButtonList4');
+        }
+
+        function getCurrentControlSelectedPostbackValue4() {
+            return getRadioButtonListSelected('RadioButtonList3');
+        }
+
+    </script>
+
 
     <script>
 

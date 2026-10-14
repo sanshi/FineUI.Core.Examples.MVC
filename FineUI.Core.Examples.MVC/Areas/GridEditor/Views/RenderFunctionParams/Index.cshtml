@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "GridEditor/RenderFunctionParams";
     var F = Html.F();
 }
@@ -41,11 +41,11 @@
                             F.ListItem().Text("自动化系").Value("自动化系")
                         )
                 ),
-            F.RenderField().Width(150).ColumnID("Salary").DataField("Salary").FieldType(FieldType.Int).RendererFunction("renderSalary(0)").HeaderText("工资（整数）").TextAlign(TextAlign.Right)
+            F.RenderField().Width(150).ColumnID("SalaryInteger").DataField("Salary").FieldType(FieldType.Int).RendererFunction("renderSalary(0)").HeaderText("工资（整数）").TextAlign(TextAlign.Right)
                 .Editor(
                     F.NumberBox().EnableCommas(true).NoDecimal(true).Required(true)
                 ),
-            F.RenderField().Width(150).ColumnID("Salary2").DataField("Salary").FieldType(FieldType.Float).RendererFunction("renderSalary(2)").HeaderText("工资（两位小数）").TextAlign(TextAlign.Right)
+            F.RenderField().Width(150).ColumnID("SalaryDecimal").DataField("Salary").FieldType(FieldType.Float).RendererFunction("renderSalary(2)").HeaderText("工资（两位小数）").TextAlign(TextAlign.Right)
                 .Editor(
                     F.NumberBox().EnableCommas(true).DecimalPrecision(2).TrimEndZero(false).Required(true)
                 )

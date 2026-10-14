@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Form/FormValidate";
     var F = Html.F();
 }
@@ -11,8 +11,8 @@
             F.TextBox().ID("tbxUserName").Label("用户名").Required(true).NextFocusControl("tbxPassword").ShowRedStar(true).Text("admin"),
             F.TextBox().ID("tbxPassword").Label("密码").Required(true).ShowRedStar(true).NextClickControl("btnRegister").TextMode(TextMode.Password),
             F.Button().ID("btnRegister").Text("注册").OnClick(Url.Action("btnRegister_Click"),
-                    new Parameter("userName", "F.ui.tbxUserName.getValue()"),
-                    new Parameter("password", "F.ui.tbxPassword.getValue()")).ValidateForms("SimpleForm1").ValidateTarget(Target.Top)
+                    Parameter.FromFunction("userName", "gettbxUserNameUserNamePostbackValue"),
+                    Parameter.FromFunction("password", "gettbxPasswordPasswordPostbackValue")).ValidateForms("SimpleForm1").ValidateTarget(Target.Top)
         )
     )
     <br>
@@ -25,4 +25,19 @@
     </ul>
 
 
+}
+
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function gettbxUserNameUserNamePostbackValue() {
+            return F.ui.tbxUserName.getValue();
+        }
+
+        function gettbxPasswordPasswordPostbackValue() {
+            return F.ui.tbxPassword.getValue();
+        }
+
+    </script>
 }

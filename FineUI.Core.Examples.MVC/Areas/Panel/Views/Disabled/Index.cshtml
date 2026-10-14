@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Panel/Disabled";
     var F = Html.F();
 }
@@ -25,7 +25,7 @@
     )
     <br>
 
-    @(F.Button().OnClick(Url.Action("Button2_Click"), new Parameter("disabled", "F.ui.Panel1.disabled")).Text("启用/禁用面板").CssClass("marginr").ID("Button2"))
+    @(F.Button().OnClick(Url.Action("Button2_Click"), Parameter.FromFunction("disabled", "getPanel1DisabledPostbackValue")).Text("启用/禁用面板").CssClass("marginr").ID("Button2"))
 
     <br>
 
@@ -34,6 +34,14 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getPanel1DisabledPostbackValue() {
+            return F.ui.Panel1.disabled;
+        }
+
+    </script>
+
 
     <script>
 

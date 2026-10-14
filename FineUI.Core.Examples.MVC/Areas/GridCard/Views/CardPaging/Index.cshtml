@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.SourceFiles = "~/wwwroot/res/js/gridcard.js";
     ViewBag.Title = "GridCard/CardPaging";
     var F = Html.F();
@@ -22,7 +22,7 @@
             F.RenderField().HeaderText("分组").DataField("Group").RendererFunction("renderGroup"),
             F.RenderField().HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy-MM-dd")
         )
-        .DataSource(DataSourceUtil.GetDataTable())
+        .DataSource(DataSourceUtil.GetDataTable2())
     )
     <br>
     <br>

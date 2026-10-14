@@ -50,7 +50,7 @@ namespace FineUI.Core.Examples.MVC.Areas.GridPaging.Controllers
 
             if (dataIndex == pageCount - 1)
             {
-                PageContext.RegisterStartupScript("disableMoreButton();");
+                PageContext.InvokeFunction("disableMoreButton");
             }
 
             return UIHelper.Result();

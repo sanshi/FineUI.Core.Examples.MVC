@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "GridPaging/PagingServer";
     var F = Html.F();
 }
@@ -6,7 +6,7 @@
 @section body {
 
     @(F.Grid().IsFluid(true).EnableCheckBoxSelect(true).ShowHeader(true).ShowBorder(true).Title("表格").ID("Grid1").DataIDField("Id").DataTextField("Name").AllowPaging(true).PageSize(5).OnPageIndexChanged(Url.Action("Grid1_PageIndexChanged"),
-            new Parameter("pageIndex", "this.pageIndex"))
+            Parameter.FromFunction("pageIndex", "getCurrentControlPageIndexPostbackValue"))
         .Columns(
             F.RowNumberField(),
             F.RenderField().HeaderText("姓名").DataField("Name"),
@@ -30,6 +30,14 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCurrentControlPageIndexPostbackValue() {
+            return this.pageIndex;
+        }
+
+    </script>
+
 
     <script src="~/res/js/grid.js"></script>
 

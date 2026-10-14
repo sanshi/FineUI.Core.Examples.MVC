@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FineUI.Core.Examples.MVC.Areas.Form.Controllers
 {
     [Area("Form")]
-    public class HtmlEditorController : FineUI.Core.Examples.MVC.Controllers.BaseController
+    public class HtmlEditorController : FineUI.Core.Examples.MVC.Controllers.BaseThirdPartyEditorController
     {
         // GET: Form/HtmlEditor
         public IActionResult Index()

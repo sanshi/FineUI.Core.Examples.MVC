@@ -86,7 +86,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Message.Controllers
             }
 
 
-            notify.HideScript = "notifyHideCallback();";
+            notify.HideFunction = "notifyHideCallback";
 
 
             notify.Show();

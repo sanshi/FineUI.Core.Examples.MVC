@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Message/Alert";
     var F = Html.F();
 }
@@ -40,7 +40,7 @@
         .Toolbars(
             F.Toolbar().ID("Toolbar1").Position(ToolbarPosition.Bottom).ToolbarAlign(ToolbarAlign.Right)
                 .Items(
-                    F.Button().Text("点击弹出对话框").ID("btnSubmit").ValidateForms("SimpleForm1").OnClick(Url.Action("btnSubmit_Click"), "SimpleForm1")
+                    F.Button().Text("点击弹出对话框").ID("btnHello").ValidateForms("SimpleForm1").OnClick(Url.Action("btnSubmit_Click"), "SimpleForm1")
                 )
         )
     )

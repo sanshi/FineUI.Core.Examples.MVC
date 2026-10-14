@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "DropDownList/ShengShiXian2";
     var F = Html.F();
 }
@@ -9,10 +9,10 @@
     @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).Title("中国省市县联动")
         .Items(
             F.DropDownList().ID("ddlSheng").Label("省份").ShowRedStar(true).CompareType(CompareType.String).CompareValue("-1").CompareOperator(Operator.NotEqual).CompareMessage("请选择省份！").OnSelectedIndexChanged(Url.Action("ddlSheng_SelectedIndexChanged"),
-                    new Parameter("sheng", "F.ui.ddlSheng.getValue()")).DataSource(ViewBag.ShengDataSource),
+                    Parameter.FromFunction("sheng", "getddlShengShengPostbackValue")).DataSource(ViewBag.ShengDataSource),
             F.DropDownList().ID("ddlShi").Label("地区市").ShowRedStar(true).CompareType(CompareType.String).CompareValue("-1").CompareOperator(Operator.NotEqual).CompareMessage("请选择地区市！").OnSelectedIndexChanged(Url.Action("ddlShi_SelectedIndexChanged"),
-                        new Parameter("sheng", "F.ui.ddlSheng.getValue()"),
-                        new Parameter("shi", "F.ui.ddlShi.getValue()")).Enabled(false)
+                        Parameter.FromFunction("sheng", "getddlShengShengPostbackValue"),
+                        Parameter.FromFunction("shi", "getddlShiShiPostbackValue")).Enabled(false)
                 .Items(
                     F.ListItem().Text("选择地区市").Value("-1")
                 ),
@@ -21,9 +21,9 @@
                     F.ListItem().Text("选择县区市").Value("-1")
                 ),
             F.Button().ID("btnSubmit").Text("获取选中的省市县").ValidateForms("SimpleForm1").ValidateTarget(Target.Top).OnClick(Url.Action("btnSubmit_Click"),
-                    new Parameter("sheng", "F.ui.ddlSheng.getValue()"),
-                    new Parameter("shi", "F.ui.ddlShi.getValue()"),
-                    new Parameter("xian", "F.ui.ddlXian.getValue()"))
+                    Parameter.FromFunction("sheng", "getddlShengShengPostbackValue"),
+                    Parameter.FromFunction("shi", "getddlShiShiPostbackValue"),
+                    Parameter.FromFunction("xian", "getddlXianXianPostbackValue"))
         )
     )
     <br>
@@ -40,4 +40,23 @@
     }
 
 
+}
+
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getddlShengShengPostbackValue() {
+            return F.ui.ddlSheng.getValue();
+        }
+
+        function getddlShiShiPostbackValue() {
+            return F.ui.ddlShi.getValue();
+        }
+
+        function getddlXianXianPostbackValue() {
+            return F.ui.ddlXian.getValue();
+        }
+
+    </script>
 }

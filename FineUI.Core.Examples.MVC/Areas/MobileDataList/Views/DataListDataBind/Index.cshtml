@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "MobileDataList/DataListDataBind";
     ViewBag.BodyBGColor = false;
     var F = Html.F();
@@ -25,7 +25,7 @@
             F.Toolbar().ID("Toolbar1").Title("列表").HeaderStyle(true)
                 .Items(
                     F.Button().Text("重新绑定").ID("btnReDataBind").OnClick(Url.Action("btnReDataBind_Click"),
-                            new Parameter("source", "F.ui.DataList1.getAttr('data-source-key')"))
+                            Parameter.FromFunction("source", "getDataList1SourcePostbackValue"))
                 )
         )
         .Items(
@@ -38,3 +38,13 @@
 
 }
 
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getDataList1SourcePostbackValue() {
+            return F.ui.DataList1.getAttr('data-source-key');
+        }
+
+    </script>
+}

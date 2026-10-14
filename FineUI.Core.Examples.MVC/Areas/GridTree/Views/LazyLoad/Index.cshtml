@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "GridTree/LazyLoad";
     var F = Html.F();
 }
@@ -7,7 +7,7 @@
 @section body {
 
     @(F.Grid().IsFluid(true).ID("Grid1").ShowBorder(true).ShowHeader(true).Title("树表格").DataIDField("Id").DataTextField("Name").EnableTree(true).TreeColumn("Name").DataIDField("Id").DataParentIDField("ParentId")
-        .OnRowLazyLoad(Url.Action("Grid1_RowLazyLoad"), "Grid1", new Parameter("rowId", "arguments[1]"))
+        .OnRowLazyLoad(Url.Action("Grid1_RowLazyLoad"), "Grid1", Parameter.FromEventArgument("rowId", "rowId"))
         .Columns(
             F.RowNumberField(),
             F.RenderField().ColumnID("Name").ExpandUnusedSpace(true).MinWidth(150).DataField("Name").HeaderText("名称"),

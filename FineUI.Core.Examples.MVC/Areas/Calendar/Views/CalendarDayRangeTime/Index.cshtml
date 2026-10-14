@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Calendar/CalendarDayRangeTime";
     var F = Html.F();
 }
@@ -8,7 +8,7 @@
 
     @(F.Calendar().ID("Calendar1").DateFormatString(ViewBag.Calendar1DateFormatString)
         .RangeStartDate(ViewBag.Calendar1RangeStartDate).RangeEndDate(ViewBag.Calendar1RangeEndDate)
-        .OnDateSelect(Url.Action("Calendar1_DateSelect"), new Parameter("text", "F.ui.Calendar1.getText()"))
+        .OnDateSelect(Url.Action("Calendar1_DateSelect"), Parameter.FromFunction("text", "getCalendar1TextPostbackValue"))
         .DisplayType(CalendarDisplayType.DayRange).ShowTime(true))
 
     <br>
@@ -23,3 +23,13 @@
 
 }
 
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCalendar1TextPostbackValue() {
+            return F.ui.Calendar1.getText();
+        }
+
+    </script>
+}

@@ -39,7 +39,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Form.Controllers
                     // 保存到 wwwroot 之外的目录，图片地址指向公共下载页（/Home/Download，带 inline=1 内联显示）
                     string savedName = SaveUploadFile(filePhoto);
 
-                    PageContext.RegisterStartupScript("window.a=12;");
+                    PageContext.InvokeFunction("markUploadSaved");
 
                     UIHelper.Label("labResult").Text("<p>文件路径：" + HtmlEncode(originalName) + "</p>" +
                         "<p>用户名：" + values["tbxUserName"] + "</p>" +
@@ -48,7 +48,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Form.Controllers
                     // 清空表单字段（清空上传控件，否则提交表单时会再次上传！）
                     UIHelper.SimpleForm("SimpleForm1").Reset();
 
-                    PageContext.RegisterStartupScript("window.b=12;");
+                    PageContext.InvokeFunction("markUploadFormReset");
                 }
             }
 

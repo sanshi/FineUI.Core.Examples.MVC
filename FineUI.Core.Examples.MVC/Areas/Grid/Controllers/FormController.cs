@@ -43,7 +43,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
             UIHelper.Grid("Grid1").DataSource(source, Grid1_fields);
 
             // 重新绑定表格，并回到「新增」状态（等同于模拟点击新增按钮）
-            RegisterStartupScript("onNewButtonClick();");
+            PageContext.InvokeFunction("onNewButtonClick");
 
             return UIHelper.Result();
         }
@@ -95,7 +95,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
             UIHelper.Grid("Grid1").DataSource(source, Grid1_fields);
 
             // 重新绑定表格，并选中刚保存的那一行
-            RegisterStartupScript(String.Format("F.ui.Grid1.selectRow('{0}');", rowData["Id"]));
+            UIHelper.Grid("Grid1").SelectedRowIDArray(rowData["Id"].ToString());
 
             return UIHelper.Result();
         }

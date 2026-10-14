@@ -36,7 +36,7 @@ namespace FineUI.Core.Examples.MVC.Areas.IFrame.Controllers
             UIHelper.Label("labResult").Text(DateTime.Now.ToLongTimeString());
 
             // 调用父页面定义的函数 updateLabelResult
-            PageContext.RegisterStartupScript("parent.updateLabelResult();");
+            PageContext.InvokeParentFunction("updateLabelResult");
 
             return UIHelper.Result();
         }

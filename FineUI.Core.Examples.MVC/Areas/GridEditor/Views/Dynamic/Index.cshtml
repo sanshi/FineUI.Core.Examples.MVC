@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "GridEditor/Dynamic";
     var F = Html.F();
 }
@@ -31,7 +31,8 @@
 
     <script>
 
-        @Html.Raw(ViewBag.StartupScript)
+        window._MINYEAR = @Json.Serialize(ViewBag.MinYear);
+        window._MAXYEAR = @Json.Serialize(ViewBag.MaxYear);
 
         function updateTotalCell(grid, rowId) {
             var me = grid, total = 0;

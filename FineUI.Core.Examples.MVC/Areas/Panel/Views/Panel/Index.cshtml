@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Panel/Panel";
     var F = Html.F();
 }
@@ -25,21 +25,21 @@
     )
     <br>
 
-    @(F.Button().OnClick(Url.Action("Button2_Click"), new Parameter("collapsed", "F.ui.Panel1.collapsed")).Text("检查面板的折叠状态").CssClass("marginr").ID("Button2"))
+    @(F.Button().OnClick(Url.Action("Button2_Click"), Parameter.FromFunction("collapsed", "getPanel1CollapsedPostbackValue")).Text("检查面板的折叠状态").CssClass("marginr").ID("Button2"))
 
     @(F.Button().OnClick(Url.Action("Button4_Click")).Text("更新面板的标题").ID("Button4"))
     <br>
     <br>
 
-    @(F.Button().OnClick(Url.Action("Button3_Click"), new Parameter("collapsed", "F.ui.Panel2.collapsed")).Text("展开/折叠内容面板").ID("Button3"))
+    @(F.Button().OnClick(Url.Action("Button3_Click"), Parameter.FromFunction("collapsed", "getPanel2CollapsedPostbackValue")).Text("展开/折叠内容面板").ID("Button3"))
     <br>
     <br>
 
     @(F.Button().OnClick(Url.Action("Button5_Click")).Text("更新工具条文本一的值").CssClass("marginr").ID("Button5"))
 
     @(F.Button().OnClick(Url.Action("Button6_Click"),
-            new Parameter("textHidden", "F.ui.ToolbarText1.hidden"),
-            new Parameter("separatorHidden", "F.ui.ToolbarSeparator1.hidden")).Text("显示/隐藏工具条文本一").ID("Button6")
+            Parameter.FromFunction("textHidden", "getToolbarText1TextHiddenPostbackValue"),
+            Parameter.FromFunction("separatorHidden", "getToolbarSeparator1SeparatorHiddenPostbackValue")).Text("显示/隐藏工具条文本一").ID("Button6")
     )
     <br>
     <br>
@@ -50,7 +50,7 @@
     <br>
     <br>
 
-    @(F.Button().OnClick(Url.Action("Button9_Click"), new Parameter("iconFont", "F.ui.Panel1.iconFont")).CssClass("marginr").Text("点击修改面板图标（在三个图标之前切换）").ID("Button9"))
+    @(F.Button().OnClick(Url.Action("Button9_Click"), Parameter.FromFunction("iconFont", "getPanel1IconFontPostbackValue")).CssClass("marginr").Text("点击修改面板图标（在三个图标之前切换）").ID("Button9"))
 
     @(F.Button().OnClick(Url.Action("Button10_Click")).CssClass("marginr").Text("清空面板图标").ID("Button10"))
     <br>
@@ -60,6 +60,30 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getPanel1CollapsedPostbackValue() {
+            return F.ui.Panel1.collapsed;
+        }
+
+        function getPanel2CollapsedPostbackValue() {
+            return F.ui.Panel2.collapsed;
+        }
+
+        function getToolbarText1TextHiddenPostbackValue() {
+            return F.ui.ToolbarText1.hidden;
+        }
+
+        function getToolbarSeparator1SeparatorHiddenPostbackValue() {
+            return F.ui.ToolbarSeparator1.hidden;
+        }
+
+        function getPanel1IconFontPostbackValue() {
+            return F.ui.Panel1.iconFont;
+        }
+
+    </script>
+
 
     <script>
 

@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Panel/Tools";
     var F = Html.F();
 }
@@ -34,7 +34,7 @@
     )
     <br>
 
-    @(F.Button().OnClick(Url.Action("Button2_Click"), new Parameter("collapsed", "F.ui.Panel1.collapsed")).Text("检查面板的折叠状态").CssClass("marginr").ID("Button2"))
+    @(F.Button().OnClick(Url.Action("Button2_Click"), Parameter.FromFunction("collapsed", "getPanel1CollapsedPostbackValue")).Text("检查面板的折叠状态").CssClass("marginr").ID("Button2"))
     <br>
 
 
@@ -42,6 +42,14 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getPanel1CollapsedPostbackValue() {
+            return F.ui.Panel1.collapsed;
+        }
+
+    </script>
+
 
     <script>
 

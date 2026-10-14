@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Layout/Region";
 
 
@@ -10,11 +10,11 @@
 
     @(F.Panel().ID("Panel1").Margin(24).ShowBorder(false).ShowHeader(false).Layout(LayoutType.Region).IsViewPort(true)
         .Items(
-            F.Panel().ID("panelTopRegion").RegionPosition(Position.Top).RegionSplit(true).Height(100).Title("顶部面板").ShowBorder(true).ShowHeader(true).BodyPadding(10).IconFont(IconFont._PullUp)
+            F.Panel().ID("panelTopRegion").RegionPosition(Position.Top).RegionSplit(true).EnableCollapse(true).Collapsed(true).Height(100).Title("顶部面板").ShowBorder(true).ShowHeader(true).BodyPadding(10).IconFont(IconFont._PullUp)
                 .Items(
                     F.Label().ID("Label1").Text("顶部面板的内容")
                 ),
-            F.Panel().ID("panelLeftRegion").RegionPosition(Position.Left).RegionSplit(true).Width(250).Title("左侧面板（有提示信息）").TitleToolTip("左侧面板（有提示信息）").ShowBorder(true).ShowHeader(true).BodyPadding(10).IconFont(IconFont._PullLeft)
+            F.Panel().ID("panelLeftRegion").RegionPosition(Position.Left).RegionSplit(true).EnableCollapse(true).Collapsed(true).Width(250).Title("左侧面板（有提示信息）").TitleToolTip("左侧面板（有提示信息）").ShowBorder(true).ShowHeader(true).BodyPadding(10).IconFont(IconFont._PullLeft)
                 .Items(
                     F.Label().ID("Label2").Text("左侧面板的内容")
                 ),
@@ -24,13 +24,13 @@
                     F.Label().ID("Label6"),
                     F.Button().ID("Button4").Text("更新左侧面板的标题").OnClick(Url.Action("Button4_Click")),
                     F.Label().ID("Label7"),
-                    F.Button().ID("btnHideBottomRegion").Text("隐藏/显示底部面板").OnClick(Url.Action("btnHideBottomRegion_Click"), new Parameter("hidden", "F.ui.panelBottomRegion.hidden"))
+                    F.Button().ID("btnHideBottomRegion").Text("隐藏/显示底部面板").OnClick(Url.Action("btnHideBottomRegion_Click"), Parameter.FromFunction("hidden", "getpanelBottomRegionHiddenPostbackValue"))
                 ),
-            F.Panel().ID("panelRightRegion").RegionPosition(Position.Right).RegionSplit(true).Width(200).Title("右侧面板").ShowBorder(true).ShowHeader(true).BodyPadding(10).IconFont(IconFont._PullRight)
+            F.Panel().ID("panelRightRegion").RegionPosition(Position.Right).RegionSplit(true).EnableCollapse(true).Width(200).Title("右侧面板").ShowBorder(true).ShowHeader(true).BodyPadding(10).IconFont(IconFont._PullRight)
                 .Items(
                     F.Label().ID("Label4").Text("右侧面板的内容")
                 ),
-            F.Panel().ID("panelBottomRegion").RegionPosition(Position.Bottom).RegionSplit(true).Height(100).Title("底部面板").ShowBorder(true).ShowHeader(true).BodyPadding(10).IconFont(IconFont._PullDown)
+            F.Panel().ID("panelBottomRegion").RegionPosition(Position.Bottom).RegionSplit(true).EnableCollapse(true).Height(100).Title("底部面板").ShowBorder(true).ShowHeader(true).BodyPadding(10).IconFont(IconFont._PullDown)
                 .Items(
                     F.Label().ID("Label5").Text("底部面板的内容")
                 )
@@ -40,3 +40,13 @@
 
 }
 
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getpanelBottomRegionHiddenPostbackValue() {
+            return F.ui.panelBottomRegion.hidden;
+        }
+
+    </script>
+}

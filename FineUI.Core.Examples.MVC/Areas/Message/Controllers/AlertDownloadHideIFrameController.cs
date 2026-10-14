@@ -32,7 +32,8 @@ namespace FineUI.Core.Examples.MVC.Areas.Message.Controllers
         public IActionResult btnOperation_Click()
         {
             // 不要在这里调用F.confirm，因为当前页面要被关闭，因此F.confirm的回调函数不能正确执行
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideReference() + "parent.showConfirm();");
+            ActiveWindow.Hide();
+            PageContext.InvokeParentFunction("showConfirm");
 
             return UIHelper.Result();
         }

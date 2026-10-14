@@ -19,7 +19,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Other.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Button4_Click()
         {
-            PageContext.RegisterStartupScript("test();");
+            PageContext.InvokeFunction("test");
 
             return UIHelper.Result();
         }

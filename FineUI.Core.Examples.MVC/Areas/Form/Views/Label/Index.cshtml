@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Form/Label";
     var F = Html.F();
 }
@@ -25,10 +25,20 @@
     @(F.Label().ID("Label2").EncodeText(false).CssClass("customlabel").Text("修改文本的样式（CssClass）"))
     <br>
 
-    @(F.Label().ID("Label3").Enabled(true).EncodeText(false).Text("<span style='color:red;font-weight:bold;'>修改文本的样式（内嵌HTML）</span>"))
+    @(F.Label().ID("Label3").Enabled(false).EncodeText(false).Text("<span style='color:red;font-weight:bold;'>修改文本的样式（内嵌HTML）</span>"))
     <br>
 
-    @(F.Button().ID("btnChangeEnable").Text("启用/禁用最后一个标签").OnClick(Url.Action("btnChangeEnable_Click"), new Parameter("enabled", "F.ui.Label3.isEnabled()")))
+    @(F.Button().ID("btnChangeEnable").Text("启用/禁用最后一个标签").OnClick(Url.Action("btnChangeEnable_Click"), Parameter.FromFunction("enabled", "getLabel3EnabledPostbackValue")))
 
 }
 
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getLabel3EnabledPostbackValue() {
+            return F.ui.Label3.isEnabled();
+        }
+
+    </script>
+}

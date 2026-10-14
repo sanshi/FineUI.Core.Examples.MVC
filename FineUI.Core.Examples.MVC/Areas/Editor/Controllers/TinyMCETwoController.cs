@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FineUI.Core.Examples.MVC.Areas.Editor.Controllers
 {
     [Area("Editor")]
-    public class TinyMCETwoController : FineUI.Core.Examples.MVC.Controllers.BaseController
+    public class TinyMCETwoController : FineUI.Core.Examples.MVC.Controllers.BaseThirdPartyEditorController
     {
         // GET: Editor/TinyMCETwo
         public IActionResult Index()

@@ -40,6 +40,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Calendar.Controllers
             var text = "08:50:00 - 11:50:00";
 
             UIHelper.Calendar("Calendar1").Text(text);
+            UpdateResult(text);
 
             return UIHelper.Result();
         }

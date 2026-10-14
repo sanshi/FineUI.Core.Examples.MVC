@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Grid/SortingMultiServer";
     var F = Html.F();
 }
@@ -28,13 +28,21 @@
 
     @(F.Button().Text("选中了哪些行").ID("Button1").ClickHandler("onNotifySelectedRowsClick").MarginRight(5))
     @(F.Button().OnClick(Url.Action("Button2_Click"), 
-        new Parameter("fields", "F.ui.Grid1.fields")).Text("[入学年份]正序，[姓名]倒序").ID("Button2")
+        Parameter.FromFunction("fields", "getGrid1FieldsPostbackValue")).Text("[入学年份]正序，[姓名]倒序").ID("btnChangeOnServer")
     )
 
 }
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getGrid1FieldsPostbackValue() {
+            return F.ui.Grid1.fields;
+        }
+
+    </script>
+
 
     <script src="~/res/js/grid.js"></script>
 

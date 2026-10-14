@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Window/Toolbar";
     var F = Html.F();
 }
@@ -28,3 +28,11 @@
 
 }
 
+@section script {
+
+    <script>
+        function updateWindowLabel(text) {
+            $('#mylabel').text(text);
+        }
+    </script>
+}

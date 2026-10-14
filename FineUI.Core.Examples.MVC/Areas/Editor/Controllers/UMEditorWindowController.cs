@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FineUI.Core.Examples.MVC.Areas.Editor.Controllers
 {
     [Area("Editor")]
-    public class UMEditorWindowController : FineUI.Core.Examples.MVC.Controllers.BaseController
+    public class UMEditorWindowController : FineUI.Core.Examples.MVC.Controllers.BaseThirdPartyEditorController
     {
         // GET: Editor/UMEditorWindow
         public IActionResult Index()

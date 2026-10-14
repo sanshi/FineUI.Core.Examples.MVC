@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "ThirdParty/ColorPicker";
     var F = Html.F();
 }
@@ -38,8 +38,8 @@
             F.DatePicker().Required(true).Label("日期一").EmptyText("请选择日期一").ID("DatePicker1").ShowRedStar(true),
             F.TextBox().ID("tbxMyBox").CssClass("mycolor").Text("#f90").Required(true).ShowRedStar(true).Label("选择颜色"),
             F.Button().ID("btnSubmit").ValidateForms("SimpleForm1").Text("提交表单").OnClick(Url.Action("btnSubmit_Click"),
-                    new Parameter("dateValue", "F.ui.DatePicker1.getText()"),
-                    new Parameter("textValue", "F.ui.tbxMyBox.getValue()"))
+                    Parameter.FromFunction("dateValue", "getDatePicker1DateValuePostbackValue"),
+                    Parameter.FromFunction("textValue", "gettbxMyBoxTextValuePostbackValue"))
         )
     )
 
@@ -47,6 +47,18 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getDatePicker1DateValuePostbackValue() {
+            return F.ui.DatePicker1.getText();
+        }
+
+        function gettbxMyBoxTextValuePostbackValue() {
+            return F.ui.tbxMyBox.getValue();
+        }
+
+    </script>
+
 
     <script src="~/res/third-party/spectrum/spectrum.js" type="text/javascript"></script>
     <script src="~/res/third-party/spectrum/i18n/jquery.spectrum-zh-cn.js" type="text/javascript"></script>

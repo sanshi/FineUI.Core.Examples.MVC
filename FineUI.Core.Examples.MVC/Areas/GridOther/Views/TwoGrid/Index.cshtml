@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "GridOther/TwoGrid";
     var F = Html.F();
 }
@@ -11,7 +11,7 @@
             F.Region().ID("Region1").ShowBorder(false).ShowHeader(false).RegionPosition(Position.Left).BodyPadding("0 5 0 0").Width(200).Layout(LayoutType.Fit)
                 .Items(
                     F.Grid().ID("Grid2").ShowBorder(true).ShowHeader(true).Title("表格（班级）").DataIDField("Id").DataTextField("Name").EnableMultiSelect(false).OnRowSelect(Url.Action("Grid2_RowSelect"), "Grid1",
-                            new Parameter("selectedRowId", "this.getSelectedRow()")).ShowGridHeader(false)
+                            Parameter.FromFunction("selectedRowId", "getCurrentControlSelectedRowIdPostbackValue")).ShowGridHeader(false)
                         .Columns(
                             F.RowNumberField(),
                             F.RenderField().ExpandUnusedSpace(true).MinWidth(150).DataField("Name").HeaderText("姓名")
@@ -44,6 +44,14 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCurrentControlSelectedRowIdPostbackValue() {
+            return this.getSelectedRow();
+        }
+
+    </script>
+
 
     <script src="~/res/js/grid.js"></script>
 

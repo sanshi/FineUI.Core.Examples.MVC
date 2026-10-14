@@ -7,15 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace FineUI.Core.Examples.MVC.Areas.CSP.Controllers
 {
     [Area("CSP")]
-    public class HtmlEditorController : FineUI.Core.Examples.MVC.Controllers.BaseController
+    public class HtmlEditorController : FineUI.Core.Examples.MVC.Controllers.BaseThirdPartyEditorController
     {
         // GET: CSP/HtmlEditor
         public IActionResult Index()
         {
-            var pm = PageManager.Instance;
-            pm.CspScripts = true;
-            pm.CspScriptsAllowNonce = false;
-            pm.CspScriptsAllowUnsafeInline = true;
 
             return View();
         }

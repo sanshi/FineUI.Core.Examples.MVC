@@ -28,7 +28,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Window.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult btnChangeText_Click()
         {
-            PageContext.RegisterStartupScript(String.Format("$('#mylabel').html('{0}')", "这是修改后的值！" + DateTime.Now.ToLongTimeString()));
+            PageContext.InvokeFunction("updateWindowLabel", "这是修改后的值！" + DateTime.Now.ToLongTimeString());
             
             return UIHelper.Result();
         }

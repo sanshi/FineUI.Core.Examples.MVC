@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Accordion/Accordion";
     var F = Html.F();
 }
@@ -24,12 +24,23 @@
     )
     <br>
 
-    @(F.Button().OnClick(Url.Action("Button1_Click"), new Parameter("activeIndex", "F.ui.Accordion1.getActivePaneIndex()")).Text("获取当前展开的面板").ID("Button1"))
+    @(F.Button().OnClick(Url.Action("Button1_Click"), Parameter.FromFunction("activeIndex", "getAccordion1ActiveIndexPostbackValue")).Text("获取当前展开的面板").ID("Button1"))
     <br>
     <br>
 
-    @(F.Button().OnClick(Url.Action("Button2_Click"), new Parameter("activeIndex", "F.ui.Accordion1.getActivePaneIndex()")).Text("展开下一个面板").ID("Button2"))
+    @(F.Button().OnClick(Url.Action("Button2_Click"), Parameter.FromFunction("activeIndex", "getAccordion1ActiveIndexPostbackValue")).Text("展开下一个面板").ID("Button2"))
     <br>
 
 
+}
+
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getAccordion1ActiveIndexPostbackValue() {
+            return F.ui.Accordion1.getActivePaneIndex();
+        }
+
+    </script>
 }

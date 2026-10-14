@@ -53,7 +53,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Form.Controllers
         // 更新客户端变量
         private void UpdateClientJSParameter(string text)
         {
-            PageContext.RegisterStartupScript(String.Format("updateLastTriggerBoxValue({0});", JsHelper.Enquote(text)));
+            PageContext.InvokeFunction("updateLastTriggerBoxValue", text);
         }
 
     }

@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "GridPaging/PageItemsRowExpander";
     var F = Html.F();
 }
@@ -19,7 +19,7 @@
         )
         .PageItems(
             F.Button().Text("显示隐藏描述信息").EnablePress(true).Pressed(true).ID("btnShowRowExpanders").OnClick(Url.Action("btnShowRowExpanders_Click"),
-                    new Parameter("expanded", "F.ui.Grid1.rowExpander.expanded"))
+                    Parameter.FromFunction("expanded", "getGrid1ExpandedPostbackValue"))
         )
         .DataSource(DataSourceUtil.GetDataTable2())
 
@@ -34,6 +34,14 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getGrid1ExpandedPostbackValue() {
+            return F.ui.Grid1.rowExpander.expanded;
+        }
+
+    </script>
+
 
     <script src="~/res/js/grid.js"></script>
 

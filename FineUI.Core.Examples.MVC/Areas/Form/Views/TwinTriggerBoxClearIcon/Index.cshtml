@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Form/TwinTriggerBoxBlurClearIcon";
     var F = Html.F();
 }
@@ -8,7 +8,7 @@
 
     @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).Title("表单").ShowHeader(true)
         .Items(
-            F.TwinTriggerBox().ID("TwinTriggerBox1").ShowLabel(false).OnTrigger1Click(Url.Action("TwinTriggerBox1_Trigger1Click")).OnTrigger2Click(Url.Action("TwinTriggerBox1_Trigger2Click"), new Parameter("text", "F.ui.TwinTriggerBox1.getValue()")).Trigger1Icon(TriggerIcon.Clear).ShowTrigger1(false).EmptyText("搜索用户名").Trigger2Icon(TriggerIcon.Search)
+            F.TwinTriggerBox().ID("TwinTriggerBox1").ShowLabel(false).OnTrigger1Click(Url.Action("TwinTriggerBox1_Trigger1Click")).OnTrigger2Click(Url.Action("TwinTriggerBox1_Trigger2Click"), Parameter.FromFunction("text", "getTwinTriggerBox1TextPostbackValue")).Trigger1Icon(TriggerIcon.Clear).ShowTrigger1(false).EmptyText("搜索用户名").Trigger2Icon(TriggerIcon.Search)
                 .AutoShowClearIcon(true).Listener("change", "onTwinTriggerBox1Change")
 
         )
@@ -18,6 +18,14 @@
 }
 
 @section script{
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getTwinTriggerBox1TextPostbackValue() {
+            return F.ui.TwinTriggerBox1.getValue();
+        }
+
+    </script>
+
     <script>
 
         // 记录上一次 TwinTriggerBox1 的值

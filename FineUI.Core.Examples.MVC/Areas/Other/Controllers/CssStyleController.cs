@@ -33,7 +33,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Other.Controllers
         {
             // 不能直接设置 CssStyle=String.Empty，客户端只会覆盖相同CSS属性的样式，而不会清空元素的 style 属性
             // 需要注册JavaScript脚本来清空元素的 style 属性
-            PageContext.RegisterStartupScript("F.ui.Label1.el.attr('style','');");
+            PageContext.InvokeFunction("clearLabelStyle");
 
             return UIHelper.Result();
         }

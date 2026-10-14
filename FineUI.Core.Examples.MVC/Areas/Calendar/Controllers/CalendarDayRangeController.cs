@@ -56,7 +56,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Calendar.Controllers
 
         private void UpdateResult(string text)
         {
-            UIHelper.Label("labResult").Text(String.Format("日期范围：{0}", text));
+            UIHelper.Label("labResult").Text(String.Format("选择的日期：{0}", text));
         }
     }
 }

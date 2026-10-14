@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Form/NumberBoxRate";
     var F = Html.F();
 }
@@ -48,7 +48,7 @@
     <br>
     @(F.NumberBox().ID("NumberBox12").DisplayType(NumberBoxDisplayType.Rate).Text("3"))
     <br>
-    @(F.Button().ID("Button1").Text("更新").OnClick(Url.Action("Button1_Click"), new Parameter("currentNum", "F.ui.NumberBox12.getValue()")))
+    @(F.Button().ID("Button1").Text("更新").OnClick(Url.Action("Button1_Click"), Parameter.FromFunction("currentNum", "getNumberBox12CurrentNumPostbackValue")))
     <br>
 
 
@@ -57,6 +57,14 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getNumberBox12CurrentNumPostbackValue() {
+            return F.ui.NumberBox12.getValue();
+        }
+
+    </script>
+
 
     <script>
         var desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];

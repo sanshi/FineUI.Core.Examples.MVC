@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "GridLockColumn/RightSaveLockedAndOrderColumnMove";
     var F = Html.F();
 }
@@ -59,6 +59,9 @@
                 // 约定：Locked 属性一定存在
                 bool locked = column.Value<bool>("Locked");
                 foundColumn.Locked = locked;
+                // 历史保存值没有方向时沿用左侧；新值按本次保存的左右方向恢复。
+                foundColumn.LockedPosition = column.Value<string>("LockedPosition") == "right"
+                    ? LockedPosition.Right : LockedPosition.Left;
             }
             order++;
         }
@@ -75,15 +78,21 @@
 
         function showLockedTips(grid) {
             var lockedLeftColumns = [];
+            var lockedRightColumns = [];
 
             $.each(grid.columns, function (index, column) {
                 if (column.locked) {
-                    lockedLeftColumns.push(column.text || column.columnId);
+                    var columnText = column.text || column.columnId;
+                    if (column.lockedPosition === 'right') {
+                        lockedRightColumns.push(columnText);
+                    } else {
+                        lockedLeftColumns.push(columnText);
+                    }
                 }
             });
 
-            // 显示锁定列提示信息
-            F.ui.labResult.setValue('左侧锁定列：' + lockedLeftColumns.join(', '));
+            F.ui.labResult.setValue('左侧锁定列：' + lockedLeftColumns.join(', ') +
+                '<br>右侧锁定列：' + lockedRightColumns.join(', '));
         }
 
         function saveToDB(grid) {
@@ -95,7 +104,8 @@
             var configedColumns = $.map(grid.columns, function (column, index) {
                 return {
                     ColumnID: column.columnId,
-                    Locked: column.locked
+                    Locked: column.locked,
+                    LockedPosition: column.lockedPosition
                 };
             });
 

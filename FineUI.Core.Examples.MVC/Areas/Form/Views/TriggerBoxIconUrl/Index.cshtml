@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Form/TriggerBoxIconUrl";
     var F = Html.F();
 }
@@ -9,7 +9,7 @@
     @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).Title("表单").ShowHeader(true)
         .Items(
             F.TriggerBox().ID("TriggerBox1").Label("TriggerBox").TriggerIconUrl("~/res/icon/application_edit.png").Listener("triggerclick", "onTriggerBox1TriggerClick").EmptyText("打开弹出窗口"),
-            F.TwinTriggerBox().ID("TwinTriggerBox1").Label("TwinTriggerBox").OnTrigger1Click(Url.Action("TwinTriggerBox1_Trigger1Click")).OnTrigger2Click(Url.Action("TwinTriggerBox1_Trigger2Click"), new Parameter("text", "F.ui.TwinTriggerBox1.getValue()")).ShowTrigger1(false).EmptyText("搜索用户名").Trigger1IconUrl("~/res/icon/bullet_cross.png").Trigger2IconUrl("~/res/icon/zoom.png")
+            F.TwinTriggerBox().ID("TwinTriggerBox1").Label("TwinTriggerBox").OnTrigger1Click(Url.Action("TwinTriggerBox1_Trigger1Click")).OnTrigger2Click(Url.Action("TwinTriggerBox1_Trigger2Click"), Parameter.FromFunction("text", "getTwinTriggerBox1TextPostbackValue")).ShowTrigger1(false).EmptyText("搜索用户名").Trigger1IconUrl("~/res/icon/bullet_cross.png").Trigger2IconUrl("~/res/icon/zoom.png")
         )
     )
     @(F.Window().ID("Window1").Title("弹出窗口").BodyPadding(10).IsModal(true).Hidden(true).Target(Target.Top).Width(450).Height(300)
@@ -22,6 +22,14 @@
 }
 
 @section script{
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getTwinTriggerBox1TextPostbackValue() {
+            return F.ui.TwinTriggerBox1.getValue();
+        }
+
+    </script>
+
     <script>
 
         function onTriggerBox1TriggerClick(event) {

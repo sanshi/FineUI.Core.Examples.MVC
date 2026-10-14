@@ -19,7 +19,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Toolbar.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Button3_Click()
         {
-            PageContext.RegisterStartupScript(String.Format("updateIFrameUrl('{0}');", Url.Content("~/Basic/Login")));
+            PageContext.InvokeFunction("updateIFrameUrl", Url.Content("~/Basic/Login"));
 
             return UIHelper.Result();
         }

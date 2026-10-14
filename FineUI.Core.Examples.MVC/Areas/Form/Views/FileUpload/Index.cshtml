@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Form/FileUpload";
     var F = Html.F();
 }
@@ -32,4 +32,18 @@
     <br />
     注：由于浏览器安全限制，部分浏览器下只显示文件名（1.png）或者假路径（C:\fakepath\1.png）。
 
+}
+
+@section script {
+
+    <script>
+        // 两个标记用于观察保存与表单清空的调用顺序。
+        function markUploadSaved() {
+            window.a = 12;
+        }
+
+        function markUploadFormReset() {
+            window.b = 12;
+        }
+    </script>
 }

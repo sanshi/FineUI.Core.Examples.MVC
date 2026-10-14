@@ -85,7 +85,7 @@
 
     <script>
 
-        @Html.Raw(ViewBag.StartupScript)
+        window._SHI = @Json.Serialize(ViewBag.CityData);
 
 
         // 表格列 - 编辑图标（删除图标用共享的 renderDeleteAction，两个渲染函数产出的链接都带 action-btn 类，

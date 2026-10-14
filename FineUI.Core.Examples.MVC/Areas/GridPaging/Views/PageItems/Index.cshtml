@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "GridPaging/PageItems";
     var F = Html.F();
 }
@@ -20,7 +20,7 @@
         .PageItems(
             F.Button().Text("清空数据").ID("btnClearData").OnClick(Url.Action("btnClearData_Click")),
             F.Button().Text("重新绑定数据").ID("btnRebind").Icon(Icon.Reload).OnClick(Url.Action("btnRebindData_Click"),
-                    new Parameter("fields", "F.ui.Grid1.fields")),
+                    Parameter.FromFunction("fields", "getGrid1FieldsPostbackValue")),
             F.ToolbarSeparator(),
             F.Button().Text("选中所有行").ID("btnSelectAll").OnClick(Url.Action("btnSelectAll_Click")),
             F.Button().Text("清空选中行").ID("btnClearSelect").OnClick(Url.Action("btnClearSelect_Click"))
@@ -38,6 +38,14 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getGrid1FieldsPostbackValue() {
+            return F.ui.Grid1.fields;
+        }
+
+    </script>
+
 
     <script src="~/res/js/grid.js"></script>
 

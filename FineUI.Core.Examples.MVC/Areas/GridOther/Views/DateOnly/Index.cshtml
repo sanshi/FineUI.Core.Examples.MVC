@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "GridOther/DateOnly";
     var F = Html.F();
 }
@@ -6,7 +6,7 @@
 
 @section body {
 
-    @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name")
+    @(F.Grid().IsFluid(true).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name").EnableCheckBoxSelect(true)
             .Columns(
                 F.RowNumberField(),
                 F.RenderField().HeaderText("姓名").DataField("Name"),
@@ -23,12 +23,20 @@
     <br>
 
     @(F.Button().Text("选中了哪些行（客户端）").CssClass("marginr").ID("Button1").ClickHandler("onNotifySelectedRowsClick"))
-    @(F.Button().Text("选中了哪些行（服务端）").ID("Button2").OnClick(Url.Action("Button2_Click"), new Parameter("selected", "getGridSelectedRows()")))
+    @(F.Button().Text("选中了哪些行（服务端）").ID("Button2").OnClick(Url.Action("Button2_Click"), Parameter.FromFunction("selected", "getCurrentControlSelectedPostbackValue")))
 
 }
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCurrentControlSelectedPostbackValue() {
+            return getGridSelectedRows();
+        }
+
+    </script>
+
 
     <script src="~/res/js/grid.js"></script>
 

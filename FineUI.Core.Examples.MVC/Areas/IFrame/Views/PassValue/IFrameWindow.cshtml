@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.SourceFiles = "~/Areas/IFrame/Views/PassValue/IFrameWindow.cshtml";
     ViewBag.Title = "IFrame/PassValue/IFrameWindow";
     var F = Html.F();
@@ -10,8 +10,19 @@
     @(F.SimpleForm().IsViewPort(true).ID("SimpleForm1").LabelAlign(LabelAlign.Top).ShowBorder(false).ShowHeader(false).CssClass("f-widget-content").Title("SimpleForm").BodyPadding(10).AutoScroll(true)
         .Items(
             F.RadioButtonList().ID("ddlSheng").Label("请选择省份").ColumnNumber(4).DataSource(DataSourceUtil.SHENG_JSON).SelectedValue(Context.Request.Query["selected"]).OnSelectedIndexChanged(Url.Action("ddlSheng_SelectedIndexChanged"),
-                    new Parameter("province", "this.getValue()"))
+                    Parameter.FromFunction("province", "getCurrentControlProvincePostbackValue"))
         )
     )
 
+}
+
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getCurrentControlProvincePostbackValue() {
+            return this.getValue();
+        }
+
+    </script>
 }

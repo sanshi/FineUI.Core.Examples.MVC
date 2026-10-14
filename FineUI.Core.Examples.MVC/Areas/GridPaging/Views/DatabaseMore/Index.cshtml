@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "GridPaging/DatabaseMore";
     var F = Html.F();
 }
@@ -34,7 +34,7 @@
                     F.RenderField().HeaderText("分组").DataField("Group").RendererFunction("renderGroup"),
                     F.RenderField().HeaderText("注册日期").DataField("LogTime").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy-MM-dd")
                 ),
-            F.LinkButton().CssClass("morebutton").Text("加载更多...").ID("btnMore").OnClick(@Url.Action("btnMore_Click"), "Grid1", new Parameter("dataIndex", "F.ui.Grid1.getAttr('data-index')"))
+            F.LinkButton().CssClass("morebutton").Text("加载更多...").ID("btnMore").OnClick(@Url.Action("btnMore_Click"), "Grid1", Parameter.FromFunction("dataIndex", "getGrid1DataIndexPostbackValue"))
         )
     )
 
@@ -48,6 +48,14 @@
 
 
 @section script {
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function getGrid1DataIndexPostbackValue() {
+            return F.ui.Grid1.getAttr('data-index');
+        }
+
+    </script>
+
 
     <script src="~/res/js/grid.js"></script>
 

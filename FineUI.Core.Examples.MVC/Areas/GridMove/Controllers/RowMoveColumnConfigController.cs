@@ -64,7 +64,7 @@ namespace FineUI.Core.Examples.MVC.Areas.GridMove.Controllers
         {
             ViewBag.Grid1Columns = GetSavedColumns();
 
-            ViewBag.StartupScript = String.Format("window.GRID_COLUMNCONFIG_DEFAULT={0};", GRID_COLUMNCONFIG_DEFAULT.ToString(Newtonsoft.Json.Formatting.Indented));
+            ViewBag.DefaultColumnConfig = GRID_COLUMNCONFIG_DEFAULT;
         }
 
 

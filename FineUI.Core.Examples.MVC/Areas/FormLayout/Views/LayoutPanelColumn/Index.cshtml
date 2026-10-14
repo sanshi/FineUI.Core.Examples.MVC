@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "FormLayout/LayoutPanelColumn";
     var F = Html.F();
 }
@@ -35,7 +35,7 @@
                     F.TextBox().Width(40).ShowLabel(false).Label("工作时间（分钟）").Required(true).ID("TextBox3"),
                     F.Label().ID("Label6").Text("分钟").MarginLeft(5)
                 ),
-            F.Button().ID("btnSubmit").Text("提交表单").ValidateForms("Form1").ValidateMessageBox(true).OnClick(Url.Action("btnSubmit_Click"), "Form1")
+            F.Button().ID("Button1").Text("提交表单").ValidateForms("Form1").ValidateMessageBox(true).OnClick(Url.Action("btnSubmit_Click"), "Form1")
         )
     )
     <br>

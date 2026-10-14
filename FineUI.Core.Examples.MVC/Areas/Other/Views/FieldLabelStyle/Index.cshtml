@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Other/FieldLabelStyle";
     var F = Html.F();
 }
@@ -31,7 +31,7 @@
             F.Toolbar().ToolbarAlign(ToolbarAlign.Right).Position(ToolbarPosition.Bottom)
                 .Items(
                     F.Button().ID("btnSwitchClass").Text("改变 Label 的样式").OnClick(Url.Action("btnSwitchClass_Click"),
-                            new Parameter("hasClassRed", "F.ui.tbxUserName.el.hasClass('red')"))
+                            Parameter.FromFunction("hasClassRed", "gettbxUserNameHasClassRedPostbackValue"))
                 )
         )
     )
@@ -41,3 +41,13 @@
 
 }
 
+@section script {
+
+    <script>
+        // 请求发送前读取当前值；取消确认或发送前检查未通过时不读取。
+        function gettbxUserNameHasClassRedPostbackValue() {
+            return F.ui.tbxUserName.el.hasClass('red');
+        }
+
+    </script>
+}
