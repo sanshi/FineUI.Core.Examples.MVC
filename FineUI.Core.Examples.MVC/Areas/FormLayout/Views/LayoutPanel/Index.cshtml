@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "FormLayout/LayoutPanel";
     var F = Html.F();
 }
@@ -8,37 +8,41 @@
 
     @(F.Form().IsFluid(true).ID("SimpleForm1").LabelAlign(LabelAlign.Left).Title("表单").BodyPadding("10").RemoveLastFieldsMargin(true)
         .Rows(
-            F.FormRow().ID("FormRow5")
+            F.FormRow().ID("FormRow5").ColumnWidths("50% auto")
                 .Items(
                     F.TextBox().ID("TextBox1").Label("文本一"),
-                    F.Panel().ID("ButtonPanel1").ShowHeader(false).ShowBorder(false)
-                        .Items(
-                            F.Button().ID("Button4").CssClass("btn-in-form").Text("按钮一")
-                        )
+                    F.Button().ID("Button4").CssClass("btn-in-form").Text("按钮一")
                 ),
-            F.FormRow().ID("FormRow6")
+            F.FormRow().ID("FormRow6").ColumnWidths("100% auto")
                 .Items(
                     F.TextBox().ID("TextBox2").Label("文本二"),
-                    F.Panel().ID("ButtonPanel2").ShowHeader(false).ShowBorder(false)
-                        .Items(
-                            F.Button().ID("Button3").CssClass("btn-in-form").Text("按钮二")
-                        )
+                    F.Button().ID("Button3").CssClass("btn-in-form").Text("按钮二")
                 ),
-            F.FormRow().ID("FormRow7")
+            F.FormRow().ID("FormRow7").ColumnWidths("100% auto")
                 .Items(
                     F.TextBox().ID("TextBox3").Label("文本三"),
                     F.Button().ID("Button1").CssClass("btn-in-form").Text("按钮三")
                 ),
-            F.FormRow().ID("FormRow8")
+            F.FormRow().ID("FormRow8").ColumnWidths("100% auto")
                 .Items(
                     F.TextBox().ID("TextBox4").Label("文本四"),
                     F.Button().ID("Button2").CssClass("btn-in-form").Text("按钮四")
+                ),
+            F.FormRow().ID("FormRow9")
+                .Items(
+                    F.TextBox().ID("TextBox5").Label("默认均分"),
+                    F.Button().ID("Button5").CssClass("btn-in-form").Text("按钮五")
+                ),
+            F.FormRow().ID("FormRow10").ColumnWidths("50% 50%")
+                .Items(
+                    F.TextBox().ID("TextBox6").Label("明确均分"),
+                    F.Button().ID("Button6").CssClass("btn-in-form").Text("按钮六")
                 )
         )
     )
     <br>
     <br />
-    注：前两行用 Panel 承接列宽，按钮保持内容宽度；后两行的按钮直接占满所在列。
+    注：第一行使用 50% auto，后面三行使用 100% auto；最后两行分别展示默认均分和 50% 50%。
     <br />
     为表单设置 RemoveLastFieldsMargin="true" 来移除最后一行表单字段的底部外边距。
 
