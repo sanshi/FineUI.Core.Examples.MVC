@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.SourceFiles = "~/Areas/IFrame/Views/SelectProvince/IFrameWindow.cshtml";
     ViewBag.Title = "IFrame/SelectProvince";
     var F = Html.F();
@@ -9,7 +9,7 @@
 
     @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").Title("表单").BodyPadding(10)
         .Items(
-            F.DropDownList().Label("你所在的省份").ID("ddlProvince").DataSource(DataSourceUtil.SHENG_JSON).SelectedValue("安徽"),
+            F.DropDownList().Label("你所在的省份").ID("ddlProvince").DataSource(ProvinceCityCountyData.Provinces).DataTextField("Name").DataValueField("Code").SelectedValue("007"),
             F.Button().ID("Button1").ClickHandler("onButton1Click").Text("从列表中选择")
         )
     )

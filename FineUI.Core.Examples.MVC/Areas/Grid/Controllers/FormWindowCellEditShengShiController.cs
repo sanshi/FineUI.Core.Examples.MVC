@@ -24,9 +24,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
         {
             ViewBag.Grid1DataSource = GetSourceData();
 
-            // 省和市的数据都放在客户端：省下拉列表的数据在后台绑定，市下拉列表的数据按省在前台动态加载
-            ViewBag.CityData = DataSourceUtil.SHI_JSON;
-        }
+            // 省和市的数据都放在客户端：省下拉列表的数据在后台绑定，市下拉列表的数据按省在前台动态加载        }
 
 
         // 保存数据：客户端的改动一次性提交上来，按行状态分别处理
@@ -156,8 +154,8 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
             row[4] = "材料科学与工程系";
             row[5] = 0;
             row[6] = "2000-09-01";
-            row[7] = "北京";
-            row[8] = "北京市";
+            row[7] = "001";
+            row[8] = "001001";
             table.Rows.Add(row);
 
             row = table.NewRow();
@@ -168,8 +166,8 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
             row[4] = "化学系";
             row[5] = 1;
             row[6] = "2001-09-01";
-            row[7] = "河北";
-            row[8] = "秦皇岛市";
+            row[7] = "003";
+            row[8] = "003003";
             table.Rows.Add(row);
 
             row = table.NewRow();
@@ -180,8 +178,8 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
             row[4] = "化学系";
             row[5] = 0;
             row[6] = "2008-09-01";
-            row[7] = "湖北";
-            row[8] = "黄冈市";
+            row[7] = "005";
+            row[8] = "005010";
             table.Rows.Add(row);
 
             row = table.NewRow();
@@ -192,8 +190,8 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
             row[4] = "化学系";
             row[5] = 1;
             row[6] = "2002-09-01";
-            row[7] = "安徽";
-            row[8] = "合肥市";
+            row[7] = "007";
+            row[8] = "007001";
             table.Rows.Add(row);
 
             row = table.NewRow();
@@ -204,8 +202,8 @@ namespace FineUI.Core.Examples.MVC.Areas.Grid.Controllers
             row[4] = "材料科学与工程系";
             row[5] = 1;
             row[6] = "2000-09-01";
-            row[7] = "河南";
-            row[8] = "驻马店市";
+            row[7] = "002";
+            row[8] = "002017";
             table.Rows.Add(row);
 
             return table;

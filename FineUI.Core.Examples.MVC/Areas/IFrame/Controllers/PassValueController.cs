@@ -49,7 +49,7 @@ namespace FineUI.Core.Examples.MVC.Areas.IFrame.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ddlSheng_SelectedIndexChanged(string province)
         {
-            ActiveWindow.WriteBackValue(province);
+            ActiveWindow.WriteBackValue(ProvinceCityCountyData.ProvinceName(province));
             ActiveWindow.Hide();
             
             return UIHelper.Result();

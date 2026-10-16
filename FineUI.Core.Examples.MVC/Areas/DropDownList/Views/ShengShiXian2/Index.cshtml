@@ -9,7 +9,8 @@
     @(F.SimpleForm().IsFluid(true).ID("SimpleForm1").BodyPadding(10).Title("中国省市县联动")
         .Items(
             F.DropDownList().ID("ddlSheng").Label("省份").ShowRedStar(true).CompareType(CompareType.String).CompareValue("-1").CompareOperator(Operator.NotEqual).CompareMessage("请选择省份！").OnSelectedIndexChanged(Url.Action("ddlSheng_SelectedIndexChanged"),
-                    Parameter.FromFunction("sheng", "getddlShengShengPostbackValue")).DataSource(ViewBag.ShengDataSource),
+                    Parameter.FromFunction("sheng", "getddlShengShengPostbackValue"))
+                .DataSource(ViewBag.ShengDataSource).DataTextField("Name").DataValueField("Code"),
             F.DropDownList().ID("ddlShi").Label("地区市").ShowRedStar(true).CompareType(CompareType.String).CompareValue("-1").CompareOperator(Operator.NotEqual).CompareMessage("请选择地区市！").OnSelectedIndexChanged(Url.Action("ddlShi_SelectedIndexChanged"),
                         Parameter.FromFunction("sheng", "getddlShengShengPostbackValue"),
                         Parameter.FromFunction("shi", "getddlShiShiPostbackValue")).Enabled(false)

@@ -21,11 +21,11 @@
                             F.ListItem().Text("女").Value("0")
                         )
                 ),
-            F.RenderField().Width(150).ColumnID("Sheng").DataField("Sheng").HeaderText("所在省")
+            F.RenderField().Width(150).ColumnID("Sheng").DataField("Sheng").HeaderText("所在省").RendererFunction("renderSheng")
                 .Editor(
-                    F.DropDownList().ID("ddlSheng").Required(true).DataSource(DataSourceUtil.SHENG_JSON)
+                    F.DropDownList().ID("ddlSheng").Required(true).DataSource(ProvinceCityCountyData.Provinces).DataTextField("Name").DataValueField("Code")
                 ),
-            F.RenderField().Width(150).ColumnID("Shi").DataField("Shi").HeaderText("所在市")
+            F.RenderField().Width(150).ColumnID("Shi").DataField("Shi").HeaderText("所在市").RendererFunction("renderShi")
                 .Editor(
                     F.DropDownList().ID("ddlShi").Required(true)
                 )
@@ -58,11 +58,37 @@
 
 @section script {
 
+    <script type="application/json" id="provinceCityData">@Html.Raw(ProvinceCityCountyData.ProvinceCityJson)</script>
+
     <script src="~/res/js/grid.js"></script>
 
     <script>
 
-        window._SHI = @Json.Serialize(ViewBag.CityData);
+        var provinceCityData = JSON.parse(document.getElementById('provinceCityData').textContent);
+        window._SHENG = provinceCityData.provinces;
+        window._SHI = provinceCityData.cities;
+        // 单元格保存固定编码，渲染时从统一数据查找名称。
+        function findPlaceName(items, code) {
+            if (!items) {
+                return '';
+            }
+            for (var i = 0; i < items.length; i++) {
+                if (items[i][0] === code) {
+                    return items[i][1];
+                }
+            }
+            return '';
+        }
+
+        function renderSheng(value) {
+            return findPlaceName(window._SHENG, value);
+        }
+
+        function renderShi(value, params) {
+            var provinceCode = params.rowValue['Sheng'];
+            return findPlaceName(window._SHI[provinceCode], value);
+        }
+
 
         function onGrid1BeforeEdit(event, value, params) {
             var grid1 = F.ui.Grid1;

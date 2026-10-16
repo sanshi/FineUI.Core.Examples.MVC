@@ -21,7 +21,7 @@ namespace FineUI.Core.Examples.MVC.Areas.DropDownList.Controllers
 
         private void LoadData()
         {
-            ViewBag.ShengDataSource = DataSourceUtil.SHENG_JSON;
+            ViewBag.ShengDataSource = ProvinceCityCountyData.Provinces;
         }
 
 
@@ -51,10 +51,10 @@ namespace FineUI.Core.Examples.MVC.Areas.DropDownList.Controllers
 
             if (!String.IsNullOrEmpty(sheng) && sheng != "-1")
             {
-                JArray ja = DataSourceUtil.SHI_JSON.Value<JArray>(sheng);
-
                 // 手工调用 Source.DataSource 属性时，需要调用 DataBind 方法
-                ddlShi.Source.DataSource = ja;
+                ddlShi.Source.DataTextField = "Name";
+                ddlShi.Source.DataValueField = "Code";
+                ddlShi.Source.DataSource = ProvinceCityCountyData.Cities(sheng);
                 ddlShi.Source.DataBind();
             }
             // 手工调用 Source.Items
@@ -75,10 +75,10 @@ namespace FineUI.Core.Examples.MVC.Areas.DropDownList.Controllers
 
             if (!String.IsNullOrEmpty(shi) && shi != "-1")
             {
-                JArray ja = DataSourceUtil.XIAN_JSON.Value<JArray>(shi);
-
                 // 手工调用 Source.DataSource 属性时，需要调用 DataBind 方法
-                ddlXian.Source.DataSource = ja;
+                ddlXian.Source.DataTextField = "Name";
+                ddlXian.Source.DataValueField = "Code";
+                ddlXian.Source.DataSource = ProvinceCityCountyData.Counties(shi);
                 ddlXian.Source.DataBind();
             }
             // 手工调用 Source.Items
@@ -98,12 +98,12 @@ namespace FineUI.Core.Examples.MVC.Areas.DropDownList.Controllers
         public IActionResult btnSubmit_Click(string sheng, string shi, string xian)
         {
             // 香港、澳门 - 县区市为空
-            string xianstr = " | " + xian;
+            string xianstr = " | " + ProvinceCityCountyData.CountyName(xian);
             if(xian == "-1") {
                 xianstr = "";
             }
 
-            UIHelper.Label("labResult").Text("您选择的省市县：" + sheng + " | " + shi + xianstr);
+            UIHelper.Label("labResult").Text("您选择的省市县：" + ProvinceCityCountyData.ProvinceName(sheng) + " | " + ProvinceCityCountyData.CityName(shi) + xianstr);
 
             return UIHelper.Result();
         }

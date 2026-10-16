@@ -16,8 +16,8 @@
             F.RenderField().HeaderText("入学日期").ColumnID("EntranceDate").DataField("EntranceDate").FieldType(FieldType.Date).Renderer(Renderer.Date).RendererArgument("yyyy-MM-dd").Width(150).Hidden(true),
             F.RenderCheckField().HeaderText("是否在校").ColumnID("AtSchool").DataField("AtSchool").EnableColumnEdit(false),
             F.RenderField().HeaderText("所学专业").ColumnID("Major").DataField("Major").ExpandUnusedSpace(true).MinWidth(150),
-            F.RenderField().HeaderText("省").ColumnID("Sheng").DataField("Sheng").Width(100),
-            F.RenderField().HeaderText("市").ColumnID("Shi").DataField("Shi").Width(150),
+            F.RenderField().HeaderText("省").ColumnID("Sheng").DataField("Sheng").Width(100).RendererFunction("renderSheng"),
+            F.RenderField().HeaderText("市").ColumnID("Shi").DataField("Shi").Width(150).RendererFunction("renderShi"),
             F.RenderField().ColumnID("Edit").Width(50).TextAlign(TextAlign.Center).EnableHeaderMenu(false).RendererFunction("renderEditAction"),
             F.RenderField().ColumnID("Delete").Width(50).TextAlign(TextAlign.Center).EnableHeaderMenu(false).RendererFunction("renderDeleteAction")
         )
@@ -56,7 +56,7 @@
                             F.ListItem().Text("自动化系").Value("自动化系"),
                             F.ListItem().Text("计算机科学与工程系").Value("计算机科学与工程系")
                         ),
-                    F.DropDownList().ID("ddlSheng").Label("省").ShowRedStar(true).Required(true).AutoSelectFirstItem(false).DataSource(DataSourceUtil.SHENG_JSON)
+                    F.DropDownList().ID("ddlSheng").Label("省").ShowRedStar(true).Required(true).AutoSelectFirstItem(false).DataSource(ProvinceCityCountyData.Provinces).DataTextField("Name").DataValueField("Code")
                         .Listener("change", "onShengChange"),
                     F.DropDownList().ID("ddlShi").Label("市").ShowRedStar(true).Required(true).AutoSelectFirstItem(false)
                 )
@@ -81,11 +81,34 @@
 
 @section script {
 
+    <script type="application/json" id="provinceCityData">@Html.Raw(ProvinceCityCountyData.ProvinceCityJson)</script>
+
     <script src="~/res/js/grid.js"></script>
 
     <script>
 
-        window._SHI = @Json.Serialize(ViewBag.CityData);
+        var provinceCityData = JSON.parse(document.getElementById('provinceCityData').textContent);
+        window._SHENG = provinceCityData.provinces;
+        window._SHI = provinceCityData.cities;
+        // 表格保存编码，显示时从同一份省市数据查询名称。
+        function findPlaceName(items, code) {
+            for (var i = 0; i < items.length; i++) {
+                if (items[i][0] === code) {
+                    return items[i][1];
+                }
+            }
+            return '';
+        }
+
+        function renderSheng(value) {
+            return findPlaceName(window._SHENG, value);
+        }
+
+        function renderShi(value, params) {
+            var provinceCode = params.rowValue['Sheng'];
+            return findPlaceName(window._SHI[provinceCode] || [], value);
+        }
+
 
 
         // 表格列 - 编辑图标（删除图标用共享的 renderDeleteAction，两个渲染函数产出的链接都带 action-btn 类，
