@@ -34,10 +34,10 @@ namespace FineUI.Core.Examples.MVC.Areas.GridTree.Controllers
             ViewBag.Grid1DataSource = pagedData;
 
             // 3. 合计行数据
-            ViewBag.Grid1SummaryData = GetSummaryData(pagedData);
+            ViewBag.Grid1SummaryData = CalculateSummaryData(pagedData);
         }
 
-        private JObject GetSummaryData(DataTable paged)
+        private JObject CalculateSummaryData(DataTable paged)
         {
             int totalSize = 0;
             int totalFileCount = 0;
@@ -154,7 +154,7 @@ namespace FineUI.Core.Examples.MVC.Areas.GridTree.Controllers
             grid1.DataSource(dataSource, Grid1_fields);
 
             // 3. 合计行数据
-            grid1.SummaryData(GetSummaryData(dataSource));
+            grid1.SummaryData(CalculateSummaryData(dataSource));
 
             return UIHelper.Result();
         }
