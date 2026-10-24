@@ -45,7 +45,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Tree.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult btnClear_Click()
         {
-            UIHelper.Tree("Tree1").DataSource(null);
+            UIHelper.Tree("Tree1").ClearData();
             
             return UIHelper.Result();
         }
