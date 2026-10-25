@@ -19,7 +19,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Button.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult btnChangeButtonText_Click(string text)
         {
-            UIHelper.Button("Button4").Text(text.Length == 3 ? "按钮四（" + DateTime.Now.ToString() + "）" : "按钮四");
+            UIHelper.Button("Button4").Text(text.Length == 3 ? "按钮四（" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture) + "）" : "按钮四");
 
             return UIHelper.Result();
         }
@@ -38,7 +38,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Button.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult btnChangeButtonText2_Click(string text)
         {
-            UIHelper.Button("Button8").Text(text.Length == 3 ? "按钮八（" + DateTime.Now.ToString() + "）" : "按钮八");
+            UIHelper.Button("Button8").Text(text.Length == 3 ? "按钮八（" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture) + "）" : "按钮八");
 
             return UIHelper.Result();
         }
