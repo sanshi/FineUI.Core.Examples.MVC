@@ -27,7 +27,7 @@
 
     <br />
     <br />
-    @(F.Button().Text("清空数据").ID("btnClearData").OnClick(Url.Action("btnClearData_Click")))
+    @(F.Button().CssClass("marginr").Text("清空数据").ID("btnClearData").OnClick(Url.Action("btnClearData_Click")))
     @(F.Button().Text("重新绑定数据").ID("btnRebind").Icon(Icon.Reload).OnClick(Url.Action("btnRebindData_Click"), "Grid1"))
 
 
