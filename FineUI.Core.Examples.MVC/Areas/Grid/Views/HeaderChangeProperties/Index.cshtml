@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "UIHelper修改标题和宽度";
+    var F = Html.F();
+}
+
+@section body {
+
+    @(F.Grid().IsFluid(true).Height(300).Title("表格").ShowHeader(true).ShowBorder(true).ID("Grid1").DataIDField("Id").DataTextField("Name").EnableCheckBoxSelect(true)
+        .Columns(
+            F.RowNumberField(),
+            F.RenderField().HeaderText("姓名").DataField("Name"),
+            F.RenderField().HeaderText("性别").DataField("Gender").FieldType(FieldType.Int).RendererFunction("renderGender"),
+            F.RenderField().ColumnID("EntranceYear").HeaderText("入学年份").Width(120).DataField("EntranceYear").FieldType(FieldType.Int),
+            F.RenderCheckField().HeaderText("是否在校").DataField("AtSchool").RenderAsStaticField(true),
+            F.RenderField().HeaderText("所学专业").DataField("Major").RendererFunction("renderMajor").ExpandUnusedSpace(true).MinWidth(150)
+        )
+        .DataSource(DataSourceUtil.GetDataTable())
+    )
+    <br>
+    <br>
+
+    @(F.Button().ID("Button1").CssClass("marginr").Text("修改[入学年份]的标题文本和宽度").OnClick(Url.Action("Button1_Click")))
+    @(F.Button().ID("Button2").CssClass("marginr").Text("还原[入学年份]").OnClick(Url.Action("Button2_Click")))
+    @(F.Button().ID("Button3").Text("再次回发（保留列设置）").OnClick(Url.Action("Button3_Click")))
+    <br>
+    <br>
+    @(F.Label().ID("LabelResult").Text("修改后可再次回发，观察列设置和已有数据。"))
+    <p>后台用 UIHelper.RenderField 指定表格 ID 和 ColumnID，再调用 HeaderText 和 Width 更新标题文本与列宽。</p>
+    <p>可先勾选几行再修改或还原；再次回发只更新提示文字，保留浏览器中的列设置、行数据及选择。</p>
+
+}
+
+@section script {
+    <script src="~/res/js/grid.js"></script>
+}
