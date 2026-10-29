@@ -1,0 +1,9 @@
+@model string
+@{
+    ViewBag.Title = "客户详情";
+}
+
+@section body {
+    <p>当前客户标识：<strong id="customerSlug">@Model</strong></p>
+    <p>本示例展示行命令传入的网址参数。实际业务中应查询客户记录并校验访问权限。</p>
+}
