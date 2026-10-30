@@ -6,7 +6,7 @@
 
 @section body {
 
-    @(F.Tree().Width(300).Height(400).ID("Tree1").OnNodeLazyLoad(Url.Action("Tree1_NodeLazyLoad"), Parameter.FromEventArgument("nodeId", "nodeId")).ShowHeader(false).AutoLeafIdentification(false)
+    @(F.Tree().Width(300).Height(400).ID("Tree1").OnNodeLazyLoad(Url.Action("Tree1_NodeLazyLoad"), Parameter.FromEventArgument("nodeId", 1)).ShowHeader(false).AutoLeafIdentification(false)
         .EnableSingleClickExpand(true)
         .Nodes(
             F.TreeNode().Text("中国").NodeID("china").Expanded(true).IconFont(IconFont._Home)

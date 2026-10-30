@@ -6,7 +6,7 @@
 
 @section body {
 
-    @(F.Tree().IsFluid(true).ID("Tree1").OnNodeLazyLoad(Url.Action("Tree1_NodeLazyLoad"), Parameter.FromEventArgument("nodeId", "nodeId")).ShowHeader(true).Title("延迟加载的树控件").AutoLeafIdentification(false)
+    @(F.Tree().IsFluid(true).ID("Tree1").OnNodeLazyLoad(Url.Action("Tree1_NodeLazyLoad"), Parameter.FromEventArgument("nodeId", 1)).ShowHeader(true).Title("延迟加载的树控件").AutoLeafIdentification(false)
         .Nodes(
             F.TreeNode().Text("中国").NodeID("china").Expanded(true)
                 .Nodes(
