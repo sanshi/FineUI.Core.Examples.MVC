@@ -29,6 +29,7 @@ namespace FineUI.Core.Examples.MVC.Areas.MobileDataList.Controllers
             foreach (DataRow row in source.Rows)
             {
                 DataListItem listItem = new DataListItem();
+                listItem.Value = row["Id"].ToString();
 
                 string name = row["Name"].ToString();
                 string groupName = row["Group"].ToString();

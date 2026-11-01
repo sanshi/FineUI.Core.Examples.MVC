@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "MobileDataList/DataList";
     ViewBag.BodyBGColor = false;
     var F = Html.F();
@@ -14,15 +14,15 @@
         .Items(
             F.DataList().ID("DataList1")
                 .Items(
-                    F.DataListItem().Text("列表项1"),
-                    F.DataListItem().Text("列表项2"),
-                    F.DataListItem().Text("列表项3"),
-                    F.DataListItem().Text("列表项4"),
-                    F.DataListItem().Text("列表项5"),
-                    F.DataListItem().Text("列表项6"),
-                    F.DataListItem().Text("列表项7"),
-                    F.DataListItem().Text("列表项8"),
-                    F.DataListItem().Text("一个很长很长很长很长很长很长很长很长很长很长很长很长很长很的列表项")
+                    F.DataListItem().Value("item1").Text("列表项1"),
+                    F.DataListItem().Value("item2").Text("列表项2"),
+                    F.DataListItem().Value("item3").Text("列表项3"),
+                    F.DataListItem().Value("item4").Text("列表项4"),
+                    F.DataListItem().Value("item5").Text("列表项5"),
+                    F.DataListItem().Value("item6").Text("列表项6"),
+                    F.DataListItem().Value("item7").Text("列表项7"),
+                    F.DataListItem().Value("item8").Text("列表项8"),
+                    F.DataListItem().Value("item9").Text("一个很长很长很长很长很长很长很长很长很长很长很长很长很长很的列表项")
                 )
         )
     )

@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "MobileAccordion/AccordionTools";
     ViewBag.BodyBGColor = false;
     var F = Html.F();
@@ -60,11 +60,11 @@
                 .Items(
                     F.DataList().ID("DataList1")
                         .Items(
-                            F.DataListItem().Text("列表项1"),
-                            F.DataListItem().Text("列表项2"),
-                            F.DataListItem().Text("列表项3"),
-                            F.DataListItem().Text("列表项4"),
-                            F.DataListItem().Text("列表项5")
+                            F.DataListItem().Value("item1").Text("列表项1"),
+                            F.DataListItem().Value("item2").Text("列表项2"),
+                            F.DataListItem().Value("item3").Text("列表项3"),
+                            F.DataListItem().Value("item4").Text("列表项4"),
+                            F.DataListItem().Value("item5").Text("列表项5")
                         )
                 ),
             F.AccordionPane().ID("AccordionPane3").Title("面板三（IFrame）").IconUrl(Url.Content("~/res/images/16/7.png")).EnableIFrame(true).IFrameUrl(Url.Content("~/MobileButton/Button"))

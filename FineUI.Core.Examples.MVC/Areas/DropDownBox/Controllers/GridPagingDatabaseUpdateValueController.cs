@@ -86,7 +86,7 @@ namespace FineUI.Core.Examples.MVC.Areas.DropDownBox.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult btnClearValue_Click()
         {
-            UIHelper.DropDownBox("DropDownBox1").Values("");
+            UIHelper.DropDownBox("DropDownBox1").ClearSelection();
 
             return UIHelper.Result();
         }
