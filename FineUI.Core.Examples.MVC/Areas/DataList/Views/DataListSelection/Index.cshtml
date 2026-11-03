@@ -1,0 +1,64 @@
+@{
+    ViewBag.Title = "数据列表的选择与清空";
+    var F = Html.F();
+}
+
+@section body {
+    @(F.Panel().ID("Panel1").IsFluid(true).MaxWidth(1000).Layout(LayoutType.Block).BlockConfigSpace(20)
+        .MarginBottom(20)
+        .ShowHeader(false).ShowBorder(false)
+        .Items(
+            F.Panel().ID("PanelSingle").Block(12).BlockMD(4).Title("单选").BodyPadding(10)
+                .Items(F.DataList().ID("DataListSingle").EnableSelect(true).SelectedValue("beijing")
+                    .Items(
+                        F.DataListItem().Value("beijing").Text("北京"),
+                        F.DataListItem().Value("shanghai").Text("上海"),
+                        F.DataListItem().Value("guangzhou").Text("广州")
+                    )),
+            F.Panel().ID("PanelMulti").Block(12).BlockMD(4).Title("多选").BodyPadding(10)
+                .Items(F.DataList().ID("DataListMulti").EnableSelect(true).EnableMultiSelect(true)
+                    .SelectedValueArray("beijing", "shanghai")
+                    .Items(
+                        F.DataListItem().Value("beijing").Text("北京"),
+                        F.DataListItem().Value("shanghai").Text("上海"),
+                        F.DataListItem().Value("guangzhou").Text("广州")
+                    )),
+            F.Panel().ID("PanelKeep").Block(12).BlockMD(4).Title("多选，保持当前选择").BodyPadding(10)
+                .Items(F.DataList().ID("DataListKeep").EnableSelect(true).EnableMultiSelect(true)
+                    .KeepCurrentSelection(true).SelectedValueArray("beijing", "shanghai")
+                    .Items(
+                        F.DataListItem().Value("beijing").Text("北京"),
+                        F.DataListItem().Value("shanghai").Text("上海"),
+                        F.DataListItem().Value("guangzhou").Text("广州")
+                    ))
+        ))
+    @(F.Button().ID("btnRead").Text("读取选择").CssClass("marginr")
+        .OnClick(Url.Action("btnRead_Click"),
+            Parameter.FromFunction("single", "getSingleSelection"),
+            Parameter.FromFunction("multi", "getMultiSelection"),
+            Parameter.FromFunction("keep", "getKeepSelection")))
+    @(F.Button().ID("btnAssign").Text("后台赋值").CssClass("marginr").OnClick(Url.Action("btnAssign_Click")))
+    @(F.Button().ID("btnClear").Text("清空选择").OnClick(Url.Action("btnClear_Click")))
+    <br />
+    <br />
+    @(F.Label().ID("labResult").Text("请修改选择，再点击“读取选择”。"))
+    <p>普通多选按 Ctrl 累积选择；开启 KeepCurrentSelection 后，普通点击即可切换当前项，其他选择保留。</p>
+    <p>清空选择保留列表数据。后台赋值与清空通过 UIHelper 更新浏览器，再次读取时提交浏览器当前的选择。</p>
+}
+
+@section script {
+    <script>
+        // 原生提交只传当前选择值，后台读取本次参数，不依赖页面控件状态。
+        function getSingleSelection() {
+            return F.ui.DataListSingle.getSelectedItems();
+        }
+
+        function getMultiSelection() {
+            return F.ui.DataListMulti.getSelectedItems();
+        }
+
+        function getKeepSelection() {
+            return F.ui.DataListKeep.getSelectedItems();
+        }
+    </script>
+}

@@ -1,0 +1,20 @@
+@{
+    ViewBag.Title = "数据列表";
+    var F = Html.F();
+}
+
+@section body {
+    @(F.Panel().ID("Panel1").IsFluid(true).MaxWidth(650).Title("基础列表").BodyPadding(10)
+        .Items(
+            F.DataList().ID("DataList1").Items(
+                F.DataListItem().Value("beijing").Text("北京"),
+                F.DataListItem().Value("shanghai")
+                    .TextRawHtml(new RawHtml("<img src=\"{0}\" alt=\"城市\" /> 上海", Url.Content("~/res/images/16/4.png"))),
+                F.DataListItem().Value("guangzhou").Text("广州"),
+                F.DataListItem().Value("hefei").Text("合肥")
+                    .NavigateUrl("https://fineui.com/").Target("_blank")
+            )
+        ))
+    <p>DataList 可显示普通文字、可信的图片文字和超链接。点击“合肥”在新窗口打开官网。</p>
+    <p>列表项使用稳定且非空的 Value；包含动态内容的 HTML 模板应先对内容进行编码。</p>
+}
