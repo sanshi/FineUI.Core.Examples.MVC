@@ -19,12 +19,13 @@ namespace FineUI.Core.Examples.MVC.Areas.Toolbar.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult btnClearDate_Click(string checkedValue)
+        public IActionResult btnClearDate_Click(string[] Grid1_fields)
         {
             UIHelper.DatePicker("dpStartDate").Reset();
             UIHelper.DatePicker("dpEndDate").Reset();
 
-            UIHelper.Grid("Grid1").DataSource(null);
+            // 清空记录时保留字段定义，确保下一次查询仍能按姓名、性别等字段显示数据。
+            UIHelper.Grid("Grid1").DataSource(dataSource: null, fields: Grid1_fields);
 
             return UIHelper.Result();
         }

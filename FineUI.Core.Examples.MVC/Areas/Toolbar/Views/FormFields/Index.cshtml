@@ -12,7 +12,7 @@
                 .Items(
                     F.DatePicker().Width(250).Required(true).DateFormatString("yyyy-MM-dd").LabelWidth(120).LabelAlign(LabelAlign.Right).Label("销毁统计时间段").EmptyText("请选择开始日期").ID("dpStartDate").EnableEdit(false),
                     F.DatePicker().ID("dpEndDate").Width(130).Required(true).Readonly(false).CompareControl("dpStartDate").DateFormatString("yyyy-MM-dd").CompareOperator(Operator.GreaterThan).CompareMessage("结束日期应该大于开始日期").EmptyText("请选择结束日期").ShowLabel(false).Label("销毁统计时间段").EnableEdit(false),
-                    F.Button().ID("btnClearDate").Text("重置起止时间").OnClick(Url.Action("btnClearDate_Click")),
+                    F.Button().ID("btnClearDate").Text("重置起止时间").OnClick(Url.Action("btnClearDate_Click"), "Grid1"),
                     F.ToolbarSeparator(),
                     F.Button().ID("btnSearch").Text("查询").ValidateForms("Toolbar1").OnClick(Url.Action("btnSearch_Click"), "Grid1")
                 )
