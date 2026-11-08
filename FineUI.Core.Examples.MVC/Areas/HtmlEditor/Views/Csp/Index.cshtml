@@ -13,7 +13,7 @@
             F.Button().ID("Button2").Text("设置编辑器内容").OnClick(Url.Action("Button2_Click"), Parameter.FromFunction("content", "getSourceContent"))
         )
     )
-    <p>此页面沿用普通页面的严格脚本策略，工具栏、菜单、源码弹窗和后台交互均无需 unsafe-eval。</p>
+    <p>此页面沿用普通页面的严格脚本策略，工具栏、菜单、源码切换和后台交互均无需 unsafe-eval。</p>
     <p>内置编辑器使用 Text 读写 HTML；旧编辑器仍可显式设置 Editor。</p>
 }
 @section script {
