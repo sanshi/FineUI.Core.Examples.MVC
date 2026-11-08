@@ -170,6 +170,7 @@
                         .Items(
                             F.Panel().ID("topPanel").ShowHeader(false).ShowBorder(false).CssClass("topregion").ContentEl("#header"),
                             F.TabStrip().BoxFlex(1).ShowInkBar(true).InkBarPosition(InkBarPosition.Bottom).EnableTabCloseMenu(true).ShowBorder(true).RegionPosition(Position.Center).CssClass("centerregion").ID("mainTabStrip").ShowTabHeader(@ViewBag.CookieMainTabs == "multi")
+                                .EnableTabMove(true).EnableTabWheelScroll(true)
                                 .Tabs(
                                     F.Tab().ID("tabHomepage").IFrameUrl(Url.Content("~/Basic/Main")).EnableIFrame(true).IconFont(IconFont._Home).Title("首页")
                                 )
