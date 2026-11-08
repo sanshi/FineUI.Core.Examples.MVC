@@ -30,7 +30,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Form.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Read(string helperText)
         {
-            UIHelper.Label("labResult").Text(helperText);
+            UIHelper.Label("labResult").Text("当前填写说明：" + helperText);
             return UIHelper.Result();
         }
     }
