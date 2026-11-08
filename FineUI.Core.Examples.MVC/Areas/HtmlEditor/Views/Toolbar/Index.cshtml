@@ -1,0 +1,33 @@
+@{
+    ViewBag.Title = "HtmlEditor/Toolbar";
+    var F = Html.F();
+}
+
+@section body {
+    @(F.SimpleForm().ID("SimpleForm1").IsFluid(true).BodyPadding(10).LabelAlign(LabelAlign.Top).Title("自定义工具栏")
+        .Items(
+            F.HtmlEditor().ID("HtmlEditor1").Label("正文").Height(320).Text("<p>FineUI 富文本编辑器</p><p>选择文字，试试<strong>加粗</strong>、<em>斜体</em>和列表。</p>").Readonly(false).ToolbarSet(EditorToolbarSet.Basic).Options(F.OptionItem().Key("toolbar").JsonValue(new Newtonsoft.Json.Linq.JArray("undo", "redo", "|", "bold", "italic", "underline", "|", "bulletList", "link", "source"))),
+            
+            F.TextArea().ID("TextArea1").Label("HTML 内容").Height(120).Text("<p>FineUI 富文本编辑器</p><p>选择文字，试试<strong>加粗</strong>、<em>斜体</em>和列表。</p>"),
+            F.Button().ID("Button1").Text("获取编辑器内容").CssClass("marginr").OnClick(Url.Action("Button1_Click"), Parameter.FromFunction("content", "getHtmlEditorContent")),
+            F.Button().ID("Button2").Text("设置编辑器内容").OnClick(Url.Action("Button2_Click"), Parameter.FromFunction("content", "getSourceContent"))
+        )
+    )
+    <p>通过 Options.toolbar 命令数组选择按钮；不需要加载或配置第三方皮肤。</p>
+    <p>内置编辑器使用 Text 读写 HTML；旧编辑器仍可显式设置 Editor。</p>
+}
+@section script {
+    <script>
+function toggleHtmlEditorReadonly() {
+    var editor = F.ui.HtmlEditor1;
+    editor.setReadonly(!editor.readonly);
+}
+function getHtmlEditorContent() {
+    return F.ui.HtmlEditor1.getValue();
+}
+function getSourceContent() {
+    return F.ui.TextArea1.getValue();
+}
+
+    </script>
+}
