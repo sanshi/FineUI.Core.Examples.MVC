@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FineUI.Core.Examples.MVC.Areas.HtmlEditor.Controllers
 {
     [Area("HtmlEditor")]
-    public class SourceController : FineUI.Core.Examples.MVC.Controllers.BaseController
+    public class FullToolbarController : FineUI.Core.Examples.MVC.Controllers.BaseController
     {
         public IActionResult Index()
         {

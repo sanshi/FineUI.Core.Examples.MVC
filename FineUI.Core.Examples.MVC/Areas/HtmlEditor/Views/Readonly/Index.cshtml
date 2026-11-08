@@ -11,11 +11,10 @@
             F.TextArea().ID("TextArea1").Label("HTML 内容").Height(120).Text("<p>FineUI 富文本编辑器</p><p>选择文字，试试<strong>加粗</strong>、<em>斜体</em>和列表。</p>"),
             F.Button().ID("Button1").Text("获取编辑器内容").CssClass("marginr").OnClick(Url.Action("Button1_Click"), Parameter.FromFunction("content", "getHtmlEditorContent")),
             F.Button().ID("Button2").Text("设置编辑器内容").CssClass("marginr").OnClick(Url.Action("Button2_Click"), Parameter.FromFunction("content", "getSourceContent")),
-            F.Button().ID("btnToggle").Text("切换只读")
+            F.Button().ID("btnToggle").Text("切换只读").ClickHandler("toggleHtmlEditorReadonly")
         )
     )
     <p>只读时允许选择、复制和查看源码；正文和源码均不可修改。可使用下方按钮切换。</p>
-    <p>内置编辑器使用 Text 读写 HTML；旧编辑器仍可显式设置 Editor。</p>
 }
 @section script {
     <script>
@@ -29,6 +28,5 @@ function getHtmlEditorContent() {
 function getSourceContent() {
     return F.ui.TextArea1.getValue();
 }
-F.ready(function () { F.ui.btnToggle.on('click', toggleHtmlEditorReadonly); });
     </script>
 }
