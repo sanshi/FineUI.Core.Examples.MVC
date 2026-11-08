@@ -6,7 +6,7 @@
 @section body {
     @(F.SimpleForm().ID("SimpleForm1").IsFluid(true).BodyPadding(10).LabelAlign(LabelAlign.Top).Title("基础编辑与后台交互")
         .Items(
-            F.HtmlEditor().ID("HtmlEditor1").Label("正文").Height(320).Text("<p>FineUI 富文本编辑器</p><p>选择文字，试试<strong>加粗</strong>、<em>斜体</em>和列表。</p>").Readonly(false).ToolbarSet(EditorToolbarSet.Basic),
+            F.HtmlEditor().ID("HtmlEditor1").Editor(Editor.Default).Label("正文").Height(320).Text("<p>FineUI 富文本编辑器</p><p>选择文字，试试<strong>加粗</strong>、<em>斜体</em>和列表。</p>").Readonly(false).ToolbarSet(EditorToolbarSet.Basic),
             
             F.TextArea().ID("TextArea1").Label("HTML 内容").Height(120).Text("<p>FineUI 富文本编辑器</p><p>选择文字，试试<strong>加粗</strong>、<em>斜体</em>和列表。</p>"),
             F.Button().ID("Button1").Text("获取编辑器内容").CssClass("marginr").OnClick(Url.Action("Button1_Click"), Parameter.FromFunction("content", "getHtmlEditorContent")),
