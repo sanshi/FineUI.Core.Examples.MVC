@@ -1,0 +1,13 @@
+@model object
+@{
+    ViewBag.Title = "基础面积图";
+    var F = Html.F();
+}
+
+@section body {
+    @(F.Chart().ID("ChartArea").Height(350).CategoryField("Category")
+        .Series("value", ChartSeriesType.Area, "数值", "Value")
+        .ShowTooltip(false)
+        .DataSource(Model))
+    <p>面积图填充折线下方区域，分类和数值沿用官网示例。<a href="https://echarts.apache.org/examples/zh/editor.html?c=area-basic" target="_blank" rel="noopener">查看 Apache ECharts 原始示例</a>。</p>
+}

@@ -1,0 +1,13 @@
+@model object
+@{
+    ViewBag.Title = "基础柱状图";
+    var F = Html.F();
+}
+
+@section body {
+    @(F.Chart().ID("ChartBar").Height(350).CategoryField("Category")
+        .Series("value", ChartSeriesType.Bar, "数值", "Value")
+        .ShowTooltip(false)
+        .DataSource(Model))
+    <p>柱高表示各分类的数值，分类和数值沿用官网示例。<a href="https://echarts.apache.org/examples/zh/editor.html?c=bar-simple" target="_blank" rel="noopener">查看 Apache ECharts 原始示例</a>。</p>
+}

@@ -1,10 +1,13 @@
 @{
-    ViewBag.SourceFiles = "~/wwwroot/res/css/dashboard.css;~/wwwroot/res/css/responsive-card.css;~/wwwroot/res/js/dashboard-chart.js;~/wwwroot/res/js/grid.js;~/wwwroot/res/js/responsive-card.js";
+    ViewBag.SourceFiles = "~/wwwroot/res/css/dashboard.css;~/wwwroot/res/css/responsive-card.css;~/wwwroot/res/js/grid.js;~/wwwroot/res/js/responsive-card.js";
     ViewBag.Title = "Block/Dashboard";
 
     ViewBag.IsDarkerBG = true;
 
     var F = Html.F();
+    var chartPalettes = (Dictionary<string, string>)ViewBag.ChartPalettes;
+    object dailyChartRows = ViewBag.DailyChartRows;
+    object trafficSourceRows = ViewBag.TrafficSourceRows;
 }
 
 @section head {
@@ -26,7 +29,12 @@
             <div class="number">
                 12,000
             </div>
-            <div class="chart chart1">
+            <div class="chart">
+                @(F.Chart().ID("ChartCardViews").Height(60).CategoryField("Category")
+                    .Palette(chartPalettes["ChartCardViews"])
+                    .Compact(true)
+                    .Series("views", ChartSeriesType.Bar, "浏览量", "Views")
+                    .DataSource(dailyChartRows))
             </div>
             <div class="footer f-widget-content">
                 日均浏览量 15,000
@@ -54,7 +62,12 @@
             <div class="number">
                 800
             </div>
-            <div class="chart chart2">
+            <div class="chart">
+                @(F.Chart().ID("ChartCardTrend").Height(60).CategoryField("Category")
+                    .Palette(chartPalettes["ChartCardTrend"])
+                    .Compact(true)
+                    .Series("views", ChartSeriesType.Area, "独立 IP", "Views", smooth: true, showSymbol: true)
+                    .DataSource(dailyChartRows))
             </div>
             <div class="footer f-widget-content">
                 日均独立IP 900
@@ -82,7 +95,13 @@
             <div class="number">
                 900
             </div>
-            <div class="chart chart3">
+            <div class="chart">
+                @(F.Chart().ID("ChartCardUsers").Height(60).CategoryField("Category")
+                    .Palette(chartPalettes["ChartCardUsers"])
+                    .Compact(true)
+                    .Series("users", ChartSeriesType.Bar, "用户数", "Users")
+                    .Series("views", ChartSeriesType.Line, "浏览量", "Views", smooth: true, showSymbol: true)
+                    .DataSource(dailyChartRows))
             </div>
             <div class="footer f-widget-content">
                 周同比 10% <i class="f-icon f-iconfont f-iconfont-triangle-down"></i>
@@ -261,12 +280,24 @@
                 .Tabs(
                     F.Tab().Layout(LayoutType.Block).BlockConfigSpace(0).Title("浏览量")
                         .Items(
-                            F.Panel().BlockMD(6).BlockLG(8).ShowBorder(false).ShowHeader(false).Content("<div class=\"tabstrip-chart chart1\"></div>"),
+                            F.Panel().BlockMD(6).BlockLG(8).ShowBorder(false).ShowHeader(false)
+                                .Items(F.Chart().ID("ChartTabViews").Height(350).CategoryField("Category")
+                                    .Palette(chartPalettes["ChartTabViews"])
+                                    .Title("浏览量趋势")
+                                    .Series("views", ChartSeriesType.Area, "浏览量", "Views", smooth: true)
+                                    .DataSource(dailyChartRows)),
                             F.Panel().BlockMD(6).BlockLG(4).BodyPadding(20).ShowBorder(false).ShowHeader(false).ContentEl("#block5")
                         ),
                     F.Tab().Layout(LayoutType.Block).BlockConfigSpace(0).Title("用户量")
                         .Items(
-                            F.Panel().BlockMD(6).BlockLG(8).ShowBorder(false).ShowHeader(false).Content("<div class=\"tabstrip-chart chart2\"></div>"),
+                            F.Panel().BlockMD(6).BlockLG(8).ShowBorder(false).ShowHeader(false)
+                                .Items(F.Chart().ID("ChartTabUsers").Height(350).CategoryField("Category")
+                                    .Palette(chartPalettes["ChartTabUsers"])
+                                    .Title("用户数与浏览量")
+                                    .ShowLegend(true)
+                                    .Series("users", ChartSeriesType.Bar, "用户数", "Users")
+                                    .Series("views", ChartSeriesType.Line, "浏览量", "Views", smooth: true)
+                                    .DataSource(dailyChartRows)),
                             F.Panel().BlockMD(6).BlockLG(4).BodyPadding(20).ShowBorder(false).ShowHeader(false).ContentEl("#block6")
                         )
                 )
@@ -314,7 +345,14 @@
             F.Panel().BlockMD(6).BlockLG(4).Layout(LayoutType.Block).BlockConfigSpace(20).ShowBorder(false).ShowHeader(false)
                 .Items(
                     F.Panel().BlockMD(12).BodyPadding("20px 20px 0 20px").ShowBorder(true).ShowBorderShadow(true).ShowHeader(true).Title("本站统计").Content("<ul class=\"mysitestats\"></ul>"),
-                    F.Panel().BlockMD(12).BodyPadding(20).ShowBorder(true).ShowBorderShadow(true).ShowHeader(true).Title("访问来源").Content("<div class=\"mychart-pie\"></div>")
+                    F.Panel().BlockMD(12).BodyPadding(20).ShowBorder(true).ShowBorderShadow(true).ShowHeader(true).Title("访问来源")
+                        .Items(F.Chart().ID("ChartTrafficSources").Height(300).CategoryField("Category")
+                            .Title("用户访问来源").Subtitle("这是说明文字").TitleAlign(TextAlign.Center)
+                            .LegendPosition(Position.Left).PieCenter("50%,60%")
+                            .Palette(chartPalettes["ChartTrafficSources"])
+                            .ShowLegend(true)
+                            .Series("source", ChartSeriesType.Pie, "访问来源", "Value")
+                            .DataSource(trafficSourceRows))
                 )
         )
     )
@@ -326,8 +364,6 @@
 
 @section script {
 
-    <script src="~/res/third-party/echarts/echarts.min.js"></script>
-    <script src="~/res/js/dashboard-chart.js?v@(GlobalConfig.ProductVersion)"></script>
     <script src="~/res/js/grid.js?v@(GlobalConfig.ProductVersion)"></script>
     <script src="~/res/js/responsive-card.js?v@(GlobalConfig.ProductVersion)"></script>
     <script>
