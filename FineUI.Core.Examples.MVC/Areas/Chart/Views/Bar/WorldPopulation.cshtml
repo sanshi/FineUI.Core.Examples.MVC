@@ -1,0 +1,19 @@
+@model object
+@{
+    ViewBag.Title = "世界人口总量 - 条形图";
+    var F = Html.F();
+}
+
+@section body {
+    @(F.Chart().ID("ChartBarWorldPopulation").Height(550).CategoryField("Category")
+        .Horizontal(true)
+        .Title("World Population")
+        .TitleAlign(TextAlign.Left)
+        .ShowLegend(true)
+        .AxisPointerType("shadow")
+        .ValueAxisBoundaryGap("0%,1%")
+        .Series("population2011", ChartSeriesType.Bar, "2011", "Population2011")
+        .Series("population2012", ChartSeriesType.Bar, "2012", "Population2012")
+        .DataSource(Model))
+    <p>两组横向条形分别表示 2011 年和 2012 年的数据。左侧是分类，横轴显示人口数。<a href="https://echarts.apache.org/examples/zh/editor.html?c=bar-y-category" target="_blank" rel="noopener">查看 Apache ECharts 原始示例</a>。</p>
+}

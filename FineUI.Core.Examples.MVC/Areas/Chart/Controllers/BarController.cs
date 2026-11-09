@@ -33,6 +33,20 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
             });
         }
 
+        public IActionResult TickAlign()
+        {
+            return View(new[]
+            {
+                new { Category = "Mon", Value = 10 },
+                new { Category = "Tue", Value = 52 },
+                new { Category = "Wed", Value = 200 },
+                new { Category = "Thu", Value = 334 },
+                new { Category = "Fri", Value = 390 },
+                new { Category = "Sat", Value = 330 },
+                new { Category = "Sun", Value = 220 }
+            });
+        }
+
         public IActionResult PointColor()
         {
             return View(new[]
@@ -44,6 +58,33 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
                 new { Category = "Fri", Value = 70, PointColor = "" },
                 new { Category = "Sat", Value = 110, PointColor = "" },
                 new { Category = "Sun", Value = 130, PointColor = "" }
+            });
+        }
+
+        public IActionResult MixLineBar()
+        {
+            return View(new[]
+            {
+                new { Category = "Mon", Evaporation = 2.0, Precipitation = 2.6, Temperature = 2.0 },
+                new { Category = "Tue", Evaporation = 4.9, Precipitation = 5.9, Temperature = 2.2 },
+                new { Category = "Wed", Evaporation = 7.0, Precipitation = 9.0, Temperature = 3.3 },
+                new { Category = "Thu", Evaporation = 23.2, Precipitation = 26.4, Temperature = 4.5 },
+                new { Category = "Fri", Evaporation = 25.6, Precipitation = 28.7, Temperature = 6.3 },
+                new { Category = "Sat", Evaporation = 76.7, Precipitation = 70.7, Temperature = 10.2 },
+                new { Category = "Sun", Evaporation = 135.6, Precipitation = 175.6, Temperature = 20.3 }
+            });
+        }
+
+        public IActionResult WorldPopulation()
+        {
+            return View(new[]
+            {
+                new { Category = "Brazil", Population2011 = 18203, Population2012 = 19325 },
+                new { Category = "Indonesia", Population2011 = 23489, Population2012 = 23438 },
+                new { Category = "USA", Population2011 = 29034, Population2012 = 31000 },
+                new { Category = "India", Population2011 = 104970, Population2012 = 121594 },
+                new { Category = "China", Population2011 = 131744, Population2012 = 134141 },
+                new { Category = "World", Population2011 = 630230, Population2012 = 681807 }
             });
         }
     }

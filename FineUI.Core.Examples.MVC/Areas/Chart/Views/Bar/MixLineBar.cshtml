@@ -1,0 +1,29 @@
+@model object
+@{
+    ViewBag.Title = "折柱混合";
+    var F = Html.F();
+}
+
+@section body {
+    @(F.Chart().ID("ChartBarMixLineBar").Height(550).CategoryField("Category")
+        .ShowLegend(true)
+        .AxisPointerType("cross")
+        .ShowSaveAsImage(true)
+        .YAxis(new ChartValueAxis
+        {
+            Name = "Precipitation", Position = "left", Min = 0, Max = 250, Interval = 50, LabelFormatter = "{value} ml"
+        })
+        .YAxis(new ChartValueAxis
+        {
+            Name = "Temperature", Position = "right", Min = 0, Max = 25, Interval = 5, LabelFormatter = "{value} °C"
+        })
+        .Series("evaporation", ChartSeriesType.Bar, "Evaporation", "Evaporation")
+        .Series("precipitation", ChartSeriesType.Bar, "Precipitation", "Precipitation")
+        .Series(new ChartSeries
+        {
+            Key = "temperature", Type = ChartSeriesType.Line, Name = "Temperature",
+            ValueField = "Temperature", YAxisIndex = 1
+        })
+        .DataSource(Model))
+    <p>蒸发量和降水量共用左侧毫升轴，温度折线读取右侧摄氏度轴。<a href="https://echarts.apache.org/examples/zh/editor.html?c=mix-line-bar" target="_blank" rel="noopener">查看 Apache ECharts 原始示例</a>。</p>
+}

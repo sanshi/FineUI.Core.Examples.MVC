@@ -1,15 +1,40 @@
 @model object
 @{
-    ViewBag.Title = "折柱混合图";
+    ViewBag.Title = "多 Y 轴示例";
     var F = Html.F();
 }
 
 @section body {
     @(F.Chart().ID("ChartCombo").Height(550).CategoryField("Category")
+        .AxisTickAlignWithLabel(true).AxisPointerType("cross").ShowSaveAsImage(true)
+        .Palette("#5070dd,#b6d634,#505372")
+        .YAxis(new ChartValueAxis
+        {
+            Name = "Evaporation", Position = "right",
+            AlignTicks = true, LineColor = "#5070dd", LabelFormatter = "{value} ml"
+        })
+        .YAxis(new ChartValueAxis
+        {
+            Name = "Precipitation", Position = "right", Offset = 80,
+            AlignTicks = true, LineColor = "#b6d634", LabelFormatter = "{value} ml"
+        })
+        .YAxis(new ChartValueAxis
+        {
+            Name = "温度", Position = "left",
+            AlignTicks = true, LineColor = "#505372", LabelFormatter = "{value} °C"
+        })
         .Series("evaporation", ChartSeriesType.Bar, "Evaporation", "Evaporation")
-        .Series("precipitation", ChartSeriesType.Bar, "Precipitation", "Precipitation")
-        .Series("temperature", ChartSeriesType.Line, "Temperature", "Temperature")
+        .Series(new ChartSeries
+        {
+            Key = "precipitation", Type = ChartSeriesType.Bar, Name = "Precipitation",
+            ValueField = "Precipitation", YAxisIndex = 1
+        })
+        .Series(new ChartSeries
+        {
+            Key = "temperature", Type = ChartSeriesType.Line, Name = "Temperature",
+            ValueField = "Temperature", YAxisIndex = 2
+        })
         .ShowLegend(true)
         .DataSource(Model))
-    <p>月份和三组数值沿用官网的多 Y 轴示例。FineUI 当前把两个柱状系列与折线系列画在同一条数值轴上。<a href="https://echarts.apache.org/examples/zh/editor.html?c=multiple-y-axis" target="_blank" rel="noopener">查看 Apache ECharts 原始示例</a>。</p>
+    <p>蒸发量、降水量和温度使用三条独立数值轴。两条右轴分别显示毫升，左轴显示摄氏度。<a href="https://echarts.apache.org/examples/zh/editor.html?c=multiple-y-axis" target="_blank" rel="noopener">查看 Apache ECharts 原始示例</a>。</p>
 }
