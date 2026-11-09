@@ -1,0 +1,64 @@
+@model object
+@{
+    ViewBag.Title = "堆叠面积图";
+    var F = Html.F();
+}
+
+@section body {
+    @(F.Chart().ID("ChartAreaStacked").Height(550).CategoryField("Category")
+        .Title("Stacked Area Chart")
+        .TitleAlign(TextAlign.Left)
+        .ShowLegend(true)
+        .CategoryBoundaryGap(false)
+        .AxisPointerType("cross")
+        .AxisPointerLabelColor("#6a7985")
+        .ShowSaveAsImage(true)
+        .Series(new ChartSeries
+        {
+            Key = "email",
+            Type = ChartSeriesType.Area,
+            Name = "Email",
+            ValueField = "Email",
+            Stack = "Total",
+            FocusSeries = true
+        })
+        .Series(new ChartSeries
+        {
+            Key = "unionAds",
+            Type = ChartSeriesType.Area,
+            Name = "Union Ads",
+            ValueField = "UnionAds",
+            Stack = "Total",
+            FocusSeries = true
+        })
+        .Series(new ChartSeries
+        {
+            Key = "videoAds",
+            Type = ChartSeriesType.Area,
+            Name = "Video Ads",
+            ValueField = "VideoAds",
+            Stack = "Total",
+            FocusSeries = true
+        })
+        .Series(new ChartSeries
+        {
+            Key = "direct",
+            Type = ChartSeriesType.Area,
+            Name = "Direct",
+            ValueField = "Direct",
+            Stack = "Total",
+            FocusSeries = true
+        })
+        .Series(new ChartSeries
+        {
+            Key = "searchEngine",
+            Type = ChartSeriesType.Area,
+            Name = "Search Engine",
+            ValueField = "SearchEngine",
+            Stack = "Total",
+            FocusSeries = true,
+            ShowLabel = true
+        })
+        .DataSource(Model))
+    <p>同组系列沿纵轴累计。指向数据点可查看对应分类，右上角按钮可保存图表。<a href="https://echarts.apache.org/examples/zh/editor.html?c=area-stack" target="_blank" rel="noopener">查看 Apache ECharts 原始示例</a>。</p>
+}

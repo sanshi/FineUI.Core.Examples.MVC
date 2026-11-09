@@ -16,5 +16,29 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
                 new { Category = "Video Ads", Value = 300 }
             });
         }
+
+        public IActionResult Doughnut()
+        {
+            return View(new[]
+            {
+                new { Category = "Search Engine", Value = 1048 },
+                new { Category = "Direct", Value = 735 },
+                new { Category = "Email", Value = 580 },
+                new { Category = "Union Ads", Value = 484 },
+                new { Category = "Video Ads", Value = 300 }
+            });
+        }
+
+        public IActionResult HalfDoughnut()
+        {
+            return View(new[]
+            {
+                new { Category = "Search Engine", Value = 1048 },
+                new { Category = "Direct", Value = 735 },
+                new { Category = "Email", Value = 580 },
+                new { Category = "Union Ads", Value = 484 },
+                new { Category = "Video Ads", Value = 300 }
+            });
+        }
     }
 }

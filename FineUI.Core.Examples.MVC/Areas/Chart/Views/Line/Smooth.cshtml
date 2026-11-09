@@ -1,0 +1,20 @@
+@model object
+@{
+    ViewBag.Title = "平滑折线图";
+    var F = Html.F();
+}
+
+@section body {
+    @(F.Chart().ID("ChartLineSmooth").Height(550).CategoryField("Category")
+        .ShowTooltip(false)
+        .Series(new ChartSeries
+        {
+            Key = "value",
+            Type = ChartSeriesType.Line,
+            Name = "数值",
+            ValueField = "Value",
+            Smooth = true
+        })
+        .DataSource(Model))
+    <p>开启平滑后，数据点之间以曲线连接。<a href="https://echarts.apache.org/examples/zh/editor.html?c=line-smooth" target="_blank" rel="noopener">查看 Apache ECharts 原始示例</a>。</p>
+}

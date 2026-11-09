@@ -5,10 +5,10 @@
 }
 
 @section body {
-    @(F.Chart().ID("ChartPie").Height(350).CategoryField("Category")
+    @(F.Chart().ID("ChartPie").Height(550).CategoryField("Category")
         .Title("Referer of a Website").Subtitle("Fake Data").TitleAlign(TextAlign.Center)
         .Series("value", ChartSeriesType.Pie, "Access From", "Value")
-        .ShowLegend(true).LegendPosition(Position.Left)
+        .ShowLegend(true).LegendPosition(Position.Left).PieEmphasisShadow(true)
         .PieRadius("50%").Palette("#5070dd,#b6d634,#505372,#ff994d,#0ca8df")
         .DataSource(Model))
     <p>扇区表示各访问来源所占比例，来源和访问量沿用官网示例。<a href="https://echarts.apache.org/examples/zh/editor.html?c=pie-simple" target="_blank" rel="noopener">查看 Apache ECharts 原始示例</a>。</p>

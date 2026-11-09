@@ -348,7 +348,7 @@
                     F.Panel().BlockMD(12).BodyPadding(20).ShowBorder(true).ShowBorderShadow(true).ShowHeader(true).Title("访问来源")
                         .Items(F.Chart().ID("ChartTrafficSources").Height(300).CategoryField("Category")
                             .Title("用户访问来源").Subtitle("这是说明文字").TitleAlign(TextAlign.Center)
-                            .LegendPosition(Position.Left).PieCenter("50%,60%")
+                            .LegendPosition(Position.Left).LegendTop("top").PieEmphasisShadow(true).PieCenter("50%,60%")
                             .Palette(chartPalettes["ChartTrafficSources"])
                             .ShowLegend(true)
                             .Series("source", ChartSeriesType.Pie, "访问来源", "Value")
