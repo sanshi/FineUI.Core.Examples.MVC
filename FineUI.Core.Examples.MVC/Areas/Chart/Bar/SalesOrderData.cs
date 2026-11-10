@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace FineUI.Core.Examples.MVC.Areas.Chart
 {
-    public static class ChartSamples
+    public static class SalesOrderData
     {
         private static readonly SaleOrder[] Orders =
         {

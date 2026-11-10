@@ -1,12 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using System.Linq;
+using System.Globalization;
+using ChartRow = FineUI.Core.Examples.MVC.Areas.Chart.ChartDataRows.ChartRow;
 
 namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 {
     [Area("Chart")]
     public class BarController : FineUI.Core.Examples.MVC.Controllers.BaseController
     {
-        public IActionResult Index()
+        public IActionResult Basic()
         {
             return View(new[]
             {
@@ -165,8 +168,8 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         public IActionResult GridToChart()
         {
-            ViewData["Regions"] = ChartInteractionData.RegionTotals();
-            ViewData["Rows"] = ChartInteractionData.RegionTrend("east");
+            ViewData["Regions"] = RegionSalesData.RegionTotals();
+            ViewData["Rows"] = RegionSalesData.RegionTrend("east");
             ViewData["Scope"] = "华东 · 月度销售额";
             return View();
         }
@@ -175,10 +178,10 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult GridRegions_RowClick(string rowId)
         {
-            var region = ChartInteractionData.RegionName(rowId);
+            var region = RegionSalesData.RegionName(rowId);
             if (region != null)
             {
-                UIHelper.Chart("ChartRegionMonths").LoadData(JArray.FromObject(ChartInteractionData.RegionTrend(rowId)));
+                UIHelper.Chart("ChartRegionMonths").LoadData(JArray.FromObject(RegionSalesData.RegionTrend(rowId)));
                 UIHelper.ToolbarText("ToolbarTextChartScope").Text(region + " · 月度销售额");
             }
             return UIHelper.Result();
@@ -186,7 +189,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         public IActionResult DrillDown()
         {
-            ViewData["Rows"] = ChartInteractionData.RegionTotals();
+            ViewData["Rows"] = RegionSalesData.RegionTotals();
             ViewData["Scope"] = "各区域销售额";
             return View();
         }
@@ -195,11 +198,11 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ChartRegionSales_PointClick(string seriesKey, string dataKey)
         {
-            var cities = ChartInteractionData.CityTotals(dataKey);
+            var cities = RegionSalesData.CityTotals(dataKey);
             if (seriesKey == "amount" && cities.Length > 0)
             {
                 UIHelper.Chart("ChartRegionSales").LoadData(JArray.FromObject(cities));
-                UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChartInteractionData.RegionName(dataKey) + " · 城市销售额");
+                UIHelper.ToolbarText("ToolbarTextChartScope").Text(RegionSalesData.RegionName(dataKey) + " · 城市销售额");
                 UIHelper.Button("btnBack").Enabled(true);
             }
             return UIHelper.Result();
@@ -209,7 +212,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult btnBack_Click()
         {
-            UIHelper.Chart("ChartRegionSales").LoadData(JArray.FromObject(ChartInteractionData.RegionTotals()));
+            UIHelper.Chart("ChartRegionSales").LoadData(JArray.FromObject(RegionSalesData.RegionTotals()));
             UIHelper.ToolbarText("ToolbarTextChartScope").Text("各区域销售额");
             UIHelper.Button("btnBack").Enabled(false);
             return UIHelper.Result();
@@ -217,9 +220,9 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         public IActionResult SalesThreshold()
         {
-            var rows = ChartInteractionData.RegionThreshold("0");
+            var rows = RegionThreshold("0");
             ViewData["Rows"] = rows;
-            ViewData["Scope"] = ChartInteractionData.ThresholdSummary(rows);
+            ViewData["Scope"] = ThresholdSummary(rows);
             return View();
         }
 
@@ -227,13 +230,89 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult btnFilter_Click(string nbxMinimum)
         {
-            var rows = ChartInteractionData.RegionThreshold(nbxMinimum);
+            var rows = RegionThreshold(nbxMinimum);
             if (rows != null)
             {
                 UIHelper.Chart("ChartSalesThreshold").LoadData(JArray.FromObject(rows));
             }
-            UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChartInteractionData.ThresholdSummary(rows));
+            UIHelper.ToolbarText("ToolbarTextChartScope").Text(ThresholdSummary(rows));
             return UIHelper.Result();
+        }
+
+        public IActionResult Combination()
+        {
+            return View(new[]
+            {
+                new { Category = "Jan", Evaporation = 2.0, Precipitation = 2.6, Temperature = 2.0 },
+                new { Category = "Feb", Evaporation = 4.9, Precipitation = 5.9, Temperature = 2.2 },
+                new { Category = "Mar", Evaporation = 7.0, Precipitation = 9.0, Temperature = 3.3 },
+                new { Category = "Apr", Evaporation = 23.2, Precipitation = 26.4, Temperature = 4.5 },
+                new { Category = "May", Evaporation = 25.6, Precipitation = 28.7, Temperature = 6.3 },
+                new { Category = "Jun", Evaporation = 76.7, Precipitation = 70.7, Temperature = 10.2 },
+                new { Category = "Jul", Evaporation = 135.6, Precipitation = 175.6, Temperature = 20.3 },
+                new { Category = "Aug", Evaporation = 162.2, Precipitation = 182.2, Temperature = 23.4 },
+                new { Category = "Sep", Evaporation = 32.6, Precipitation = 48.7, Temperature = 23.0 },
+                new { Category = "Oct", Evaporation = 20.0, Precipitation = 18.8, Temperature = 16.5 },
+                new { Category = "Nov", Evaporation = 6.4, Precipitation = 6.0, Temperature = 12.0 },
+                new { Category = "Dec", Evaporation = 3.3, Precipitation = 2.3, Temperature = 6.2 }
+            });
+        }
+
+        public IActionResult Sales() => View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ChartSales_PointClick(string seriesKey, string dataKey)
+        {
+            if (seriesKey == "sales" && SalesOrderData.HasMonth(dataKey))
+            {
+                BindOrders(dataKey);
+            }
+            return UIHelper.Result();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult btnRecent_Click()
+        {
+            UIHelper.Chart("ChartSales").LoadData(JArray.FromObject(SalesOrderData.Months(true)));
+            BindOrders(recent: true);
+            return UIHelper.Result();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult btnReset_Click()
+        {
+            UIHelper.Chart("ChartSales").LoadData(JArray.FromObject(SalesOrderData.Months()));
+            BindOrders();
+            return UIHelper.Result();
+        }
+
+        private static void BindOrders(string month = null, bool recent = false)
+        {
+            var orders = SalesOrderData.Details(month, recent);
+            UIHelper.Grid("GridOrders").DataSource(orders, new[] { "Number", "Customer", "Month", "Amount" });
+            UIHelper.ToolbarText("ToolbarTextOrderScope").Text(SalesOrderData.OrderScope(month, recent, orders.Length));
+        }
+
+        private static ChartRow[] RegionThreshold(string minimum)
+        {
+            if (!int.TryParse(minimum, NumberStyles.None, CultureInfo.InvariantCulture, out int value))
+            {
+                return null;
+            }
+
+            return RegionSalesData.RegionTotals().Where(row => row.Amount >= value).OrderByDescending(row => row.Amount).ToArray();
+        }
+
+        private static string ThresholdSummary(ChartRow[] rows)
+        {
+            if (rows == null)
+            {
+                return "请输入非负整数金额";
+            }
+            return rows.Length == 0 ? "没有达到门槛的区域" : $"符合门槛的区域：{rows.Length} 个";
         }
     }
 }

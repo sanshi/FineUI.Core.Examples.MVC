@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using System.Linq;
+using ChartRow = FineUI.Core.Examples.MVC.Areas.Chart.ChartDataRows.ChartRow;
 
 namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 {
     [Area("Chart")]
     public class AreaController : FineUI.Core.Examples.MVC.Controllers.BaseController
     {
-        public IActionResult Index()
+        public IActionResult Basic()
         {
             return View(new[]
             {
@@ -111,9 +113,9 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         public IActionResult RegionFilter()
         {
-            var totals = ChartInteractionData.RegionTrend("east");
+            var totals = RegionSalesData.RegionTrend("east");
             ViewData["Rows"] = totals;
-            ViewData["Scope"] = ChartInteractionData.AreaSummary(totals);
+            ViewData["Scope"] = AreaSummary(totals);
             return View();
         }
 
@@ -121,17 +123,17 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult cblRegions_SelectedIndexChanged(string[] selected)
         {
-            var totals = ChartInteractionData.RegionTrend(selected);
+            var totals = RegionSalesData.RegionTrend(selected);
             UIHelper.Chart("ChartAreaSales").LoadData(JArray.FromObject(totals));
-            UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChartInteractionData.AreaSummary(totals));
+            UIHelper.ToolbarText("ToolbarTextChartScope").Text(AreaSummary(totals));
             return UIHelper.Result();
         }
 
         public IActionResult Cumulative()
         {
-            var rows = ChartInteractionData.AreaAmounts(false);
+            var rows = AreaAmounts(false);
             ViewData["Rows"] = rows;
-            ViewData["Scope"] = ChartInteractionData.AreaModeSummary(false);
+            ViewData["Scope"] = AreaModeSummary(false);
             return View();
         }
 
@@ -139,10 +141,37 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult cbxCumulative_CheckedChanged(bool cumulative)
         {
-            var rows = ChartInteractionData.AreaAmounts(cumulative);
+            var rows = AreaAmounts(cumulative);
             UIHelper.Chart("ChartCumulativeSales").LoadData(JArray.FromObject(rows));
-            UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChartInteractionData.AreaModeSummary(cumulative));
+            UIHelper.ToolbarText("ToolbarTextChartScope").Text(AreaModeSummary(cumulative));
             return UIHelper.Result();
+        }
+
+        private static string AreaSummary(ChartRow[] rows)
+        {
+            return rows.Length == 0 ? "请选择至少一个区域" : $"所选区域销售额合计 {rows.Sum(row => row.Amount)} 元";
+        }
+
+        private static ChartRow[] AreaAmounts(bool cumulative)
+        {
+            var rows = RegionSalesData.RegionTrend();
+            if (!cumulative)
+            {
+                return rows;
+            }
+
+            // 截至当月包含之前各月。比如 5 月的累计值是 4 月和 5 月的销售额之和。
+            int total = 0;
+            return rows.Select(row =>
+            {
+                total += row.Amount;
+                return new ChartRow(row.Key, row.Category, total);
+            }).ToArray();
+        }
+
+        private static string AreaModeSummary(bool cumulative)
+        {
+            return cumulative ? "统计口径：截至当月累计" : "统计口径：本月金额";
         }
     }
 }

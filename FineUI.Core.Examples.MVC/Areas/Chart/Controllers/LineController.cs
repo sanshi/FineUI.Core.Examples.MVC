@@ -1,12 +1,15 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using System.Linq;
+using ChartRow = FineUI.Core.Examples.MVC.Areas.Chart.ChartDataRows.ChartRow;
 
 namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 {
     [Area("Chart")]
     public class LineController : FineUI.Core.Examples.MVC.Controllers.BaseController
     {
-        public IActionResult Index()
+        public IActionResult Basic()
         {
             return View(new[]
             {
@@ -111,10 +114,10 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         public IActionResult DateRange()
         {
-            var visits = ChartInteractionData.DailyVisits();
-            ViewData["VisitRange"] = ChartInteractionData.FirstDate + " - " + ChartInteractionData.LastDate;
+            var visits = DailyVisitData.DailyVisits();
+            ViewData["VisitRange"] = DailyVisitData.FirstDate + " - " + DailyVisitData.LastDate;
             ViewData["Rows"] = visits;
-            ViewData["Scope"] = ChartInteractionData.VisitSummary(visits);
+            ViewData["Scope"] = VisitSummary(visits);
             return View();
         }
 
@@ -124,7 +127,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         {
             // 范围选择器提交一段完整文本，例如 2026-09-03 - 2026-09-05。
             var dates = dpVisitRange?.Split(new[] { " - " }, System.StringSplitOptions.None);
-            var visits = dates?.Length == 2 ? ChartInteractionData.DailyVisits(dates[0], dates[1]) : null;
+            var visits = dates?.Length == 2 ? DailyVisitData.DailyVisits(dates[0], dates[1]) : null;
             if (visits == null)
             {
                 UIHelper.ToolbarText("ToolbarTextChartScope").Text("请选择有效日期，开始日期须早于或等于结束日期");
@@ -132,13 +135,13 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
             }
 
             UIHelper.Chart("ChartVisitRange").LoadData(JArray.FromObject(visits));
-            UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChartInteractionData.VisitSummary(visits));
+            UIHelper.ToolbarText("ToolbarTextChartScope").Text(VisitSummary(visits));
             return UIHelper.Result();
         }
 
         public IActionResult PointDetails()
         {
-            ViewData["Rows"] = ChartInteractionData.DailyVisits();
+            ViewData["Rows"] = DailyVisitData.DailyVisits();
             return View();
         }
 
@@ -146,13 +149,14 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ChartDailyVisits_PointClick(string seriesKey, string dataKey)
         {
-            var details = ChartInteractionData.FindVisit(dataKey);
+            var details = DailyVisitData.FindVisit(dataKey);
             if (seriesKey == "amount" && details != null)
             {
                 UIHelper.Label("labVisitDate").Text("日期：" + dataKey);
                 UIHelper.Label("labVisitCount").Text("访问量：" + details.Visits);
                 UIHelper.Label("labConversionCount").Text("转化量：" + details.Conversions);
-                UIHelper.Label("labConversionRate").Text("转化率：" + details.Rate);
+                var rate = (details.Conversions * 100.0 / details.Visits).ToString("0.0", CultureInfo.InvariantCulture);
+                UIHelper.Label("labConversionRate").Text("转化率：" + rate + "%");
                 UIHelper.Window("WindowVisitDetails").Show();
             }
             return UIHelper.Result();
@@ -160,9 +164,9 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         public IActionResult MetricSwitch()
         {
-            var rows = ChartInteractionData.DailyMetric("visits");
+            var rows = DailyMetric("visits");
             ViewData["Rows"] = rows;
-            ViewData["Scope"] = ChartInteractionData.MetricSummary("visits", rows);
+            ViewData["Scope"] = MetricSummary("visits", rows);
             return View();
         }
 
@@ -170,17 +174,17 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult rblMetric_SelectedIndexChanged(string metric)
         {
-            var rows = ChartInteractionData.DailyMetric(metric);
+            var rows = DailyMetric(metric);
             UIHelper.Chart("ChartMetricTrend").LoadData(JArray.FromObject(rows));
-            UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChartInteractionData.MetricSummary(metric, rows));
+            UIHelper.ToolbarText("ToolbarTextChartScope").Text(MetricSummary(metric, rows));
             return UIHelper.Result();
         }
 
         public IActionResult DateFocus()
         {
-            var rows = ChartInteractionData.DailyFocus(ChartInteractionData.FirstDate);
+            var rows = DailyFocus(DailyVisitData.FirstDate);
             ViewData["Rows"] = rows;
-            ViewData["Scope"] = ChartInteractionData.VisitFocusSummary(ChartInteractionData.FirstDate);
+            ViewData["Scope"] = VisitFocusSummary(DailyVisitData.FirstDate);
             return View();
         }
 
@@ -188,12 +192,12 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ChartDateFocus_PointClick(string seriesKey, string dataKey)
         {
-            if (seriesKey == "amount" && ChartInteractionData.FindVisit(dataKey) != null)
+            if (seriesKey == "amount" && DailyVisitData.FindVisit(dataKey) != null)
             {
                 UIHelper.DatePicker("dpFocus").Text(dataKey);
-                var rows = ChartInteractionData.DailyFocus(dataKey);
+                var rows = DailyFocus(dataKey);
                 UIHelper.Chart("ChartDateFocus").LoadData(JArray.FromObject(rows));
-                UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChartInteractionData.VisitFocusSummary(dataKey));
+                UIHelper.ToolbarText("ToolbarTextChartScope").Text(VisitFocusSummary(dataKey));
             }
             return UIHelper.Result();
         }
@@ -202,10 +206,46 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult btnFocus_Click(string dpFocus)
         {
-            var rows = ChartInteractionData.DailyFocus(dpFocus);
+            var rows = DailyFocus(dpFocus);
             UIHelper.Chart("ChartDateFocus").LoadData(JArray.FromObject(rows));
-            UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChartInteractionData.VisitFocusSummary(dpFocus));
+            UIHelper.ToolbarText("ToolbarTextChartScope").Text(VisitFocusSummary(dpFocus));
             return UIHelper.Result();
+        }
+
+        private static string VisitSummary(ChartRow[] rows)
+        {
+            return rows.Length == 0 ? "所选日期内没有访问数据" : $"{rows.Length} 天 · 访问量 {rows.Sum(row => row.Amount)}";
+        }
+
+        private static ChartRow[] DailyMetric(string metric)
+        {
+            var rows = DailyVisitData.DailyVisits();
+            return metric == "conversions"
+                ? rows.Select(row => new ChartRow(row.Key, row.Category, DailyVisitData.FindVisit(row.Key).Conversions)).ToArray()
+                : rows;
+        }
+
+        private static string MetricSummary(string metric, ChartRow[] rows)
+        {
+            var name = metric == "conversions" ? "转化量" : "访问量";
+            return $"{name}合计：{rows.Sum(row => row.Amount)}";
+        }
+
+        private static object DailyFocus(string key)
+        {
+            return DailyVisitData.DailyVisits().Select(row => new
+            {
+                row.Key,
+                row.Category,
+                row.Amount,
+                Color = row.Key == key ? "#d9480f" : ""
+            }).ToArray();
+        }
+
+        private static string VisitFocusSummary(string key)
+        {
+            var details = DailyVisitData.FindVisit(key);
+            return details == null ? "所选日期没有访问数据" : $"{key} · 访问量 {details.Visits} · 转化量 {details.Conversions}";
         }
     }
 }

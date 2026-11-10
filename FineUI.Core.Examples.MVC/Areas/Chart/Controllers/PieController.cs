@@ -1,12 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using System.Linq;
+using System;
+using ChartRow = FineUI.Core.Examples.MVC.Areas.Chart.ChartDataRows.ChartRow;
 
 namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 {
     [Area("Chart")]
     public class PieController : FineUI.Core.Examples.MVC.Controllers.BaseController
     {
-        public IActionResult Index()
+        public IActionResult Basic()
         {
             return View(new[]
             {
@@ -80,8 +83,8 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         public IActionResult TrendLink()
         {
-            ViewData["Rows"] = ChartInteractionData.ChannelTotals();
-            ViewData["Trend"] = ChartInteractionData.ChannelTrend();
+            ViewData["Rows"] = ChannelVisitData.ChannelTotals();
+            ViewData["Trend"] = ChannelVisitData.ChannelTrend();
             ViewData["Scope"] = "全部渠道 · 月度访问趋势";
             return View();
         }
@@ -90,10 +93,10 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ChartChannels_PointClick(string seriesKey, string dataKey)
         {
-            var channel = ChartInteractionData.ChannelName(dataKey);
+            var channel = ChannelVisitData.ChannelName(dataKey);
             if (seriesKey == "amount" && channel != null)
             {
-                UIHelper.Chart("ChartChannelTrend").LoadData(JArray.FromObject(ChartInteractionData.ChannelTrend(dataKey)));
+                UIHelper.Chart("ChartChannelTrend").LoadData(JArray.FromObject(ChannelVisitData.ChannelTrend(dataKey)));
                 UIHelper.ToolbarText("ToolbarTextChartScope").Text(channel + " · 月度访问趋势");
             }
             return UIHelper.Result();
@@ -103,16 +106,16 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult btnAllChannels_Click()
         {
-            UIHelper.Chart("ChartChannelTrend").LoadData(JArray.FromObject(ChartInteractionData.ChannelTrend()));
+            UIHelper.Chart("ChartChannelTrend").LoadData(JArray.FromObject(ChannelVisitData.ChannelTrend()));
             UIHelper.ToolbarText("ToolbarTextChartScope").Text("全部渠道 · 月度访问趋势");
             return UIHelper.Result();
         }
 
         public IActionResult MonthFilter()
         {
-            var rows = ChartInteractionData.ChannelDistribution("all");
+            var rows = ChannelVisitData.ChannelTotals();
             ViewData["Rows"] = rows;
-            ViewData["Scope"] = ChartInteractionData.DistributionSummary("all", rows);
+            ViewData["Scope"] = DistributionSummary("all", rows);
             return View();
         }
 
@@ -120,20 +123,20 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ddlMonth_SelectedIndexChanged(string month)
         {
-            var rows = ChartInteractionData.ChannelDistribution(month);
+            var rows = month == "all" ? ChannelVisitData.ChannelTotals() : ChannelVisitData.ChannelTotals(month);
             if (rows.Length > 0)
             {
                 UIHelper.Chart("ChartChannelMonth").LoadData(JArray.FromObject(rows));
-                UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChartInteractionData.DistributionSummary(month, rows));
+                UIHelper.ToolbarText("ToolbarTextChartScope").Text(DistributionSummary(month, rows));
             }
             return UIHelper.Result();
         }
 
         public IActionResult ChannelDetails()
         {
-            var rows = ChartInteractionData.ChannelTotals();
+            var rows = ChannelVisitData.ChannelTotals();
             ViewData["Rows"] = rows;
-            ViewData["Scope"] = ChartInteractionData.ChannelDetailsSummary(null, null);
+            ViewData["Scope"] = ChannelDetailsSummary(null, null);
             return View();
         }
 
@@ -141,11 +144,11 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ChartChannelDetails_PointClick(string seriesKey, string dataKey)
         {
-            if (seriesKey == "amount" && ChartInteractionData.ChannelName(dataKey) != null)
+            if (seriesKey == "amount" && ChannelVisitData.ChannelName(dataKey) != null)
             {
-                var rows = ChartInteractionData.ChannelTrend(dataKey);
+                var rows = ChannelVisitData.ChannelTrend(dataKey);
                 UIHelper.Grid("GridChannelMonths").DataSource(rows, new[] { "Category", "Amount" });
-                UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChartInteractionData.ChannelDetailsSummary(dataKey, rows));
+                UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChannelDetailsSummary(dataKey, rows));
             }
             return UIHelper.Result();
         }
@@ -154,10 +157,21 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult btnClear_Click()
         {
-            var rows = new ChartInteractionData.ChartRow[0];
+            var rows = new ChartRow[0];
             UIHelper.Grid("GridChannelMonths").DataSource(rows, new[] { "Category", "Amount" });
-            UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChartInteractionData.ChannelDetailsSummary(null, rows));
+            UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChannelDetailsSummary(null, rows));
             return UIHelper.Result();
+        }
+
+        private static string DistributionSummary(string month, ChartRow[] rows)
+        {
+            var range = month == "all" ? "全部月份" : Array.Find(ChannelVisitData.ChannelTrend(), row => row.Key == month)?.Category;
+            return $"{range} · 总访问量 {rows.Sum(row => row.Amount)}";
+        }
+
+        private static string ChannelDetailsSummary(string key, ChartRow[] rows)
+        {
+            return key == null ? "请选择一个渠道" : $"{ChannelVisitData.ChannelName(key)} · 六个月访问量 {rows.Sum(row => row.Amount)}";
         }
     }
 }

@@ -1,10 +1,10 @@
 @using FineUI.Core
 @using FineUI.Core.Examples.MVC.Areas.Chart
 @{
-    ViewBag.SourceFiles = "~/Areas/Chart/ChartSamples.cs";
+    ViewBag.SourceFiles = "~/Areas/Chart/Bar/SalesOrderData.cs";
     ViewBag.Title = "图表绑定与 Grid 联动";
     var F = Html.F();
-    var orders = ChartSamples.Details();
+    var orders = SalesOrderData.Details();
 }
 
 @section body {
@@ -12,15 +12,15 @@
         .Items(
             F.Panel().BlockLG(7).Height(550).Layout(LayoutType.Fit).ShowHeader(true).ShowBorder(true).Title("月度销售额（元）").BodyPadding(8)
                 .Toolbars(F.Toolbar().Position(ToolbarPosition.Top).Items(
-                    F.Button().ID("btnRecent").Text("最近两个月").CssClass("marginr").OnClick(Url.Action("btnRecent_Click", "Sales", new { area = "Chart" })),
-                    F.Button().ID("btnReset").Text("显示全部").OnClick(Url.Action("btnReset_Click", "Sales", new { area = "Chart" }))))
+                    F.Button().ID("btnRecent").Text("最近两个月").CssClass("marginr").OnClick(Url.Action("btnRecent_Click", "Bar", new { area = "Chart" })),
+                    F.Button().ID("btnReset").Text("显示全部").OnClick(Url.Action("btnReset_Click", "Bar", new { area = "Chart" }))))
                 .Items(F.Chart().ID("ChartSales").CategoryField("Category")
                     .Series("sales", ChartSeriesType.Bar, "销售额", "Amount")
-                    .DataSource(ChartSamples.Months())
-                    .DataKeyField("Month").OnPointClick(Url.Action("ChartSales_PointClick", "Sales", new { area = "Chart" }))),
+                    .DataSource(SalesOrderData.Months())
+                    .DataKeyField("Month").OnPointClick(Url.Action("ChartSales_PointClick", "Bar", new { area = "Chart" }))),
             F.Grid().ID("GridOrders").BlockLG(5).Height(550).Title("订单明细").ShowHeader(true).ShowBorder(true)
                 .Toolbars(F.Toolbar().Position(ToolbarPosition.Top).Items(
-                    F.ToolbarText().ID("ToolbarTextOrderScope").Text(ChartSamples.OrderScope(null, false, orders.Length))))
+                    F.ToolbarText().ID("ToolbarTextOrderScope").Text(SalesOrderData.OrderScope(null, false, orders.Length))))
                 .Columns(
                     F.RenderField().ColumnID("Number").DataField("Number").HeaderText("订单号").Width(80),
                     F.RenderField().ColumnID("Customer").DataField("Customer").HeaderText("客户").Width(78).ExpandUnusedSpace(true),

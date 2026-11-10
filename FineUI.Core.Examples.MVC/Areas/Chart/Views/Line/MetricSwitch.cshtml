@@ -1,6 +1,6 @@
 @using FineUI.Core
 @{
-    ViewBag.SourceFiles = "~/Areas/Chart/ChartInteractionData.cs";
+    ViewBag.SourceFiles = "~/Areas/Chart/Data/DailyVisitData.cs;~/Areas/Chart/Data/ChartDataRows.cs";
     ViewBag.Title = "单选切换折线指标";
     var F = Html.F();
 }
@@ -11,7 +11,7 @@
         .Items(
             F.SimpleForm().IsFluid(true).ShowHeader(false).ShowBorder(false).LabelWidth(108)
                 .Items(
-                    F.RadioButtonList().ID("rblMetric").Label("指标").ColumnNumber(2)
+                    F.RadioButtonList().ID("rblMetric").Label("指标").AutoColumnWidth(true)
                         .OnSelectedIndexChanged(Url.Action("rblMetric_SelectedIndexChanged", "Line"), Parameter.FromFunction("metric", "readChartFilter"))
                         .Items(
                             F.RadioItem().Text("访问量").Value("visits").Selected(true),
