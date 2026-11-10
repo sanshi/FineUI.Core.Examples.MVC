@@ -5,7 +5,7 @@
 }
 
 @section body {
-    @(F.Chart().ID("ChartBarStackedHorizontal").Height(550).CategoryField("Category")
+    @(F.Chart().ID("ChartBarStackedHorizontal").Height(550).DataCategoryField("Category")
         .Horizontal(true)
         .ShowLegend(true)
         .AxisPointerType("shadow")
@@ -14,7 +14,7 @@
             Key = "direct",
             Type = ChartSeriesType.Bar,
             Name = "Direct",
-            ValueField = "Direct",
+            DataValueField = "Direct",
             Stack = "total",
             ShowLabel = true,
             FocusSeries = true
@@ -24,7 +24,7 @@
             Key = "mailAd",
             Type = ChartSeriesType.Bar,
             Name = "Mail Ad",
-            ValueField = "MailAd",
+            DataValueField = "MailAd",
             Stack = "total",
             ShowLabel = true,
             FocusSeries = true
@@ -34,7 +34,7 @@
             Key = "affiliateAd",
             Type = ChartSeriesType.Bar,
             Name = "Affiliate Ad",
-            ValueField = "AffiliateAd",
+            DataValueField = "AffiliateAd",
             Stack = "total",
             ShowLabel = true,
             FocusSeries = true
@@ -44,7 +44,7 @@
             Key = "videoAd",
             Type = ChartSeriesType.Bar,
             Name = "Video Ad",
-            ValueField = "VideoAd",
+            DataValueField = "VideoAd",
             Stack = "total",
             ShowLabel = true,
             FocusSeries = true
@@ -54,7 +54,7 @@
             Key = "searchEngine",
             Type = ChartSeriesType.Bar,
             Name = "Search Engine",
-            ValueField = "SearchEngine",
+            DataValueField = "SearchEngine",
             Stack = "total",
             ShowLabel = true,
             FocusSeries = true

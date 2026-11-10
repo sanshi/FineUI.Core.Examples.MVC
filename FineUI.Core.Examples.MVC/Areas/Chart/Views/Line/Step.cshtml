@@ -5,7 +5,7 @@
 }
 
 @section body {
-    @(F.Chart().ID("ChartLineStep").Height(550).CategoryField("Category")
+    @(F.Chart().ID("ChartLineStep").Height(550).DataCategoryField("Category")
         .Title("Step Line")
         .TitleAlign(TextAlign.Left)
         .ShowLegend(true)
@@ -15,7 +15,7 @@
             Key = "start",
             Type = ChartSeriesType.Line,
             Name = "Step Start",
-            ValueField = "AtStart",
+            DataValueField = "AtStart",
             Step = "start"
         })
         .Series(new ChartSeries
@@ -23,7 +23,7 @@
             Key = "middle",
             Type = ChartSeriesType.Line,
             Name = "Step Middle",
-            ValueField = "AtMiddle",
+            DataValueField = "AtMiddle",
             Step = "middle"
         })
         .Series(new ChartSeries
@@ -31,7 +31,7 @@
             Key = "end",
             Type = ChartSeriesType.Line,
             Name = "Step End",
-            ValueField = "AtEnd",
+            DataValueField = "AtEnd",
             Step = "end"
         })
         .DataSource(Model))

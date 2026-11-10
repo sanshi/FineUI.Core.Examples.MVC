@@ -5,7 +5,7 @@
 }
 
 @section body {
-    @(F.Chart().ID("ChartCombo").Height(550).CategoryField("Category")
+    @(F.Chart().ID("ChartCombo").Height(550).DataCategoryField("Category")
         .AxisTickAlignWithLabel(true).AxisPointerType("cross").ShowSaveAsImage(true)
         .Palette("#5070dd,#b6d634,#505372")
         .YAxis(new ChartValueAxis
@@ -27,12 +27,12 @@
         .Series(new ChartSeries
         {
             Key = "precipitation", Type = ChartSeriesType.Bar, Name = "Precipitation",
-            ValueField = "Precipitation", YAxisIndex = 1
+            DataValueField = "Precipitation", YAxisIndex = 1
         })
         .Series(new ChartSeries
         {
             Key = "temperature", Type = ChartSeriesType.Line, Name = "Temperature",
-            ValueField = "Temperature", YAxisIndex = 2
+            DataValueField = "Temperature", YAxisIndex = 2
         })
         .ShowLegend(true)
         .DataSource(Model))

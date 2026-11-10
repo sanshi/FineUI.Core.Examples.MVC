@@ -5,14 +5,14 @@
 }
 
 @section body {
-    @(F.Chart().ID("ChartBarBackground").Height(550).CategoryField("Category")
+    @(F.Chart().ID("ChartBarBackground").Height(550).DataCategoryField("Category")
         .ShowTooltip(false)
         .Series(new ChartSeries
         {
             Key = "value",
             Type = ChartSeriesType.Bar,
             Name = "数值",
-            ValueField = "Value",
+            DataValueField = "Value",
             ShowBackground = true
         })
         .DataSource(Model))

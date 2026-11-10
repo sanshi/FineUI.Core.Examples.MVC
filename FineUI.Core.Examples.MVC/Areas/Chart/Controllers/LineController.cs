@@ -147,12 +147,12 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ChartDailyVisits_PointClick(string seriesKey, string dataKey)
+        public IActionResult ChartDailyVisits_PointClick(string seriesKey, string pointId)
         {
-            var details = DailyVisitData.FindVisit(dataKey);
+            var details = DailyVisitData.FindVisit(pointId);
             if (seriesKey == "amount" && details != null)
             {
-                UIHelper.Label("labVisitDate").Text("日期：" + dataKey);
+                UIHelper.Label("labVisitDate").Text("日期：" + pointId);
                 UIHelper.Label("labVisitCount").Text("访问量：" + details.Visits);
                 UIHelper.Label("labConversionCount").Text("转化量：" + details.Conversions);
                 var rate = (details.Conversions * 100.0 / details.Visits).ToString("0.0", CultureInfo.InvariantCulture);
@@ -190,14 +190,14 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ChartDateFocus_PointClick(string seriesKey, string dataKey)
+        public IActionResult ChartDateFocus_PointClick(string seriesKey, string pointId)
         {
-            if (seriesKey == "amount" && DailyVisitData.FindVisit(dataKey) != null)
+            if (seriesKey == "amount" && DailyVisitData.FindVisit(pointId) != null)
             {
-                UIHelper.DatePicker("dpFocus").Text(dataKey);
-                var rows = DailyFocus(dataKey);
+                UIHelper.DatePicker("dpFocus").Text(pointId);
+                var rows = DailyFocus(pointId);
                 UIHelper.Chart("ChartDateFocus").LoadData(JArray.FromObject(rows));
-                UIHelper.ToolbarText("ToolbarTextChartScope").Text(VisitFocusSummary(dataKey));
+                UIHelper.ToolbarText("ToolbarTextChartScope").Text(VisitFocusSummary(pointId));
             }
             return UIHelper.Result();
         }
@@ -221,7 +221,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         {
             var rows = DailyVisitData.DailyVisits();
             return metric == "conversions"
-                ? rows.Select(row => new ChartRow(row.Key, row.Category, DailyVisitData.FindVisit(row.Key).Conversions)).ToArray()
+                ? rows.Select(row => new ChartRow(row.Id, row.Category, DailyVisitData.FindVisit(row.Id).Conversions)).ToArray()
                 : rows;
         }
 
@@ -235,10 +235,10 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
         {
             return DailyVisitData.DailyVisits().Select(row => new
             {
-                row.Key,
+                row.Id,
                 row.Category,
                 row.Amount,
-                Color = row.Key == key ? "#d9480f" : ""
+                Color = row.Id == key ? "#d9480f" : ""
             }).ToArray();
         }
 

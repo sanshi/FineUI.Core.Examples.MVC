@@ -5,14 +5,14 @@
 }
 
 @section body {
-    @(F.Chart().ID("ChartBarSpacing").Height(550).CategoryField("Category")
+    @(F.Chart().ID("ChartBarSpacing").Height(550).DataCategoryField("Category")
         .ShowTooltip(false)
         .Series(new ChartSeries
         {
             Key = "first",
             Type = ChartSeriesType.Bar,
             Name = "first",
-            ValueField = "First",
+            DataValueField = "First",
             BarGap = "20%",
             BarCategoryGap = "40%"
         })

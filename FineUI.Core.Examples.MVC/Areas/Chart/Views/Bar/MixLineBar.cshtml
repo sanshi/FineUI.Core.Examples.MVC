@@ -5,7 +5,7 @@
 }
 
 @section body {
-    @(F.Chart().ID("ChartBarMixLineBar").Height(550).CategoryField("Category")
+    @(F.Chart().ID("ChartBarMixLineBar").Height(550).DataCategoryField("Category")
         .ShowLegend(true)
         .AxisPointerType("cross")
         .ShowSaveAsImage(true)
@@ -22,7 +22,7 @@
         .Series(new ChartSeries
         {
             Key = "temperature", Type = ChartSeriesType.Line, Name = "Temperature",
-            ValueField = "Temperature", YAxisIndex = 1
+            DataValueField = "Temperature", YAxisIndex = 1
         })
         .DataSource(Model))
     <p>蒸发量和降水量共用左侧毫升轴，温度折线读取右侧摄氏度轴。<a href="https://echarts.apache.org/examples/zh/editor.html?c=mix-line-bar" target="_blank" rel="noopener">查看 Apache ECharts 原始示例</a>。</p>

@@ -91,12 +91,12 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ChartChannels_PointClick(string seriesKey, string dataKey)
+        public IActionResult ChartChannels_PointClick(string seriesKey, string pointId)
         {
-            var channel = ChannelVisitData.ChannelName(dataKey);
+            var channel = ChannelVisitData.ChannelName(pointId);
             if (seriesKey == "amount" && channel != null)
             {
-                UIHelper.Chart("ChartChannelTrend").LoadData(JArray.FromObject(ChannelVisitData.ChannelTrend(dataKey)));
+                UIHelper.Chart("ChartChannelTrend").LoadData(JArray.FromObject(ChannelVisitData.ChannelTrend(pointId)));
                 UIHelper.ToolbarText("ToolbarTextChartScope").Text(channel + " · 月度访问趋势");
             }
             return UIHelper.Result();
@@ -142,13 +142,13 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ChartChannelDetails_PointClick(string seriesKey, string dataKey)
+        public IActionResult ChartChannelDetails_PointClick(string seriesKey, string pointId)
         {
-            if (seriesKey == "amount" && ChannelVisitData.ChannelName(dataKey) != null)
+            if (seriesKey == "amount" && ChannelVisitData.ChannelName(pointId) != null)
             {
-                var rows = ChannelVisitData.ChannelTrend(dataKey);
+                var rows = ChannelVisitData.ChannelTrend(pointId);
                 UIHelper.Grid("GridChannelMonths").DataSource(rows, new[] { "Category", "Amount" });
-                UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChannelDetailsSummary(dataKey, rows));
+                UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChannelDetailsSummary(pointId, rows));
             }
             return UIHelper.Result();
         }
@@ -165,7 +165,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         private static string DistributionSummary(string month, ChartRow[] rows)
         {
-            var range = month == "all" ? "全部月份" : Array.Find(ChannelVisitData.ChannelTrend(), row => row.Key == month)?.Category;
+            var range = month == "all" ? "全部月份" : Array.Find(ChannelVisitData.ChannelTrend(), row => row.Id == month)?.Category;
             return $"{range} · 总访问量 {rows.Sum(row => row.Amount)}";
         }
 

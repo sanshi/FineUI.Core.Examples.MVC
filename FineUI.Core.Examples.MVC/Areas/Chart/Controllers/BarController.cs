@@ -196,13 +196,13 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ChartRegionSales_PointClick(string seriesKey, string dataKey)
+        public IActionResult ChartRegionSales_PointClick(string seriesKey, string pointId)
         {
-            var cities = RegionSalesData.CityTotals(dataKey);
+            var cities = RegionSalesData.CityTotals(pointId);
             if (seriesKey == "amount" && cities.Length > 0)
             {
                 UIHelper.Chart("ChartRegionSales").LoadData(JArray.FromObject(cities));
-                UIHelper.ToolbarText("ToolbarTextChartScope").Text(RegionSalesData.RegionName(dataKey) + " · 城市销售额");
+                UIHelper.ToolbarText("ToolbarTextChartScope").Text(RegionSalesData.RegionName(pointId) + " · 城市销售额");
                 UIHelper.Button("btnBack").Enabled(true);
             }
             return UIHelper.Result();
@@ -228,9 +228,9 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult btnFilter_Click(string nbxMinimum)
+        public IActionResult ddlMinimum_SelectedIndexChanged(string ddlMinimum)
         {
-            var rows = RegionThreshold(nbxMinimum);
+            var rows = RegionThreshold(ddlMinimum);
             if (rows != null)
             {
                 UIHelper.Chart("ChartSalesThreshold").LoadData(JArray.FromObject(rows));
@@ -262,11 +262,11 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ChartSales_PointClick(string seriesKey, string dataKey)
+        public IActionResult ChartSales_PointClick(string seriesKey, string pointId)
         {
-            if (seriesKey == "sales" && SalesOrderData.HasMonth(dataKey))
+            if (seriesKey == "sales" && SalesOrderData.HasMonth(pointId))
             {
-                BindOrders(dataKey);
+                BindOrders(pointId);
             }
             return UIHelper.Result();
         }
@@ -296,6 +296,17 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
             UIHelper.ToolbarText("ToolbarTextOrderScope").Text(SalesOrderData.OrderScope(month, recent, orders.Length));
         }
 
+        // 这页单独使用一组差距较大的金额。比如选择 4,500 元时，西北的 3,500 元柱会被筛掉。
+        private static readonly ChartRow[] ThresholdSales =
+        {
+            new ChartRow("east", "华东", 68000),
+            new ChartRow("south", "华南", 49000),
+            new ChartRow("north", "华北", 32000),
+            new ChartRow("southwest", "西南", 19000),
+            new ChartRow("central", "华中", 9500),
+            new ChartRow("northwest", "西北", 3500),
+        };
+
         private static ChartRow[] RegionThreshold(string minimum)
         {
             if (!int.TryParse(minimum, NumberStyles.None, CultureInfo.InvariantCulture, out int value))
@@ -303,14 +314,14 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
                 return null;
             }
 
-            return RegionSalesData.RegionTotals().Where(row => row.Amount >= value).OrderByDescending(row => row.Amount).ToArray();
+            return ThresholdSales.Where(row => row.Amount >= value).ToArray();
         }
 
         private static string ThresholdSummary(ChartRow[] rows)
         {
             if (rows == null)
             {
-                return "请输入非负整数金额";
+                return "请选择有效的最低销售额";
             }
             return rows.Length == 0 ? "没有达到门槛的区域" : $"符合门槛的区域：{rows.Length} 个";
         }

@@ -5,14 +5,14 @@
 }
 
 @section body {
-    @(F.Chart().ID("ChartLineDashed").Height(550).CategoryField("Category")
+    @(F.Chart().ID("ChartLineDashed").Height(550).DataCategoryField("Category")
         .ShowTooltip(false)
         .Series(new ChartSeries
         {
             Key = "value",
             Type = ChartSeriesType.Line,
             Name = "value",
-            ValueField = "Value",
+            DataValueField = "Value",
             LineColor = "#008000",
             LineWidth = 4,
             LineType = "dashed"

@@ -5,7 +5,7 @@
 }
 
 @section body {
-    @(F.Chart().ID("ChartAreaStacked").Height(550).CategoryField("Category")
+    @(F.Chart().ID("ChartAreaStacked").Height(550).DataCategoryField("Category")
         .Title("Stacked Area Chart")
         .TitleAlign(TextAlign.Left)
         .ShowLegend(true)
@@ -18,7 +18,7 @@
             Key = "email",
             Type = ChartSeriesType.Area,
             Name = "Email",
-            ValueField = "Email",
+            DataValueField = "Email",
             Stack = "Total",
             FocusSeries = true
         })
@@ -27,7 +27,7 @@
             Key = "unionAds",
             Type = ChartSeriesType.Area,
             Name = "Union Ads",
-            ValueField = "UnionAds",
+            DataValueField = "UnionAds",
             Stack = "Total",
             FocusSeries = true
         })
@@ -36,7 +36,7 @@
             Key = "videoAds",
             Type = ChartSeriesType.Area,
             Name = "Video Ads",
-            ValueField = "VideoAds",
+            DataValueField = "VideoAds",
             Stack = "Total",
             FocusSeries = true
         })
@@ -45,7 +45,7 @@
             Key = "direct",
             Type = ChartSeriesType.Area,
             Name = "Direct",
-            ValueField = "Direct",
+            DataValueField = "Direct",
             Stack = "Total",
             FocusSeries = true
         })
@@ -54,7 +54,7 @@
             Key = "searchEngine",
             Type = ChartSeriesType.Area,
             Name = "Search Engine",
-            ValueField = "SearchEngine",
+            DataValueField = "SearchEngine",
             Stack = "Total",
             FocusSeries = true,
             ShowLabel = true

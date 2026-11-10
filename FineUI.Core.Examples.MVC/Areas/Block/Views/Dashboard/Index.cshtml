@@ -30,7 +30,7 @@
                 12,000
             </div>
             <div class="chart">
-                @(F.Chart().ID("ChartCardViews").Height(60).CategoryField("Category")
+                @(F.Chart().ID("ChartCardViews").Height(60).DataCategoryField("Category")
                     .Palette(chartPalettes["ChartCardViews"])
                     .Compact(true)
                     .Series("views", ChartSeriesType.Bar, "浏览量", "Views")
@@ -63,7 +63,7 @@
                 800
             </div>
             <div class="chart">
-                @(F.Chart().ID("ChartCardTrend").Height(60).CategoryField("Category")
+                @(F.Chart().ID("ChartCardTrend").Height(60).DataCategoryField("Category")
                     .Palette(chartPalettes["ChartCardTrend"])
                     .Compact(true)
                     .Series("views", ChartSeriesType.Area, "独立 IP", "Views", smooth: true, showSymbol: true)
@@ -96,7 +96,7 @@
                 900
             </div>
             <div class="chart">
-                @(F.Chart().ID("ChartCardUsers").Height(60).CategoryField("Category")
+                @(F.Chart().ID("ChartCardUsers").Height(60).DataCategoryField("Category")
                     .Palette(chartPalettes["ChartCardUsers"])
                     .Compact(true)
                     .Series("users", ChartSeriesType.Bar, "用户数", "Users")
@@ -281,7 +281,7 @@
                     F.Tab().Layout(LayoutType.Block).BlockConfigSpace(0).Title("浏览量")
                         .Items(
                             F.Panel().BlockMD(6).BlockLG(8).ShowBorder(false).ShowHeader(false)
-                                .Items(F.Chart().ID("ChartTabViews").Height(350).CategoryField("Category")
+                                .Items(F.Chart().ID("ChartTabViews").Height(350).DataCategoryField("Category")
                                     .Palette(chartPalettes["ChartTabViews"])
                                     .Title("浏览量趋势")
                                     .Series("views", ChartSeriesType.Area, "浏览量", "Views", smooth: true)
@@ -291,7 +291,7 @@
                     F.Tab().Layout(LayoutType.Block).BlockConfigSpace(0).Title("用户量")
                         .Items(
                             F.Panel().BlockMD(6).BlockLG(8).ShowBorder(false).ShowHeader(false)
-                                .Items(F.Chart().ID("ChartTabUsers").Height(350).CategoryField("Category")
+                                .Items(F.Chart().ID("ChartTabUsers").Height(350).DataCategoryField("Category")
                                     .Palette(chartPalettes["ChartTabUsers"])
                                     .Title("用户数与浏览量")
                                     .ShowLegend(true)
@@ -346,7 +346,7 @@
                 .Items(
                     F.Panel().BlockMD(12).BodyPadding("20px 20px 0 20px").ShowBorder(true).ShowBorderShadow(true).ShowHeader(true).Title("本站统计").Content("<ul class=\"mysitestats\"></ul>"),
                     F.Panel().BlockMD(12).BodyPadding(20).ShowBorder(true).ShowBorderShadow(true).ShowHeader(true).Title("访问来源")
-                        .Items(F.Chart().ID("ChartTrafficSources").Height(300).CategoryField("Category")
+                        .Items(F.Chart().ID("ChartTrafficSources").Height(300).DataCategoryField("Category")
                             .Title("用户访问来源").Subtitle("这是说明文字").TitleAlign(TextAlign.Center)
                             .LegendPosition(Position.Left).LegendTop("top").PieEmphasisShadow(true).PieCenter("50%,60%")
                             .Palette(chartPalettes["ChartTrafficSources"])

@@ -5,14 +5,14 @@
 }
 
 @section body {
-    @(F.Chart().ID("ChartAreaStackAll").Height(550).CategoryField("Category")
+    @(F.Chart().ID("ChartAreaStackAll").Height(550).DataCategoryField("Category")
         .ShowTooltip(false)
         .Series(new ChartSeries
         {
             Key = "baseline",
             Type = ChartSeriesType.Line,
             Name = "stack",
-            ValueField = "Baseline",
+            DataValueField = "Baseline",
             Stack = "stack",
             StackStrategy = "all"
         })
@@ -21,7 +21,7 @@
             Key = "change",
             Type = ChartSeriesType.Area,
             Name = "stack",
-            ValueField = "Change",
+            DataValueField = "Change",
             Stack = "stack",
             StackStrategy = "all"
         })

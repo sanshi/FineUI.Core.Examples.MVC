@@ -5,7 +5,7 @@
 }
 
 @section body {
-    @(F.Chart().ID("ChartArea").Height(550).CategoryField("Category")
+    @(F.Chart().ID("ChartArea").Height(550).DataCategoryField("Category")
         .Series("value", ChartSeriesType.Area, "数值", "Value")
         .ShowTooltip(false).CategoryBoundaryGap(false)
         .DataSource(Model))

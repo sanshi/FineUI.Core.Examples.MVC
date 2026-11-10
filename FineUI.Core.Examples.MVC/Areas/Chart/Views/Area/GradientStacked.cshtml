@@ -5,7 +5,7 @@
 }
 
 @section body {
-    @(F.Chart().ID("ChartAreaGradientStacked").Height(550).CategoryField("Category")
+    @(F.Chart().ID("ChartAreaGradientStacked").Height(550).DataCategoryField("Category")
         .Title("Gradient Stacked Area Chart")
         .TitleAlign(TextAlign.Left)
         .Palette("#80FFA5,#00DDFF,#37A2FF,#FF0087,#FFBF00")
@@ -19,7 +19,7 @@
             Key = "line1",
             Type = ChartSeriesType.Area,
             Name = "Line 1",
-            ValueField = "Line1",
+            DataValueField = "Line1",
             Stack = "Total",
             Smooth = true,
             LineWidth = 0,
@@ -33,7 +33,7 @@
             Key = "line2",
             Type = ChartSeriesType.Area,
             Name = "Line 2",
-            ValueField = "Line2",
+            DataValueField = "Line2",
             Stack = "Total",
             Smooth = true,
             LineWidth = 0,
@@ -47,7 +47,7 @@
             Key = "line3",
             Type = ChartSeriesType.Area,
             Name = "Line 3",
-            ValueField = "Line3",
+            DataValueField = "Line3",
             Stack = "Total",
             Smooth = true,
             LineWidth = 0,
@@ -61,7 +61,7 @@
             Key = "line4",
             Type = ChartSeriesType.Area,
             Name = "Line 4",
-            ValueField = "Line4",
+            DataValueField = "Line4",
             Stack = "Total",
             Smooth = true,
             LineWidth = 0,
@@ -75,7 +75,7 @@
             Key = "line5",
             Type = ChartSeriesType.Area,
             Name = "Line 5",
-            ValueField = "Line5",
+            DataValueField = "Line5",
             Stack = "Total",
             Smooth = true,
             LineWidth = 0,

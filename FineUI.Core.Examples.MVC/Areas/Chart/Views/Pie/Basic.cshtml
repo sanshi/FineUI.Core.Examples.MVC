@@ -5,7 +5,7 @@
 }
 
 @section body {
-    @(F.Chart().ID("ChartPie").Height(550).CategoryField("Category")
+    @(F.Chart().ID("ChartPie").Height(550).DataCategoryField("Category")
         .Title("Referer of a Website").Subtitle("Fake Data").TitleAlign(TextAlign.Center)
         .Series("value", ChartSeriesType.Pie, "Access From", "Value")
         .ShowLegend(true).LegendPosition(Position.Left).PieEmphasisShadow(true)

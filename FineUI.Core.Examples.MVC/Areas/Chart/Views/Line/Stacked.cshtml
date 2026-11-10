@@ -5,7 +5,7 @@
 }
 
 @section body {
-    @(F.Chart().ID("ChartLineStacked").Height(550).CategoryField("Category")
+    @(F.Chart().ID("ChartLineStacked").Height(550).DataCategoryField("Category")
         .Title("Stacked Line")
         .TitleAlign(TextAlign.Left)
         .ShowLegend(true)
@@ -16,7 +16,7 @@
             Key = "email",
             Type = ChartSeriesType.Line,
             Name = "Email",
-            ValueField = "Email",
+            DataValueField = "Email",
             Stack = "Total"
         })
         .Series(new ChartSeries
@@ -24,7 +24,7 @@
             Key = "unionAds",
             Type = ChartSeriesType.Line,
             Name = "Union Ads",
-            ValueField = "UnionAds",
+            DataValueField = "UnionAds",
             Stack = "Total"
         })
         .Series(new ChartSeries
@@ -32,7 +32,7 @@
             Key = "videoAds",
             Type = ChartSeriesType.Line,
             Name = "Video Ads",
-            ValueField = "VideoAds",
+            DataValueField = "VideoAds",
             Stack = "Total"
         })
         .Series(new ChartSeries
@@ -40,7 +40,7 @@
             Key = "direct",
             Type = ChartSeriesType.Line,
             Name = "Direct",
-            ValueField = "Direct",
+            DataValueField = "Direct",
             Stack = "Total"
         })
         .Series(new ChartSeries
@@ -48,7 +48,7 @@
             Key = "searchEngine",
             Type = ChartSeriesType.Line,
             Name = "Search Engine",
-            ValueField = "SearchEngine",
+            DataValueField = "SearchEngine",
             Stack = "Total"
         })
         .DataSource(Model))
