@@ -1,0 +1,69 @@
+@model object
+@{
+    ViewBag.Title = "堆叠折线图";
+    var F = Html.F();
+}
+
+@section body {
+    @(F.Chart().ID("ChartLineStacked").Height(550).CategoryField("Category")
+        .Title("Stacked Line")
+        .TitleAlign(TextAlign.Left)
+        .ShowLegend(true)
+        .CategoryBoundaryGap(false)
+        .ShowSaveAsImage(true)
+        .Series(new ChartSeries
+        {
+            Key = "email",
+            Type = ChartSeriesType.Line,
+            Name = "Email",
+            ValueField = "Email",
+            Stack = "Total"
+        })
+        .Series(new ChartSeries
+        {
+            Key = "unionAds",
+            Type = ChartSeriesType.Line,
+            Name = "Union Ads",
+            ValueField = "UnionAds",
+            Stack = "Total"
+        })
+        .Series(new ChartSeries
+        {
+            Key = "videoAds",
+            Type = ChartSeriesType.Line,
+            Name = "Video Ads",
+            ValueField = "VideoAds",
+            Stack = "Total"
+        })
+        .Series(new ChartSeries
+        {
+            Key = "direct",
+            Type = ChartSeriesType.Line,
+            Name = "Direct",
+            ValueField = "Direct",
+            Stack = "Total"
+        })
+        .Series(new ChartSeries
+        {
+            Key = "searchEngine",
+            Type = ChartSeriesType.Line,
+            Name = "Search Engine",
+            ValueField = "SearchEngine",
+            Stack = "Total"
+        })
+        .DataSource(Model))
+    <p>同组折线按分类累计。悬停可查看各来源的原始值，右上角可保存图片。<a href="https://echarts.apache.org/examples/zh/editor.html?c=line-stack" target="_blank" rel="noopener">查看 Apache ECharts 原始示例</a>。</p>
+    <section aria-label="关键属性">
+        <p><strong>关键属性</strong></p>
+        <ul>
+            <li>
+                <code>Stack = "Total"</code>
+                同组折线按天累计，悬停提示仍显示各系列的原始值。
+            </li>
+            <li>
+                <code>.ShowSaveAsImage(true)</code>
+                在图表右上角显示保存图片按钮。
+            </li>
+        </ul>
+    </section>
+}

@@ -10,4 +10,17 @@
         .ShowTooltip(false)
         .DataSource(Model))
     <p>柱高表示各分类的数值，分类和数值沿用官网示例。<a href="https://echarts.apache.org/examples/zh/editor.html?c=bar-simple" target="_blank" rel="noopener">查看 Apache ECharts 原始示例</a>。</p>
+    <section aria-label="关键属性">
+        <p><strong>关键属性</strong></p>
+        <ul>
+            <li>
+                <code>.CategoryField("Category")</code>
+                从每行的 Category 字段读取横轴分类，例如 Mon。
+            </li>
+            <li>
+                <code>ChartSeriesType.Bar</code>、<code>.Series("value", ChartSeriesType.Bar, "数值", "Value")</code>
+                在系列声明中选择柱状类型，最后一个参数 Value 指定柱高使用的数据字段。
+            </li>
+        </ul>
+    </section>
 }

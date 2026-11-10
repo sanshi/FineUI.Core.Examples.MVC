@@ -87,5 +87,67 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
                 new { Category = "World", Population2011 = 630230, Population2012 = 681807 }
             });
         }
+
+        public IActionResult StackedHorizontal()
+        {
+            return View(new[]
+            {
+                new
+                {
+                    Category = "Mon",
+                    Direct = 320, MailAd = 120, AffiliateAd = 220,
+                    VideoAd = 150, SearchEngine = 820
+                },
+                new
+                {
+                    Category = "Tue",
+                    Direct = 302, MailAd = 132, AffiliateAd = 182,
+                    VideoAd = 212, SearchEngine = 832
+                },
+                new
+                {
+                    Category = "Wed",
+                    Direct = 301, MailAd = 101, AffiliateAd = 191,
+                    VideoAd = 201, SearchEngine = 901
+                },
+                new
+                {
+                    Category = "Thu",
+                    Direct = 334, MailAd = 134, AffiliateAd = 234,
+                    VideoAd = 154, SearchEngine = 934
+                },
+                new
+                {
+                    Category = "Fri",
+                    Direct = 390, MailAd = 90, AffiliateAd = 290,
+                    VideoAd = 190, SearchEngine = 1290
+                },
+                new
+                {
+                    Category = "Sat",
+                    Direct = 330, MailAd = 230, AffiliateAd = 330,
+                    VideoAd = 330, SearchEngine = 1330
+                },
+                new
+                {
+                    Category = "Sun",
+                    Direct = 320, MailAd = 210, AffiliateAd = 310,
+                    VideoAd = 410, SearchEngine = 1320
+                }
+            });
+        }
+
+        public IActionResult Waterfall()
+        {
+            return View(new[]
+            {
+                new { Category = "Total", Offset = 0, Cost = 2900 },
+                new { Category = "Rent", Offset = 1700, Cost = 1200 },
+                new { Category = "Utilities", Offset = 1400, Cost = 300 },
+                new { Category = "Transportation", Offset = 1200, Cost = 200 },
+                new { Category = "Meals", Offset = 300, Cost = 900 },
+                new { Category = "Other", Offset = 0, Cost = 300 }
+            });
+        }
     }
 }
