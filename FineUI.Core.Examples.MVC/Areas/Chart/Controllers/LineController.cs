@@ -152,12 +152,11 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
             var details = DailyVisitData.FindVisit(pointId);
             if (seriesKey == "amount" && details != null)
             {
-                UIHelper.Label("labVisitDate").Text("日期：" + pointId);
-                UIHelper.Label("labVisitCount").Text("访问量：" + details.Visits);
-                UIHelper.Label("labConversionCount").Text("转化量：" + details.Conversions);
+                UIHelper.Label("labVisitDate").Text(pointId);
+                UIHelper.Label("labVisitCount").Text(details.Visits.ToString(CultureInfo.InvariantCulture));
+                UIHelper.Label("labConversionCount").Text(details.Conversions.ToString(CultureInfo.InvariantCulture));
                 var rate = (details.Conversions * 100.0 / details.Visits).ToString("0.0", CultureInfo.InvariantCulture);
-                UIHelper.Label("labConversionRate").Text("转化率：" + rate + "%");
-                UIHelper.Window("WindowVisitDetails").Show();
+                UIHelper.Label("labConversionRate").Text(rate + "%");
             }
             return UIHelper.Result();
         }
@@ -190,26 +189,29 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ChartDateFocus_PointClick(string seriesKey, string pointId)
+        public IActionResult ChartDateFocus_PointClick(string pointId)
         {
-            if (seriesKey == "amount" && DailyVisitData.FindVisit(pointId) != null)
+            if (DailyVisitData.FindVisit(pointId) != null)
             {
                 UIHelper.DatePicker("dpFocus").Text(pointId);
-                var rows = DailyFocus(pointId);
-                UIHelper.Chart("ChartDateFocus").LoadData(JArray.FromObject(rows));
-                UIHelper.ToolbarText("ToolbarTextChartScope").Text(VisitFocusSummary(pointId));
+                UpdateDateFocus(pointId);
             }
             return UIHelper.Result();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult btnFocus_Click(string dpFocus)
+        public IActionResult dpFocus_TextChanged(string dpFocus)
         {
-            var rows = DailyFocus(dpFocus);
-            UIHelper.Chart("ChartDateFocus").LoadData(JArray.FromObject(rows));
-            UIHelper.ToolbarText("ToolbarTextChartScope").Text(VisitFocusSummary(dpFocus));
+            UpdateDateFocus(dpFocus);
             return UIHelper.Result();
+        }
+
+        private void UpdateDateFocus(string date)
+        {
+            var rows = DailyFocus(date);
+            UIHelper.Chart("ChartDateFocus").LoadData(JArray.FromObject(rows));
+            UIHelper.ToolbarText("ToolbarTextChartScope").Text(VisitFocusSummary(date));
         }
 
         private static string VisitSummary(ChartRow[] rows)
@@ -238,6 +240,8 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
                 row.Id,
                 row.Category,
                 row.Amount,
+                // 只在选中的日期显示标记和数值，其余日期的访问趋势由主折线保留。
+                FocusAmount = row.Id == key ? (int?)row.Amount : null,
                 Color = row.Id == key ? "#d9480f" : ""
             }).ToArray();
         }

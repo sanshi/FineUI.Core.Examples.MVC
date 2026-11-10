@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.Linq;
@@ -9,6 +10,73 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
     [Area("Chart")]
     public class BarController : FineUI.Core.Examples.MVC.Controllers.BaseController
     {
+        public IActionResult ObjectArray()
+        {
+            return View(new[]
+            {
+                new { Category = "Matcha Latte", Year2015 = 43.3, Year2016 = 85.8, Year2017 = 93.7 },
+                new { Category = "Milk Tea", Year2015 = 83.1, Year2016 = 73.4, Year2017 = 55.1 },
+                new { Category = "Cheese Cocoa", Year2015 = 86.4, Year2016 = 65.2, Year2017 = 82.5 },
+                new { Category = "Walnut Brownie", Year2015 = 72.4, Year2016 = 53.9, Year2017 = 39.1 }
+            });
+        }
+
+        public IActionResult Negative()
+        {
+            return View(new[]
+            {
+                new { Category = "Mon", Profit = 200, Income = 320, Expenses = -120 },
+                new { Category = "Tue", Profit = 170, Income = 302, Expenses = -132 },
+                new { Category = "Wed", Profit = 240, Income = 341, Expenses = -101 },
+                new { Category = "Thu", Profit = 244, Income = 374, Expenses = -134 },
+                new { Category = "Fri", Profit = 200, Income = 390, Expenses = -190 },
+                new { Category = "Sat", Profit = 220, Income = 450, Expenses = -230 },
+                new { Category = "Sun", Profit = 210, Income = 420, Expenses = -210 }
+            });
+        }
+
+        public IActionResult StackNormalization()
+        {
+            return View(GetNormalizedVisits());
+        }
+
+        private static object GetNormalizedVisits()
+        {
+            var categories = new[] { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
+            var visitsByDay = new[]
+            {
+                new[] { 100, 320, 220, 150, 820 },
+                new[] { 302, 132, 182, 212, 832 },
+                new[] { 301, 101, 191, 201, 901 },
+                new[] { 334, 134, 234, 154, 934 },
+                new[] { 390, 90, 290, 190, 1290 },
+                new[] { 330, 230, 330, 330, 1330 },
+                new[] { 320, 210, 310, 410, 1320 }
+            };
+            return categories.Select((category, index) =>
+            {
+                var counts = visitsByDay[index];
+                var total = counts.Sum();
+                // 每段用原始比例参与堆叠，例如 100 / 1610，显示时才四舍五入为 6.2%。
+                var shares = counts.Select(count => total > 0 ? (double)count / total : 0).ToArray();
+                return new
+                {
+                    Category = category,
+                    Direct = shares[0], DirectLabel = Percent(shares[0]),
+                    MailAd = shares[1], MailAdLabel = Percent(shares[1]),
+                    AffiliateAd = shares[2], AffiliateAdLabel = Percent(shares[2]),
+                    VideoAd = shares[3], VideoAdLabel = Percent(shares[3]),
+                    SearchEngine = shares[4], SearchEngineLabel = Percent(shares[4])
+                };
+            }).ToArray();
+        }
+
+        private static string Percent(double value)
+        {
+            var tenths = Math.Floor(value * 1000 + 0.5);
+            return (tenths / 10).ToString("0.#", CultureInfo.InvariantCulture) + "%";
+        }
+
         public IActionResult Basic()
         {
             return View(new[]
