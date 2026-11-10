@@ -119,7 +119,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult FilterRegions(string[] selected)
+        public IActionResult cblRegions_SelectedIndexChanged(string[] selected)
         {
             var totals = ChartInteractionData.RegionTrend(selected);
             UIHelper.Chart("ChartAreaSales").LoadData(JArray.FromObject(totals));
@@ -137,7 +137,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ChangeAreaMode(bool cumulative)
+        public IActionResult cbxCumulative_CheckedChanged(bool cumulative)
         {
             var rows = ChartInteractionData.AreaAmounts(cumulative);
             UIHelper.Chart("ChartCumulativeSales").LoadData(JArray.FromObject(rows));

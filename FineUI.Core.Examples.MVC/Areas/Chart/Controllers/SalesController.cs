@@ -10,7 +10,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PointClick(string seriesKey, string dataKey)
+        public IActionResult ChartSales_PointClick(string seriesKey, string dataKey)
         {
             if (seriesKey == "sales" && ChartSamples.HasMonth(dataKey))
             {
@@ -21,7 +21,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Recent()
+        public IActionResult btnRecent_Click()
         {
             UIHelper.Chart("ChartSales").LoadData(JArray.FromObject(ChartSamples.Months(true)));
             BindOrders(recent: true);
@@ -30,7 +30,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Reset()
+        public IActionResult btnReset_Click()
         {
             UIHelper.Chart("ChartSales").LoadData(JArray.FromObject(ChartSamples.Months()));
             BindOrders();

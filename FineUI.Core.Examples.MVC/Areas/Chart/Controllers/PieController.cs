@@ -88,7 +88,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SelectChannel(string seriesKey, string dataKey)
+        public IActionResult ChartChannels_PointClick(string seriesKey, string dataKey)
         {
             var channel = ChartInteractionData.ChannelName(dataKey);
             if (seriesKey == "amount" && channel != null)
@@ -101,7 +101,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ResetChannels()
+        public IActionResult btnAllChannels_Click()
         {
             UIHelper.Chart("ChartChannelTrend").LoadData(JArray.FromObject(ChartInteractionData.ChannelTrend()));
             UIHelper.ToolbarText("ToolbarTextChartScope").Text("全部渠道 · 月度访问趋势");
@@ -118,7 +118,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult FilterMonth(string month)
+        public IActionResult ddlMonth_SelectedIndexChanged(string month)
         {
             var rows = ChartInteractionData.ChannelDistribution(month);
             if (rows.Length > 0)
@@ -139,7 +139,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ReadChannel(string seriesKey, string dataKey)
+        public IActionResult ChartChannelDetails_PointClick(string seriesKey, string dataKey)
         {
             if (seriesKey == "amount" && ChartInteractionData.ChannelName(dataKey) != null)
             {
@@ -152,7 +152,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ClearChannel()
+        public IActionResult btnClear_Click()
         {
             var rows = new ChartInteractionData.ChartRow[0];
             UIHelper.Grid("GridChannelMonths").DataSource(rows, new[] { "Category", "Amount" });

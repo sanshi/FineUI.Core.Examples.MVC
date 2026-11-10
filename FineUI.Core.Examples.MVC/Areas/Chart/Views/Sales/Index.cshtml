@@ -12,12 +12,12 @@
         .Items(
             F.Panel().BlockLG(7).Height(550).Layout(LayoutType.Fit).ShowHeader(true).ShowBorder(true).Title("月度销售额（元）").BodyPadding(8)
                 .Toolbars(F.Toolbar().Position(ToolbarPosition.Top).Items(
-                    F.Button().ID("btnRecent").Text("最近两个月").CssClass("marginr").OnClick(Url.Action("Recent", "Sales", new { area = "Chart" })),
-                    F.Button().ID("btnReset").Text("显示全部").OnClick(Url.Action("Reset", "Sales", new { area = "Chart" }))))
+                    F.Button().ID("btnRecent").Text("最近两个月").CssClass("marginr").OnClick(Url.Action("btnRecent_Click", "Sales", new { area = "Chart" })),
+                    F.Button().ID("btnReset").Text("显示全部").OnClick(Url.Action("btnReset_Click", "Sales", new { area = "Chart" }))))
                 .Items(F.Chart().ID("ChartSales").CategoryField("Category")
                     .Series("sales", ChartSeriesType.Bar, "销售额", "Amount")
                     .DataSource(ChartSamples.Months())
-                    .DataKeyField("Month").OnPointClick(Url.Action("PointClick", "Sales", new { area = "Chart" }))),
+                    .DataKeyField("Month").OnPointClick(Url.Action("ChartSales_PointClick", "Sales", new { area = "Chart" }))),
             F.Grid().ID("GridOrders").BlockLG(5).Height(550).Title("订单明细").ShowHeader(true).ShowBorder(true)
                 .Toolbars(F.Toolbar().Position(ToolbarPosition.Top).Items(
                     F.ToolbarText().ID("ToolbarTextOrderScope").Text(ChartSamples.OrderScope(null, false, orders.Length))))

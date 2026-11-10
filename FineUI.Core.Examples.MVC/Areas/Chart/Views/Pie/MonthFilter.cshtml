@@ -12,7 +12,7 @@
             F.SimpleForm().IsFluid(true).ShowHeader(false).ShowBorder(false).LabelWidth(108)
                 .Items(
                     F.DropDownList().ID("ddlMonth").Label("月份")
-                        .OnSelectedIndexChanged(Url.Action("FilterMonth", "Pie"), Parameter.FromFunction("month", "readChartFilter"))
+                        .OnSelectedIndexChanged(Url.Action("ddlMonth_SelectedIndexChanged", "Pie"), Parameter.FromFunction("month", "readChartFilter"))
                         .Items(
                             F.ListItem().Text("全部月份").Value("all").Selected(true),
                             F.ListItem().Text("4 月").Value("2026-04"),

@@ -12,7 +12,7 @@
             F.SimpleForm().IsFluid(true).ShowHeader(false).ShowBorder(false).LabelWidth(108)
                 .Items(
                     F.DatePicker().ID("dpFocus").Label("日期").DateFormatString("yyyy-MM-dd").Text("2026-09-01"),
-                    F.Button().ID("btnFocus").Text("查看当天").OnClick(Url.Action("ReadDate", "Line"), "dpFocus")),
+                    F.Button().ID("btnFocus").Text("查看当天").OnClick(Url.Action("btnFocus_Click", "Line"), "dpFocus")),
             F.Chart().ID("ChartDateFocus").Height(550).CategoryField("Category")
                 .Series(new ChartSeries
                 {
@@ -20,7 +20,7 @@
                     ValueField = "Amount", ColorField = "Color"
                 })
                 .DataSource((object)ViewData["Rows"])
-                .DataKeyField("Key").OnPointClick(Url.Action("FocusDate", "Line"))))
+                .DataKeyField("Key").OnPointClick(Url.Action("ChartDateFocus_PointClick", "Line"))))
 
     <p>点击折线上的日期点会填写日期并显示当天数据。也可以直接在日期选择器中选择一天，再点击「查看当天」。</p>
     <section aria-label="关键属性">

@@ -173,7 +173,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SelectRegion(string rowId)
+        public IActionResult GridRegions_RowClick(string rowId)
         {
             var region = ChartInteractionData.RegionName(rowId);
             if (region != null)
@@ -193,7 +193,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DrillRegion(string seriesKey, string dataKey)
+        public IActionResult ChartRegionSales_PointClick(string seriesKey, string dataKey)
         {
             var cities = ChartInteractionData.CityTotals(dataKey);
             if (seriesKey == "amount" && cities.Length > 0)
@@ -207,7 +207,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ResetRegions()
+        public IActionResult btnBack_Click()
         {
             UIHelper.Chart("ChartRegionSales").LoadData(JArray.FromObject(ChartInteractionData.RegionTotals()));
             UIHelper.ToolbarText("ToolbarTextChartScope").Text("各区域销售额");
@@ -225,7 +225,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult FilterSales(string nbxMinimum)
+        public IActionResult btnFilter_Click(string nbxMinimum)
         {
             var rows = ChartInteractionData.RegionThreshold(nbxMinimum);
             if (rows != null)

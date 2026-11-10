@@ -120,7 +120,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult QueryVisits(string dpVisitRange)
+        public IActionResult dpVisitRange_TextChanged(string dpVisitRange)
         {
             // 范围选择器提交一段完整文本，例如 2026-09-03 - 2026-09-05。
             var dates = dpVisitRange?.Split(new[] { " - " }, System.StringSplitOptions.None);
@@ -144,7 +144,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult VisitDetails(string seriesKey, string dataKey)
+        public IActionResult ChartDailyVisits_PointClick(string seriesKey, string dataKey)
         {
             var details = ChartInteractionData.FindVisit(dataKey);
             if (seriesKey == "amount" && details != null)
@@ -168,7 +168,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ChangeMetric(string metric)
+        public IActionResult rblMetric_SelectedIndexChanged(string metric)
         {
             var rows = ChartInteractionData.DailyMetric(metric);
             UIHelper.Chart("ChartMetricTrend").LoadData(JArray.FromObject(rows));
@@ -186,7 +186,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult FocusDate(string seriesKey, string dataKey)
+        public IActionResult ChartDateFocus_PointClick(string seriesKey, string dataKey)
         {
             if (seriesKey == "amount" && ChartInteractionData.FindVisit(dataKey) != null)
             {
@@ -200,7 +200,7 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ReadDate(string dpFocus)
+        public IActionResult btnFocus_Click(string dpFocus)
         {
             var rows = ChartInteractionData.DailyFocus(dpFocus);
             UIHelper.Chart("ChartDateFocus").LoadData(JArray.FromObject(rows));
