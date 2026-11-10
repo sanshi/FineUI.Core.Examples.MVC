@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 {
@@ -148,6 +149,91 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
                 new { Category = "Meals", Offset = 300, Cost = 900 },
                 new { Category = "Other", Offset = 0, Cost = 300 }
             });
+        }
+
+        public IActionResult Spacing()
+        {
+            return View(new[]
+            {
+                new { Category = "A", First = 23, Second = 12 },
+                new { Category = "B", First = 24, Second = 14 },
+                new { Category = "C", First = 18, Second = 9 },
+                new { Category = "D", First = 25, Second = 9 },
+                new { Category = "E", First = 18, Second = 11 }
+            });
+        }
+
+        public IActionResult GridToChart()
+        {
+            ViewData["Regions"] = ChartInteractionData.RegionTotals();
+            ViewData["Rows"] = ChartInteractionData.RegionTrend("east");
+            ViewData["Scope"] = "华东 · 月度销售额";
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SelectRegion(string rowId)
+        {
+            var region = ChartInteractionData.RegionName(rowId);
+            if (region != null)
+            {
+                UIHelper.Chart("ChartRegionMonths").LoadData(JArray.FromObject(ChartInteractionData.RegionTrend(rowId)));
+                UIHelper.ToolbarText("ToolbarTextChartScope").Text(region + " · 月度销售额");
+            }
+            return UIHelper.Result();
+        }
+
+        public IActionResult DrillDown()
+        {
+            ViewData["Rows"] = ChartInteractionData.RegionTotals();
+            ViewData["Scope"] = "各区域销售额";
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DrillRegion(string seriesKey, string dataKey)
+        {
+            var cities = ChartInteractionData.CityTotals(dataKey);
+            if (seriesKey == "amount" && cities.Length > 0)
+            {
+                UIHelper.Chart("ChartRegionSales").LoadData(JArray.FromObject(cities));
+                UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChartInteractionData.RegionName(dataKey) + " · 城市销售额");
+                UIHelper.Button("btnBack").Enabled(true);
+            }
+            return UIHelper.Result();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ResetRegions()
+        {
+            UIHelper.Chart("ChartRegionSales").LoadData(JArray.FromObject(ChartInteractionData.RegionTotals()));
+            UIHelper.ToolbarText("ToolbarTextChartScope").Text("各区域销售额");
+            UIHelper.Button("btnBack").Enabled(false);
+            return UIHelper.Result();
+        }
+
+        public IActionResult SalesThreshold()
+        {
+            var rows = ChartInteractionData.RegionThreshold("0");
+            ViewData["Rows"] = rows;
+            ViewData["Scope"] = ChartInteractionData.ThresholdSummary(rows);
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult FilterSales(string nbxMinimum)
+        {
+            var rows = ChartInteractionData.RegionThreshold(nbxMinimum);
+            if (rows != null)
+            {
+                UIHelper.Chart("ChartSalesThreshold").LoadData(JArray.FromObject(rows));
+            }
+            UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChartInteractionData.ThresholdSummary(rows));
+            return UIHelper.Result();
         }
     }
 }

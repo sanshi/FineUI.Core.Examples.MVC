@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
 {
@@ -85,6 +86,63 @@ namespace FineUI.Core.Examples.MVC.Areas.Chart.Controllers
                 new { Category = "D", First = 23, Second = 35 },
                 new { Category = "E", First = 19, Second = 10 }
             });
+        }
+
+        public IActionResult StackAll()
+        {
+            return View(new[]
+            {
+                new { Category = "1", Baseline = 3, Change = 1 },
+                new { Category = "2", Baseline = 1, Change = 1 },
+                new { Category = "3", Baseline = 2, Change = 1 },
+                new { Category = "4", Baseline = -1, Change = 1 },
+                new { Category = "5", Baseline = -3, Change = 1 },
+                new { Category = "6", Baseline = 1, Change = 1 },
+                new { Category = "7", Baseline = 3, Change = 1 },
+                new { Category = "8", Baseline = -3, Change = -1 },
+                new { Category = "9", Baseline = -1, Change = -1 },
+                new { Category = "10", Baseline = -2, Change = -1 },
+                new { Category = "11", Baseline = 1, Change = -1 },
+                new { Category = "12", Baseline = 3, Change = -1 },
+                new { Category = "13", Baseline = -1, Change = -1 },
+                new { Category = "14", Baseline = -3, Change = -1 }
+            });
+        }
+
+        public IActionResult RegionFilter()
+        {
+            var totals = ChartInteractionData.RegionTrend("east");
+            ViewData["Rows"] = totals;
+            ViewData["Scope"] = ChartInteractionData.AreaSummary(totals);
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult FilterRegions(string[] selected)
+        {
+            var totals = ChartInteractionData.RegionTrend(selected);
+            UIHelper.Chart("ChartAreaSales").LoadData(JArray.FromObject(totals));
+            UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChartInteractionData.AreaSummary(totals));
+            return UIHelper.Result();
+        }
+
+        public IActionResult Cumulative()
+        {
+            var rows = ChartInteractionData.AreaAmounts(false);
+            ViewData["Rows"] = rows;
+            ViewData["Scope"] = ChartInteractionData.AreaModeSummary(false);
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ChangeAreaMode(bool cumulative)
+        {
+            var rows = ChartInteractionData.AreaAmounts(cumulative);
+            UIHelper.Chart("ChartCumulativeSales").LoadData(JArray.FromObject(rows));
+            UIHelper.ToolbarText("ToolbarTextChartScope").Text(ChartInteractionData.AreaModeSummary(cumulative));
+            return UIHelper.Result();
         }
     }
 }
