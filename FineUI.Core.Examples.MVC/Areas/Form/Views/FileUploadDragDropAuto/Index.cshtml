@@ -1,0 +1,16 @@
+@{
+    ViewBag.Title = "Form/FileUploadDragDropAuto";
+    var F = Html.F();
+}
+
+@section body {
+    @(F.SimpleForm().ID("SimpleForm1").IsFluid(true).MaxWidth(620).BodyPadding(10).LabelAlign(LabelAlign.Top)
+        .Title("选择图片后立即上传")
+        .Items(
+            F.FileUpload().ID("filePhotos").Label("图片").ButtonText("选择图片").EnableDragDrop(true).Multiple(true)
+                .AcceptFileTypes(".jpg,.jpeg,.png,.gif").OnFileSelected(Url.Action("filePhotos_FileSelected"), "filePhotos")
+        )
+    )
+    @(F.Label().ID("labResult"))
+    <p>拖入或点击选择 JPG、JPEG、PNG、GIF 图片后会立即上传，每张图片最多 2 MB。服务器会回显收到的文件名，校验失败时保留本次选择。</p>
+}
