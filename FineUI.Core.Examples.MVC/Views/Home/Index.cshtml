@@ -66,7 +66,7 @@
                     <span class="breadcrumb-last">首页</span>
                 </div>
                 <div class="breadcrumb-icons">
-                    <a data-qtip="查看源代码" href="#" data-tool-action="onToolSourceCodeClick"><i class="f-icon f-iconfont f-iconfont-code"></i></a>
+                    <a data-qtip="查看页面描述和源代码" href="#" data-tool-action="onToolSourceCodeClick"><i class="f-icon f-iconfont f-iconfont-code"></i></a>
                     <a data-qtip="刷新本页" href="#" data-tool-action="onToolRefreshClick"><i class="f-icon f-iconfont f-iconfont-refresh"></i></a>
                     <a data-qtip="在新标签页中打开" href="#" data-tool-action="onToolNewWindowClick"><i class="f-icon f-iconfont f-iconfont-new-tab"></i></a>
                 </div>
@@ -169,22 +169,25 @@
                     F.Panel().ID("bodyRegion").CssClass("bodyregion").RegionPosition(Position.Center).Layout(LayoutType.VBox).ShowBorder(false).ShowHeader(false)
                         .Items(
                             F.Panel().ID("topPanel").ShowHeader(false).ShowBorder(false).CssClass("topregion").ContentEl("#header"),
-                            F.TabStrip().BoxFlex(1).ShowInkBar(true).InkBarPosition(InkBarPosition.Bottom).EnableTabCloseMenu(true).ShowBorder(true).RegionPosition(Position.Center).CssClass("centerregion").ID("mainTabStrip").ShowTabHeader(@ViewBag.CookieMainTabs == "multi")
-                                .EnableTabMove(true).EnableTabWheelScroll(true)
-                                .Tabs(
-                                    F.Tab().ID("tabHomepage").IFrameUrl(Url.Content("~/Basic/Main")).EnableIFrame(true).IconFont(IconFont._Home).Title("首页")
-                                )
-                                .Tools(
-                                    F.Tool().ID("toolSourceCode").ToolTip("查看源代码").CssClass("tabtool viewcode").IconFont(IconFont._Code).ClickHandler("onToolSourceCodeClick"),
-                                    F.Tool().ID("toolRefresh").ToolTip("刷新本页").CssClass("tabtool").IconFont(IconFont._Refresh).ClickHandler("onToolRefreshClick"),
-                                    F.Tool().ID("toolNewWindow").ToolTip("在新标签页中打开").CssClass("tabtool").IconFont(IconFont._NewTab).ClickHandler("onToolNewWindowClick")
+                            F.Panel().ID("panelExampleWorkspace").CssClass("source-code-viewer-workspace").Layout(LayoutType.Region).BoxFlex(1).ShowBorder(false).ShowHeader(false)
+                                .Items(
+                                    F.TabStrip().ShowInkBar(true).InkBarPosition(InkBarPosition.Bottom).EnableTabCloseMenu(true).ShowBorder(true).RegionPosition(Position.Center).CssClass("centerregion").ID("mainTabStrip").ShowTabHeader(@ViewBag.CookieMainTabs == "multi")
+                                        .EnableTabMove(true).EnableTabWheelScroll(true)
+                                        .Tabs(
+                                            F.Tab().ID("tabHomepage").IFrameUrl(Url.Content("~/Basic/Main")).EnableIFrame(true).IconFont(IconFont._Home).Title("首页")
+                                        )
+                                        .Tools(
+                                            F.Tool().ID("toolSourceCode").ToolTip("查看页面描述和源代码").CssClass("tabtool viewcode").IconFont(IconFont._Code).ClickHandler("onToolSourceCodeClick"),
+                                            F.Tool().ID("toolRefresh").ToolTip("刷新本页").CssClass("tabtool").IconFont(IconFont._Refresh).ClickHandler("onToolRefreshClick"),
+                                            F.Tool().ID("toolNewWindow").ToolTip("在新标签页中打开").CssClass("tabtool").IconFont(IconFont._NewTab).ClickHandler("onToolNewWindowClick")
+                                        ),
+                                    F.Panel().ID("panelExampleDetails").RegionPosition(Position.Bottom).Height(360).MinHeight(220).RegionSplit(true).RegionSplitWidth(1).RegionSplitIcon(false).Hidden(true).ShowHeader(false).ShowBorder(false).EnableDefaultCorner(false).EnableIFrame(true)
                                 )
                         )
                 )
             )
 
 
-    @(F.Window().Hidden(true).EnableResize(true).EnableMaximize(true).EnableClose(true).Height(600).Width(1000).IsModal(true).EnableIFrame(true).Title("源代码").IconFont(IconFont._Code).ID("windowSourceCode"))
 
     @(F.Window().Hidden(true).EnableResize(true).EnableMaximize(true).EnableClose(true).Height(600).Width(850).IsModal(true).ClearIFrameAfterClose(false).IFrameUrl(Url.Content("~/Home/Themes")).EnableIFrame(true).Title("主题仓库").ID("windowThemeRoller"))
 
@@ -242,7 +245,8 @@
             sidebarRegion: 'sidebarRegion',
             btnCollapseSidebar: 'btnCollapseSidebar',
             tabHomepage: 'tabHomepage',
-            windowSourceCode: 'windowSourceCode',
+            exampleWorkspace: 'panelExampleWorkspace',
+            exampleDetails: 'panelExampleDetails',
             windowThemeRoller: 'windowThemeRoller',
             windowLoadingSelector: 'windowLoadingSelector',
             windowApplyTrial: 'windowApplyTrial',
