@@ -16,10 +16,27 @@
     <br>
 
     @(F.Label().ID("labResult").EncodeText(false).ShowLabel(false))
-    <br>
-    <br>
-
-    注：本示例通过EnableEdit属性控制日期和时间选择器不可编辑。
 
 
+
+
+}
+
+@section exampleDescription {
+    <section aria-label="页面描述">
+        <p>演示日期和时间字段的清空图标，清空后仍须重新选择才能通过必填验证。</p>
+        <h3><i class="f-icon f-iconfont f-iconfont-close" aria-hidden="true"></i>清空后重新选择</h3>
+        <ol>
+            <li>
+                点击已有时间右侧的清空图标，再从下拉面板选择一个时间。<br />
+                结果：原时间先被清空；重新选择后显示新时间，清空图标再次出现。
+            </li>
+        </ol>
+        <h3><i class="f-icon f-iconfont f-iconfont-info" aria-hidden="true"></i>补充说明</h3>
+        <p>注：本示例通过EnableEdit属性控制日期和时间选择器不可编辑。</p>
+        <h3><i class="f-icon f-iconfont f-iconfont-gear" aria-hidden="true"></i>关键属性</h3>
+        <ul class="example-description-properties">
+            <li><code>AutoShowClearIcon</code>：有值时显示清空图标；点击后清空字段并隐藏图标，必填规则继续生效。</li>
+        </ul>
+    </section>
 }
