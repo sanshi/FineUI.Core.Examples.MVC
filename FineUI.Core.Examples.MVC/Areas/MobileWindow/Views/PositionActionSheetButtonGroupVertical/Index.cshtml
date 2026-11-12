@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "MobileWindow/PositionActionSheetButtonGroupVertical";
     ViewBag.BodyBGColor = false;
     var F = Html.F();
@@ -38,7 +38,7 @@
 
     @(F.Window().ID("Window1").CssClass("mywindow").ShowHeader(false).ShowBorder(false).HideOnMaskClick(true).IsModal(true).BodyPadding(10).Layout(LayoutType.VBox).BoxConfigSpace(5).PercentWidth("100%").EnableDefaultCorner(false).PositionY(Position.Bottom).Hidden(true)
         .Items(
-            F.ButtonGroup().MarginBottom(10).Layout(LayoutType.VBox).Vertical(true)
+            F.ButtonGroup().ID("ButtonGroupExample1").MarginBottom(10).Layout(LayoutType.VBox).Vertical(true)
                 .Items(
                     F.Button().ID("Button1").Size(ButtonSize.Large).BoxFlex(1).Text("相册").ClickHandler("onOpenAlbumClick"),
                     F.Button().ID("Button2").Size(ButtonSize.Large).BoxFlex(1).Text("拍照").ClickHandler("onTakeAPictureClick")
@@ -76,4 +76,22 @@
 
     </script>
 
+}
+
+@section exampleDescription {
+<section aria-label="页面描述">
+    <p>演示在底部动作面板中用垂直按钮组组织操作。</p>
+    <h3><i class="f-iconfont f-iconfont-window" aria-hidden="true"></i>选择动作或取消</h3>
+    <ol>
+        <li>点击<strong class="example-control-reference" data-example-control="btnOpenWindow" title="动作面板">动作面板</strong>。<br />结果：面板贴底并使用当前视口宽度，背景出现遮罩。</li>
+        <li>点击<strong class="example-control-reference" data-example-control="Button2" title="拍照">拍照</strong>。<br />结果：浏览器隐藏面板并显示本页动作提示；示例并未真的调用设备相机。</li>
+        <li>再次打开<strong class="example-control-reference" data-example-control="btnOpenWindow" title="动作面板">动作面板</strong>，点击<strong class="example-control-reference" data-example-control="Button3" title="取消">取消</strong>。<br />结果：只隐藏动作面板，不执行相册或拍照动作。</li>
+    </ol>
+    <h3><i class="f-iconfont f-iconfont-gear" aria-hidden="true"></i>关键属性</h3>
+    <ul class="example-description-properties">
+        <li><code>PositionY</code>（<strong class="example-control-reference" data-example-control="Window1" title="窗口">窗口</strong>）：窗体贴底显示。 本页使用<code>Position.Bottom</code>。</li>
+        <li><code>PercentWidth</code>（<strong class="example-control-reference" data-example-control="Window1" title="窗口">窗口</strong>）：窗体占当前视口全部宽度。 本页使用<code>100%</code>。</li>
+        <li><code>Vertical</code>（<strong class="example-control-reference" data-example-control="ButtonGroupExample1" title="按钮组">按钮组</strong>）：把相册与拍照放在纵向按钮组中。 本页使用<code>true</code>。</li>
+    </ul>
+</section>
 }

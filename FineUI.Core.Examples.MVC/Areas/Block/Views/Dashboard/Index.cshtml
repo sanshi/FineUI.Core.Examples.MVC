@@ -272,25 +272,25 @@
 
     @(F.Panel().ID("Panel1").IsFluid(true).Layout(LayoutType.Block).BlockConfigSpace(20).ShowBorder(false).ShowHeader(false)
         .Items(
-            F.Panel().BlockMD(6).BlockLG(3).ShowBorder(true).ShowBorderShadow(true).ShowHeader(false).ContentEl("#block1"),
-            F.Panel().BlockMD(6).BlockLG(3).ShowBorder(true).ShowBorderShadow(true).ShowHeader(false).ContentEl("#block2"),
-            F.Panel().BlockMD(6).BlockLG(3).ShowBorder(true).ShowBorderShadow(true).ShowHeader(false).ContentEl("#block3"),
-            F.Panel().BlockMD(6).BlockLG(3).ShowBorder(true).ShowBorderShadow(true).ShowHeader(false).ContentEl("#block4"),
-            F.TabStrip().CssClass("mytabstrip").BlockMD(12).ShowInkBar(true).ShowBorder(true).ShowBorderShadow(true).ActiveTabIndex(0)
+            F.Panel().ID("PanelExample2").BlockMD(6).BlockLG(3).ShowBorder(true).ShowBorderShadow(true).ShowHeader(false).ContentEl("#block1"),
+            F.Panel().ID("PanelExample3").BlockMD(6).BlockLG(3).ShowBorder(true).ShowBorderShadow(true).ShowHeader(false).ContentEl("#block2"),
+            F.Panel().ID("PanelExample4").BlockMD(6).BlockLG(3).ShowBorder(true).ShowBorderShadow(true).ShowHeader(false).ContentEl("#block3"),
+            F.Panel().ID("PanelExample5").BlockMD(6).BlockLG(3).ShowBorder(true).ShowBorderShadow(true).ShowHeader(false).ContentEl("#block4"),
+            F.TabStrip().ID("TabStripExample1").CssClass("mytabstrip").BlockMD(12).ShowInkBar(true).ShowBorder(true).ShowBorderShadow(true).ActiveTabIndex(0)
                 .Tabs(
                     F.Tab().Layout(LayoutType.Block).BlockConfigSpace(0).Title("浏览量")
                         .Items(
-                            F.Panel().BlockMD(6).BlockLG(8).ShowBorder(false).ShowHeader(false)
+                            F.Panel().ID("PanelExample6").BlockMD(6).BlockLG(8).ShowBorder(false).ShowHeader(false)
                                 .Items(F.Chart().ID("ChartTabViews").Height(350).DataCategoryField("Category")
                                     .Palette(chartPalettes["ChartTabViews"])
                                     .Title("浏览量趋势")
                                     .Series("views", ChartSeriesType.Area, "浏览量", "Views", smooth: true)
                                     .DataSource(dailyChartRows)),
-                            F.Panel().BlockMD(6).BlockLG(4).BodyPadding(20).ShowBorder(false).ShowHeader(false).ContentEl("#block5")
+                            F.Panel().ID("PanelExample7").BlockMD(6).BlockLG(4).BodyPadding(20).ShowBorder(false).ShowHeader(false).ContentEl("#block5")
                         ),
                     F.Tab().Layout(LayoutType.Block).BlockConfigSpace(0).Title("用户量")
                         .Items(
-                            F.Panel().BlockMD(6).BlockLG(8).ShowBorder(false).ShowHeader(false)
+                            F.Panel().ID("PanelExample8").BlockMD(6).BlockLG(8).ShowBorder(false).ShowHeader(false)
                                 .Items(F.Chart().ID("ChartTabUsers").Height(350).DataCategoryField("Category")
                                     .Palette(chartPalettes["ChartTabUsers"])
                                     .Title("用户数与浏览量")
@@ -298,13 +298,13 @@
                                     .Series("users", ChartSeriesType.Bar, "用户数", "Users")
                                     .Series("views", ChartSeriesType.Line, "浏览量", "Views", smooth: true)
                                     .DataSource(dailyChartRows)),
-                            F.Panel().BlockMD(6).BlockLG(4).BodyPadding(20).ShowBorder(false).ShowHeader(false).ContentEl("#block6")
+                            F.Panel().ID("PanelExample9").BlockMD(6).BlockLG(4).BodyPadding(20).ShowBorder(false).ShowHeader(false).ContentEl("#block6")
                         )
                 )
                 .Tools(
                     F.Tool().ToolTip("打开详细数据").IconFont(IconFont._More).ClickHandler("onTabstripToolClick")
                 ),
-                F.Panel().BlockMD(6).BlockLG(8).Layout(LayoutType.Block).BlockConfigSpace(20).ShowBorder(false).ShowHeader(false)
+                F.Panel().ID("PanelExample10").BlockMD(6).BlockLG(8).Layout(LayoutType.Block).BlockConfigSpace(20).ShowBorder(false).ShowHeader(false)
                     .Items(
                         F.Grid().ID("Grid1").CssClass("mygrid responsive-card-grid").BlockMD(12).ShowBorder(true).ShowBorderShadow(true).ShowHeader(true).Title("表格示例")
                             .EnableCheckBoxSelect(true).EnableAlternateRowColor(true).EnableRowLines(true).DataIDField("Id").KeepCurrentSelection(true)
@@ -318,7 +318,7 @@
                             F.RenderField().ColumnID("Status").DataField("Status").HeaderText("状态").RendererFunction("renderStatus")
                         )
                         .DataSource(DataSourceUtil.GetDataTable()),
-                    F.Form().CssClass("myform").BlockMD(12).Layout(LayoutType.Block).BlockConfigSpace(10).BodyPadding(20).ShowBorder(true).ShowBorderShadow(true).ShowHeader(true).Title("表单示例").LabelAlign(LabelAlign.Right)
+                    F.Form().ID("FormExample1").CssClass("myform").BlockMD(12).Layout(LayoutType.Block).BlockConfigSpace(10).BodyPadding(20).ShowBorder(true).ShowBorderShadow(true).ShowHeader(true).Title("表单示例").LabelAlign(LabelAlign.Right)
                         .Items(
                             F.Label().ID("Label1").BlockMD(6).Label("标签").Text("标签的值"),
                             F.CheckBox().ID("CheckBox1").BlockMD(6).Text("复选框").Label("复选框"),
@@ -342,10 +342,10 @@
                             F.TextArea().ID("TextArea1").BlockMD(12).Label("描述").ShowRedStar(true).Required(true)
                         )
                 ),
-            F.Panel().BlockMD(6).BlockLG(4).Layout(LayoutType.Block).BlockConfigSpace(20).ShowBorder(false).ShowHeader(false)
+            F.Panel().ID("PanelExample11").BlockMD(6).BlockLG(4).Layout(LayoutType.Block).BlockConfigSpace(20).ShowBorder(false).ShowHeader(false)
                 .Items(
-                    F.Panel().BlockMD(12).BodyPadding("20px 20px 0 20px").ShowBorder(true).ShowBorderShadow(true).ShowHeader(true).Title("本站统计").Content("<ul class=\"mysitestats\"></ul>"),
-                    F.Panel().BlockMD(12).BodyPadding(20).ShowBorder(true).ShowBorderShadow(true).ShowHeader(true).Title("访问来源")
+                    F.Panel().ID("PanelExample12").BlockMD(12).BodyPadding("20px 20px 0 20px").ShowBorder(true).ShowBorderShadow(true).ShowHeader(true).Title("本站统计").Content("<ul class=\"mysitestats\"></ul>"),
+                    F.Panel().ID("PanelExample13").BlockMD(12).BodyPadding(20).ShowBorder(true).ShowBorderShadow(true).ShowHeader(true).Title("访问来源")
                         .Items(F.Chart().ID("ChartTrafficSources").Height(300).DataCategoryField("Category")
                             .Title("用户访问来源").Subtitle("这是说明文字").TitleAlign(TextAlign.Center)
                             .LegendPosition(Position.Left).LegendTop("top").PieEmphasisShadow(true).PieCenter("50%,60%")
@@ -416,4 +416,21 @@
 
     </script>
 
+}
+
+@section exampleDescription {
+<section aria-label="页面描述">
+    <p>演示用 <code>Block</code> 布局组合统计卡片、图表、表格和表单，并在窄屏重新排列。</p>
+    <h3><i class="f-iconfont f-iconfont-layout" aria-hidden="true"></i>响应排列与卡片翻面</h3>
+    <ul>
+        <li>对照<strong class="example-control-reference" data-example-control="TabStripExample1" title="选项卡">选项卡</strong>中的统计卡片、图表和表格，再缩小浏览器。<br />结果：各部分按本页块宽度重新分列或层叠，内容仍来自同一组示例数据。</li>
+        <li>点击统计卡片上的信息图标，再点击背面的图标。<br />结果：卡片翻面显示说明，再次点击恢复正面，页面其它组件不被替换。</li>
+    </ul>
+    <h3><i class="f-iconfont f-iconfont-gear" aria-hidden="true"></i>关键属性</h3>
+    <ul class="example-description-properties">
+        <li><code>Layout</code>（<strong class="example-control-reference" data-example-control="TabStripExample1" title="选项卡">选项卡</strong>）：首页外层使用 <code>Block</code> 布局。</li>
+        <li><code>BlockMD</code>（<strong class="example-control-reference" data-example-control="PanelExample2" title="第 2 个面板">第 2 个面板</strong>、<strong class="example-control-reference" data-example-control="PanelExample3" title="第 3 个面板">第 3 个面板</strong>、<strong class="example-control-reference" data-example-control="PanelExample4" title="第 4 个面板">第 4 个面板</strong>、<strong class="example-control-reference" data-example-control="PanelExample5" title="第 5 个面板">第 5 个面板</strong>、<strong class="example-control-reference" data-example-control="TabStripExample1" title="选项卡">选项卡</strong>、<strong class="example-control-reference" data-example-control="PanelExample6" title="第 6 个面板">第 6 个面板</strong>、<strong class="example-control-reference" data-example-control="PanelExample7" title="第 7 个面板">第 7 个面板</strong>、<strong class="example-control-reference" data-example-control="PanelExample8" title="第 8 个面板">第 8 个面板</strong>、<strong class="example-control-reference" data-example-control="PanelExample9" title="第 9 个面板">第 9 个面板</strong>、<strong class="example-control-reference" data-example-control="PanelExample10" title="第 10 个面板">第 10 个面板</strong>、<strong class="example-control-reference" data-example-control="Grid1" title="表格示例">表格示例</strong>、<strong class="example-control-reference" data-example-control="FormExample1" title="表单示例">表单示例</strong>、<strong class="example-control-reference" data-example-control="Label1" title="标签">标签</strong>、<strong class="example-control-reference" data-example-control="CheckBox1" title="复选框">复选框</strong>、<strong class="example-control-reference" data-example-control="DropDownList1" title="下拉列表">下拉列表</strong>、<strong class="example-control-reference" data-example-control="TextBox1" title="文本框">文本框</strong>、<strong class="example-control-reference" data-example-control="DatePicker1" title="日期">日期</strong>、<strong class="example-control-reference" data-example-control="TimePicker1" title="时间">时间</strong>、<strong class="example-control-reference" data-example-control="CheckBoxList1" title="复选框列表">复选框列表</strong>、<strong class="example-control-reference" data-example-control="TextArea1" title="描述">描述</strong>、<strong class="example-control-reference" data-example-control="PanelExample11" title="第 11 个面板">第 11 个面板</strong>、<strong class="example-control-reference" data-example-control="PanelExample12" title="本站统计">本站统计</strong>、<strong class="example-control-reference" data-example-control="PanelExample13" title="访问来源">访问来源</strong>）：定义各区域在桌面宽度下的占比。 本页各组分别使用<code>6</code>、<code>12</code>。</li>
+        <li><code>ResponsiveCardSize</code>（<strong class="example-control-reference" data-example-control="Grid1" title="表格示例">表格示例</strong>）：表格在窄屏使用本页卡片视图。 本页使用<code>GridResponsiveCardSize.MD</code>。</li>
+    </ul>
+</section>
 }

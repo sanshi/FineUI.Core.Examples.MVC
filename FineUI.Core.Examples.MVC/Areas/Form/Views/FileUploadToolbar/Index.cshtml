@@ -30,7 +30,7 @@
             F.TextBox().Label("邮箱").ID("tbxEmail").Required(true).RegexPattern(RegexPattern.EMAIL).RegexMessage("请输入有效的邮箱地址").ShowRedStar(true)
         )
         .Toolbars(
-            F.Toolbar().Position(ToolbarPosition.Bottom).ToolbarAlign(ToolbarAlign.Right)
+            F.Toolbar().ID("ToolbarExample1").Position(ToolbarPosition.Bottom).ToolbarAlign(ToolbarAlign.Right)
                 .Items(
                     F.FileUpload().ID("filePhoto").ButtonText("上传个人头像").AcceptFileTypes("image/*").ButtonOnly(true).OnFileSelected(Url.Action("filePhoto_FileSelected"), "filePhoto").ButtonIconFont(IconFont._Upload),
                     F.Button().IconFont(IconFont._Save).ID("btnSubmit").OnClick(Url.Action("btnSubmit_Click"), "SimpleForm1", Parameter.FromFunction("imgPhotoUrl", "getimgPhotoImgPhotoUrlPostbackValue")).ValidateForms("SimpleForm1").Text("提交表单")
@@ -58,23 +58,23 @@
 
 @section exampleDescription {
     <section aria-label="页面描述">
-        <p>演示将文件选择按钮放进工具栏，选定后直接更新头像预览。</p>
+        <p>演示将文件选择按钮放进<strong class="example-control-reference" data-example-control="ToolbarExample1" title="工具栏">工具栏</strong>，选定后直接更新头像预览。</p>
         <h3><i class="f-icon f-iconfont f-iconfont-upload" aria-hidden="true"></i>先上传头像</h3>
         <ol>
             <li>
-                点击“上传个人头像”，选择一张合格图片。<br />
+                点击<strong>上传个人头像</strong>，选择一张合格图片。<br />
                 结果：文件选中事件立即回发；后台校验并保存图片，头像区域由空白图变为新头像，同时清空文件选择。
             </li>
         </ol>
         <h3><i class="f-icon f-iconfont f-iconfont-info" aria-hidden="true"></i>补充说明</h3>
         <p>注：</p>
         <ul>
-            <li> 上传个人头像通过 AcceptFileTypes="image/*" 来控制默认显示的文件类型 </li>
+            <li> 上传个人头像通过 <code>AcceptFileTypes</code>="<code>image</code>/*" 来控制默认显示的文件类型 </li>
             <li> <a href="http://stackoverflow.com/questions/181214/file-input-accept-attribute-is-it-useful" target="_blank">AcceptFileTypes 的有效值</a> </li>
         </ul>
         <h3><i class="f-icon f-iconfont f-iconfont-gear" aria-hidden="true"></i>关键属性</h3>
         <ul class="example-description-properties">
-            <li><code>ButtonOnly</code>：只显示上传按钮，不显示文件路径输入框。 本页声明值为 true。</li>
+            <li><code>ButtonOnly</code>（<strong class="example-control-reference" data-example-control="filePhoto" title="上传控件">上传控件</strong>）：只显示上传按钮，不显示文件路径输入框。 本页声明值为 <code>true</code>。</li>
         </ul>
     </section>
 }

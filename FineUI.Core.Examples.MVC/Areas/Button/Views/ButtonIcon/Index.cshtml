@@ -28,8 +28,8 @@
     只有图片的按钮：
     <br />
     <br />
-    @(F.Button().IconUrl(Url.Content("~/res/images/16/1.png")).CssClass("marginr"))
-    @(F.Button().IconUrl(Url.Content("~/res/images/16/8.png")).CssClass("marginr"))
+    @(F.Button().ID("ButtonExample6").IconUrl(Url.Content("~/res/images/16/1.png")).CssClass("marginr"))
+    @(F.Button().ID("ButtonExample7").IconUrl(Url.Content("~/res/images/16/8.png")).CssClass("marginr"))
 
 
     <br />
@@ -38,14 +38,14 @@
     <br />
     <br />
 
-    @(F.Button().Icon(Icon.Email).Size(ButtonSize.Large).Text("图标在左侧").CssClass("marginr"))
-    @(F.Button().Icon(Icon.Star).Size(ButtonSize.Large).Text("图标在右侧").IconAlign(IconAlign.Right).CssClass("marginr"))
+    @(F.Button().ID("ButtonExample8").Icon(Icon.Email).Size(ButtonSize.Large).Text("图标在左侧").CssClass("marginr"))
+    @(F.Button().ID("ButtonExample9").Icon(Icon.Star).Size(ButtonSize.Large).Text("图标在右侧").IconAlign(IconAlign.Right).CssClass("marginr"))
 
     <br />
     <br />
 
-    @(F.Button().Icon(Icon.Email).Size(ButtonSize.Large).Text("图标在上面").IconAlign(IconAlign.Top).CssClass("marginr"))
-    @(F.Button().Icon(Icon.Email).Size(ButtonSize.Large).Text("图标在下面").IconAlign(IconAlign.Bottom).CssClass("marginr"))
+    @(F.Button().ID("ButtonExample10").Icon(Icon.Email).Size(ButtonSize.Large).Text("图标在上面").IconAlign(IconAlign.Top).CssClass("marginr"))
+    @(F.Button().ID("ButtonExample11").Icon(Icon.Email).Size(ButtonSize.Large).Text("图标在下面").IconAlign(IconAlign.Bottom).CssClass("marginr"))
 
 
 
@@ -68,22 +68,22 @@
         <h3><i class="f-icon f-iconfont f-iconfont-layout" aria-hidden="true"></i>对比图标位置</h3>
         <ul>
             <li>
-                对照“图标在左侧、右侧、上面、下面”的按钮。<br />
+                对照<strong>图标在左侧、右侧、上面、下面</strong>的按钮。<br />
                 结果：图片分别排列在文字对应方向，只有图片的按钮不预留文字。
             </li>
         </ul>
         <h3><i class="f-icon f-iconfont f-iconfont-refresh" aria-hidden="true"></i>切换图标图片</h3>
         <ul>
             <li>
-                连续点击“自定义图标（点击修改图标）”。<br />
-                结果：回发后，后台在 1.png、8.png 两张图片之间切换，按钮文字保留。
+                连续点击<strong class="example-control-reference" data-example-control="btnCustomIcon" title="自定义图标（点击修改图标）">自定义图标（点击修改图标）</strong>。<br />
+                结果：回发后，后台在 <code>1</code>.<code>png</code>、<code>8</code>.<code>png</code> 两张图片之间切换，按钮文字保留。
             </li>
         </ul>
         <h3><i class="f-icon f-iconfont f-iconfont-gear" aria-hidden="true"></i>关键属性</h3>
         <ul class="example-description-properties">
-            <li><code>Icon</code>：使用内置图片枚举，例如 Email、Star。</li>
-            <li><code>IconUrl</code>：指定自定义图片地址，点击后由后台更换。</li>
-            <li><code>IconAlign</code>：控制图标相对文字的左、右、上、下位置。</li>
+            <li><code>Icon</code>（<strong class="example-control-reference" data-example-control="btnIcon1" title="第 1 个按钮（图标在左侧）">第 1 个按钮（图标在左侧）</strong>、<strong class="example-control-reference" data-example-control="btnIcon2" title="第 2 个按钮（图标在右侧）">第 2 个按钮（图标在右侧）</strong>、<strong class="example-control-reference" data-example-control="btnIcon3" title="第 3 个按钮（图标在上面）">第 3 个按钮（图标在上面）</strong>、<strong class="example-control-reference" data-example-control="btnIcon4" title="第 4 个按钮（图标在下面）">第 4 个按钮（图标在下面）</strong>、<strong class="example-control-reference" data-example-control="ButtonExample8" title="第 8 个按钮（图标在左侧）">第 8 个按钮（图标在左侧）</strong>、<strong class="example-control-reference" data-example-control="ButtonExample9" title="第 9 个按钮（图标在右侧）">第 9 个按钮（图标在右侧）</strong>、<strong class="example-control-reference" data-example-control="ButtonExample10" title="第 10 个按钮（图标在上面）">第 10 个按钮（图标在上面）</strong>、<strong class="example-control-reference" data-example-control="ButtonExample11" title="第 11 个按钮（图标在下面）">第 11 个按钮（图标在下面）</strong>）：使用内置图片枚举，例如 <code>Email</code>、<code>Star</code>。</li>
+            <li><code>IconUrl</code>（<strong class="example-control-reference" data-example-control="btnCustomIcon" title="自定义图标（点击修改图标）">自定义图标（点击修改图标）</strong>、<strong class="example-control-reference" data-example-control="ButtonExample6" title="第 6 个按钮">第 6 个按钮</strong>、<strong class="example-control-reference" data-example-control="ButtonExample7" title="第 7 个按钮">第 7 个按钮</strong>）：指定自定义图片地址，点击后由后台更换。</li>
+            <li><code>IconAlign</code>（<strong class="example-control-reference" data-example-control="btnIcon2" title="第 2 个按钮（图标在右侧）">第 2 个按钮（图标在右侧）</strong>、<strong class="example-control-reference" data-example-control="btnIcon3" title="第 3 个按钮（图标在上面）">第 3 个按钮（图标在上面）</strong>、<strong class="example-control-reference" data-example-control="btnIcon4" title="第 4 个按钮（图标在下面）">第 4 个按钮（图标在下面）</strong>、<strong class="example-control-reference" data-example-control="ButtonExample9" title="第 9 个按钮（图标在右侧）">第 9 个按钮（图标在右侧）</strong>、<strong class="example-control-reference" data-example-control="ButtonExample10" title="第 10 个按钮（图标在上面）">第 10 个按钮（图标在上面）</strong>、<strong class="example-control-reference" data-example-control="ButtonExample11" title="第 11 个按钮（图标在下面）">第 11 个按钮（图标在下面）</strong>）：控制图标相对文字的左、右、上、下位置。</li>
         </ul>
     </section>
 }
