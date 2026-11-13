@@ -11,22 +11,26 @@
             F.TextArea().ID("TextArea1").Label("HTML 内容").Height(120).Text("<p>FineUI 富文本编辑器</p><p>选择文字，试试<strong>加粗</strong>、<em>斜体</em>和列表。</p>"),
             F.Button().ID("Button1").Text("获取编辑器内容").CssClass("marginr").OnClick(Url.Action("Button1_Click"), Parameter.FromFunction("content", "getHtmlEditorContent")),
             F.Button().ID("Button2").Text("设置编辑器内容").CssClass("marginr").OnClick(Url.Action("Button2_Click"), Parameter.FromFunction("content", "getSourceContent")),
-            F.Button().ID("btnToggle").Text("切换只读").ClickHandler("toggleHtmlEditorReadonly")
+            F.Button().ID("btnToggle").Text("切换只读").ClickHandler("onToggleHtmlEditorReadonlyClick")
         )
     )
 }
 @section script {
     <script>
-function toggleHtmlEditorReadonly() {
-    var editor = F.ui.HtmlEditor1;
-    editor.setReadonly(!editor.readonly);
-}
-function getHtmlEditorContent() {
-    return F.ui.HtmlEditor1.getValue();
-}
-function getSourceContent() {
-    return F.ui.TextArea1.getValue();
-}
+        function onToggleHtmlEditorReadonlyClick(event) {
+            toggleHtmlEditorReadonly();
+        }
+
+        function toggleHtmlEditorReadonly() {
+            var editor = F.ui.HtmlEditor1;
+            editor.setReadonly(!editor.readonly);
+        }
+        function getHtmlEditorContent() {
+            return F.ui.HtmlEditor1.getValue();
+        }
+        function getSourceContent() {
+            return F.ui.TextArea1.getValue();
+        }
     </script>
 }
 
