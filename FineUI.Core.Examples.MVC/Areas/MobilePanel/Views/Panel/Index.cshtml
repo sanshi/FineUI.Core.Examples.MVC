@@ -22,9 +22,9 @@
             F.Toolbar().ID("ToolbarExample1").Title("面板标题").HeaderStyle(true),
             F.Toolbar().ID("Toolbar1").Position(ToolbarPosition.Bottom).CssClass("f-state-default")
                 .Items(
-                    F.Button().ID("Button1").Text("按钮一").Size(ButtonSize.Small).EnableDefaultState(false).ClickHandler("onButton1Click"),
+                    F.Button().ID("Button1").Text("按钮一").EnableDefaultState(false).ClickHandler("onButton1Click"),
                     F.ToolbarFill(),
-                    F.Button().ID("btnMenu").Text("菜单按钮").Size(ButtonSize.Small).EnableDefaultState(false).ShowMenuIcon(false)
+                    F.Button().ID("btnMenu").Text("菜单按钮").EnableDefaultState(false).ShowMenuIcon(false)
                         .Menu(F.Menu()
                             .Items(
                                 F.MenuButton().Text("菜单一").ClickHandler("onMyMenuButtonClick"),
