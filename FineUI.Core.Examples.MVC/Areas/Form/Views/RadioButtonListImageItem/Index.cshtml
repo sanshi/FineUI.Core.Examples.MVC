@@ -40,10 +40,14 @@
             </li>
         </ol>
         <h3><i class="f-icon f-iconfont f-iconfont-info" aria-hidden="true"></i>补充说明</h3>
-        <p>注：<code>MVC</code>（流式 <code>API</code>）演示「<code>DataBind</code> + <code>DataTextRaw</code>」与「手工构建 <code>Items</code>（<code>TextRawHtml</code>）」两种方式，二者功能与安全性等价——都只信任图标模板与 <code>URL</code>、对数据字段 <code>HtmlEncode</code> 转义。 <code>OnItemDataBound</code> 为 <code>RazorForms</code> / <code>Pro</code> 专用，<code>MVC</code> 流式模式不适用（可用上述两种方式替代）。</p>
+        <p>注：<code>MVC</code>（流式 <code>API</code>）演示「<code>DataBind</code> + <code>DataTextRaw</code>」与「手工构建
+            <code>Items</code>（<code>TextRawHtml</code>）」两种方式，二者功能与安全性等价——都只信任图标模板与 <code>URL</code>、对数据字段 <code>HtmlEncode</code> 转义。
+            <code>OnItemDataBound</code> 为 <code>RazorForms</code> / <code>Pro</code> 专用，<code>MVC</code> 流式模式不适用（可用上述两种方式替代）。
+        </p>
         <h3><i class="f-icon f-iconfont f-iconfont-gear" aria-hidden="true"></i>关键属性</h3>
         <ul class="example-description-properties">
-            <li><code>DataTextRaw</code>（<strong class="example-control-reference" data-example-control="RadioButtonList1" title="① DataBind + DataTextRaw（自动绑定）">① DataBind + DataTextRaw（自动绑定）</strong>）：固定国旗 HTML 按可信内容输出，动态国家名称仍应先编码；普通字符串不会因此自动获得可信身份。</li>
+            <li><code>DataTextRaw</code>（<strong class="example-control-reference" data-example-control="RadioButtonList1"
+                    title="① DataBind + DataTextRaw（自动绑定）">① DataBind + DataTextRaw（自动绑定）</strong>）：固定国旗 HTML 按可信内容输出，动态国家名称仍应先编码；普通字符串不会因此自动获得可信身份。</li>
         </ul>
     </section>
 }
